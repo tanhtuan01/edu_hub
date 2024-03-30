@@ -5,6 +5,6 @@ import tat.com.eduhub.entity.School;
 
 public interface SchoolService {
 
-	School save(SchoolDTO schoolDTO);
+	School signUp(SchoolDTO schoolDTO);
 	
 }

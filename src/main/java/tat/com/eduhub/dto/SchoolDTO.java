@@ -14,6 +14,8 @@ public class SchoolDTO {
 
 	private String defaultLogo = "defaultLogoSchool.png";
 	
+	private String status;
+	
 	public SchoolDTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -62,4 +64,12 @@ public class SchoolDTO {
 		this.logo = logo;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 }

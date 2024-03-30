@@ -15,10 +15,10 @@ public class SchoolServiceImpl implements SchoolService{
 	private SchoolRepository repository;
 	
 	@Override
-	public School save(SchoolDTO dto) {
+	public School signUp(SchoolDTO dto) {
 		// TODO Auto-generated method stub
 		School school = new School(
-					dto.getName(), dto.getDomain(), dto.getEmail(), dto.getHotline(), dto.getLogo()
+					dto.getName(), dto.getDomain(), dto.getEmail(), dto.getHotline(), dto.getLogo(), "is_not_active"
 				);
 		return repository.save(school);
 	}

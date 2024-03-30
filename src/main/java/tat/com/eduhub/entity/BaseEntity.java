@@ -37,11 +37,11 @@ public class BaseEntity {
 	private Date modifiedDate;
 
 	@CreatedBy
-	@Column(name = "created_by")
+	@Column(name = "created_by", length = 60)
 	private String createdBy;
 	
 	@LastModifiedBy
-	@Column(name = "modified_by")
+	@Column(name = "modified_by", length = 60)
 	private String modifiedBy;
 	
 	public Long getId() {

@@ -58,7 +58,7 @@ public class SignUpController {
 	
 	@PostMapping(value = "/manage")
 	public String signUpManage(@ModelAttribute(name = "school") SchoolDTO schoolDTO) {
-		schoolService.save(schoolDTO);
+		schoolService.signUp(schoolDTO);
 		return "redirect:/sign-up/manage?success";
 	}
 	

@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -39,6 +40,10 @@ public class User extends BaseEntity{
 			inverseJoinColumns = @JoinColumn(referencedColumnName = "id", name = "id_role")
 	)
 	private List<Role> roles;
+	
+	@OneToOne(mappedBy = "user")
+	private TeacherOfSchool teacherOfSchool;
+
 	
 	public String getEmail() {
 		return email;

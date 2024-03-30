@@ -1,6 +1,10 @@
 package tat.com.eduhub.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -21,6 +25,21 @@ public class School extends BaseEntity{
 	private String hotline;
 	
 	private String logo;
+	
+	@Size(max = 20)
+	private String status;
+	
+	@OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<TeacherOfSchool> teacherOfSchools;
+	
+	@OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Industry> industries;
+	
+	@OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<TrainingProgram> trainingPrograms;
+	
+	@OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Module> modules;
 
 	public String getName() {
 		return name;
@@ -75,6 +94,57 @@ public class School extends BaseEntity{
 		this.email = email;
 		this.hotline = hotline;
 		this.logo = logo;
+	}
+
+	public List<TeacherOfSchool> getTeacherOfSchools() {
+		return teacherOfSchools;
+	}
+
+	public void setTeacherOfSchools(List<TeacherOfSchool> teacherOfSchools) {
+		this.teacherOfSchools = teacherOfSchools;
+	}
+
+	public List<Industry> getIndustries() {
+		return industries;
+	}
+
+	public void setIndustries(List<Industry> industries) {
+		this.industries = industries;
+	}
+
+	public List<TrainingProgram> getTrainingPrograms() {
+		return trainingPrograms;
+	}
+
+	public void setTrainingPrograms(List<TrainingProgram> trainingPrograms) {
+		this.trainingPrograms = trainingPrograms;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public School(String name, String domain, String email,
+			String hotline, String logo, String status) {
+		super();
+		this.name = name;
+		this.domain = domain;
+		this.email = email;
+		this.hotline = hotline;
+		this.logo = logo;
+		this.status = status;
+	}
+
+	public List<Module> getModules() {
+		return modules;
+	}
+
+	public void setModules(List<Module> modules) {
+		this.modules = modules;
 	}
 	
 	
