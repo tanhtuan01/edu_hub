@@ -1,40 +1,59 @@
-<div class="col-md-6 col-md-offset-3">
-	<h1>Đăng nhập</h1>
-	<form th:action="@{/sign-in}" method="post">
-		<!-- error message -->
-		<div th:if="${param.error}">
-			<div class="alert alert-danger">Tên người dùng/ mật khẩu không
-				hợp lệ</div>
-		</div>
-		<!-- logout message -->
-		<div th:if="${param.logout}">
-			<div class="alert alert-info">Bạn đã đăng xuất.</div>
-		</div>
-		<div class="form-group">
-			<label for="username"> Tên đăng nhập </label> : <input type="text"
-				class="form-control" id="username" name="username"
-				placeholder="Nhập email" autofocus="autofocus">
-		</div>
-		<div class="form-group">
-			<label for="password">Mật khẩu</label>: <input type="password"
-				id="password" name="password" class="form-control"
-				placeholder="Nhập mật khẩu" />
-		</div>
-		<div class="form-group">
-			<div class="row">
-				<div class="col-sm-6 col-sm-offset-3">
-					<input style="height: 45px" type="submit" name="login-submit"
-						id="login-submit" class="form-control btn btn-primary"
-						value="Đăng nhập" />
-				</div>
+<div class="eh-body eh-sign">
+	<div class="sign r-content">
+		<div class="sign-form sign-in">
+			<div class="sign-title">Đăng Nhập</div>
+			<div class="social">
+				<ul>
+					<li><a href=""><i class="fa-brands fa-google"></i></a></li>
+					<li><a href=""><i class="fa-brands fa-facebook"></i></a></li>
+				</ul>
+				<p>hoặc đăng nhập với</p>
+			</div>
+			<div class="form-content">
+				<form th:action="@{/sign-in}" method="POST">
+					<p class="text-center text-alert"></p>
+					<p th:if="${param.error}" class="text-center text-alert alert-error">
+						Sai tên đăng nhập hoặc mật khẩu
+					</p>
+					<div class="form-group">
+						<div class="label">Email</div>
+						<div class="input">
+							<input type="email" name="username" id="email" autofocus="autofocus"> <br>
+							<p class="text-error"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Mật khẩu</div>
+						<div class="input">
+							<input type="password" name="password" id="pass"> <br>
+							<p class="text-error"></p>
+							<button type="button" class="to-text pointer"
+								onclick="inputPasswordToText(this)">
+								<i class="fa-regular fa-eye open"></i> <i
+									class="fa-solid fa-eye-slash close"></i>
+							</button>
+
+
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input">
+							<input type="submit" class="btn btn-primary" name="" id=""
+								value="Đăng Nhập" onclick="validateForm(this)">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="other">
+				<p>
+					<span>Chưa có tài khoản?</span>&nbsp;<span><a th:href="@{/sign-up}">Đăng
+							ký</a></span>
+				</p>
+				<p>
+					<span>Đăng nhập sau</span>&nbsp;<span><a th:href="@{/}">Trang
+							chủ</a></span>
+				</p>
 			</div>
 		</div>
-	</form>
-	<div class="form-group">
-		<span>Chưa có tài khoản? <a href="/" th:href="@{/register}">Đăng
-				ký</a></span>
-	</div>
-	<div class="form-group">
-		<span>Đăng nhập sau <a href="/" th:href="@{/}"> Trang Chủ</a></span>
 	</div>
 </div>

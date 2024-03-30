@@ -1,48 +1,78 @@
-<div class="col-md-6 col-md-offset-3">
-	<!-- success message -->
-	<div th:if="${param.success}">
-		<div class="alert alert-info">Bạn đã đăng ký thành công!</div>
+<div class="eh-body eh-sign">
+	<div class="sign r-content">
+		<div class="sign-form">
+			<div class="sign-title">Đăng Ký</div>
+			<div class="social">
+				<ul>
+					<li><a href=""><i class="fa-brands fa-google"></i></a></li>
+					<li><a href=""><i class="fa-brands fa-facebook"></i></a></li>
+				</ul>
+				<p>hoặc đăng ký với</p>
+			</div>
+			<div class="form-content">
+				<form th:action="@{/sign-up}" method="POST" th:object="${user}">
+					<p class="text-center text-alert"></p>
+					<p th:if="${param.success}" class="text-center text-alert alert-success">
+						Đăng ký thành công
+					</p>
+					<p th:if="${param.error}" class="text-center text-alert alert-error">
+						Đăng ký thất bại
+					</p>
+					<div class="form-group">
+						<div class="label">Họ và Tên</div>
+						<div class="input">
+							<input type="text" name="username" id="name" th:field="*{userName}" autofocus="autofocus"> <br>
+							<p class="text-error"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Email</div>
+						<div class="input">
+							<input type="text" name="email" id="email" th:field="*{email}"> <br>
+							<p class="text-error"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Mật khẩu</div>
+						<div class="input">
+							<input type="password" name="password" id="pass" th:field="*{passwords}"> <br>
+							<p class="text-error"></p>
+							<button type="button" class="to-text pointer"
+								onclick="inputPasswordToText(this)">
+								<i class="fa-regular fa-eye open"></i> <i
+									class="fa-solid fa-eye-slash close"></i>
+							</button>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Xác nhận mật khẩu</div>
+						<div class="input">
+							<input type="password" name="repass" id="repass"> <br>
+							<p class="text-error"></p>
+							<button type="button" class="to-text pointer"
+								onclick="inputPasswordToText(this)">
+								<i class="fa-regular fa-eye open"></i> <i
+									class="fa-solid fa-eye-slash close"></i>
+							</button>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input">
+							<input type="submit" onclick="validateForm(this)"
+								class="btn btn-primary" name="" id="" value="Đăng Ký">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="other">
+				<p>
+					<span>Bạn đã có tài khoản?</span>&nbsp;<span><a th:href="@{/sign-in}">Đăng
+							nhập</a></span>
+				</p>
+				<p>
+					<span>Đăng ký sau</span>&nbsp;<span><a th:href="@{/}">Trang chủ</a></span>
+				</p>
+			</div>
+		</div>
 	</div>
-
-	<div th:if="${param.error}">
-		<div class="alert alert-danger">Hãy chọn email hoặc số điện
-			thoại khác</div>
-	</div>
-
-
-	<form id="formRegister" th:action="@{/sign-up}" method="post"
-		th:object="${user}">
-		<h1 align="center">ĐĂNG KÝ THÔNG TIN</h1>
-		<div class="form-group">
-			<label class="control-label" for="tenNguoiDung"> Họ Tên</label> <input
-				id="firstName" class="form-control" th:field="*{userName}"
-				placeholder="Nhập họ" autofocus="autofocus" required />
-
-		</div>
-
-		<div class="form-group">
-			<label class="control-label" for="email"> Email </label> <input
-				id="email" class="form-control" th:field="*{email}"
-				placeholder="Nhập email" autofocus="autofocus" required />
-
-		</div>
-		<div class="form-group">
-			<label class="control-label" for="password"> Mật khẩu </label> <input
-				id="password" class="form-control" type="password"
-				th:field="*{passwords}" placeholder="Nhập mật khẩu"
-				autofocus="autofocus" required />
-
-		</div>
-
-		<div class="form-group">
-
-			<button type="submit" class="btn btn-success">Đăng ký</button>
-			<br> <span>Đã đăng ký rồi? <a href="/"
-				th:href="@{/sign-in}">Đăng nhập ở đây</a></span>
-
-		</div>
-		<div class="form-group">
-			<span>Đăng nhập sau <a href="/" th:href="@{/}"> Trang Chủ</a></span>
-		</div>
-	</form>
 </div>
