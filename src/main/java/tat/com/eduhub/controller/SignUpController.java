@@ -8,17 +8,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import tat.com.eduhub.Base.BASE_FIELD;
-import tat.com.eduhub.Base.BASE_METHOD;
+import tat.com.eduhub.base.BASE_FIELD;
+import tat.com.eduhub.base.BASE_METHOD;
+import tat.com.eduhub.dto.SchoolDTO;
 import tat.com.eduhub.dto.UserDTO;
+import tat.com.eduhub.service.SchoolService;
 import tat.com.eduhub.service.UserService;
 
 @Controller
-@RequestMapping(value = "sign-up")
+@RequestMapping(value = "/sign-up")
 public class SignUpController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private SchoolService schoolService;
 	
 	@GetMapping
 	public String signUpPage(Model model) {
@@ -42,4 +47,19 @@ public class SignUpController {
 			return "redirect:/sign-up?error";
 		}
 	}
+	
+	@GetMapping(value = "/manage")
+	public String signUpPageManage(Model model) {
+		model.addAttribute("fragment", BASE_METHOD.FragmentWeb("page_sign_up_manage"));
+		SchoolDTO schoolDTO = new SchoolDTO();
+		model.addAttribute("school", schoolDTO);
+		return BASE_FIELD.SIGN_LAYOUT;
+	}
+	
+	@PostMapping(value = "/manage")
+	public String signUpManage(@ModelAttribute(name = "school") SchoolDTO schoolDTO) {
+		schoolService.save(schoolDTO);
+		return "redirect:/sign-up/manage?success";
+	}
+	
 }

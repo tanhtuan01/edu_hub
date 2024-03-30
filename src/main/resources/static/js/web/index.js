@@ -1,3 +1,17 @@
+function checkInputNumber(event) {
+    var value = event.key
+    stopArrowUpDown(event)
+    if (value === 'e' || value === '.' || value === '-') {
+        event.preventDefault()
+    }
+}
+
+function stopArrowUpDown(event) {
+    if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+        event.preventDefault()
+    }
+}
+
 function inputPasswordToText(e) {
     var inputType = e.parentElement.querySelector("input").type;
 
@@ -36,9 +50,15 @@ function validateForm(e) {
         return;
     }
 
+    if (!checkInputField("#domain", "Domain không được để trống")) {
+        return;
+    }
+
     if(!checkInputField("#email", "Email không được để trống")){
       return;
     }
+
+
 
     if(form.querySelector("#email")){
       var emailvalue = document.getElementById("email").value.trim()
@@ -53,7 +73,24 @@ function validateForm(e) {
       }
     }
 
-    if (!checkInputField("#pass", "password not null") || !checkInputField("#repass", "Mật khẩu không được để trống")) {
+    if (!checkInputField("#phone", "Số điện thoại không được để trống")) {
+        return;
+    }
+
+    if(form.querySelector("#phone")){
+      var phoneValue = document.getElementById("phone").value
+
+      if(phoneValue.length >= 10 && phoneValue.length <= 11){
+        form.querySelector("#phone").parentElement.querySelector(".text-error").textContent = "";
+        form.querySelector("#phone").style.borderBottom = 'none';
+      }else {
+        form.querySelector("#phone").parentElement.querySelector(".text-error").textContent = "Số điện thoại không hợp kệ";
+        form.querySelector("#phone").style.borderBottom = '1px solid red';
+        return
+      }
+    }
+
+    if (!checkInputField("#pass", "Mật khẩu không được để trống") || !checkInputField("#repass", "Mật khẩu không được để trống")) {
         return;
     }
 

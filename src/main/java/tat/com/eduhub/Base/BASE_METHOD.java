@@ -1,4 +1,4 @@
-package tat.com.eduhub.Base;
+package tat.com.eduhub.base;
 
 import org.springframework.ui.Model;
 

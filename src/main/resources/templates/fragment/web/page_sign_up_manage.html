@@ -1,0 +1,70 @@
+<div class="eh-body eh-sign">
+	<div class="sign r-content">
+		<div class="sign-form">
+			<div class="sign-title">Đăng Ký Quản Lý</div>
+			<div>
+				<p style="padding: 10px 20px">dành cho Trường học quản lý chương
+					trình đào tạo</p>
+			</div>
+			<div class="form-content">
+				<form th:action="@{/sign-up/manage}" method="POST" th:object="${school}">
+					<p class="text-center text-alert"></p>
+					<p th:if="${param.success}"
+						class="text-center text-alert alert-success">Đăng ký thành
+						công, chúng tôi sẽ phản hồi qua email cho bạn.</p>
+					<p th:if="${param.error}"
+						class="text-center text-alert alert-error">Đăng ký thất bại</p>
+					<div class="form-group">
+						<div class="label">Tên trường</div>
+						<div class="input">
+							<input type="text" name="" id="name" th:field="*{name}"><br>
+							<p class="text-error"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Tền miền trường</div>
+						<div class="input">
+							<input type="text" name="" id="domain"
+								placeholder="eg: eduhub.edu.vn" th:field="*{domain}"><br>
+							<p class="text-error"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Email</div>
+						<div class="input">
+							<input type="email" name="" id="email" th:field="*{email}"><br>
+							<p class="text-error"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Số điện thoại(hotline)</div>
+						<div class="input">
+							<input type="number" name="" id="phone"
+								onkeydown="checkInputNumber(event)" maxlength="11"
+								minlength="10" th:field="*{hotline}"><br>
+							<p class="text-error"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input">
+							<input type="submit" class="btn btn-primary" name="" id=""
+								value="Đăng Ký" onclick="validateForm(this)">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="other">
+			<p>
+					<span>Đăng ký thường</span>&nbsp;<span><a th:href="@{/sign-up}">Đăng ký</a></span>
+				</p>
+				<p>
+					<span>Đã có tài khoản</span>&nbsp;<span><a th:href="@{/sign-in}">Đăng nhập</a></span>
+				</p>
+				
+				<p>
+					<span>Đăng ký sau</span>&nbsp;<span><a th:href="@{/}">Trang chủ</a></span>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
