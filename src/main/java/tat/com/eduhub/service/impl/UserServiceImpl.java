@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public Long saveAndGetId(UserDTO userDTO) {
+	public Long saveDTOAndGetId(UserDTO userDTO) {
 		// TODO Auto-generated method stub
 		User user = new User(
 				userDTO.getUserName(), userDTO.getEmail(),
@@ -64,6 +64,25 @@ public class UserServiceImpl implements UserService{
 		user.setAvt("logo_user.png");
 		User userSave = repository.saveAndFlush(user);
 		return userSave.getId();
+	}
+	
+	@Override
+	public User create(User user) {
+		// TODO Auto-generated method stub
+		return repository.save(user);
+	}
+	
+	@Override
+	public User get(Long id) {
+		// TODO Auto-generated method stub
+		return repository.getOne(id);
+	}
+	
+	@Override
+	public Long saveAndGetId(User user) {
+		// TODO Auto-generated method stub
+		User u = repository.save(user);
+		return u.getId();
 	}
 
 }

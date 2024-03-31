@@ -9,5 +9,11 @@ public interface UserService extends UserDetailsService{
 
 	User save(UserDTO userDTO);
 	
-	Long saveAndGetId(UserDTO userDTO);
+	Long saveDTOAndGetId(UserDTO userDTO);
+	
+	User create(User user);
+	
+	User get(Long id);
+	
+	Long saveAndGetId(User user);
 }

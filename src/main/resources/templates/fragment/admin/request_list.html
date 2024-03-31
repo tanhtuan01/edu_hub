@@ -1,0 +1,50 @@
+
+<div class="right-body request-list">
+	<div class="body-content r-content">
+
+		<div class="eh-header-title">Danh Sách Yêu Cầu</div>
+		<div class="table-container">
+		<p th:if="${param.confirm_success}" class="text-center text-alert alert-success">Xác nhận thành công.</p>
+		<p th:if="${param.delete_success}" class="text-center text-alert alert-success">Xóa thành công.</p>
+			<table border="1" cellspacing="0">
+				<tr>
+					<th>STT</th>
+					<th class="name">Tên trường</th>
+					<th class="domain">Domain</th>
+					<th class="email">Email</th>
+					<th class="hotline">Số điện thoại</th>
+					<th class="time">Thời gian</th>
+					<th colspan="2">Thao tác</th>
+				</tr>
+				<tr th:each="s, i : ${ps}">
+					<td th:text="${i.count}"></td>
+					<td th:text="${s.name}"></td>
+					<td><a th:href="${s.domain}" target="blank"
+						th:text="${s.domain}"></a></td>
+					<td><a th:href="'mailto:' + ${s.email}" th:text="${s.email}"></a></td>
+					<td><a th:href="'tel:' + @{s.hotline}" th:text="${s.hotline}"></a></td>
+					<td th:text="${s.formatDate()}"></td>
+					<td>
+						<a title="Xác nhận" th:href="@{'/eh-admin/request/confirm?id=' + ${s.id}}" class="btn btn-primary"> <i
+							class="fa-solid fa-check"></i></a>
+					</td>
+					<td>
+						<a onclick="showConfirmDeleteDialog(event)" th:attr="data-id=${s.id}, data-name=${s.name}" title="Xóa" th:href="@{'/eh-admin/request/delete?id=' + ${s.id}}" class="btn btn-delete"> 
+						<i class="fa-solid fa-x"></i></a>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+		<div class="page">
+			<ul>
+				<li th:if="${totalPages > 1}"
+					th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+					th:unless="${pageNumber == 0}"><a
+					th:href="${pageNumber == page} ? '#!' : @{'/eh-admin/request' + '?page=' + ${pageNumber}}"
+					th:text="${pageNumber}"
+					th:class="${pageNumber == page} ? 'page-active' : ''"></a></li>
+			</ul>
+		</div>
+	</div>
+</div>

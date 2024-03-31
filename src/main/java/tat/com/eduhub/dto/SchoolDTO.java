@@ -1,6 +1,8 @@
 package tat.com.eduhub.dto;
 
 public class SchoolDTO {
+	
+	private Long id;
 
 	private String name;
 	

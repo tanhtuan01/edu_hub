@@ -137,6 +137,11 @@ input[type=number]::-webkit-outer-spin-button {
     color: white;
 }
 
+.btn-delete{
+	background: #ff0000;
+	color: white;
+}
+
 .r{
     display: flex;
     flex-wrap: wrap;

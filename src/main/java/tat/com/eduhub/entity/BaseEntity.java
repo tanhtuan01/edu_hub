@@ -1,6 +1,7 @@
 package tat.com.eduhub.entity;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -69,7 +70,11 @@ public class BaseEntity {
 	}
 
 	
-
+	public String formatDate() {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		String formatDate = simpleDateFormat.format(createdDate);
+		return formatDate;
+	}
 
 	
 	

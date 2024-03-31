@@ -27,17 +27,17 @@ public class SignUpController {
 	
 	@GetMapping
 	public String signUpPage(Model model) {
-		model.addAttribute("fragment", BASE_METHOD.FragmentWeb("page_sign_up"));
+		BASE_METHOD.FragmentWeb("page_sign_up", model);
 		UserDTO userDTO = new UserDTO();
 		model.addAttribute("user", userDTO);
-		return BASE_FIELD.SIGN_LAYOUT;
+		return BASE_FIELD.WEB_LAYOUT;
 	}
 	
 	@PostMapping
 	public String saveUser(@ModelAttribute(name = "user")UserDTO userDTO) {
 		Long id = (long) 0;
 		try {
-			id = userService.saveAndGetId(userDTO);
+			id = userService.saveDTOAndGetId(userDTO);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -50,10 +50,10 @@ public class SignUpController {
 	
 	@GetMapping(value = "/manage")
 	public String signUpPageManage(Model model) {
-		model.addAttribute("fragment", BASE_METHOD.FragmentWeb("page_sign_up_manage"));
+		BASE_METHOD.FragmentWeb("page_sign_up_manage",model);
 		SchoolDTO schoolDTO = new SchoolDTO();
 		model.addAttribute("school", schoolDTO);
-		return BASE_FIELD.SIGN_LAYOUT;
+		return BASE_FIELD.WEB_LAYOUT;
 	}
 	
 	@PostMapping(value = "/manage")
