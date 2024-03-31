@@ -111,7 +111,7 @@ function validateForm(e) {
 
 
 const validateEmail = (email) => {
-  return /^[a-zA-Z0-9]+@[^\s@]+\.[^\s@]+$/.test(email);
+  return /^[a-zA-Z0-9]+@[^\s@]+\.[a-zA-Z]+$/.test(email);
 };
 /*INDEX*/
  getStartScore()
