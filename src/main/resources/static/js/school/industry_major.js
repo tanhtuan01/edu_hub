@@ -19,6 +19,9 @@ function changeCM(e){
 }
 toChangeCm()
 function toChangeCm(){
+	if(!document.getElementById("cmAction")){
+		return
+	}
 	var cmActionValue = document.getElementById("cmAction").value
 
 	var cm = document.querySelectorAll('[data-cm]')
