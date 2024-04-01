@@ -1,0 +1,285 @@
+.eh-ctdt{
+	display: flex;
+}
+
+.ctdt-menu{
+	width: 20%;
+	background: white;
+}
+
+.ctdt-form{
+	margin-left: 5px;
+	width: calc(80% - 5px);
+	background: white;
+}
+
+.ctdt-menu ul li{
+	margin: 20px 0;
+}
+
+.ctdt-menu ul li a{
+	font-size: var(--text-size13);
+	display: flex;
+	padding-left: 20px;
+	align-items: center;
+	color: black;
+}
+
+.ctdt-menu ul li a .i{
+	border-radius: 50%;
+	padding: 2px 6px;
+	background: white;
+	text-align: center;
+	background: silver;
+	margin-right: 5px;
+	color: black;
+}
+
+.i.active{
+	background: var(--primary-color)!important;
+	color: white!important;
+}
+
+.i.active + div{
+	border-bottom: 1px solid var(--primary-color);
+	color: green;
+}
+
+.ctdt-content-first{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+	background: white;
+}
+
+.ctdt-content-first form{
+	width: 100%;
+}
+
+.ctdt-content-first input{
+	padding: 8px 20px;
+	width: 80%;
+	border-radius: 5px;
+}
+
+.ctdt-form .form-group .label{
+	width: 125px;
+}
+
+.ctdt-form .form-group .input{
+	width: calc(100% - 125px);
+}
+
+.ctdt-form .form-group .input input{
+	width: 90%;
+}
+
+.ctdt-form .form-group .input select{
+	width: 30%;
+	border-radius: 5px;
+	border: 1px solid #eee;
+}
+
+.sub{
+	display: flex;
+	justify-content: space-between;
+}
+
+.sub .btn{
+	width: fit-content!important;
+	padding: 8px 10px;
+	font-size: var(--text-size13);
+}
+
+
+/* MỤC TIÊU ĐÀO TẠO */
+.i-2 .form-content{
+	padding: 5px 10px;
+}
+.mtdt, .ttdt{
+	display: flex;
+	font-size: var(--text-size14);
+	margin-bottom: 5px;
+}
+
+.mtdt div, .ttdt div{
+	margin-top: 10px;
+	padding: 5px 10px;
+	border-radius: 5px;
+	border: 1px solid silver;
+}
+
+.mtdt div:first-child, .ttdt div{
+	margin-right: 1px;
+}
+
+.mtdt div:last-child, .ttdt div:last-child{
+	flex-grow: 1;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: 1px solid silver;
+	
+}
+
+ .mtdt div:last-child, .ttdt div:last-child{
+	border-bottom-left-radius: 0!important;
+	border-bottom-right-radius: 0!important;
+}
+
+.mtdt .remove-bottom, .ttdt .remove-bottom{
+	border-bottom: none;
+	background: white!important;
+	border-bottom-left-radius: 0!important;
+	border-bottom-right-radius: 0!important;
+}
+
+.mtdt-c-textarea, .mtdt-ct-textarea{
+	margin-top: 5px;
+}
+
+.ttdt-tts .form-group .input {
+	position: relative;
+}
+
+.ttdt-tts .form-group .input input{
+	width: 84%;
+}
+
+.ttdt-tts .sub-input{
+	position: absolute;
+	right: 100px;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	background: var(--primary-color);
+	width: 80px;
+	justify-content: center;
+	font-size: var(--text-size14);
+	color: white;
+}
+
+.i, .form-content, .ttdt div{
+	transition: all .5s ease;
+}
+
+.i-6 .form-group .btn{
+	width: 180px;
+	background: var(--primary-color);
+	color: white;
+}
+
+.i-6 .form-group input{
+	width: 50%;
+}
+
+.box-knowledge-base{
+	padding: 10px 20px;
+	font-size: var(--text-size14);
+}
+
+.sub-knowledge-container{
+	padding: 10px 40px;
+}
+
+.knowledge-parent button{
+	padding: 3px 6px;
+	border: none;
+	border-radius: 5px;
+	background: var(--primary-color);
+	color: white;
+}
+
+.knowledge-parent button i, .sub-knowledge i{
+	font-size: var(--text-size10);
+}
+
+.sub-knowledge i{
+	color: var(--primary-color);
+}
+
+.semester{
+	display: flex;
+	padding: 10px 10px;
+	font-size: var(--text-size14);
+}
+
+.semester-item{
+	flex-basis: calc(100% / 8);
+	margin: 0 3px;
+	padding: 5px;
+	text-align: center;
+}
+
+.semester-item.semester-active{
+	border-bottom: 2px solid var(--primary-color);
+}
+
+.semester-body table{
+	width: 100%;
+	font-size: var(--text-size14);
+	border: 1px solid var(--bg-silver);
+}
+
+.semester-body table tr th, .semester-body table tr td{
+	padding: 10px 0;
+	text-align: center;
+}
+
+.semester-body table tr th{
+	background: var(--bg-silver);
+}
+
+.btn-previous{
+	background: var(--btn-previous);
+	color: #F2F2F2;
+}
+
+.btn-previous:active{
+	background: var(--primary-color);
+}
+
+.btn-next:active{
+	background: #589C22;
+}
+
+.btn-previous:disabled, .btn-next:disabled{
+	background: silver;
+}
+.btn-next{
+	background: var(--primary-color);
+	color: white;
+}
+
+
+.ttdt [class^="ttdt-"], .mtdt .mt {
+  background: var(--bg-silver);
+}
+
+.semester ~ p{
+	padding: 10px;
+}
+
+.ctdt-form .ctdt-button{
+	text-align: right;
+}
+
+.ctdt-form .btn-add{
+	background: #589C22;
+}
+
+.s-table form button{
+	width: 160px;
+}
+
+.s-table form select{
+	padding: 8px 20px;
+	border-radius: 4px;
+	border: none;
+}
+
+.s-table form select option{
+	font-size: 18px;
+}
