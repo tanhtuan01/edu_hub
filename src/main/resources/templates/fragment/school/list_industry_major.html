@@ -1,0 +1,79 @@
+<div class="right-body">
+	<div class="body-content r-content">
+		<div class="replace">
+			<div class="career-major">
+				<div class="eh-header-title">Ngành / Chuyên Ngành</div>
+				<div class="career-major-content">
+					<div class="cm-left">
+						<div class="button">
+							<a onclick="changeCM(this)" data-cm="career"
+								class="btn btn-primary active" href="">Danh sách ngành đào
+								tạo</a> <a onclick="changeCM(this)" data-cm="major"
+								class="btn btn-primary" href="">Danh sách chuyên ngành</a>
+						</div>
+					</div>
+					<div class="cm-right">
+						<div class="career-major-form">
+							<input type="hidden" name="" id="cmAction" value="career">
+							<div class="cm-box career-form">
+								<div class="eh-header-title sub">Danh Sách Ngành Đào Tạo</div>
+								<table>
+									<tr>
+										<th class="stt">STT</th>
+										<th>Mã ngành</th>
+										<th>Tên ngành</th>
+										<th colspan="3">Thao tác</th>
+									</tr>
+									<tr th:each="idt, i : ${industries}">
+										<td th:text="${i.count}"></td>
+										<td th:text="${idt.industryCode}"></td>
+										<td th:text="${idt.industryName}"></td>
+										<td class="icon">
+											<a th:href="@{'/s-admin/' + ${domain} + '/nganh-chuyen-nganh/danh-sach/xem-nganh?id=' + ${idt.id}}"> 
+												<i title="Thông tin" class="fa-solid fa-circle-info"></i>
+											</a>
+										</td>
+										<td class="icon"><a href=""> <i title="Chỉnh sửa"
+												class="fa-solid fa-pen-to-square"></i>
+										</a></td>
+										<td class="icon"><a href=""> <i title="Xóa"
+												class="fa-solid fa-trash"></i>
+										</a></td>
+									</tr>
+								</table>
+							</div>
+							<div class="cm-box major-form hidden">
+								<div class="eh-header-title sub">Danh Sách Chuyên Ngành
+									Đào Tạo</div>
+								<table>
+									<tr>
+										<th class="stt">STT</th>
+										<th>Mã chuyên ngành</th>
+										<th>Tên chuyên ngành</th>
+										<th>Ngành đào tạo</th>
+										<th colspan="3">Thao tác</th>
+									</tr>
+									<tr th:each="m,i : ${majors}">
+										<td th:text="${i.count}">1</td>
+										<td th:text="${m.majorCode}">MKALA</td>
+										<td th:text="${m.majorName}">Công nghệ thông tin phần mềm</td>
+										<td th:text="${m.industryName}">Công nghệ thông tin</td>
+										<td class="icon"><a href=""> <i title="Thông tin"
+												class="fa-solid fa-circle-info"></i>
+										</a></td>
+										<td class="icon"><a href=""> <i title="Chỉnh sửa"
+												class="fa-solid fa-pen-to-square"></i>
+										</a></td>
+										<td class="icon"><a href=""> <i title="Xóa"
+												class="fa-solid fa-trash"></i>
+										</a></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
