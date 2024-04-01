@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import tat.com.eduhub.base.BASE_FIELD;
 import tat.com.eduhub.base.BASE_METHOD;
+import tat.com.eduhub.base.UserSchoolUtils;
 import tat.com.eduhub.component.SchoolAccountCheck;
 import tat.com.eduhub.entity.School;
 import tat.com.eduhub.entity.User;
@@ -35,17 +36,10 @@ public class AdminSchoolController {
 			System.err.println(name);
 		}
 		
-		School school = schoolService.findByDomain(domain.trim());
-		System.err.println(school.toString());
-		User user = userService.findByEmail(name);
-		System.err.println(user.toString());
-		model.addAttribute("user", user);
-		model.addAttribute("school", school);
+		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
 		
 		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
 	}
-	
-	
 	
 
 	
