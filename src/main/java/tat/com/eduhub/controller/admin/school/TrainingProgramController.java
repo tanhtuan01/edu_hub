@@ -1,5 +1,6 @@
 package tat.com.eduhub.controller.admin.school;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import tat.com.eduhub.base.BASE_METHOD;
 import tat.com.eduhub.base.UserSchoolUtils;
 import tat.com.eduhub.component.SchoolAccountCheck;
 import tat.com.eduhub.component.UserHelper;
+import tat.com.eduhub.dto.TrainingProgramDTO;
 import tat.com.eduhub.entity.School;
 import tat.com.eduhub.entity.TrainingProgram;
 import tat.com.eduhub.entity.User;
@@ -39,6 +41,8 @@ public class TrainingProgramController {
 	@Autowired
 	private TrainingProgramService tpService;
 	
+	private ModelMapper mapper = new ModelMapper();
+	
 	private Long idTpSaved = (long) 0;
 	
 	@GetMapping(value = {"/them-moi", "" , "/create"})
@@ -46,7 +50,7 @@ public class TrainingProgramController {
 	public String createTrainingProgramPage(Model model, @PathVariable(name = "domain") String domain,
 			Authentication authentication) {
 		model.addAttribute("domain", domain);
-		
+		idTpSaved = (long) 0;
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
 		
 		BASE_METHOD.FragmentAdminSchool("create_training_program", model);
@@ -55,8 +59,13 @@ public class TrainingProgramController {
 	
 	@PostMapping(value = {"/create", "/them-moi"})
 	public String saveTrainingProgramName(Model model, Authentication authentication,@RequestParam(name = "name")String name, @ModelAttribute("domain")String domain) {
+		
+		TrainingProgramDTO dto = new TrainingProgramDTO();
+		dto.setName(name);
+		
 		TrainingProgram tp = new TrainingProgram();
-		tp.setName(name);
+		tp.setName(dto.getName());
+		
 		idTpSaved = tpService.saveAndGetId(tp);
 		
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
@@ -65,19 +74,23 @@ public class TrainingProgramController {
 	
 	@GetMapping(value = {"/write", "/viet-noi-dung"})
 	@SchoolAccountCheck
-	public String writeTrainingProgramPage(Model model, @ModelAttribute(name = "domain")String domain) {
-		
-		if(idTpSaved == 0 || idTpSaved == null) {
-			return "redirect:/sign-in";
+	public String writeTrainingProgramPage(Authentication authentication,Model model, @ModelAttribute(name = "domain")String domain) {
+		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
+		if(idTpSaved == null) {
+			return "redirect:/dang-nhap";
+		}
+		if(idTpSaved == 0) {
+			return "redirect:/s-admin/"+domain+"/chuong-trinh-dao-tao/them-moi";
 		}
 		
 		BASE_METHOD.FragmentAdminSchool("training_program", model);
 		try {
 			TrainingProgram tp = tpService.get(idTpSaved);
 			if(tp == null) {
-				return "redirect:/s-admin/"+domain+"/chuong-trinh-dao-tao";
+				return "redirect:/s-admin/"+domain+"/chuong-trinh-dao-tao/them-moi";
 			}else {
-				model.addAttribute("tp", tp);
+				TrainingProgramDTO dto = mapper.map(tp, TrainingProgramDTO.class);
+				model.addAttribute("tp", dto);
 			}
 		}
 		catch (Exception e) {
@@ -89,7 +102,8 @@ public class TrainingProgramController {
 	}
 	
 	@PostMapping(value = {"/luu", "/save"})
-	public String saveTrainingProgram(@ModelAttribute(name = "tp")TrainingProgram tp,@ModelAttribute(name = "domain")String domain) {
+	public String saveTrainingProgram(@ModelAttribute(name = "tp")TrainingProgramDTO dto,@ModelAttribute(name = "domain")String domain) {
+		TrainingProgram tp = mapper.map(dto, TrainingProgram.class);
 		idTpSaved = tpService.saveAndGetId(tp);
 		return "redirect:/s-admin/"+domain+"/chuong-trinh-dao-tao/viet-noi-dung";
 	}
