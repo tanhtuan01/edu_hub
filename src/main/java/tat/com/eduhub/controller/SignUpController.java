@@ -16,7 +16,7 @@ import tat.com.eduhub.service.SchoolService;
 import tat.com.eduhub.service.UserService;
 
 @Controller
-@RequestMapping(value = "/sign-up")
+@RequestMapping(value = "/dang-ky")
 public class SignUpController {
 
 	@Autowired
@@ -42,13 +42,13 @@ public class SignUpController {
 			System.err.println(e.getMessage());
 		}
 		if(id > 0) {
-			return "redirect:/sign-up?success";
+			return "redirect:/dang-ky?success";
 		}else {
-			return "redirect:/sign-up?error";
+			return "redirect:/dang-ky?error";
 		}
 	}
 	
-	@GetMapping(value = "/manage")
+	@GetMapping(value = "/quan-ly")
 	public String signUpPageManage(Model model) {
 		BASE_METHOD.FragmentWeb("page_sign_up_manage",model);
 		SchoolDTO schoolDTO = new SchoolDTO();
@@ -56,10 +56,10 @@ public class SignUpController {
 		return BASE_FIELD.WEB_LAYOUT;
 	}
 	
-	@PostMapping(value = "/manage")
+	@PostMapping(value = "/quan-ly")
 	public String signUpManage(@ModelAttribute(name = "school") SchoolDTO schoolDTO) {
 		schoolService.signUp(schoolDTO);
-		return "redirect:/sign-up/manage?success";
+		return "redirect:/dang-ky/quan-ly?success";
 	}
 	
 }

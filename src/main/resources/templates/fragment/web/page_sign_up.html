@@ -10,7 +10,7 @@
 				<p>hoặc đăng ký với</p>
 			</div>
 			<div class="form-content">
-				<form th:action="@{/sign-up}" method="POST" th:object="${user}">
+				<form th:action="@{/dang-ky}" method="POST" th:object="${user}">
 					<p class="text-center text-alert"></p>
 					<p th:if="${param.success}"
 						class="text-center text-alert alert-success">Đăng ký thành
@@ -69,11 +69,11 @@
 			<div class="other">
 				<p>
 					<span>Đăng ký tài khoản quản lý?</span>&nbsp;<span><a
-						th:href="@{/sign-up/manage}">Đăng ký</a></span>
+						th:href="@{/dang-ky/quan-ly}">Đăng ký</a></span>
 				</p>
 				<p>
 					<span>Bạn đã có tài khoản?</span>&nbsp;<span><a
-						th:href="@{/sign-in}">Đăng nhập</a></span>
+						th:href="@{/dang-nhap}">Đăng nhập</a></span>
 				</p>
 
 				<p>

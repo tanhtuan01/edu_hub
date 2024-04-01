@@ -10,7 +10,7 @@
 				<p>hoặc đăng nhập với</p>
 			</div>
 			<div class="form-content">
-				<form th:action="@{/sign-in}" method="POST">
+				<form th:action="@{/dang-nhap}" method="POST">
 					<p class="text-center text-alert"></p>
 					<p th:if="${param.error}" class="text-center text-alert alert-error">
 						Sai tên đăng nhập hoặc mật khẩu
@@ -46,7 +46,7 @@
 			</div>
 			<div class="other">
 				<p>
-					<span>Chưa có tài khoản?</span>&nbsp;<span><a th:href="@{/sign-up}">Đăng
+					<span>Chưa có tài khoản?</span>&nbsp;<span><a th:href="@{/dang-ky}">Đăng
 							ký</a></span>
 				</p>
 				<p>

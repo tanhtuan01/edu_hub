@@ -7,7 +7,7 @@
 					trình đào tạo</p>
 			</div>
 			<div class="form-content">
-				<form th:action="@{/sign-up/manage}" method="POST" th:object="${school}">
+				<form th:action="@{/dang-ky/quan-ly}" method="POST" th:object="${school}">
 					<p class="text-center text-alert"></p>
 					<p th:if="${param.success}"
 						class="text-center text-alert alert-success">Đăng ký thành
@@ -55,10 +55,10 @@
 			</div>
 			<div class="other">
 			<p>
-					<span>Đăng ký thường</span>&nbsp;<span><a th:href="@{/sign-up}">Đăng ký</a></span>
+					<span>Đăng ký thường</span>&nbsp;<span><a th:href="@{/dang-ky}">Đăng ký</a></span>
 				</p>
 				<p>
-					<span>Đã có tài khoản</span>&nbsp;<span><a th:href="@{/sign-in}">Đăng nhập</a></span>
+					<span>Đã có tài khoản</span>&nbsp;<span><a th:href="@{/dang-nhap}">Đăng nhập</a></span>
 				</p>
 				
 				<p>

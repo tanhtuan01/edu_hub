@@ -9,7 +9,7 @@ import tat.com.eduhub.base.BASE_FIELD;
 import tat.com.eduhub.base.BASE_METHOD;
 
 @Controller
-@RequestMapping(value = "sign-in")
+@RequestMapping(value = "/dang-nhap")
 public class SignInController {
 
 	@GetMapping

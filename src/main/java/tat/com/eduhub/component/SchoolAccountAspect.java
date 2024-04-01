@@ -79,7 +79,7 @@ public class SchoolAccountAspect {
 	                
 	                if (!validAccount) {
 	                    HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
-	                    response.sendRedirect("/sign-in");
+	                    response.sendRedirect("/dang-nhap");
 	                }
 	            }
 	        }

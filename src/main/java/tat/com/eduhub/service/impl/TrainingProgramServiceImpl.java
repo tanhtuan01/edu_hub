@@ -18,4 +18,17 @@ public class TrainingProgramServiceImpl implements TrainingProgramService{
 		// TODO Auto-generated method stub
 		return repository.save(tp);
 	}
+	
+	@Override
+	public Long saveAndGetId(TrainingProgram tp) {
+		// TODO Auto-generated method stub
+		TrainingProgram tpSave = repository.saveAndFlush(tp);
+		return tpSave.getId();
+	}
+	
+	@Override
+	public TrainingProgram get(Long id) {
+		// TODO Auto-generated method stub
+		return repository.getOne(id);
+	}
 }

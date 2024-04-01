@@ -324,7 +324,7 @@ function checkInputSemester() {
 	}
 	var inputSemesterValue = parseInt(document.getElementById("inputSemester").value)
 	var semester = document.querySelector(".semester")
-	if (isNaN(inputSemesterValue)) {
+	if (inputSemesterValue == 0 || isNaN(inputSemesterValue)) {
 		semester.style.display = 'none'
 		var pNode = document.createElement("p")
 		pNode.classList.add("text-center", "null-semester")
