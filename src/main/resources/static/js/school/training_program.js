@@ -292,7 +292,11 @@ function addSemesterTable(e) {
 		e.value = 10
 	}
 
+	actSemesterTable()
 
+}
+
+function actSemesterTable() {
 	var semesterValue = parseInt(document.getElementById("inputSemester").value)
 	var semesterContainer = document.querySelectorAll(".semester .semester-item")
 	var semesterContainerLenght = semesterContainer.length
@@ -312,7 +316,6 @@ function addSemesterTable(e) {
 	sTable.forEach((s) => {
 		s.classList.add("hidden")
 	})
-
 }
 
 
@@ -330,6 +333,8 @@ function checkInputSemester() {
 		pNode.classList.add("text-center", "null-semester")
 		pNode.innerText = "Bạn chưa điền số học học kỳ"
 		semester.parentElement.appendChild(pNode)
+	} else if (inputSemesterValue > 0) {
+		actSemesterTable()
 	} else {
 		semester.style.display = null
 		var p = document.querySelector(".null-semester")
