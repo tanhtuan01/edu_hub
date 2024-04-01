@@ -1,0 +1,837 @@
+<div class="right-body">
+	<div class="body-content r-content">
+		<div class="replace">
+			<div class="ctdt-content-first">
+				<input type="hidden" value="0" id="IDCTDT">
+			</div>
+			<div class="ctdt-content">
+				<div class="eh-header-title">Chương trình đào tạo</div>
+				<form action="">
+					<div class="eh-ctdt">
+						<div class="ctdt-menu">
+							<ul>
+								<li><a href="" data-stt="1" onclick="changeProgram(this)">
+										<div class="i active i1">1</div>
+										<div>Thông tin chung</div>
+								</a></li>
+								<li><a href="" data-stt="2" onclick="changeProgram(this)">
+										<div class="i i2">2</div>
+										<div>Mục tiêu đào tạo</div>
+								</a></li>
+								<li><a href="" data-stt="3" onclick="changeProgram(this)">
+										<div class="i i3">3</div>
+										<div>Chuẩn đầu ra</div>
+								</a></li>
+								<li><a href="" data-stt="4" onclick="changeProgram(this)">
+										<div class="i i4">4</div>
+										<div>Cơ hội nghề nghiệp</div>
+								</a></li>
+								<li><a href="" data-stt="5" onclick="changeProgram(this)">
+										<div class="i i5">5</div>
+										<div>Thông tin đào tạo</div>
+								</a></li>
+								<li><a href="" data-stt="6" onclick="changeProgram(this)">
+										<div class="i i6">6</div>
+										<div>Nội dung chương trình</div>
+								</a></li>
+								<li><a href="" data-stt="7" onclick="changeProgram(this)">
+										<div class="i i7">7</div>
+										<div>Phân phối môn học</div>
+								</a></li>
+							</ul>
+						</div>
+						<div class="ctdt-form">
+							<div class="ctdt-button">
+								<button class="btn btn-add" type="submit">Lưu</button>
+							</div>
+							<div class="form-content i-1">
+								<div class="eh-header-title sub">
+									Thông tin chung
+									<div>
+										<button class="btn btn-previous" disabled>
+											<i class="fa-solid fa-caret-left"></i> Trước
+										</button>
+										<button class="btn btn-next" type="button" data-stt="1"
+											onclick="nextProgram(this)">
+											Tiếp <i class="fa-solid fa-caret-right"></i>
+										</button>
+									</div>
+								</div>
+								<div class="form-content-body">
+									<div class="form-group">
+										<div class="label">Tên chương trình:</div>
+										<div class="input">
+											<input type="text" name="" id=""
+												placeholder="Tên chương trình">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">Trình độ đào tạo:</div>
+										<div class="input">
+											<select name="" id="">
+												<option value="">Đại học</option>
+												<option value="">Cao đẳng</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">Ngành đào tạo:</div>
+										<div class="input">
+											<select name="" id="">
+												<option value="">...</option>
+												<option value="">...</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">Loại hình đào tạo:</div>
+										<div class="input">
+											<select name="" id="">
+												<option value="">Chính quy</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">Khóa đào tạo:</div>
+										<div class="input">
+											<select name="" id="">
+												<option disabled></option>
+												<option value="">Đại học</option>
+												<option value="">Cử nhân</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-content i-2 hidden">
+								<div class="eh-header-title sub">
+									Mục tiêu đào tạo
+									<div>
+										<button type="button" class="btn btn-previous" data-stt="2"
+											onclick="previousProgram(this)">
+											<i class="fa-solid fa-caret-left"></i> Trước
+										</button>
+										<button class="btn btn-next" type="button" data-stt="2"
+											onclick="nextProgram(this)">
+											Tiếp <i class="fa-solid fa-caret-right"></i>
+										</button>
+									</div>
+								</div>
+								<div class="form-content-body">
+									<div class="mtdt">
+										<div onclick="changeMTDT(this)"
+											class="pointer mt mtdt-c remove-bottom">Mục tiêu chung</div>
+										<div onclick="changeMTDT(this)" class="pointer mt mtdt-ct">Mục
+											tiêu cụ thể</div>
+										<div></div>
+									</div>
+									<div class="mtdt-c-textarea mt-textarea">
+										<textarea name="" id="mtdt-c" placeholder=""></textarea>
+									</div>
+									<div class="mtdt-ct-textarea mt-textarea hidden">
+										<textarea name="" id="mtdt-ct" placeholder=""></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="form-content i-3 hidden">
+								<div class="eh-header-title sub">
+									Chuẩn đầu ra
+									<div>
+										<button type="button" class="btn btn-previous" data-stt="3"
+											onclick="previousProgram(this)">
+											<i class="fa-solid fa-caret-left"></i> Trước
+										</button>
+										<button class="btn btn-next" type="button" data-stt="3"
+											onclick="nextProgram(this)">
+											Tiếp <i class="fa-solid fa-caret-right"></i>
+										</button>
+									</div>
+								</div>
+								<div class="form-content-body">
+									<div class="mtdt-c-textarea">
+										<textarea name="" id="cdr"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="form-content i-4 hidden">
+								<div class="eh-header-title sub">
+									Cơ hội nghề nghiệp
+									<div>
+										<button type="button" class="btn btn-previous" data-stt="4"
+											onclick="previousProgram(this)">
+											<i class="fa-solid fa-caret-left"></i> Trước
+										</button>
+										<button class="btn btn-next" type="button" data-stt="4"
+											onclick="nextProgram(this)">
+											Tiếp <i class="fa-solid fa-caret-right"></i>
+										</button>
+									</div>
+								</div>
+								<div class="form-content-body">
+									<form action="" class="">
+										<div class="mtdt-c-textarea">
+											<textarea name="" id="chnn"></textarea>
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="form-content i-5 hidden">
+								<div class="eh-header-title sub">
+									Thông tin đào tạo
+									<div>
+										<button type="button" class="btn btn-previous" data-stt="5"
+											onclick="previousProgram(this)">
+											<i class="fa-solid fa-caret-left"></i> Trước
+										</button>
+										<button class="btn btn-next" type="button" data-stt="5"
+											onclick="nextProgram(this)">
+											Tiếp <i class="fa-solid fa-caret-right"></i>
+										</button>
+									</div>
+								</div>
+								<div class="form-content-body">
+									<div class="ttdt">
+										<div onclick="changeTTDT(this)"
+											class="ttdt-1 pointer remove-bottom">Thông tin</div>
+										<div onclick="changeTTDT(this)" class="ttdt-2 pointer">Đối
+											tượng tuyển sinh</div>
+										<div onclick="changeTTDT(this)" class="ttdt-3 pointer">Quy
+											trình đào tạo</div>
+										<div onclick="changeTTDT(this)" class="ttdt-4 pointer">Đối
+											tượng tốt nghiệp</div>
+										<div></div>
+									</div>
+									<div class="ttdt-o ttdt-tts">
+										<div class="form-group">
+											<div class="label">Thời gian đào tạo:</div>
+											<div class="input">
+												<input type="text" name="" id=""
+													placeholder="Tên chương trình">
+												<div class="sub-input">Năm</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="label">Số học kỳ:</div>
+											<div class="input">
+												<input value="" type="number" min="1" max="10"
+													name="semesterValue" onkeydown="checkInputNumber(event)"
+													id="inputSemester" placeholder="Tên chương trình"
+													oninput="addSemesterTable(this)">
+												<div class="sub-input">Học kỳ</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="label">Tổng số tín chỉ:</div>
+											<div class="input">
+												<input type="number" min="0"
+													onkeydown="checkInputNumber(event)" name="totalCredit"
+													id="totalCredit" placeholder="Tổng số tín chỉ">
+												<div class="sub-input">Tín chỉ</div>
+											</div>
+										</div>
+									</div>
+									<div class="ttdt-o ttdt-dtts hidden">
+										<textarea name="" id="ttdt-dtts"></textarea>
+									</div>
+									<div class="ttdt-o ttdt-qtdt hidden">
+										<textarea name="" id="ttdt-qtdt"></textarea>
+									</div>
+									<div class="ttdt-o ttdt-dttn hidden">
+										<textarea name="" id="ttdt-dttn"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="form-content i-6 hidden">
+								<div class="eh-header-title sub">
+									Nội dung chương trình
+									<div>
+										<button type="button" class="btn btn-previous" data-stt="6"
+											onclick="previousProgram(this)">
+											<i class="fa-solid fa-caret-left"></i> Trước
+										</button>
+										<button class="btn btn-next" type="button" data-stt="6"
+											onclick="nextProgram(this)">
+											Tiếp <i class="fa-solid fa-caret-right"></i>
+										</button>
+									</div>
+								</div>
+								<div class="form-content-body">
+									<div class="form-group">
+										<input type="text" name="" id="" placeholder="Khối kiến thức">
+										<button type="button" class="btn">Thêm khối kiến thức</button>
+									</div>
+									<div class="box-knowledge-base">
+										<div class="knowledge">
+											<div class="knowledge-parent">
+												- Khối kiến thức Parent
+												<button type="button" class="pointer">
+													<i class="fa-solid fa-plus"></i>
+												</button>
+												<button type="button" class="pointer">
+													<i class="fa-solid fa-minus"></i>
+												</button>
+											</div>
+											<div class="sub-knowledge-container">
+												<div class="sub-knowledge">
+													<i class="fa-solid fa-circle-dot"></i> Khối kiến thức con
+												</div>
+											</div>
+										</div>
+										<div class="knowledge">
+											<div class="knowledge-parent">
+												- Khối kiến thức Parent
+												<button type="button" class="pointer">
+													<i class="fa-solid fa-plus"></i>
+												</button>
+												<button type="button" class="pointer">
+													<i class="fa-solid fa-minus"></i>
+												</button>
+											</div>
+											<div class="sub-knowledge-container">
+												<div class="sub-knowledge">
+													<i class="fa-solid fa-circle-dot"></i> Khối kiến thức con
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-content i-7 hidden">
+								<div class="eh-header-title sub">
+									Phân phối môn học
+									<div>
+										<button type="button" class="btn btn-previous" data-stt="7"
+											onclick="previousProgram(this)">
+											<i class="fa-solid fa-caret-left"></i> Trước
+										</button>
+										<button class="btn btn-next" disabled>
+											Tiếp <i class="fa-solid fa-caret-right"></i>
+										</button>
+									</div>
+								</div>
+								<div class="form-content-body">
+									<div class="semester">
+										<div data-stt="1" onclick="changeSemester(this)"
+											class="semester-item pointer">
+											<div class="semester-title">Học kỳ 1</div>
+										</div>
+										<div data-stt="2" onclick="changeSemester(this)"
+											class="semester-item pointer">
+											<div class="semester-title">Học kỳ 2</div>
+										</div>
+										<div data-stt="3" onclick="changeSemester(this)"
+											class="semester-item pointer">
+											<div class="semester-title">Học kỳ 3</div>
+										</div>
+										<div data-stt="4" onclick="changeSemester(this)"
+											class="semester-item pointer">
+											<div class="semester-title">Học kỳ 4</div>
+										</div>
+										<div data-stt="5" onclick="changeSemester(this)"
+											class="semester-item pointer">
+											<div class="semester-title">Học kỳ 5</div>
+										</div>
+										<div data-stt="6" onclick="changeSemester(this)"
+											class="semester-item pointer">
+											<div class="semester-title">Học kỳ 6</div>
+										</div>
+										<div data-stt="7" onclick="changeSemester(this)"
+											class="semester-item pointer">
+											<div class="semester-title">Học kỳ 7</div>
+										</div>
+										<div data-stt="8" onclick="changeSemester(this)"
+											class="semester-item pointer">
+											<div class="semester-title">Học kỳ 8</div>
+										</div>
+										<div data-stt="9" onclick="changeSemester(this)"
+											class="semester-item pointer">
+											<div class="semester-title">Học kỳ 9</div>
+										</div>
+										<div data-stt="10" onclick="changeSemester(this)"
+											class="semester-item pointer">
+											<div class="semester-title">Học kỳ 10</div>
+										</div>
+									</div>
+									<div class="semester-body">
+										<div class="s-table semester-table-1 hidden">
+											<form action="">
+												<input type="hidden" name="hocky" id="" value="1"> <select
+													name="" id="" class="btn-primary">
+													<option value="">Tên học phần</option>
+													<option value="">Tên học phần sad asdas asdd</option>
+													<option value="">Tên học phần</option>
+												</select>
+												<button type="submit" class="btn btn-primary">
+													<i class="fa-solid fa-plus"></i> Thêm học phần
+												</button>
+											</form>
+											<table border="1" cellpadding="10" cellspacing="0">
+												<caption>Học kỳ 1</caption>
+												<tr>
+													<th rowspan="2">STT</th>
+													<th rowspan="2">Mã học phần</th>
+													<th rowspan="2">Tên học phần</th>
+													<th rowspan="2">Số Tín chỉ</th>
+													<th colspan="4">Số tiết</th>
+													<th rowspan="2">Thao tác</th>
+												</tr>
+												<tr>
+													<th>Lý thuyết</th>
+													<th>Thực hành</th>
+													<th>Bài tập</th>
+													<th>Tự học</th>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+													<td>8</td>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8 giờ</td>
+													<td>8</td>
+												</tr>
+											</table>
+										</div>
+										<div class="s-table semester-table-2 hidden">
+											<form action="">
+												<input type="hidden" name="hocky" id="" value="2"> <select
+													name="" id="" class="btn-primary">
+													<option value="">Tên học phần</option>
+													<option value="">Tên học phần sad asdas asdd</option>
+													<option value="">Tên học phần</option>
+												</select>
+												<button type="submit" class="btn btn-primary">
+													<i class="fa-solid fa-plus"></i> Thêm học phần
+												</button>
+											</form>
+											<table border="1" cellpadding="10" cellspacing="0">
+												<caption>Học kỳ 2</caption>
+												<tr>
+													<th rowspan="2">STT</th>
+													<th rowspan="2">Mã học phần</th>
+													<th rowspan="2">Tên học phần</th>
+													<th rowspan="2">Số Tín chỉ</th>
+													<th colspan="3">Số tiết</th>
+													<th rowspan="2">Thao tác</th>
+												</tr>
+												<tr>
+													<th>Lý thuyết</th>
+													<th>Thực hành</th>
+													<th>Bài tập</th>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+												</tr>
+											</table>
+										</div>
+										<div class="s-table semester-table-3 hidden">
+											<form action="">
+												<input type="hidden" name="hocky" id="" value="3"> <select
+													name="" id="" class="btn-primary">
+													<option value="">Tên học phần</option>
+													<option value="">Tên học phần sad asdas asdd</option>
+													<option value="">Tên học phần</option>
+												</select>
+												<button type="submit" class="btn btn-primary">
+													<i class="fa-solid fa-plus"></i> Thêm học phần
+												</button>
+											</form>
+											<table border="1" cellpadding="10" cellspacing="0">
+												<caption>Học kỳ 3</caption>
+												<tr>
+													<th rowspan="2">STT</th>
+													<th rowspan="2">Mã học phần</th>
+													<th rowspan="2">Tên học phần</th>
+													<th rowspan="2">Số Tín chỉ</th>
+													<th colspan="3">Số tiết</th>
+													<th rowspan="2">Thao tác</th>
+												</tr>
+												<tr>
+													<th>Lý thuyết</th>
+													<th>Thực hành</th>
+													<th>Bài tập</th>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+												</tr>
+											</table>
+										</div>
+										<div class="s-table semester-table-4 hidden">
+											<form action="">
+												<input type="hidden" name="hocky" id="" value="4"> <select
+													name="" id="" class="btn-primary">
+													<option value="">Tên học phần</option>
+													<option value="">Tên học phần sad asdas asdd</option>
+													<option value="">Tên học phần</option>
+												</select>
+												<button type="submit" class="btn btn-primary">
+													<i class="fa-solid fa-plus"></i> Thêm học phần
+												</button>
+											</form>
+											<table border="1" cellpadding="10" cellspacing="0">
+												<caption>Học kỳ 4</caption>
+												<tr>
+													<th rowspan="2">STT</th>
+													<th rowspan="2">Mã học phần</th>
+													<th rowspan="2">Tên học phần</th>
+													<th rowspan="2">Số Tín chỉ</th>
+													<th colspan="3">Số tiết</th>
+													<th rowspan="2">Thao tác</th>
+												</tr>
+												<tr>
+													<th>Lý thuyết</th>
+													<th>Thực hành</th>
+													<th>Bài tập</th>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+												</tr>
+											</table>
+										</div>
+										<div class="s-table semester-table-5 hidden">
+											<form action="">
+												<input type="hidden" name="hocky" id="" value="5"> <select
+													name="" id="" class="btn-primary">
+													<option value="">Tên học phần</option>
+													<option value="">Tên học phần sad asdas asdd</option>
+													<option value="">Tên học phần</option>
+												</select>
+												<button type="submit" class="btn btn-primary">
+													<i class="fa-solid fa-plus"></i> Thêm học phần
+												</button>
+											</form>
+											<table border="1" cellpadding="10" cellspacing="0">
+												<caption>Học kỳ 5</caption>
+												<tr>
+													<th rowspan="2">STT</th>
+													<th rowspan="2">Mã học phần</th>
+													<th rowspan="2">Tên học phần</th>
+													<th rowspan="2">Số Tín chỉ</th>
+													<th colspan="3">Số tiết</th>
+													<th rowspan="2">Thao tác</th>
+												</tr>
+												<tr>
+													<th>Lý thuyết</th>
+													<th>Thực hành</th>
+													<th>Bài tập</th>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+												</tr>
+											</table>
+										</div>
+										<div class="s-table semester-table-6 hidden">
+											<form action="">
+												<input type="hidden" name="hocky" id="" value="6"> <select
+													name="" id="" class="btn-primary">
+													<option value="">Tên học phần</option>
+													<option value="">Tên học phần sad asdas asdd</option>
+													<option value="">Tên học phần</option>
+												</select>
+												<button type="submit" class="btn btn-primary">
+													<i class="fa-solid fa-plus"></i> Thêm học phần
+												</button>
+											</form>
+											<table border="1" cellpadding="10" cellspacing="0">
+												<caption>Học kỳ 6</caption>
+												<tr>
+													<th rowspan="2">STT</th>
+													<th rowspan="2">Mã học phần</th>
+													<th rowspan="2">Tên học phần</th>
+													<th rowspan="2">Số Tín chỉ</th>
+													<th colspan="3">Số tiết</th>
+													<th rowspan="2">Thao tác</th>
+												</tr>
+												<tr>
+													<th>Lý thuyết</th>
+													<th>Thực hành</th>
+													<th>Bài tập</th>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+												</tr>
+											</table>
+										</div>
+										<div class="s-table semester-table-7 hidden">
+											<form action="">
+												<input type="hidden" name="hocky" id="" value="7"> <select
+													name="" id="" class="btn-primary">
+													<option value="">Tên học phần</option>
+													<option value="">Tên học phần sad asdas asdd</option>
+													<option value="">Tên học phần</option>
+												</select>
+												<button type="submit" class="btn btn-primary">
+													<i class="fa-solid fa-plus"></i> Thêm học phần
+												</button>
+											</form>
+											<table border="1" cellpadding="10" cellspacing="0">
+												<caption>Học kỳ 7</caption>
+												<tr>
+													<th rowspan="2">STT</th>
+													<th rowspan="2">Mã học phần</th>
+													<th rowspan="2">Tên học phần</th>
+													<th rowspan="2">Số Tín chỉ</th>
+													<th colspan="3">Số tiết</th>
+													<th rowspan="2">Thao tác</th>
+												</tr>
+												<tr>
+													<th>Lý thuyết</th>
+													<th>Thực hành</th>
+													<th>Bài tập</th>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+												</tr>
+											</table>
+										</div>
+										<div class="s-table semester-table-8 hidden">
+											<form action="">
+												<input type="hidden" name="hocky" id="" value="8"> <select
+													name="" id="" class="btn-primary">
+													<option value="">Tên học phần</option>
+													<option value="">Tên học phần sad asdas asdd</option>
+													<option value="">Tên học phần</option>
+												</select>
+												<button type="submit" class="btn btn-primary">
+													<i class="fa-solid fa-plus"></i> Thêm học phần
+												</button>
+											</form>
+											<table border="1" cellpadding="10" cellspacing="0">
+												<caption>Học kỳ 8</caption>
+												<tr>
+													<th rowspan="2">STT</th>
+													<th rowspan="2">Mã học phần</th>
+													<th rowspan="2">Tên học phần</th>
+													<th rowspan="2">Số Tín chỉ</th>
+													<th colspan="3">Số tiết</th>
+													<th rowspan="2">Thao tác</th>
+												</tr>
+												<tr>
+													<th>Lý thuyết</th>
+													<th>Thực hành</th>
+													<th>Bài tập</th>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+												</tr>
+											</table>
+										</div>
+										<div class="s-table semester-table-9 hidden">
+											<form action="">
+												<input type="hidden" name="hocky" id="" value="9"> <select
+													name="" id="" class="btn-primary">
+													<option value="">Tên học phần</option>
+													<option value="">Tên học phần sad asdas asdd</option>
+													<option value="">Tên học phần</option>
+												</select>
+												<button type="submit" class="btn btn-primary">
+													<i class="fa-solid fa-plus"></i> Thêm học phần
+												</button>
+											</form>
+											<table border="1" cellpadding="10" cellspacing="0">
+												<caption>Học kỳ 9</caption>
+												<tr>
+													<th rowspan="2">STT</th>
+													<th rowspan="2">Mã học phần</th>
+													<th rowspan="2">Tên học phần</th>
+													<th rowspan="2">Số Tín chỉ</th>
+													<th colspan="3">Số tiết</th>
+													<th rowspan="2">Thao tác</th>
+												</tr>
+												<tr>
+													<th>Lý thuyết</th>
+													<th>Thực hành</th>
+													<th>Bài tập</th>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+												</tr>
+											</table>
+										</div>
+										<div class="s-table semester-table-10 hidden">
+											<form action="">
+												<input type="hidden" name="hocky" id="" value="10">
+												<select name="" id="" class="btn-primary">
+													<option value="">Tên học phần</option>
+													<option value="">Tên học phần sad asdas asdd</option>
+													<option value="">Tên học phần</option>
+												</select>
+												<button type="submit" class="btn btn-primary">
+													<i class="fa-solid fa-plus"></i> Thêm học phần
+												</button>
+											</form>
+											<table border="1" cellpadding="10" cellspacing="0">
+												<caption>Học kỳ 10</caption>
+												<tr>
+													<th rowspan="2">STT</th>
+													<th rowspan="2">Mã học phần</th>
+													<th rowspan="2">Tên học phần</th>
+													<th rowspan="2">Số Tín chỉ</th>
+													<th colspan="3">Số tiết</th>
+													<th rowspan="2">Thao tác</th>
+												</tr>
+												<tr>
+													<th>Lý thuyết</th>
+													<th>Thực hành</th>
+													<th>Bài tập</th>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>5</td>
+													<td>6</td>
+													<td>7</td>
+													<td>8</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

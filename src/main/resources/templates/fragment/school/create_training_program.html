@@ -1,0 +1,15 @@
+<div class="right-body">
+	<div class="body-content r-content">
+		<div class="replace">
+			<div class="ctdt-content-first">
+				<form method="POST" th:action="@{'/s-admin/' + ${domain} + '/training-program/create'}">
+					 <input
+						type="text" name="name" 
+						placeholder="Tên chương trình đào tạo" required> 
+					<button class="btn btn-primary" type="submit">Tạo</button>
+				</form>
+			</div>
+
+		</div>
+	</div>
+</div>
