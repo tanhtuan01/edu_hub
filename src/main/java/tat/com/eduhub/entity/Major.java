@@ -69,6 +69,11 @@ public class Major extends BaseEntity{
 	public void setModules(List<Module> modules) {
 		this.modules = modules;
 	}
+
+	@Override
+	public String toString() {
+		return "Major [majorCode=" + majorCode + ", majorName=" + majorName + "]";
+	}
 	
 	
 }

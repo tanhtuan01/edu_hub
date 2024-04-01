@@ -65,6 +65,11 @@ public class Industry extends BaseEntity{
 	public void setMajors(List<Major> majors) {
 		this.majors = majors;
 	}
+
+	@Override
+	public String toString() {
+		return "Industry [industryCode=" + industryCode + ", industryName=" + industryName + "]";
+	}
 	
 	
 }
