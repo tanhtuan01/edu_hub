@@ -3,6 +3,7 @@ package tat.com.eduhub.controller.admin.school;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import tat.com.eduhub.base.BASE_FIELD;
@@ -18,4 +19,8 @@ public class IndustryAndMajorController {
 		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
 	}
 	
+	@PostMapping(value = "/luu-nganh")
+	public String saveIndustry() {
+		return "";
+	}
 }
