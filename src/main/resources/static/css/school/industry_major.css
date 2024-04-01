@@ -38,7 +38,7 @@
 
 .cm-right table{
 	width: 100%;
-	border-color: var(--bg-silver);
+	border: 1px solid silver;
 }
 
 .cm-right table caption{
@@ -47,8 +47,38 @@
 
 .cm-right table tr th{
 	text-align: left;
+	background: var(--primary-color);
+	color: white;
 }
 
 .cm-right table tr th, .cm-right table tr td{
 	padding: 10px;
+}
+
+.cm-right table tr:nth-child(2n+1){
+	background: var(--odd-color);
+}
+
+.cm-right table tr th:last-child{
+	text-align: center;
+}
+
+.cm-right table tr .stt{
+	width: 5%;
+}
+
+.cm-right table tr td:first-child{
+	text-align: center;
+}
+
+.cm-right table tr th:last-child{
+	width: 12%;
+}
+
+.cm-right table tr td.icon a{
+	color: var(--primary-color);
+}
+
+.cm-right table tr td.icon a{
+	filter: drop-shadow(4px 4px 4px);
 }
