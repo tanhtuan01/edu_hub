@@ -19,4 +19,6 @@ public interface SchoolService {
 	void delete(Long id);
 	
 	Long saveAndGetId(School school);
+	
+	School findByDomain(String domain);
 }

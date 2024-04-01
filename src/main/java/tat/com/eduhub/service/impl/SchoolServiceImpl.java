@@ -55,4 +55,10 @@ public class SchoolServiceImpl implements SchoolService{
 		School s = repository.saveAndFlush(school);
 		return s.getId();
 	}
+	
+	@Override
+	public School findByDomain(String domain) {
+		// TODO Auto-generated method stub
+		return repository.findByDomainEquals(domain);
+	}
 }

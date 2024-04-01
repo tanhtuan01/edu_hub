@@ -12,4 +12,6 @@ public interface SchoolRepository extends JpaRepository<School, Long>{
 	@Query("select s from School s where s.status = 'is_not_active'")
 	Page<School> pageListSchoolIsNotActive(Pageable pageable);
 	
+	
+	School findByDomainEquals(String domain);
 }

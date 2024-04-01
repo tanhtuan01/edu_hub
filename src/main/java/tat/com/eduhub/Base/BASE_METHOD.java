@@ -20,6 +20,11 @@ public class BASE_METHOD {
 		model.addAttribute("fragment", fragmentUrl);
 	}
 	
+	public static void FragmentAdminSchool(String fragment, Model model) {
+		String fragmentUrl =  "fragment/school/" + fragment;
+		model.addAttribute("fragment", fragmentUrl);
+	}
+	
 	public static String randomString(int length) {
 		StringBuilder sb = new StringBuilder(length);
 

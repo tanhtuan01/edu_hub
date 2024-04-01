@@ -16,4 +16,6 @@ public interface UserService extends UserDetailsService{
 	User get(Long id);
 	
 	Long saveAndGetId(User user);
+	
+	User findByEmail(String email);
 }

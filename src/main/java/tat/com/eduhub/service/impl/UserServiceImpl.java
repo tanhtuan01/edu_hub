@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		User user = repository.findByEmail(username);
+		User user = repository.findByEmailEquals(username);
 		if(user == null) {
 			throw new UsernameNotFoundException("=> Email not found");
 		}
@@ -85,4 +85,10 @@ public class UserServiceImpl implements UserService{
 		return u.getId();
 	}
 
+	@Override
+	public User findByEmail(String email) {
+		// TODO Auto-generated method stub
+		return repository.findByEmailEquals(email);
+	}
+	
 }

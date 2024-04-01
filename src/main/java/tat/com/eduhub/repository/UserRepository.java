@@ -6,6 +6,6 @@ import tat.com.eduhub.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 
-	User findByEmail(String email);
+	User findByEmailEquals(String email);
 	
 }

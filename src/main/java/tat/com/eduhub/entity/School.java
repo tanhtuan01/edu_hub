@@ -146,6 +146,14 @@ public class School extends BaseEntity{
 	public void setModules(List<Module> modules) {
 		this.modules = modules;
 	}
+
+	@Override
+	public String toString() {
+		return "School [name=" + name + ", domain=" + domain + ", email=" + email + ", hotline=" + hotline + ", logo="
+				+ logo + ", status=" + status + ", getId()=" + getId() + "]";
+	}
+
+	
 	
 	
 	

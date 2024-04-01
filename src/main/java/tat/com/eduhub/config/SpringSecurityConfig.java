@@ -2,6 +2,7 @@ package tat.com.eduhub.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,6 +15,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import tat.com.eduhub.service.UserService;
 
 @Configuration
+@ComponentScan("tat.com.eduhub.component")
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired
@@ -42,7 +44,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	    http
 	        .authorizeRequests()
 	        .antMatchers("/","/eh-admin/**","/sign-up/**", "/js/**", "/css/**", "/img/**").permitAll()
-	            .antMatchers("/admin/**").hasRole("ADMIN")
+	            .antMatchers("/s-admin/**").hasRole("ADMINSCHOOL")
 	        	.antMatchers("/user/**")
 	        	.hasAnyRole("USER","ADMIN")
 	            .anyRequest().authenticated()

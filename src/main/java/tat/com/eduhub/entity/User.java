@@ -98,4 +98,14 @@ public class User extends BaseEntity{
 		this.roles = roles;
 	}
 
+	@Override
+	public String toString() {
+		return "User [userName=" + userName + ", email=" + email + ", passwords=" + passwords + ", avt=" + avt
+				+ ", getId()=" + getId() + "]";
+	}
+
+	
+
+	
+	
 }
