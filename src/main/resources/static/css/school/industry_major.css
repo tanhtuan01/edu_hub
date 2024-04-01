@@ -1,0 +1,54 @@
+.career-major-content{
+	padding: 10px;
+	background: white;
+	display: flex;
+	font-size: var(--text-size14);
+}
+
+.cm-right{
+	padding: 0 10px;
+	flex-grow: 1;
+}
+
+.career-major-content .button a{
+	display: block;
+	width: 220px;
+	margin-bottom: 5px;
+	background: silver;
+}
+
+.career-major-content .button a.active{
+	background: var(--primary-color);
+}
+
+.cm-right .label{
+	width: 170px;
+}
+.cm-left .button a{
+	transition: all 0.5s ease;
+}
+
+.cm-right .input input[type='text'], .cm-right .input input[type='number']{
+	width: 400px;
+}
+
+.cm-right .input select{
+	width: 200px;
+}
+
+.cm-right table{
+	width: 100%;
+	border-color: var(--bg-silver);
+}
+
+.cm-right table caption{
+	font-size: 16px;
+}
+
+.cm-right table tr th{
+	text-align: left;
+}
+
+.cm-right table tr th, .cm-right table tr td{
+	padding: 10px;
+}
