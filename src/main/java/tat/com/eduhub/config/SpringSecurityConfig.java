@@ -56,7 +56,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	        .logout()
 	            .invalidateHttpSession(true)
 	            .clearAuthentication(true)
-	            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+	            .logoutRequestMatcher(new AntPathRequestMatcher("/dang-xuat"))
 	            .logoutSuccessUrl("/")
 	            .permitAll()
 	        
