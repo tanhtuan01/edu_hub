@@ -1,4 +1,5 @@
 <div class="right-body">
+<input type="hidden" id="tpItem" value="3">
 	<div class="body-content r-content">
 		<div class="replace">
 			<div class="ctdt-content-first">
@@ -234,7 +235,13 @@
 													type="number" min="0" max="10" name="semesterValue"
 													onkeydown="checkInputNumber(event)" id="inputSemester"
 													placeholder="Tên chương trình"
-													oninput="addSemesterTable(this)">
+													>
+													
+													<!-- <input th:field="*{numberOfSemesters}" value=""
+													type="number" min="0" max="10" name="semesterValue"
+													onkeydown="checkInputNumber(event)" id="inputSemester"
+													placeholder="Tên chương trình"
+													oninput="addSemesterTable(this)"> -->
 												<div class="sub-input">Học kỳ</div>
 											</div>
 										</div>

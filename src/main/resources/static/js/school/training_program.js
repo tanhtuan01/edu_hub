@@ -142,6 +142,33 @@ function createEditor(selector, text) {
 	});
 }
 
+
+setProgram()
+
+function setProgram(){
+	if(!document.getElementById("tpItem")){
+		return
+	}
+	var tpItem = document.getElementById("tpItem").value
+	
+	var iActive = document.querySelectorAll(".i.active")
+	iActive.forEach((i) => {
+		i.classList.remove("active")
+	})
+	
+	var selectorItem = `.i.i${tpItem}`
+	document.querySelector(selectorItem).classList.add("active")
+	
+	var selectorForm = `.form-content.i-${tpItem}`
+	var formContent = document.querySelectorAll(".form-content")
+
+	formContent.forEach((f) => {
+		f.classList.add("hidden")
+	})
+
+	document.querySelector(selectorForm).classList.remove('hidden')
+}
+
 function changeProgram(e) {
 	event.preventDefault()
 
@@ -283,7 +310,7 @@ function changeSemester(e) {
 function addSemesterTable(e) {
 
 	checkInputSemester()
-	var max = e.getAttribute("max")
+
 	if (e.value === 'e') {
 		e.preventDefault()
 	}
@@ -298,6 +325,7 @@ function addSemesterTable(e) {
 
 function actSemesterTable() {
 	var semesterValue = parseInt(document.getElementById("inputSemester").value)
+	console.log(semesterValue)
 	var semesterContainer = document.querySelectorAll(".semester .semester-item")
 	var semesterContainerLenght = semesterContainer.length
 
@@ -327,15 +355,14 @@ function checkInputSemester() {
 	}
 	var inputSemesterValue = parseInt(document.getElementById("inputSemester").value)
 	var semester = document.querySelector(".semester")
-	if (inputSemesterValue == 0 || isNaN(inputSemesterValue)) {
+	if (inputSemesterValue === 0 || isNaN(inputSemesterValue)) {
 		semester.style.display = 'none'
 		var pNode = document.createElement("p")
 		pNode.classList.add("text-center", "null-semester")
-		pNode.innerText = "Bạn chưa điền số học học kỳ"
+		pNode.innerText = "Bạn chưa lưu số học kỳ"
 		semester.parentElement.appendChild(pNode)
-	} else if (inputSemesterValue > 0) {
-		actSemesterTable()
 	} else {
+		actSemesterTable()
 		semester.style.display = null
 		var p = document.querySelector(".null-semester")
 		if (p != null && p.classList.contains("null-semester")) {
