@@ -8,16 +8,16 @@
 					<div class="cm-left">
 						<div class="button">
 							<a onclick="changeCM(this)" data-cm="career"
-								class="btn btn-primary active" href="">Thêm ngành đào tạo</a> <a
+								class="btn btn-primary active" href="" th:text="${actIndustry} + ' ngành đào tạo'">Thêm ngành đào tạo</a> <a
 								onclick="changeCM(this)" data-cm="major" class="btn btn-primary"
-								href="">Thêm chuyên ngành đào tạo</a>
+								href=""  th:text="${actMajor} + ' chuyên ngành đào tạo'">Thêm chuyên ngành đào tạo</a>
 						</div>
 					</div>
 					<div class="cm-right">
 						<div class="career-major-form">
 							<input type="hidden" name="actionof" id="cmAction" th:value="${cmAction}">
 							<div class="cm-box career-form">
-								<div class="eh-header-title sub">Thêm Ngành Đào Tạo</div>
+								<div class="eh-header-title sub"  th:text="${actIndustry} + ' Ngành đào tạo'">Thêm Ngành Đào Tạo</div>
 								<form th:action="@{'/s-admin/' + ${domain} + '/nganh-chuyen-nganh/luu-nganh'}" method="post" th:object="${industry}">
 									<input type="hidden" name="" id="" th:field="*{id}">
 									<div class="form-group">
@@ -40,13 +40,13 @@
 										</div>
 									</div>
 								</form>
-								<a href="" class="btn">Xem danh sách</a>
+								<a th:href="@{'/s-admin/' +${domain} + '/nganh-chuyen-nganh/danh-sach?cm=career'}" class="btn">Xem danh sách</a>
 							</div>
 							<div class="cm-box major-form hidden">
 								<form th:action="@{'/s-admin/' + ${domain} + '/nganh-chuyen-nganh/luu-chuyen-nganh'}" method="post" th:object="${major}">
-									<div class="eh-header-title sub">Thêm Chuyên Ngành Đào
+									<div class="eh-header-title sub" th:text="${actMajor} + ' Chuyên Ngành đào tạo'">Thêm Chuyên Ngành Đào
 										Tạo</div>
-									<input type="hidden" name="" id="">
+									<input type="hidden" name="" id="" th:field="*{id}">
 									<div class="form-group">
 										<div class="label">Mã chuyên ngành đào tạo:</div>
 										<div class="input">
@@ -59,7 +59,7 @@
 										<div class="input">
 											<select name="" id=""  th:field="*{idIndustry}">
 												
-												<option th:each="idt : ${industries}" th:value="${idt.id}" th:text="${idt.industryName}"></option>
+												<option th:selected="*{idIndustry} == ${idt.id}" th:each="idt : ${industries}" th:value="${idt.id}" th:text="${idt.industryName}"></option>
 											</select>
 										</div>
 									</div>
@@ -76,7 +76,7 @@
 										</div>
 									</div>
 								</form>
-								<a href="" class="btn">Xem danh sách</a>
+								<a th:href="@{'/s-admin/' +${domain} + '/nganh-chuyen-nganh/danh-sach?cm=major'}" class="btn">Xem danh sách</a>
 							</div>
 						</div>
 					</div>
