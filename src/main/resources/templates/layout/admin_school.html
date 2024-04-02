@@ -37,7 +37,7 @@
 				<div class="left-user-log">
 					<div class="user-info">
 						<div class="user-info-avt">
-							<img src="img/avt.jpg" alt="">
+							<img src="" alt="">
 						</div>
 						<div class="user-info-name">
 							<div class="user-name">ANH TUẤN</div>
@@ -65,7 +65,7 @@
 						<div class="header-nav-title">Chương trình đào tạo</div>
 						<div class="left-menu-content">
 							<ul>
-								<li><a href="">
+								<li><a th:href="@{'/s-admin/' +${domain} + '/chuong-trinh-dao-tao'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-scroll"></i>
@@ -73,7 +73,7 @@
 											<div class="menu-title">Thêm mới</div>
 										</div>
 								</a></li>
-								<li><a href="">
+								<li><a th:href="@{'/s-admin/' +${domain} + '/chuong-trinh-dao-tao/danh-sach'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-layer-group"></i>
@@ -88,7 +88,7 @@
 						<div class="header-nav-title">Ngành / Chuyên ngành đào tạo</div>
 						<div class="left-menu-content">
 							<ul>
-								<li><a href="">
+								<li><a th:href="@{'/s-admin/' +${domain} + '/nganh-chuyen-nganh/them-moi'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-plus"></i>
@@ -96,7 +96,7 @@
 											<div class="menu-title">Thêm mới</div>
 										</div>
 								</a></li>
-								<li><a href="">
+								<li><a th:href="@{'/s-admin/' +${domain} + '/nganh-chuyen-nganh/danh-sach'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-list"></i>
@@ -111,7 +111,7 @@
 						<div class="header-nav-title">Học Phần</div>
 						<div class="left-menu-content">
 							<ul>
-								<li><a href="">
+								<li><a th:href="@{'/s-admin/' +${domain} + '/hoc-phan/them-moi'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-plus"></i>
@@ -119,7 +119,7 @@
 											<div class="menu-title">thêm mới</div>
 										</div>
 								</a></li>
-								<li><a href="">
+								<li><a th:href="@{'/s-admin/' +${domain} + '/hoc-phan/danh-sach'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-list"></i>
@@ -134,7 +134,15 @@
 						<div class="header-nav-title">Quản lý tài khoản</div>
 						<div class="left-menu-content">
 							<ul>
-								<li><a href="">
+							<li><a th:href="@{'/s-admin/' +${domain} + '/quan-ly-tai-khoan/cai-dat'}">
+										<div class="menu-content">
+											<div class="menu-icon">
+												<i class="fa-solid fa-gear"></i>
+											</div>
+											<div class="menu-title">Thay Đổi Thông Tin</div>
+										</div>
+								</a></li>
+								<li><a th:href="@{'/s-admin/' +${domain} + '/quan-ly-tai-khoan/giang-vien'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-users"></i>
@@ -223,6 +231,20 @@
 			</div>
 		</div>
 	</div>
+	<div id="dialog">
+		<div class="dialog-overlay" id="dialogOverlay">
+			<div class="dialog-content">
+				<div class="dialog-title">Xác nhận xóa</div>
+				<p id="txt-msg">Bạn có chắc chắn muốn xóa?</p>
+				<div class="dialog-buttons">
+					<button class="primary" id="confirm-delete"
+						onclick="confirmDelete(event)">Xóa</button>
+					<button class="secondary" id="cancel-delete"
+						onclick="cancelDelete(event)">Hủy</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div id="loading-spinner"
 		style="width: 100%; position: fixed; top: 0; bottom: 0; background: rgba(237, 240, 240, 0.5); z-index: 999999999;"></div>
 
@@ -232,6 +254,7 @@
 	<script type="text/javascript" th:src="@{/js/ckeditor.js}"></script>
 	<script type="text/javascript" th:src="@{/js/school/training_program.js}"></script>
 	<script type="text/javascript" th:src="@{/js/school/industry_major.js}"></script>
+	<script type="text/javascript" th:src="@{/js/dialog_overlay.js}"></script>
 </body>
 
 
