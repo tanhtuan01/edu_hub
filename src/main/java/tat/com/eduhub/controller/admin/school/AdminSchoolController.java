@@ -26,7 +26,7 @@ public class AdminSchoolController {
 	private UserService userService;
 
 	
-	@GetMapping(value = "/s-admin/{domain}")
+	@GetMapping(value = "/school-admin/{domain}")
 	@SchoolAccountCheck
 	public String adminSchoolByDomain(Authentication authentication, Model model, @PathVariable(name = "domain")String domain) {
 		BASE_METHOD.FragmentAdminSchool("traning_program", model);

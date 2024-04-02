@@ -37,7 +37,7 @@ import tat.com.eduhub.service.SchoolService;
 import tat.com.eduhub.service.UserService;
 
 @Controller
-@RequestMapping(value = "/s-admin/{domain}/nganh-chuyen-nganh")
+@RequestMapping(value = "/school-admin/{domain}/nganh-chuyen-nganh")
 public class IndustryAndMajorController {
 
 	@Autowired
@@ -91,7 +91,7 @@ public class IndustryAndMajorController {
 			industryService.save(industry);
 		}
 
-		return "redirect:/s-admin/"+ domain +"/nganh-chuyen-nganh/danh-sach/nganh?i_add_success";
+		return "redirect:/school-admin/"+ domain +"/nganh-chuyen-nganh/danh-sach/nganh?i_add_success";
 	}
 	
 	@GetMapping(value = {"/danh-sach", "/danh-sach/nganh", "/danh-sach/chuyen-nganh", ""})
@@ -105,10 +105,10 @@ public class IndustryAndMajorController {
 			@RequestParam(name = "sizeM", defaultValue = "10", required =  false) int sizeM) {
 		
 		String requestURI = request.getRequestURI();
-		if(requestURI.equals("/s-admin/"+domain+"/nganh-chuyen-nganh/danh-sach/nganh")) {
+		if(requestURI.equals("/school-admin/"+domain+"/nganh-chuyen-nganh/danh-sach/nganh")) {
 			cm = "career";
 		}
-		if(requestURI.equals("/s-admin/"+domain+"/nganh-chuyen-nganh/danh-sach/chuyen-nganh")) {
+		if(requestURI.equals("/school-admin/"+domain+"/nganh-chuyen-nganh/danh-sach/chuyen-nganh")) {
 			cm = "major";
 		}
 		
@@ -156,7 +156,7 @@ public class IndustryAndMajorController {
 		Industry industry = industryService.get(majorDTO.getIdIndustry());
 		major.setIndustry(industry);
 		majorService.save(major);
-		return "redirect:/s-admin/"+domain +"/nganh-chuyen-nganh/danh-sach/chuyen-nganh?m_add_success";
+		return "redirect:/school-admin/"+domain +"/nganh-chuyen-nganh/danh-sach/chuyen-nganh?m_add_success";
 	}
 	
 	@GetMapping(value = {"/chinh-sua/nganh", "/chinh-sua/chuyen-nganh"})
@@ -165,7 +165,7 @@ public class IndustryAndMajorController {
 			@PathVariable(name = "domain") String domain, Authentication authentication,
 			HttpServletRequest request) {
 		if(id == null) {
-			return "redirect:/s-admin/" + domain + "/nganh-chuyen-nganh";
+			return "redirect:/school-admin/" + domain + "/nganh-chuyen-nganh";
 		}
 		BASE_METHOD.FragmentAdminSchool("create_industry_major", model);
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
@@ -173,7 +173,7 @@ public class IndustryAndMajorController {
 		String requestURI = request.getRequestURI();
 		model.addAttribute("domain", domain);
 
-		if(requestURI.equals("/s-admin/"+domain+"/nganh-chuyen-nganh/chinh-sua/nganh")) {
+		if(requestURI.equals("/school-admin/"+domain+"/nganh-chuyen-nganh/chinh-sua/nganh")) {
 			model.addAttribute("cmAction", "career");
 			model.addAttribute("major", new MajorDTO());
 			Industry industry = industryService.get(id);
@@ -181,10 +181,10 @@ public class IndustryAndMajorController {
 			model.addAttribute("actIndustry", "Chỉnh sửa");
 			model.addAttribute("actMajor", "Thêm");
 			if(industry == null){
-				return "redirect:/s-admin/" + domain + "/nganh-chuyen-nganh";
+				return "redirect:/school-admin/" + domain + "/nganh-chuyen-nganh";
 			}
 		}
-		if(requestURI.equals("/s-admin/"+domain+"/nganh-chuyen-nganh/chinh-sua/chuyen-nganh")) {
+		if(requestURI.equals("/school-admin/"+domain+"/nganh-chuyen-nganh/chinh-sua/chuyen-nganh")) {
 			model.addAttribute("cmAction", "major");
 			Major major = majorService.get(id);
 			model.addAttribute("industry", new IndustryDTO());
@@ -192,7 +192,7 @@ public class IndustryAndMajorController {
 			model.addAttribute("actIndustry", "Thêm");
 			model.addAttribute("actMajor", "Chỉnh sửa");
 			if(major == null){
-				return "redirect:/s-admin/" + domain + "/nganh-chuyen-nganh";
+				return "redirect:/school-admin/" + domain + "/nganh-chuyen-nganh";
 			}
 			MajorDTO majorDTO = mapper.map(major, MajorDTO.class);
 			majorDTO.setIdIndustry(major.getIndustry().getId());
@@ -211,16 +211,16 @@ public class IndustryAndMajorController {
 			@ModelAttribute(name = "domain")String domain) {
 		String requestURI = request.getRequestURI();
 		String url = "";
-		if(requestURI.equals("/s-admin/" +domain + "/nganh-chuyen-nganh/xoa/nganh")) {
+		if(requestURI.equals("/school-admin/" +domain + "/nganh-chuyen-nganh/xoa/nganh")) {
 			url = "nganh?i_delete_success";
 			industryService.delete(id);
 		}
-		if(requestURI.equals("/s-admin/" +domain + "/nganh-chuyen-nganh/xoa/chuyen-nganh")) {
+		if(requestURI.equals("/school-admin/" +domain + "/nganh-chuyen-nganh/xoa/chuyen-nganh")) {
 			url = "chuyen-nganh?m_delete_success";
 			majorService.delete(id);
 		}
 		
-		return "redirect:/s-admin/" + domain + "/nganh-chuyen-nganh/danh-sach/" + url;
+		return "redirect:/school-admin/" + domain + "/nganh-chuyen-nganh/danh-sach/" + url;
 	}
 
 }

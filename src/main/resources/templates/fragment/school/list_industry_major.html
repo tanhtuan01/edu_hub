@@ -38,31 +38,31 @@
 											<td th:text="${idt.industryCode}"></td>
 											<td th:text="${idt.industryName}"></td>
 											<td class="icon"><a
-												th:href="@{'/s-admin/' + ${domain} + '/nganh-chuyen-nganh/danh-sach/xem-nganh?id=' + ${idt.id}}">
+												th:href="@{'/school-admin/' + ${domain} + '/nganh-chuyen-nganh/danh-sach/xem-nganh?id=' + ${idt.id}}">
 													<i title="Thông tin" class="fa-solid fa-circle-info"></i>
 											</a></td>
 											<td class="icon"><a
-												th:href="@{'/s-admin/' + ${domain} + '/nganh-chuyen-nganh/chinh-sua/nganh?id=' + ${idt.id}}">
+												th:href="@{'/school-admin/' + ${domain} + '/nganh-chuyen-nganh/chinh-sua/nganh?id=' + ${idt.id}}">
 													<i title="Chỉnh sửa" class="fa-solid fa-pen-to-square"></i>
 											</a></td>
 											<td class="icon"><a
 												onclick="showConfirmDeleteDialog(event)"
 												th:attr="data-id=${idt.id}, data-name=${idt.industryName}"
-												th:href="@{'/s-admin/' + ${domain} + '/nganh-chuyen-nganh/xoa/nganh?id=' + ${idt.id}}">
+												th:href="@{'/school-admin/' + ${domain} + '/nganh-chuyen-nganh/xoa/nganh?id=' + ${idt.id}}">
 													<i title="Xóa" class="fa-solid fa-trash"></i>
 											</a></td>
 										</tr>
 									</table>
 									
-								</div>
-								<a th:href="@{'/s-admin/' + ${domain} + '/nganh-chuyen-nganh/them-moi?cm=career'}">Thêm mới</a>
+								</div><br>
+								<a th:href="@{'/school-admin/' + ${domain} + '/nganh-chuyen-nganh/them-moi?cm=career'}">Thêm mới</a>
 							
 								<div class="page">
 									<ul>
 										<li th:if="${totalPages > 1}"
 											th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
 											th:unless="${pageNumber == 0}"><a
-											th:href="${pageNumber == page} ? '#!' : @{'/s-admin/' +${domain} + '/nganh-chuyen-nganh/danh-sach?page=' + ${pageNumber} +'&cm=career'}"
+											th:href="${pageNumber == page} ? '#!' : @{'/school-admin/' +${domain} + '/nganh-chuyen-nganh/danh-sach?page=' + ${pageNumber} +'&cm=career'}"
 											th:text="${pageNumber}"
 											th:class="${pageNumber == page} ? 'page-active' : ''"></a></li>
 									</ul>
@@ -92,25 +92,25 @@
 													class="fa-solid fa-circle-info"></i>
 											</a></td>
 											<td class="icon"><a
-												th:href="@{'/s-admin/' + ${domain} + '/nganh-chuyen-nganh/chinh-sua/chuyen-nganh?id=' + ${m.id}}">
+												th:href="@{'/school-admin/' + ${domain} + '/nganh-chuyen-nganh/chinh-sua/chuyen-nganh?id=' + ${m.id}}">
 													<i title="Chỉnh sửa" class="fa-solid fa-pen-to-square"></i>
 											</a></td>
 											<td class="icon"><a
-												th:href="@{'/s-admin/' + ${domain} + '/nganh-chuyen-nganh/xoa/chuyen-nganh?id=' + ${m.id}}"
+												th:href="@{'/school-admin/' + ${domain} + '/nganh-chuyen-nganh/xoa/chuyen-nganh?id=' + ${m.id}}"
 												onclick="showConfirmDeleteDialog(event)"
 												th:attr="data-name=${m.majorName}"> <i title="Xóa"
 													class="fa-solid fa-trash"></i>
 											</a></td>
 										</tr>
 									</table>
-								</div>
-								<a th:href="@{'/s-admin/' + ${domain} + '/nganh-chuyen-nganh/them-moi?cm=major'}">Thêm mới</a>
+								</div><br>
+								<a th:href="@{'/school-admin/' + ${domain} + '/nganh-chuyen-nganh/them-moi?cm=major'}">Thêm mới</a>
 								<div class="page">
 									<ul>
 										<li th:if="${totalPagesMajor > 1}"
 											th:each="pageNumber : ${#numbers.sequence(1, totalPagesMajor)}"
 											th:unless="${pageNumber == 0}"><a
-											th:href="${pageNumber == pageM} ? '#!' : @{'/s-admin/' +${domain} + '/nganh-chuyen-nganh/danh-sach?pageM=' + ${pageNumber} +'&cm=major'}"
+											th:href="${pageNumber == pageM} ? '#!' : @{'/school-admin/' +${domain} + '/nganh-chuyen-nganh/danh-sach?pageM=' + ${pageNumber} +'&cm=major'}"
 											th:text="${pageNumber}"
 											th:class="${pageNumber == pageM} ? 'page-active' : ''"></a></li>
 									</ul>

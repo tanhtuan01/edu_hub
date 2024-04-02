@@ -26,7 +26,7 @@ import tat.com.eduhub.service.TrainingProgramService;
 import tat.com.eduhub.service.UserService;
 
 @Controller
-@RequestMapping(value = "/s-admin/{domain}/chuong-trinh-dao-tao")
+@RequestMapping(value = "/school-admin/{domain}/chuong-trinh-dao-tao")
 public class TrainingProgramController {
 
 	@Autowired
@@ -45,7 +45,7 @@ public class TrainingProgramController {
 	
 	private Long idTpSaved = (long) 0;
 	
-	@GetMapping(value = {"/them-moi", "" , "/create"})
+	@GetMapping(value = {"/them-moi", "/create"})
 	@SchoolAccountCheck
 	public String createTrainingProgramPage(Model model, @PathVariable(name = "domain") String domain,
 			Authentication authentication) {
@@ -69,25 +69,23 @@ public class TrainingProgramController {
 		idTpSaved = tpService.saveAndGetId(tp);
 		
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
-		return "redirect:/s-admin/"+domain+"/chuong-trinh-dao-tao/viet-noi-dung";
+		return "redirect:/school-admin/"+domain+"/chuong-trinh-dao-tao/viet-noi-dung";
 	}
 	
 	@GetMapping(value = {"/write", "/viet-noi-dung"})
 	@SchoolAccountCheck
 	public String writeTrainingProgramPage(Authentication authentication,Model model, @ModelAttribute(name = "domain")String domain) {
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
-		if(idTpSaved == null) {
-			return "redirect:/dang-nhap";
-		}
-		if(idTpSaved == 0) {
-			return "redirect:/s-admin/"+domain+"/chuong-trinh-dao-tao/them-moi";
+
+		if(idTpSaved == null || idTpSaved == 0) {
+			return "redirect:/school-admin/"+domain+"/chuong-trinh-dao-tao/them-moi";
 		}
 		
 		BASE_METHOD.FragmentAdminSchool("training_program", model);
 		try {
 			TrainingProgram tp = tpService.get(idTpSaved);
 			if(tp == null) {
-				return "redirect:/s-admin/"+domain+"/chuong-trinh-dao-tao/them-moi";
+				return "redirect:/school-admin/"+domain+"/chuong-trinh-dao-tao/them-moi";
 			}else {
 				TrainingProgramDTO dto = mapper.map(tp, TrainingProgramDTO.class);
 				model.addAttribute("tp", dto);
@@ -105,6 +103,6 @@ public class TrainingProgramController {
 	public String saveTrainingProgram(@ModelAttribute(name = "tp")TrainingProgramDTO dto,@ModelAttribute(name = "domain")String domain) {
 		TrainingProgram tp = mapper.map(dto, TrainingProgram.class);
 		idTpSaved = tpService.saveAndGetId(tp);
-		return "redirect:/s-admin/"+domain+"/chuong-trinh-dao-tao/viet-noi-dung";
+		return "redirect:/school-admin/"+domain+"/chuong-trinh-dao-tao/viet-noi-dung";
 	}
 }

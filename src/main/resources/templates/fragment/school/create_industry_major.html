@@ -18,7 +18,7 @@
 							<input type="hidden" name="actionof" id="cmAction" th:value="${cmAction}">
 							<div class="cm-box career-form">
 								<div class="eh-header-title sub"  th:text="${actIndustry} + ' Ngành đào tạo'">Thêm Ngành Đào Tạo</div>
-								<form th:action="@{'/s-admin/' + ${domain} + '/nganh-chuyen-nganh/luu-nganh'}" method="post" th:object="${industry}">
+								<form th:action="@{'/school-admin/' + ${domain} + '/nganh-chuyen-nganh/luu-nganh'}" method="post" th:object="${industry}">
 									<input type="hidden" name="" id="" th:field="*{id}">
 									<div class="form-group">
 										<div class="label">Mã ngành đào tạo:</div>
@@ -40,10 +40,10 @@
 										</div>
 									</div>
 								</form>
-								<a th:href="@{'/s-admin/' +${domain} + '/nganh-chuyen-nganh/danh-sach?cm=career'}" class="btn">Xem danh sách</a>
+								<a th:href="@{'/school-admin/' +${domain} + '/nganh-chuyen-nganh/danh-sach?cm=career'}" class="btn">Xem danh sách</a>
 							</div>
 							<div class="cm-box major-form hidden">
-								<form th:action="@{'/s-admin/' + ${domain} + '/nganh-chuyen-nganh/luu-chuyen-nganh'}" method="post" th:object="${major}">
+								<form th:action="@{'/school-admin/' + ${domain} + '/nganh-chuyen-nganh/luu-chuyen-nganh'}" method="post" th:object="${major}">
 									<div class="eh-header-title sub" th:text="${actMajor} + ' Chuyên Ngành đào tạo'">Thêm Chuyên Ngành Đào
 										Tạo</div>
 									<input type="hidden" name="" id="" th:field="*{id}">
@@ -76,7 +76,7 @@
 										</div>
 									</div>
 								</form>
-								<a th:href="@{'/s-admin/' +${domain} + '/nganh-chuyen-nganh/danh-sach?cm=major'}" class="btn">Xem danh sách</a>
+								<a th:href="@{'/school-admin/' +${domain} + '/nganh-chuyen-nganh/danh-sach?cm=major'}" class="btn">Xem danh sách</a>
 							</div>
 						</div>
 					</div>
