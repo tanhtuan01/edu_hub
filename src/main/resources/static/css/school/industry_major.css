@@ -82,3 +82,8 @@
 .cm-right table tr td.icon a{
 	filter: drop-shadow(4px 4px 4px);
 }
+
+
+.table-container{
+	height:450px;
+}
