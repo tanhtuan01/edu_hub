@@ -1,0 +1,104 @@
+<div class="right-body">
+	<div class="body-content r-content">
+		<div class="syllabus">
+			<div class="eh-header-title">Đề cương học phần</div>
+			<th:block th:if="${act == 'add'}">
+				<div class="eh-header-title sub">Thêm Đề Cương</div>
+				<form th:action="@{'/school-admin/'+${domain} + '/tai-lieu/luu'}"
+					method="post" th:object="${}" enctype="multipart/form-data">
+					<div class="form-group">
+						<div class="label">Học phần:</div>
+						<div class="input">
+							<select name="" id="" >
+								<option th:each="m : ${module}" th:value="${m.id}"
+									th:text=" 'Học phần: ' + ${m.name} + ' (' + ${m.code}+ ') / CN: ' + ${m.majorName}">Học
+									Phần 1</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Tên đề cương:</div>
+						<div class="input">
+							<input type="text" name="" 
+								placeholder="Nhập tên đề cương">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">File:</div>
+						<div class="input">
+							<input type="file" style="background: white" name="syllabusfile"
+								accept="application/msword, application/vnd.ms-powerpoint,text/plain, application/pdf"
+								onchange="checkFileExtension(this)">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input">
+							<input type="submit" value="Lưu" class="btn btn-primary">
+						</div>
+					</div>
+				</form>
+			</th:block>
+			<th:block th:if="${act == 'search'}">
+				<br>
+				<a th:href="@{'/school-admin/' + ${domain} + '/tai-lieu/them-moi'}"
+					class="btn btn-primary">Thêm mới</a>
+			</th:block>
+			<div class="eh-header-title">Tìm kiếm</div>
+			<div id="danh-sach">
+				<form onsubmit="beforeSubmitSearchForm(this)"
+					th:action="@{'/school-admin/' +${domain} + '/tai-lieu/tim-kiem'}"
+					method="get">
+
+					<div class="form-group">
+
+						<div class="label">Học phần:</div>
+
+						<div class="input">
+							<select name="idModule" id="idModule">
+								<option value="0">Bạn chưa chọn học phần</option>
+								<option th:each="m : ${module}" th:value="${m.id}"
+									th:text=" 'Học phần: ' + ${m.name} + ' (' + ${m.code}+ ') / CN: ' + ${m.majorName}">Học
+									Phần 1</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="label">Tìm theo:</div>
+						<div class="input">
+							<input type="text" name="keyword"
+								placeholder="Tìm theo mã hoặc tên học phần">
+						</div>
+
+					</div>
+					<div class="form-group">
+						<div class="input">
+							<input type="submit" value="Tìm kiếm" class="btn btn-primary">
+						</div>
+					</div>
+				</form>
+
+				<th:block th:if="${length <= 0 && act == 'search'}">
+					<p class="text-center">Không tìm thấy kết quả</p>
+				</th:block>
+				<th:block th:if="${length > 0 && act == 'search'}">
+					<div class="eh-header-title">Danh sách</div>
+					<table>
+						<tr>
+							<th class="stt">STT</th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th class="act" colspan="2">Thao tác</th>
+						</tr>
+					
+
+					</table>
+					<div class="page">
+						
+					</div>
+				</th:block>
+			</div>
+		</div>
+	</div>
+</div>
