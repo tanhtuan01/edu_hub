@@ -20,6 +20,8 @@ public class ModuleDTO {
 	private int exercise;
 	
 	private int selfStudy;
+	
+	private String majorName;
 
 	public Long getId() {
 		return id;
@@ -103,6 +105,14 @@ public class ModuleDTO {
 		return "ModuleDTO [id=" + id + ", idMajor=" + idMajor + ", name=" + name + ", code=" + code + ", credits="
 				+ credits + ", theory=" + theory + ", practise=" + practise + ", exercise=" + exercise + ", selfStudy="
 				+ selfStudy + "]";
+	}
+
+	public String getMajorName() {
+		return majorName;
+	}
+
+	public void setMajorName(String majorName) {
+		this.majorName = majorName;
 	}
 	
 	
