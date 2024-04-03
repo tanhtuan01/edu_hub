@@ -1,5 +1,7 @@
 package tat.com.eduhub.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,4 +41,13 @@ public class ModuleServiceImpl implements ModuleService{
 		// TODO Auto-generated method stub
 		repository.deleteById(id);
 	}
+	
+	@Override
+	public List<Modules> findBySchool(School school) {
+		// TODO Auto-generated method stub
+		return repository.findBySchool(school);
+	}
+
+	
+
 }
