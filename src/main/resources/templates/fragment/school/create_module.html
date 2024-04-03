@@ -12,20 +12,21 @@
 								mới</a> <a th:if="${addOrEdit == 'edit'}" onclick="changeCM(this)"
 								data-cm="add" class="btn btn-primary active" href=""> Chỉnh
 								sửa</a> <a onclick="changeCM(this)" data-cm="list"
-								class="btn btn-primary" href="">Danh sách</a> <a
+								class="btn btn-primary" href="">Danh sách</a>
+								<!--  <a
 								onclick="changeCM(this)" data-cm="syllabus"
-								class="btn btn-primary" href="">Thêm đề cương học phần</a> <a
+								class="btn btn-primary" href="">Đề cương học phần</a> <a
 								onclick="changeCM(this)" data-cm="document"
-								class="btn btn-primary" href="">Thêm tài liệu học phần</a>
+								class="btn btn-primary" href="">Tài liệu học phần</a> -->
 						</div>
 					</div>
 					<div class="cm-right">
 						<div class="career-major-form">
 
 							<div class="cm-box add-form">
-								<div th:if="${moduleAction == 'add'}"
+								<div th:if="${addOrEdit == 'add'}"
 									class="eh-header-title sub">Thêm Học Phần</div>
-								<div th:if="${moduleAction == 'edit'}"
+								<div th:if="${addOrEdit == 'edit'}"
 									class="eh-header-title sub">Chỉnh Sửa Học Phần</div>
 								<form method="POST"
 									th:action="@{'/school-admin/' + ${domain} + '/hoc-phan/luu'}"
@@ -157,7 +158,7 @@
 									</ul>
 								</div>
 							</div>
-							<div class="cm-box syllabus-form hidden">
+							<!-- <div class="cm-box syllabus-form hidden">
 								<div class="eh-header-title sub">Thêm Đề Cương</div>
 								<form action="">
 									<div class="form-group">
@@ -183,8 +184,8 @@
 										</div>
 									</div>
 								</form>
-							</div>
-							<div class="cm-box document-form hidden">
+							</div> -->
+							<!-- <div class="cm-box document-form hidden">
 								<div class="eh-header-title sub">Thêm Tài Liệu</div>
 								<form action="">
 									<div class="form-group">
@@ -227,7 +228,7 @@
 										</div>
 									</div>
 								</form>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
