@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_module")
-public class Module extends BaseEntity{
+public class Modules extends BaseEntity{
 // Học phần
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_school")
@@ -118,7 +118,7 @@ public class Module extends BaseEntity{
 		this.selfStudy = selfStudy;
 	}
 
-	public Module() {
+	public Modules() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -137,6 +137,12 @@ public class Module extends BaseEntity{
 
 	public void setDocuments(List<Document> documents) {
 		this.documents = documents;
+	}
+
+	@Override
+	public String toString() {
+		return "Modules [major=" + major + ", name=" + name + ", code=" + code + ", credits=" + credits + ", theory="
+				+ theory + ", practise=" + practise + ", exercise=" + exercise + ", selfStudy=" + selfStudy + "]";
 	}
 	
 	

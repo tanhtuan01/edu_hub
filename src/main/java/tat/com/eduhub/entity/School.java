@@ -39,7 +39,7 @@ public class School extends BaseEntity{
 	private List<TrainingProgram> trainingPrograms;
 	
 	@OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Module> modules;
+	private List<Modules> modules;
 
 	public String getName() {
 		return name;
@@ -139,11 +139,11 @@ public class School extends BaseEntity{
 		this.status = status;
 	}
 
-	public List<Module> getModules() {
+	public List<Modules> getModules() {
 		return modules;
 	}
 
-	public void setModules(List<Module> modules) {
+	public void setModules(List<Modules> modules) {
 		this.modules = modules;
 	}
 

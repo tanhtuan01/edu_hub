@@ -13,7 +13,7 @@ public class Document extends BaseEntity{
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_module")
-	private Module module;
+	private Modules module;
 	
 	@Size(max = 20)
 	private String type;
@@ -21,11 +21,11 @@ public class Document extends BaseEntity{
 	@Size(max = 20)
 	private String share;
 
-	public Module getModule() {
+	public Modules getModule() {
 		return module;
 	}
 
-	public void setModule(Module module) {
+	public void setModule(Modules module) {
 		this.module = module;
 	}
 

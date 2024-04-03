@@ -1,0 +1,237 @@
+<input type="hidden" name="" id="cmAction" th:value="${moduleAction}">
+<div class="right-body">
+	<div class="body-content r-content">
+		<div class="replace">
+			<div class="career-major">
+				<div class="eh-header-title">Học Phần</div>
+				<div class="career-major-content">
+					<div class="cm-left">
+						<div class="button">
+							<a th:if="${addOrEdit == 'add'}" onclick="changeCM(this)"
+								data-cm="add" class="btn btn-primary active" href=""> Thêm
+								mới</a> <a th:if="${addOrEdit == 'edit'}" onclick="changeCM(this)"
+								data-cm="add" class="btn btn-primary active" href=""> Chỉnh
+								sửa</a> <a onclick="changeCM(this)" data-cm="list"
+								class="btn btn-primary" href="">Danh sách</a> <a
+								onclick="changeCM(this)" data-cm="syllabus"
+								class="btn btn-primary" href="">Thêm đề cương học phần</a> <a
+								onclick="changeCM(this)" data-cm="document"
+								class="btn btn-primary" href="">Thêm tài liệu học phần</a>
+						</div>
+					</div>
+					<div class="cm-right">
+						<div class="career-major-form">
+
+							<div class="cm-box add-form">
+								<div th:if="${moduleAction == 'add'}"
+									class="eh-header-title sub">Thêm Học Phần</div>
+								<div th:if="${moduleAction == 'edit'}"
+									class="eh-header-title sub">Chỉnh Sửa Học Phần</div>
+								<form method="POST"
+									th:action="@{'/school-admin/' + ${domain} + '/hoc-phan/luu'}"
+									th:object="${module}">
+									<input type="hidden" name="" id="" th:field="*{id}">
+									<div class="form-group">
+										<div class="label">Chuyên ngành đào tạo:</div>
+										<div class="input">
+											<select name="" id="" th:field="*{idMajor}">
+												<option th:selected="*{idMajor} == ${m.id}"
+													th:each="m : ${majors}" th:value="${m.id}"
+													th:text="${m.majorName}">Ngành 1</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">Mã học phần:</div>
+										<div class="input">
+											<input type="text" name="" id=""
+												placeholder="Nhập tên mã học phần" th:field="*{code}"
+												required>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">Tên học phần:</div>
+										<div class="input">
+											<input type="text" name="" id=""
+												placeholder="Nhập tên học phần" th:field="*{name}" required>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">Số tín chỉ:</div>
+										<div class="input">
+											<input type="number" onkeydown="checkInputNumber(event)"
+												name="" id="" placeholder="Nhập số tín chỉ"
+												th:field="*{credits}" required min="1">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">Số tiết lý thuyết:</div>
+										<div class="input">
+											<input th:field="*{theory}" type="number"
+												onkeydown="checkInputNumber(event)" name="" id=""
+												placeholder="Nhập số tiết lý thuyết" required min="1">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">Số tiết thực hành:</div>
+										<div class="input">
+											<input th:field="*{practise}" type="number"
+												onkeydown="checkInputNumber(event)" name="" id=""
+												placeholder="Nhập số tiết thực hành" required min="1">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">Số tiết bài tập:</div>
+										<div class="input">
+											<input th:field="*{exercise}" type="number"
+												onkeydown="checkInputNumber(event)" name="" id=""
+												placeholder="Nhập số tiết bài tập" required min="1">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">Số tiết tự học:</div>
+										<div class="input">
+											<input th:field="*{selfStudy}" type="number"
+												onkeydown="checkInputNumber(event)" name="" id=""
+												placeholder="Nhập số tiết tự học" required min="1">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="input">
+											<input type="submit" value="Lưu" class="btn btn-primary">
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="cm-box list-form hidden">
+								<div class="eh-header-title sub">Danh Sách Học Phần</div>
+								<div class="table-container">
+									<p th:if="${param.delete_success}"
+										class="text-center text-alert alert-success">Xóa thành
+										công.</p>
+
+									<p th:if="${param.save_success}"
+										class="text-center text-alert alert-success">Lưu thành
+										công.</p>
+									<table border="1" cellpadding="30" cellspacing="0">
+										<tr>
+											<th style="width: 5%;">STT</th>
+											<th style="width: 15%;">Mã học phần</th>
+											<th style="width: 42%;">Tên học phần</th>
+											<th>Chuyên ngành</th>
+											<th colspan="4" class="text-center">Thao tác</th>
+										</tr>
+										<tr th:each="m,i : ${listmodule}">
+											<td th:text="${i.count}">1</td>
+											<td th:text="${m.code}">SSS</td>
+											<td th:text="${m.name}">Tên học phần</td>
+											<td th:text="${m.major.majorName}">Tên học phần</td>
+											<td title="Xem" class="text-center"><a href=""> <i
+													class="fa-solid fa-eye"></i>
+											</a></td>
+											<td title="Xem tài liệu" class="text-center"><a href="">
+													<i class="fa-solid fa-file"></i>
+											</a></td>
+											<td title="Sửa" class="text-center"><a
+												th:href="@{'/school-admin/'+${domain} +'/hoc-phan/chinh-sua?id=' + ${m.id}}">
+													<i class="fa-solid fa-pen-to-square"></i>
+											</a></td>
+											<td title="Xóa" class="text-center"><a
+												onclick="showConfirmDeleteDialog(event)"
+												th:attr="data-name=${m.name}"
+												th:href="@{'/school-admin/'+${domain} +'/hoc-phan/xoa?id=' + ${m.id}}">
+													<i class="fa-solid fa-trash-can"></i>
+											</a></td>
+										</tr>
+									</table>
+								</div>
+
+								<div class="page">
+									<ul>
+										<li th:if="${totalPages > 1}"
+											th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+											th:unless="${pageNumber == 0}"><a
+											th:href="${pageNumber == page} ? '#!' : @{'/school-admin/' + ${domain} + '/hoc-phan/danh-sach?page=' + ${pageNumber}}"
+											th:text="${pageNumber}"
+											th:class="${pageNumber == page} ? 'page-active' : ''"></a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="cm-box syllabus-form hidden">
+								<div class="eh-header-title sub">Thêm Đề Cương</div>
+								<form action="">
+									<div class="form-group">
+										<div class="label">Học phần:</div>
+										<div class="input">
+											<select name="" id="">
+												<option th:each="m: ${listmodule}" th:value="${m.id}"
+													th:text="${m.name}">Học Phần 1</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">File:</div>
+										<div class="input">
+											<input type="file" style="background: white" name="file[]"
+												multiple
+												accept="application/msword, application/vnd.ms-powerpoint,text/plain, application/pdf">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="input">
+											<input type="submit" value="Lưu" class="btn btn-primary">
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="cm-box document-form hidden">
+								<div class="eh-header-title sub">Thêm Tài Liệu</div>
+								<form action="">
+									<div class="form-group">
+										<div class="label">Học phần:</div>
+										<div class="input">
+											<select name="" id="">
+												<option th:each="m: ${listmodule}" th:value="${m.id}"
+													th:text="${m.name}">Học Phần 1</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">Tài liệu:</div>
+										<div class="input">
+											<select name="" id="">
+												<option value="document_lecturer">Giảng viên</option>
+												<option value="document_student">Sinh viên</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">File:</div>
+										<div class="input">
+											<input type="file" style="background: white" name="file[]"
+												multiple>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">Chia sẻ:</div>
+										<div class="input">
+											<select name="" id="">
+												<option value="">Nội bộ</option>
+												<option value="">Công khai</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="input">
+											<input type="submit" value="Lưu" class="btn btn-primary">
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -12,15 +12,15 @@ public class Syllabus extends BaseEntity{
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_module")
-	private Module module;
+	private Modules module;
 	
 	private String name;
 
-	public Module getModule() {
+	public Modules getModule() {
 		return module;
 	}
 
-	public void setModule(Module module) {
+	public void setModule(Modules module) {
 		this.module = module;
 	}
 
