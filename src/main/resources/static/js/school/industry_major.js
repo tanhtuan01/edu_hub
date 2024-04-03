@@ -38,7 +38,13 @@ function toChangeCm(){
 	cmBox.forEach((c)=>{
 		c.classList.add("hidden")
 	});
+	
+	if(cmActionValue == 'edit'){
+		cmActionValue = 'add'
+		document.querySelector("[data-cm='add']").classList.add("active")
+	}
 
 	var selector = `.${cmActionValue}-form`
+	console.log(selector)
 	document.querySelector(selector).classList.remove("hidden")
 }
