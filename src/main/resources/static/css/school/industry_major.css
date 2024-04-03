@@ -87,3 +87,44 @@
 .table-container{
 	height:450px;
 }
+
+.syllabus{
+	background: white;
+}
+
+.syllabus form .form-group .label{
+	width: 120px;
+}
+
+.syllabus form .form-group .input{
+	width: 50%;
+}
+
+.syllabus form .form-group .input input[type='text'], .syllabus form .form-group .input input[type='file']{
+	width: 100%;
+}
+
+.syllabus table{
+	width: 100%;
+	font-size: 14px;
+	text-align: left;
+}
+
+.syllabus table tr th{
+	background: var(--primary-color);
+	color: white;
+	padding: 8px 10px;
+}
+
+ .syllabus table tr td{
+	padding: 5px 10px;
+}
+
+.syllabus table tr .stt{
+	width: 5%;
+}
+
+.syllabus table tr .act{
+	width: 15%;
+	text-align: center;
+}
