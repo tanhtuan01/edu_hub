@@ -1,5 +1,6 @@
 package tat.com.eduhub.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -21,6 +22,11 @@ public class Document extends BaseEntity{
 	@Size(max = 20)
 	private String share;
 
+	private String name;
+	
+	@Column(name = "file_name")
+	private String fileName;
+	
 	public Modules getModule() {
 		return module;
 	}
@@ -43,6 +49,22 @@ public class Document extends BaseEntity{
 
 	public void setShare(String share) {
 		this.share = share;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 	
 	
