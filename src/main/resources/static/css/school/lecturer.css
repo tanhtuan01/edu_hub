@@ -1,0 +1,72 @@
+.lecturer-school-content{
+	display: flex;
+	background: white;
+}
+
+.lecturer-school-content .left{
+	width: 35%;
+}
+
+.lecturer-school-content .right{
+	width: 65%;
+}
+
+.lecturer-school-content .left form .label{
+	width: 130px;
+}
+
+.lecturer-school-content .left form .input{
+	width: 100%;
+}
+
+.lecturer-school-content .left form input[type='text']{
+	width: 100%;
+}
+
+.lecturer-school-content .right table{
+	width: 100%;
+	padding: 15px 5px;
+	font-size: 14px;
+	text-align: left;
+}
+
+
+
+.lecturer-school-content .right table tr th, .lecturer-school-content .right table tr td{
+	padding: 5px 10px;
+}
+
+.lecturer-school-content .right table tr th{
+	padding: 7px 10px;
+	background: var(--primary-color);
+	color: white;
+}
+
+.lecturer-school-content .right table tr .stt{
+	width: 5%;
+}
+
+.lecturer-school-content .right table tr .avt{
+	width: 18%;
+}
+
+.lecturer-school-content .right table tr .name{
+	width: 35%;
+}
+
+.lecturer-school-content .right table tr .email{
+	width: 30%;
+}
+
+.lecturer-school-content .right table tr .act{
+	width: 12%;
+}
+
+.lecturer-school-content .right table tr td img{
+	width: 80%;
+	display: block;
+	margin: auto;
+	height: 50px;
+	border: 1px solid sienna;
+	border-radius: 3px;
+}
