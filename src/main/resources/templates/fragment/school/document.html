@@ -66,14 +66,14 @@
 			<div id="danh-sach">
 				<form onsubmit="beforeSubmitSearchForm(this)"
 					th:action="@{'/school-admin/' +${domain} + '/tai-lieu/tim-kiem'}"
-					method="get" th:object=${document}>
+					method="get">
 
 					<div class="form-group">
 
 						<div class="label">Học phần:</div>
 
 						<div class="input">
-							<select name="idModule" id="idModule" th:field="*{idModule}">
+							<select name="idModule" id="idModule">
 								<option value="0">Bạn chưa chọn học phần</option>
 								<option th:each="m : ${module}" th:value="${m.id}"
 									th:text=" 'Học phần: ' + ${m.name} + ' (' + ${m.code}+ ') / CN: ' + ${m.majorName}">Học
@@ -93,7 +93,7 @@
 					<div class="form-group">
 						<div class="label">Đối tượng:</div>
 						<div class="input">
-							<select name="" id="" th:field="*{type}">
+							<select name="type" id="">
 								<option value="for_lecturer">Giảng viên</option>
 								<option value="for_student">Sinh viên</option>
 							</select>
@@ -112,7 +112,8 @@
 
 				<th:block th:if="${length > 0 && act == 'search'}">
 					<div class="eh-header-title">Danh sách</div>
-					<p class="text-alert" th:text="${length} + ' kết quả'"></p>
+					<p th:if="${txt == null}" class="text-alert" th:text="${length} + ' kết quả'"></p>
+					<p th:if="${txt != null}" class="text-alert" th:text="${txt} + ' ' + ${length} + ' kết quả'"></p>
 					<table>
 						<tr>
 							<th class="stt">STT</th>
@@ -136,12 +137,18 @@
 							<td th:if="${d.share == 'public'}">Công khai</td>
 							<td th:if="${d.share == 'private'}">Nội bộ</td>
 							
-							<td th:if="${d.share == 'private'}">
-								<a th:href="@{'/file/document/' +${domain} + '/' + ${d.fileName}}">Xem trước</a>
+							 <td th:if="${d.share == 'private'}">
+								<a onclick="previewFile(this)" th:href="@{'/file/document/' +${domain} + '/' + ${d.fileName}}" target="_blank">Xem trước</a>
 							</td>
 							<td th:if="${d.share == 'public'}">
-								<a th:href="@{'/file/document/public/' + ${d.fileName}}">Xem trước</a>
-							</td>
+								<a onclick="previewFile(this)" th:href="@{'/file/document/public/' + ${d.fileName}}" target="_blank">Xem trước</a>
+							</td> 
+							
+							<!-- <td>
+								<a th:href="@{/previewFile(file=${d.fileName}, share=${d.share}, type=${d.type}, domain=${domain})}">Xem trước</a>
+							</td> -->
+							
+							
 							<td th:if="${d.share == 'private'}">
 								<a th:href="@{'/file/document/' +${domain} + '/' + ${d.fileName}}" download>Tải về</a>
 							</td>
@@ -156,10 +163,18 @@
 					</table>
 
 					<div class="page">
-						
+						<ul>
+							<li th:if="${totalPages > 1}"
+								th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+								th:unless="${pageNumber == 0}"><a
+								th:href="${pageNumber == page} ? '#!' : @{'/school-admin/' + ${domain} + '/tai-lieu/tim-kiem?page=' + ${pageNumber} + '&keyword=' + ${keyword} + '&idModule=' + ${idModule} +' &type=' + ${type} }"
+								th:text="${pageNumber}"
+								th:class="${pageNumber == page} ? 'page-active' : ''"></a></li>
+						</ul>
 					</div>
 				</th:block>
 			</div>
 		</div>
 	</div>
 </div>
+

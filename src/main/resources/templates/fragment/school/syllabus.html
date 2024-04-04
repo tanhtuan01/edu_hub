@@ -96,7 +96,7 @@
 							<td th:text="${s.name}">File</td>
 							<td th:text="${s.module.code}">Mã học phần</td>
 							<td th:text="${s.module.name}">Học phần</td>
-							<td><a onclick="previewSyllabus(this)"
+							<td><a onclick="previewFile(this)"
 								th:href="@{'/file/syllabus/lecturer/' + ${domain} + '/' + ${s.fileName}}"
 								target="_blank">Xem trước</a></td>
 							<td><a
