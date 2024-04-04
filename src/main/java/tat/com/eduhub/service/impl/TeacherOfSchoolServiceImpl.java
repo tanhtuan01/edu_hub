@@ -22,8 +22,8 @@ public class TeacherOfSchoolServiceImpl implements TeacherOfSchoolService{
 	}
 	
 	@Override
-	public boolean existsByUserAndSchool(User user, School school) {
+	public boolean existsByUserAndSchoolAdmin(User user, School school) {
 		// TODO Auto-generated method stub
-		return repository.existsByUserAndSchool(user, school);
+		return repository.existsByUserAndSchoolAndIsAdminTrue(user, school);
 	}
 }

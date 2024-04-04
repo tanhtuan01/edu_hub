@@ -8,6 +8,6 @@ import tat.com.eduhub.entity.User;
 
 public interface TeacherOfSchoolRepository extends JpaRepository<TeacherOfSchool, Long>{
 
-	boolean existsByUserAndSchool(User user, School school);
+	boolean existsByUserAndSchoolAndIsAdminTrue(User user, School school);
 	
 }

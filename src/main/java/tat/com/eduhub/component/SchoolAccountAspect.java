@@ -75,7 +75,7 @@ public class SchoolAccountAspect {
 	            School school = (School) model.getAttribute("school");
 	            
 	            if (user != null && school != null) {
-	                boolean validAccount = tosService.existsByUserAndSchool(user, school);
+	                boolean validAccount = tosService.existsByUserAndSchoolAdmin(user, school);
 	                
 	                if (!validAccount) {
 	                    HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();

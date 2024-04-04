@@ -8,5 +8,5 @@ public interface TeacherOfSchoolService {
 
 	TeacherOfSchool save(TeacherOfSchool teacherOfSchool);
 	
-	boolean existsByUserAndSchool(User user, School school);
+	boolean existsByUserAndSchoolAdmin(User user, School school);
 }
