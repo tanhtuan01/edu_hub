@@ -97,36 +97,42 @@ public class DocumentController {
 	@GetMapping(value = "/tim-kiem")
 	@SchoolAccountCheck
 	public String searchDocument(Model model, Authentication authentication,
-			@ModelAttribute(name = "domain") String domain, @RequestParam(name = "keyword", required = false, defaultValue = "") String keyword,
-			@ModelAttribute(name = "document")DocumentDTO documentDTO,
+			@ModelAttribute(name = "domain") String domain, 
+			@RequestParam(name = "keyword", required = false) String keyword,
+			@RequestParam(name = "idModule", required = false) Long idModule,
+			@RequestParam(name = "type", required = false) String type,
 			@RequestParam(name = "page", defaultValue = "1", required = false) int page,
 			@RequestParam(name = "size", defaultValue = "10", required = false) int size) {
 		setData(model, domain);
 		BASE_METHOD.FragmentAdminSchool("document", model);
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
-		System.err.println(documentDTO.toString());
 		
-		if(documentDTO.getIdModule() == null) {
+		if(idModule == null) {
 			return "redirect:/school-admin/" + domain + "/tai-lieu";
 		}
-		
+
 		Pageable pageable = PageRequest.of(page - 1, size);
 		Page<Document> documentPage;
-		if(documentDTO.getIdModule() == 0) {
+		String txt = null;
+		if(keyword.trim().length() > 0) {
+			txt = "Tìm kiếm theo: '"+keyword+"'";
+		}
+		if(idModule == 0) {
 			documentPage = documentService.findDocumentWithIdModuleAndNameModuleAndDocumentType(
-					null, keyword.trim(), documentDTO.getType(), pageable);
+					null, keyword, type, pageable);
 		}else {
 			documentPage = documentService.findDocumentWithIdModuleAndNameModuleAndDocumentType(
-					documentDTO.getIdModule(), keyword.trim(), documentDTO.getType(), pageable);
+					idModule, keyword, type, pageable);
 		}
-		 System.err.println("Keyword: " + keyword);
 		model.addAttribute("length", documentPage.getTotalElements());
 		model.addAttribute("totalPages", documentPage.getTotalPages());
 		model.addAttribute("page", page);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("documentPage", documentPage);
 		System.err.println("Total document search records: " + documentPage.getTotalElements());
-		
+		model.addAttribute("txt", txt);
+		model.addAttribute("type", type);
+		model.addAttribute("idModule", idModule);
 		model.addAttribute("act", "search");
 		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
 	}
