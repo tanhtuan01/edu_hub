@@ -66,7 +66,7 @@ function validateForm(e) {
         form.querySelector("#email").parentElement.querySelector(".text-error").textContent = "";
         form.querySelector("#email").style.borderBottom = 'none';
       }else{
-        form.querySelector("#email").parentElement.querySelector(".text-error").textContent = "Email không hợp kệ";
+        form.querySelector("#email").parentElement.querySelector(".text-error").textContent = "Email không hợp lệ";
         form.querySelector("#email").style.borderBottom = '1px solid red';
         return
       }
@@ -89,7 +89,7 @@ function validateForm(e) {
       }
     }
 
-    if (!checkInputField("#pass", "Mật khẩu không được để trống") || !checkInputField("#repass", "Mật khẩu không được để trống")) {
+    if (!checkInputField("#pass", "Mật khẩu không được để trống") || !checkInputField("#repass", "Bạn chưa nhập lại mật khẩu")) {
         return;
     }
 
