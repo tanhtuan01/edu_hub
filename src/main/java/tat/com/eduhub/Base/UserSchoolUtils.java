@@ -16,6 +16,7 @@ public class UserSchoolUtils {
         User user = userService.findByEmail(authentication.getName());
         School school = schoolService.findByDomain(domain.trim());
 
+        model.addAttribute("domain", domain);
         model.addAttribute("user", user);
         model.addAttribute("school", school);
     }
