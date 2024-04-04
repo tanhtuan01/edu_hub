@@ -1,15 +1,16 @@
 <div class="right-body">
 	<div class="body-content r-content">
 		<div class="syllabus">
-			<div class="eh-header-title">Đề cương học phần</div>
+			<div class="eh-header-title">Tài liệu học phần</div>
 			<th:block th:if="${act == 'add'}">
-				<div class="eh-header-title sub">Thêm Đề Cương</div>
+				<div class="eh-header-title sub">Thêm Tài Liệu</div>
+				<p th:if="${param.success}" class="text-center text-alert alert-success">Đã thêm tài liệu</p>
 				<form th:action="@{'/school-admin/'+${domain} + '/tai-lieu/luu'}"
-					method="post" th:object="${}" enctype="multipart/form-data">
+					method="post" th:object="${document}" enctype="multipart/form-data">
 					<div class="form-group">
 						<div class="label">Học phần:</div>
 						<div class="input">
-							<select name="" id="" >
+							<select name="" id="" th:field="*{idModule}">
 								<option th:each="m : ${module}" th:value="${m.id}"
 									th:text=" 'Học phần: ' + ${m.name} + ' (' + ${m.code}+ ') / CN: ' + ${m.majorName}">Học
 									Phần 1</option>
@@ -17,18 +18,36 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="label">Tên đề cương:</div>
+						<div class="label">Tên tài liệu:</div>
 						<div class="input">
 							<input type="text" name="" 
-								placeholder="Nhập tên đề cương">
+								placeholder="Nhập tên cho tài liệu" th:field="*{name}" required="required">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Đối tượng:</div>
+						<div class="input">
+							<select name="" id="" th:field="*{type}">
+								<option value="for_lecturer">Giảng viên</option>
+								<option value="for_student">Sinh viên</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Chia sẻ:</div>
+						<div class="input">
+							<select name="" id="" th:field="*{share}">
+								<option value="private">Nội bộ</option>
+								<option value="public">Công khai</option>
+							</select>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="label">File:</div>
 						<div class="input">
-							<input type="file" style="background: white" name="syllabusfile"
+							<input type="file" style="background: white" name="documentfile"
 								accept="application/msword, application/vnd.ms-powerpoint,text/plain, application/pdf"
-								onchange="checkFileExtension(this)">
+								onchange="checkFileExtension(this)" required="required">
 						</div>
 					</div>
 					<div class="form-group">
@@ -43,18 +62,18 @@
 				<a th:href="@{'/school-admin/' + ${domain} + '/tai-lieu/them-moi'}"
 					class="btn btn-primary">Thêm mới</a>
 			</th:block>
-			<div class="eh-header-title">Tìm kiếm</div>
+			<div class="eh-header-title sub">Tìm kiếm</div>
 			<div id="danh-sach">
 				<form onsubmit="beforeSubmitSearchForm(this)"
 					th:action="@{'/school-admin/' +${domain} + '/tai-lieu/tim-kiem'}"
-					method="get">
+					method="get" th:object=${document}>
 
 					<div class="form-group">
 
 						<div class="label">Học phần:</div>
 
 						<div class="input">
-							<select name="idModule" id="idModule">
+							<select name="idModule" id="idModule" th:field="*{idModule}">
 								<option value="0">Bạn chưa chọn học phần</option>
 								<option th:each="m : ${module}" th:value="${m.id}"
 									th:text=" 'Học phần: ' + ${m.name} + ' (' + ${m.code}+ ') / CN: ' + ${m.majorName}">Học
@@ -67,9 +86,18 @@
 						<div class="label">Tìm theo:</div>
 						<div class="input">
 							<input type="text" name="keyword"
-								placeholder="Tìm theo mã hoặc tên học phần">
+								placeholder="Tìm theo mã hoặc tên học phần" value="">
 						</div>
 
+					</div>
+					<div class="form-group">
+						<div class="label">Đối tượng:</div>
+						<div class="input">
+							<select name="" id="" th:field="*{type}">
+								<option value="for_lecturer">Giảng viên</option>
+								<option value="for_student">Sinh viên</option>
+							</select>
+						</div>
 					</div>
 					<div class="form-group">
 						<div class="input">
@@ -81,19 +109,52 @@
 				<th:block th:if="${length <= 0 && act == 'search'}">
 					<p class="text-center">Không tìm thấy kết quả</p>
 				</th:block>
+
 				<th:block th:if="${length > 0 && act == 'search'}">
 					<div class="eh-header-title">Danh sách</div>
+					<p class="text-alert" th:text="${length} + ' kết quả'"></p>
 					<table>
 						<tr>
 							<th class="stt">STT</th>
-							<th></th>
-							<th></th>
-							<th></th>
+							<th>Học phần</th>
+							<th>Tên tài liệu</th>
+							<th>Loại tài liệu</th>
+							<th>Người đăng tải</th>
+							<th>Trạng thái</th>
 							<th class="act" colspan="2">Thao tác</th>
 						</tr>
+						
+						<tr th:each="d,i : ${documentPage}">
+							<td th:text="${i.count}"></td>
+							<td th:text="${d.module.name}"></td>
+							<td th:text="${d.name}"></td>
+							<td th:if="${d.type == 'for_lecturer'}">Giảng viên</td>
+							<td th:if="${d.type == 'for_student'}">Sinh viên</td>
+							
+							<td th:each="u : ${d.module.school.teacherOfSchools}" th:if="${d.createdBy == u.user.email}" th:text="${u.user.userName}"></td>
+							
+							<td th:if="${d.share == 'public'}">Công khai</td>
+							<td th:if="${d.share == 'private'}">Nội bộ</td>
+							
+							<td th:if="${d.share == 'private'}">
+								<a th:href="@{'/file/document/' +${domain} + '/' + ${d.fileName}}">Xem trước</a>
+							</td>
+							<td th:if="${d.share == 'public'}">
+								<a th:href="@{'/file/document/public/' + ${d.fileName}}">Xem trước</a>
+							</td>
+							<td th:if="${d.share == 'private'}">
+								<a th:href="@{'/file/document/' +${domain} + '/' + ${d.fileName}}" download>Tải về</a>
+							</td>
+							<td th:if="${d.share == 'public'}">
+								<a th:href="@{'/file/document/public/' + ${d.fileName}}" download>Tải về</a>
+							</td>
+						</tr>
+						
+					
 					
 
 					</table>
+
 					<div class="page">
 						
 					</div>
