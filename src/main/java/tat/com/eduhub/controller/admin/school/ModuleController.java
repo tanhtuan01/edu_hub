@@ -62,7 +62,6 @@ public class ModuleController {
 		String requestURI = request.getRequestURI();
 		BASE_METHOD.FragmentAdminSchool("create_module", model);
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
-		model.addAttribute("domain", domain);
 		School school = schoolService.findByDomain(domain);
 		model.addAttribute("moduleAction", "add");
 		model.addAttribute("addOrEdit", "add");
@@ -126,7 +125,6 @@ public class ModuleController {
 		List<MajorDTO> majorDTOs = majors.stream().map(m -> mapper.map(m, MajorDTO.class)).collect(Collectors.toList());
 		model.addAttribute("majors", majorDTOs);
 		model.addAttribute("moduleAction", "edit");
-		model.addAttribute("domain", domain);
 		model.addAttribute("addOrEdit", "edit");
 		if(id == null) {
 			return "redirect:/school-admin/" + domain + "/hoc-phan/danh-sach?page=1";

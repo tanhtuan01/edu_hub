@@ -49,7 +49,6 @@ public class TrainingProgramController {
 	@SchoolAccountCheck
 	public String createTrainingProgramPage(Model model, @PathVariable(name = "domain") String domain,
 			Authentication authentication) {
-		model.addAttribute("domain", domain);
 		idTpSaved = (long) 0;
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
 		
@@ -94,7 +93,6 @@ public class TrainingProgramController {
 		catch (Exception e) {
 			// TODO: handle exception
 		}
-		model.addAttribute("domain", domain);
 		
 		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
 	}

@@ -60,7 +60,6 @@ public class IndustryAndMajorController {
 			Model model, Authentication authentication, @PathVariable(name = "domain") String domain) {
 		BASE_METHOD.FragmentAdminSchool("create_industry_major", model);
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
-		model.addAttribute("domain", domain);
 		model.addAttribute("industry", new IndustryDTO());
 		model.addAttribute("major", new MajorDTO());
 		model.addAttribute("cmAction", cm);
@@ -141,7 +140,6 @@ public class IndustryAndMajorController {
 		
 		BASE_METHOD.FragmentAdminSchool("list_industry_major", model);
 		model.addAttribute("cmAction", cm);
-		model.addAttribute("domain", domain);
 		model.addAttribute("totalPages", industryDTOs.getTotalPages());
 		model.addAttribute("totalPagesMajor", majorDTOpage.getTotalPages());
 		model.addAttribute("page", page);
@@ -171,7 +169,6 @@ public class IndustryAndMajorController {
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
 		School school = schoolService.findByDomain(domain);
 		String requestURI = request.getRequestURI();
-		model.addAttribute("domain", domain);
 
 		if(requestURI.equals("/school-admin/"+domain+"/nganh-chuyen-nganh/chinh-sua/nganh")) {
 			model.addAttribute("cmAction", "career");

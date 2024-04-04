@@ -80,7 +80,7 @@ public class SyllabusController {
 		if(syllabusFile != null) {
 			String extension = BASE_METHOD.getExtensionFileName(syllabusFile);
 //			String createdByString =  BASE_METHOD.removeAccents(modules.getCreatedBy());
-			String fileName = BASE_METHOD.removeAccents(syllabusDTO.getName()) +"."+extension;
+			String fileName = BASE_METHOD.removeAccents(syllabusDTO.getName()) + BASE_METHOD.createRandomFileName() +"."+extension;
 			String syllabusFilePath = BASE_METHOD.syllabusLecturerPathUpload(domain, fileName);
 			try {
 				Syllabus syllabus = mapper.map(syllabusDTO, Syllabus.class);
@@ -138,7 +138,6 @@ public class SyllabusController {
 	
 	public void setData(Model model, String domain) {
 		School school = schoolService.findByDomain(domain);
-		model.addAttribute("domain", domain);
 		List<Modules> modules = moduleService.findBySchool(school);
 		List<ModuleDTO> moduleDTOs = new ArrayList<>();
 		for(Modules m : modules) {
