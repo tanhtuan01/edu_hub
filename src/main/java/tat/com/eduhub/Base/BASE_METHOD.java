@@ -47,8 +47,8 @@ public class BASE_METHOD {
         return sb.toString();
 	}
 	
-	public static String createSyllabusFileName() {
-		return "."+randomString(4) +"." + localDateTime.getDayOfMonth() +"" + localDateTime.getMonthValue() + localDateTime.getYear();
+	public static String createRandomFileName() {
+		return  "_" +randomString(5) +"." + localDateTime.getDayOfMonth() +"" + localDateTime.getMonthValue() + localDateTime.getYear();
 	}
 	
 	public static String syllabusLecturerPathUpload(String domain, String fileName) {
@@ -63,6 +63,28 @@ public class BASE_METHOD {
 			}
 		}
 		String filePath = Paths.get("src", "main", "resources", "static", "file", "syllabus", "lecturer", domain, fileName)
+				.toString();
+		return filePath;
+	}
+	
+	public static String documentPathUploadPrivate(String domain, String fileName) {
+		Path path = Paths.get("src", "main", "resources", "static", "file", "document", domain);
+		if(!Files.exists(path)) {
+			try {
+				Files.createDirectories(path);
+				System.err.println("Create path: " + domain + " => " + path);
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.err.println("Không thể tạo path: " + e.getMessage());
+			}
+		}
+		String filePath = Paths.get("src", "main", "resources", "static", "file", "document", domain, fileName)
+				.toString();
+		return filePath;
+	}
+	
+	public static String documentPathUploadPublic(String fileName) {
+		String filePath = Paths.get("src", "main", "resources", "static", "file", "document", "public", fileName)
 				.toString();
 		return filePath;
 	}
