@@ -18,4 +18,8 @@ public interface UserService extends UserDetailsService{
 	Long saveAndGetId(User user);
 	
 	User findByEmail(String email);
+	
+	Long createLecturerAndGetId(User user);
+	
+	void delete(Long id);
 }

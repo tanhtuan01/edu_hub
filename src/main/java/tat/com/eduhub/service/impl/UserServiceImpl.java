@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService{
 				userDTO.getUserName(), userDTO.getEmail(),
 				passwordEncoder.encode(userDTO.getPasswords()), Arrays.asList(new Role("ROLE_STUDENT"))
 			);
-		user.setAvt("logo_user.png");
+		user.setAvt("no-avatar.png");
 		User userSave = repository.saveAndFlush(user);
 		return userSave.getId();
 	}
@@ -91,4 +91,16 @@ public class UserServiceImpl implements UserService{
 		return repository.findByEmailEquals(email);
 	}
 	
+	@Override
+	public Long createLecturerAndGetId(User user) {
+		// TODO Auto-generated method stub
+		User save = repository.saveAndFlush(user);
+		return save.getId();
+	}
+	
+	@Override
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		repository.deleteById(id);
+	}
 }
