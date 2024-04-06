@@ -15,8 +15,16 @@
 <link rel="stylesheet" th:href="@{/css/school/training_program.css}">
 <link rel="stylesheet" th:href="@{/css/school/industry_major.css}">
 <link rel="stylesheet" th:href="@{/css/school/lecturer.css}">
+<link rel="stylesheet" th:href="@{/css/school/account_school.css}">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+
+<script>
+	function handleImageError(e) {
+		e.parentElement.querySelector("a.errorLoadImg").style.display = "block"
+		console.log("Ảnh chưa hiển thị")
+	}
+</script>
 </head>
 
 <body>
@@ -66,7 +74,8 @@
 						<div class="header-nav-title">Chương trình đào tạo</div>
 						<div class="left-menu-content">
 							<ul>
-								<li><a th:href="@{'/school-admin/' +${domain} + '/chuong-trinh-dao-tao/them-moi'}">
+								<li><a
+									th:href="@{'/school-admin/' +${domain} + '/chuong-trinh-dao-tao/them-moi'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-scroll"></i>
@@ -74,7 +83,8 @@
 											<div class="menu-title">Thêm mới</div>
 										</div>
 								</a></li>
-								<li><a th:href="@{'/school-admin/' +${domain} + '/chuong-trinh-dao-tao/danh-sach'}">
+								<li><a
+									th:href="@{'/school-admin/' +${domain} + '/chuong-trinh-dao-tao/danh-sach'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-layer-group"></i>
@@ -89,7 +99,8 @@
 						<div class="header-nav-title">Ngành / Chuyên ngành đào tạo</div>
 						<div class="left-menu-content">
 							<ul>
-								<li><a th:href="@{'/school-admin/' +${domain} + '/nganh-chuyen-nganh/them-moi'}">
+								<li><a
+									th:href="@{'/school-admin/' +${domain} + '/nganh-chuyen-nganh/them-moi'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-plus"></i>
@@ -97,7 +108,8 @@
 											<div class="menu-title">Thêm mới</div>
 										</div>
 								</a></li>
-								<li><a th:href="@{'/school-admin/' +${domain} + '/nganh-chuyen-nganh/danh-sach'}">
+								<li><a
+									th:href="@{'/school-admin/' +${domain} + '/nganh-chuyen-nganh/danh-sach'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-list"></i>
@@ -112,7 +124,8 @@
 						<div class="header-nav-title">Học Phần</div>
 						<div class="left-menu-content">
 							<ul>
-								<li><a th:href="@{'/school-admin/' +${domain} + '/hoc-phan/them-moi'}">
+								<li><a
+									th:href="@{'/school-admin/' +${domain} + '/hoc-phan/them-moi'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-plus"></i>
@@ -120,7 +133,8 @@
 											<div class="menu-title">thêm mới</div>
 										</div>
 								</a></li>
-								<li><a th:href="@{'/school-admin/' +${domain} + '/hoc-phan/danh-sach'}">
+								<li><a
+									th:href="@{'/school-admin/' +${domain} + '/hoc-phan/danh-sach'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-list"></i>
@@ -128,7 +142,8 @@
 											<div class="menu-title">danh sách</div>
 										</div>
 								</a></li>
-								<li><a th:href="@{'/school-admin/' +${domain} + '/de-cuong'}">
+								<li><a
+									th:href="@{'/school-admin/' +${domain} + '/de-cuong'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-list"></i>
@@ -136,7 +151,8 @@
 											<div class="menu-title">Đề cương</div>
 										</div>
 								</a></li>
-								<li><a th:href="@{'/school-admin/' +${domain} + '/tai-lieu'}">
+								<li><a
+									th:href="@{'/school-admin/' +${domain} + '/tai-lieu'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-list"></i>
@@ -151,7 +167,8 @@
 						<div class="header-nav-title">Quản lý tài khoản</div>
 						<div class="left-menu-content">
 							<ul>
-							<li><a th:href="@{'/school-admin/' +${domain} + '/quan-ly-tai-khoan/cai-dat'}">
+								<li><a
+									th:href="@{'/school-admin/' +${domain} + '/quan-ly-tai-khoan/cai-dat'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-gear"></i>
@@ -159,7 +176,8 @@
 											<div class="menu-title">Thay Đổi Thông Tin</div>
 										</div>
 								</a></li>
-								<li><a th:href="@{'/school-admin/' +${domain} + '/quan-ly-tai-khoan/giang-vien'}">
+								<li><a
+									th:href="@{'/school-admin/' +${domain} + '/quan-ly-tai-khoan/giang-vien'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-users"></i>
@@ -266,10 +284,12 @@
 		style="width: 100%; position: fixed; top: 0; bottom: 0; background: rgba(237, 240, 240, 0.5); z-index: 999999999;"></div>
 
 	<script type="text/javascript" th:src="@{/js/loading_spinner.js}"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" th:src="@{/js/base.js}"></script>
 	<script type="text/javascript" th:src="@{/js/admin_layout.js}"></script>
 	<script type="text/javascript" th:src="@{/js/ckeditor.js}"></script>
-	<script type="text/javascript" th:src="@{/js/school/training_program.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/js/school/training_program.js}"></script>
 	<script type="text/javascript" th:src="@{/js/school/industry_major.js}"></script>
 	<script type="text/javascript" th:src="@{/js/school/syllabus.js}"></script>
 	<script type="text/javascript" th:src="@{/js/dialog_overlay.js}"></script>
