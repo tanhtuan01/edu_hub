@@ -151,6 +151,7 @@ input[type=number]::-webkit-outer-spin-button {
 .text-error{
     color: red;
     margin-top: 2px;
+    font-size: 14px;
 }
 
 .text-alert{
@@ -172,4 +173,9 @@ input[type=number]::-webkit-outer-spin-button {
 	background: var(--bg-error);
     color: var(--color-error);
     border-color: var(--border-error);
+}
+
+
+h2.swal2-title{
+	font-size:16px;
 }

@@ -19,8 +19,9 @@
 	width: 100%;
 }
 
-.lecturer-school-content .left form input[type='text']{
+.lecturer-school-content .left form input[type='text'], .lecturer-school-content .left form input[type='email']{
 	width: 100%;
+	border-radius: 3px;
 }
 
 .lecturer-school-content .right table{
@@ -66,7 +67,15 @@
 	width: 80%;
 	display: block;
 	margin: auto;
-	height: 50px;
-	border: 1px solid sienna;
+	height: 70px;
 	border-radius: 3px;
 }
+
+.lecturer-school-content .right table tr a.btn{
+	padding: 7px 10px;
+}
+
+.lecturer-school-content .right table tr:nth-child(2n+1){
+	background: var(--bg-silver);
+}
+
