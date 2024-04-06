@@ -31,6 +31,9 @@ public class User extends BaseEntity{
 	@Size(max = 80)
 	private String passwords;
 	
+	@Column(name = "receive_mail", length = 60)
+	private String receiveMail;
+	
 	private String avt;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -102,6 +105,22 @@ public class User extends BaseEntity{
 	public String toString() {
 		return "User [userName=" + userName + ", email=" + email + ", passwords=" + passwords + ", avt=" + avt
 				+ ", getId()=" + getId() + "]";
+	}
+
+	public String getReceiveMail() {
+		return receiveMail;
+	}
+
+	public void setReceiveMail(String receiveMail) {
+		this.receiveMail = receiveMail;
+	}
+
+	public TeacherOfSchool getTeacherOfSchool() {
+		return teacherOfSchool;
+	}
+
+	public void setTeacherOfSchool(TeacherOfSchool teacherOfSchool) {
+		this.teacherOfSchool = teacherOfSchool;
 	}
 
 	

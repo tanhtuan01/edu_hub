@@ -26,6 +26,9 @@ public class School extends BaseEntity{
 	
 	private String logo;
 	
+	@Size(max = 120)
+	private String address;
+	
 	@Size(max = 20)
 	private String status;
 	
@@ -151,6 +154,14 @@ public class School extends BaseEntity{
 	public String toString() {
 		return "School [name=" + name + ", domain=" + domain + ", email=" + email + ", hotline=" + hotline + ", logo="
 				+ logo + ", status=" + status + ", getId()=" + getId() + "]";
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	

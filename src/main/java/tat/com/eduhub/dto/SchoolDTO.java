@@ -18,6 +18,34 @@ public class SchoolDTO {
 	
 	private String status;
 	
+	private String address;
+	
+	
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getDefaultLogo() {
+		return defaultLogo;
+	}
+
+	public void setDefaultLogo(String defaultLogo) {
+		this.defaultLogo = defaultLogo;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public SchoolDTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -73,5 +101,12 @@ public class SchoolDTO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	@Override
+	public String toString() {
+		return "SchoolDTO [id=" + id + ", name=" + name + ", domain=" + domain + ", email=" + email + ", hotline="
+				+ hotline + ", logo=" + logo + ", status=" + status + ", address=" + address + "]";
+	}
+	
 	
 }

@@ -9,6 +9,10 @@ public class UserDTO {
 	private String passwords;
 	
 	private String avt;
+	
+	private String sendToEmail;
+	
+	private String receiveMail;
 
 	public String getUserName() {
 		return userName;
@@ -45,6 +49,28 @@ public class UserDTO {
 	public UserDTO() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public String getSendToEmail() {
+		return sendToEmail;
+	}
+
+	public void setSendToEmail(String sendToEmail) {
+		this.sendToEmail = sendToEmail;
+	}
+
+	public String getReceiveMail() {
+		return receiveMail;
+	}
+
+	public void setReceiveMail(String receiveMail) {
+		this.receiveMail = receiveMail;
+	}
+
+	@Override
+	public String toString() {
+		return "UserDTO [userName=" + userName + ", email=" + email + ", passwords=" + passwords + ", avt=" + avt
+				+ ", sendToEmail=" + sendToEmail + ", receiveMail=" + receiveMail + "]";
 	}
 	
 	
