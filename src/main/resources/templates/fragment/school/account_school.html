@@ -1,0 +1,155 @@
+
+
+
+<div class="right-body account-school">
+	<div class="body-content r-content">
+		<div class="account-school-content">
+			<div class="left">
+				<div class="eh-header-title">Tài khoản quản lý</div>
+				<div class="left-content">
+
+					<form enctype="multipart/form-data"
+						th:action="@{'/school-admin/' + ${domain} + '/quan-ly-tai-khoan/cap-nhat' }"
+						method="post" th:object="${u}">
+						
+						<p class="text-center text-alert"></p>
+						<div id="image-container">
+							<input type="file" name="newAvt" style="display: none;">
+							<a href="" class="errorLoadImg"  style="display: none;">Hiển thị lại ảnh</a>
+							<img  id="uploaded-image" th:src="@{'/img/school/' + ${u.avt} }"
+								alt="Avatar" onerror="handleImageError(this)"> <a id="image-link" href="#"
+								onclick="chooseImage(this,'newAvt')"> <i
+								class="fa-solid fa-camera"></i>
+							</a>
+						</div>
+						<p class="text-center text-alert">Thông tin</p>
+						<div class="form-group">
+							<div class="label">Họ tên</div>
+							<div class="input">
+								<input type="text" name="" id="name" th:field="*{userName}">
+								<br>
+								<p class="text-error"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="label">Tên đăng nhập</div>
+							<div class="input">
+								<input type="text" name="" value="" th:field="*{email}" id="uu"
+									readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="label">Email nhận thông báo</div>
+							<div class="input">
+								<input type="email" name="" id="email" th:field="*{receiveMail}">
+								<br>
+								<p class="text-error"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="input">
+								<input type="submit" onclick="validateFormAndSubmit(this)"
+									class="btn btn-primary" value="Cập nhật thông tin" name=""
+									id="">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="right">
+				<div class="eh-header-title">Thông tin trường học</div>
+				<div class="right-content">
+					<div class="school-info">
+						<div class="eh-header-title sub ">Đại học tài nguyên và môi
+							trường Hà Nội</div>
+						<form enctype="multipart/form-data"
+						th:action="@{'/school-admin/' + ${domain} + '/quan-ly-tai-khoan/cap-nhat-tt-truong' }"
+						method="post" th:object="${s}">
+							<div class="left">
+								<div id="image-container-right">
+								
+								<a href="" class="errorLoadImg"  style="display: none;">Hiển thị lại ảnh</a>
+									<input type="file" name="newLogo" style="display: none;">
+									<img id="uploaded-image" th:src="@{'/img/school/' + ${s.logo} }"
+										alt="Logo"  onerror="handleImageError(this)"> <a id="image-link-right" href="#"
+										onclick="chooseImage(this,'newLogo')"> <i
+										class="fa-solid fa-camera"></i>
+									</a>
+								</div>
+							</div>
+							<div class="right">
+							<p class="text-center text-alert"></p>
+								<div class="form-group">
+									<div class="label">Địa chỉ</div>
+									<div class="input">
+										<input type="text" name="" id="address" th:field="*{address}">
+										<br>
+								<p class="text-error"></p>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="label">Email</div>
+									<div class="input">
+										<input type="text" name="" id="email" th:field="*{email}">
+										<br>
+								<p class="text-error"></p>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="label">Hotline</div>
+									<div class="input">
+										<input type="number" name="" id="phone" th:field="*{hotline}">
+										<br>
+								<p class="text-error"></p>
+									</div>
+								</div>
+								<div class="form-group">
+
+									<div class="input">
+										<input type="submit" onclick="validateFormAndSubmit(this)" value="Lưu thông tin"
+											class="btn btn-primary" name="" id="">
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/sweetalert2.all.min.js}"></script>
+
+
+
+
+<script th:if="${param.updated}" th:inline="javascript">
+
+	 document.addEventListener('DOMContentLoaded', function() {
+		 setTimeout( ()=>{
+			
+			const Toast =  Swal.mixin({
+				
+				  toast: true,
+				  position: "top-end",
+				  showConfirmButton: false,
+				  timer: 1800,
+				  timerProgressBar: true,
+				  didOpen: (toast) => {
+				    toast.onmouseenter = Swal.stopTimer;
+				    toast.onmouseleave = Swal.resumeTimer;
+				  }
+				});
+				 Toast.fire({
+				  icon: "success",
+				  title: "Cập nhật thành công"
+				});
+				
+				/* await location.reload() */
+				
+			}, 800)
+/* 			history.replaceState(null, document.title, location.href); */
+	    });
+</script>
