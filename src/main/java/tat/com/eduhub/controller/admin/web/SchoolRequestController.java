@@ -63,7 +63,7 @@ public class SchoolRequestController {
 	@GetMapping(value = "/confirm")
 	public String confirmRequestFromSchool(@RequestParam(name = "id")Long id) {
 		
-		String randomStr = BASE_METHOD.randomString(8);
+		String randomStr = BASE_METHOD.randomString(5) + BASE_METHOD.createStrDateNow();
 		// change status
 		School school = schoolService.get(id);
 		school.setStatus("is_active");
@@ -71,7 +71,7 @@ public class SchoolRequestController {
 		// create admin school account
 		User user = new User();
 		user.setUserName(school.getName());
-		user.setAvt("default_logo_admin_school.png");
+		user.setAvt("no-avatar.png");
 		user.setEmail(school.getDomain()+"@eduhub.com");
 		user.setPasswords(passwordEncoder.encode(randomStr));
 		user.setRoles(Arrays.asList(new Role("ROLE_ADMINSCHOOL")));

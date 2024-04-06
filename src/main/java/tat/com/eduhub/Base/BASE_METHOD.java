@@ -51,15 +51,35 @@ public class BASE_METHOD {
 		return  "_" +randomString(5) +"." + localDateTime.getDayOfMonth() +"" + localDateTime.getMonthValue() + localDateTime.getYear();
 	}
 	
+	public static String createStrDateNow() {
+		return  localDateTime.getDayOfMonth() +"" + localDateTime.getMonthValue() + localDateTime.getYear();
+	}
+	
+	public static String schoolImagePathUpload(String fileName) {
+		Path path = Paths.get("src", "main", "resources", "static", "img", "school");
+		if(!Files.exists(path)) {
+			try {
+				Files.createDirectories(path);
+				System.err.println("Created path: " + path);
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.err.println("Cant create path: " + e.getMessage());
+			}
+		}
+		String filePath = Paths.get("src", "main", "resources", "static", "img", "school", fileName)
+				.toString();
+		return filePath;
+	}
+	
 	public static String syllabusLecturerPathUpload(String domain, String fileName) {
 		Path path = Paths.get("src", "main", "resources", "static", "file", "syllabus", "lecturer", domain);
 		if(!Files.exists(path)) {
 			try {
 				Files.createDirectories(path);
-				System.err.println("Create path: " + domain + " => " + path);
+				System.err.println("Created path: " + domain + " => " + path);
 			} catch (Exception e) {
 				// TODO: handle exception
-				System.err.println("Không thể tạo path: " + e.getMessage());
+				System.err.println("Cant create path: " + e.getMessage());
 			}
 		}
 		String filePath = Paths.get("src", "main", "resources", "static", "file", "syllabus", "lecturer", domain, fileName)
