@@ -1,30 +1,35 @@
+
 <div class="right-body lecturer-school">
 	<div class="body-content r-content">
 		<div class="lecturer-school-content">
 			<div class="left">
 				<div class="eh-header-title sub">Tao tai khoan</div>
-				<form action="">
+				<form id="formSendEmail"
+					th:action="@{'/school-admin/' + ${domain} + '/quan-ly-tai-khoan/giang-vien/them'}"
+					method="post" th:object="${userDTO}">
 					<p class="text-center text-alert"></p>
 					<div class="form-group">
 						<div class="label">Họ & tên</div>
 						<div class="input">
 							<input type="text" placeholder="Nhập tên" id="name"
-								oninput="convertToSlug(this)"> <br>
+								oninput="convertToSlug(this)" th:field="*{userName}" autofocus>
+							<br>
 							<p class="text-error"></p>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="label">Tên đăng nhập</div>
 						<div class="input">
-							<input type="text" id="slug" placeholder="Email đăng nhập"
-								maxlength="30" readonly> <br>
+							<input th:field="*{email}" type="text" id="slug"
+								placeholder="Email đăng nhập" maxlength="30" readonly> <br>
 							<p class="text-error"></p>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="label">Gửi tới</div>
 						<div class="input">
-							<input type="text" placeholder="Địa chỉ email nhận" id="email">
+							<input th:field="*{sendToEmail}" type="email"
+								autocomplete="email" placeholder="Địa chỉ email nhận" id="email">
 							<br>
 							<p class="text-error"></p>
 						</div>
@@ -32,44 +37,104 @@
 					<div class="form-group">
 
 						<div class="label">
-							<input onclick="validateForm(this)" class="btn btn-primary"
-								type="submit">
+							<input onclick="validateFormAndSendEmail(this)"
+								class="btn btn-primary" type="submit" value="Tạo">
 						</div>
 					</div>
 				</form>
 			</div>
 			<div class="right">
 				<div class="eh-header-title sub">Danh sach tai khoan</div>
-				<div class="table-container">
-					<table>
-						<tr>
-							<th class="stt">STT</th>
-							<th class="avt"></th>
-							<th class="name">Họ tên</th>
-							<th class="email">Tên tài khoản</th>
-							<th class="act" colspan="">Thao tác</th>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><img src="" alt=""></td>
-							<td>Nguyễn Văn A</td>
-							<td>trieuanhtuan.eduhub@hunre.edu.vn</td>
-							<td><a href="" class="btn btn-primary"
-								title="Đặt lại mật khẩu"> <i class="fa-solid fa-rotate"></i>
-							</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><img src="" alt=""></td>
-							<td>Nguyễn Văn A</td>
-							<td>trieuanhtuan.eduhub@hunre.edu.vn</td>
-							<td><a href="" class="btn btn-primary"
-								title="Đặt lại mật khẩu"> <i class="fa-solid fa-rotate"></i>
-							</a></td>
-						</tr>
-					</table>
-				</div>
+				<th:block th:if="${totalPages <= 0}">
+					<p class="text-alert text-center">Chưa có tài khoản giảng viên nào</p>
+				</th:block>
+				<th:block th:if="${totalPages >= 1}">
+
+					<div class="table-container">
+						<table>
+							<tr>
+								<th class="stt">STT</th>
+								<th class="avt"></th>
+								<th class="name">Họ tên</th>
+								<th class="email">Tên tài khoản</th>
+								<th class="act" colspan="2">Thao tác</th>
+							</tr>
+							<tr th:each="t,i : ${tosPage}">
+								<td th:text="${i.count}">1</td>
+								<td><img th:src="@{'/img/lecturer/' + ${t.user.avt}}"
+									alt=""></td>
+								<td th:text="${t.user.userName}"></td>
+								<td th:text="${t.user.email}"></td>
+								<td><a
+									th:href="@{'/school-admin/' + ${domain} + '/quan-ly-tai-khoan/giang-vien/dat-lai-mat-khau?id=' + ${t.user.id} }"
+									class="btn btn-primary" title="Đặt lại mật khẩu"> <i
+										class="fa-solid fa-rotate"></i>
+								</a></td>
+								<td><a
+									th:href="@{'/school-admin/' + ${domain} + '/quan-ly-tai-khoan/giang-vien/xoa?id=' + ${t.id} }"
+									class="btn btn-delete"> <i class="fa-solid fa-x"></i>
+								</a></td>
+							</tr>
+
+
+						</table>
+					</div>
+
+					<div class="page">
+						<ul>
+							<li th:if="${totalPages > 1}"
+								th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+								th:unless="${pageNumber == 0}"><a
+								th:href="${pageNumber == page} ? '#!' : @{'/school-admin/' + ${domain} + '/quan-ly-tai-khoan/giang-vien?page=' + ${pageNumber} }"
+								th:text="${pageNumber}"
+								th:class="${pageNumber == page} ? 'page-active' : ''"></a></li>
+						</ul>
+					</div>
+
+				</th:block>
+
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/sweetalert2.all.min.js}"></script>
+
+<script th:if="${param.sent}" th:inline="javascript">
+		
+		document.addEventListener('DOMContentLoaded', function() {
+			setTimeout(()=>{
+				Swal.fire({
+					icon : "success",
+					title : "Lưu thành công, thông tin tài khoản đã được gửi qua email",
+					showConfirmButton : false,
+					timer : 1800
+				});
+			}, 800)
+		    });
+	</script>
+
+<script th:if="${param.deleted}" th:inline="javascript">
+		
+	document.addEventListener('DOMContentLoaded', function() {
+		setTimeout(()=>{
+			const Toast = Swal.mixin({
+				  toast: true,
+				  position: "top-end",
+				  showConfirmButton: false,
+				  timer: 1800,
+				  timerProgressBar: true,
+				  didOpen: (toast) => {
+				    toast.onmouseenter = Swal.stopTimer;
+				    toast.onmouseleave = Swal.resumeTimer;
+				  }
+				});
+				Toast.fire({
+				  icon: "success",
+				  title: "Đã xóa tài khoản"
+				});
+			}, 800)
+	    });
+</script>
+
+
