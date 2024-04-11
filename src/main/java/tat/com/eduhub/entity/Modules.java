@@ -45,6 +45,17 @@ public class Modules extends BaseEntity{
 	
 	@Column(name = "self_study")
 	private int selfStudy;
+	
+	@OneToMany(mappedBy = "modules", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<KnowledgeModule> knowledgeModules;
+
+	public List<KnowledgeModule> getKnowledgeModules() {
+		return knowledgeModules;
+	}
+
+	public void setKnowledgeModules(List<KnowledgeModule> knowledgeModules) {
+		this.knowledgeModules = knowledgeModules;
+	}
 
 	public School getSchool() {
 		return school;

@@ -1,10 +1,14 @@
 package tat.com.eduhub.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -61,6 +65,17 @@ public class TrainingProgram extends BaseEntity{
 	
 	@Column(name = "graduating_cohort", columnDefinition = "LONGTEXT")
 	private String graduatingCohort;
+	
+	@OneToMany(mappedBy = "trainingProgram", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ProgramContent> programContents;
+
+	public List<ProgramContent> getProgramContents() {
+		return programContents;
+	}
+
+	public void setProgramContents(List<ProgramContent> programContents) {
+		this.programContents = programContents;
+	}
 
 	public School getSchool() {
 		return school;
