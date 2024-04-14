@@ -1,0 +1,82 @@
+#facultyAssignment_wrapper{
+	font-size: 14px;
+}
+
+.faculty-assignment{
+	background: white;
+}
+
+.faculty-assignment .dataTables_length{
+	padding: 5px 0;
+}
+
+.faculty-assignment table{
+	width: 100%;
+	font-size: 14px;
+}
+
+.faculty-assignment table tr th{
+	font-size: 15px;
+	font-weight: 100;
+	padding: 10px;
+	background: var(--primary-color);
+	color: white;
+	text-align: left;
+}
+
+.faculty-assignment table tr td{
+	padding: 5px 10px;
+}
+
+.faculty-assignment table .stt{
+	width: 5%;
+	text-align: center;
+}
+
+.faculty-assignment table .act{
+	width: 10%;
+	text-align: center;
+}
+
+.faculty-assignment table .lecturer{
+	width: 15%;
+}
+
+.faculty-assignment table .btn{
+	padding: 5px 10px;
+	margin: 10px;
+}
+
+.faculty-assignment table .btn.btn-primary{
+	background: white;
+	color: var(--primary-color);
+	border: 1px solid var(--primary-color);
+	transition: all .3s ease;
+}
+
+.faculty-assignment table .btn.btn-primary:hover{
+	background:  var(--primary-color);color : white;
+}
+
+.faculty-assignment table tr:nth-child(2n+1){
+	background:  var(--bg-silver);color : black;
+}
+
+.faculty-assignment table .status{
+	width: 8%;
+	text-align: center;
+}
+
+.faculty-assignment table .status i{
+	font-size: 20px;
+	color: var(--primary-color);
+}
+
+.rate-of-progress{
+	padding: 10px 50px;
+	text-align: right;
+}
+
+#facultyAssignment .status{
+	width: 10%;
+}

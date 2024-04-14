@@ -1,0 +1,92 @@
+
+<div class="right-body list-training-program">
+	<div class="body-content r-content">
+		<div class="eh-header-title">Danh Sách Chương Trình Đào Tạo</div>
+		<!-- <div class="form-search-tp">
+			<form action="">
+				<input type="text" name="" id=""
+					placeholder="Nhập tên chương trình đào tạo muốn tìm kiếm..."
+					class="input-search-tp" style="">
+			</form>
+		</div> -->
+		<div class="list-tp">
+			<!-- <div class="row-tp">
+				<a th:each="tp : ${list}" th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/chinh-sua?id=' + ${tp.id} }" class="tp-item">
+					<div class="">
+						<div class="tp-item-image">
+							<img th:src="@{/img/tp.png}" alt="">
+						</div>
+						<p class="tp-item-name" th:text="${tp.name}"></p>
+						<p class="tp-item-status">
+							<span>Trạng Thái: </span><span class="status">Đã công bố</span>
+						</p>
+					</div>
+				</a> 
+			</div> -->
+
+			<div>
+				<table cellspacing="1" id="tableListTp">
+					<thead>
+						<tr>
+							<th class="stt">STT</th>
+							<th class="name">Chương trình đào tạo</th>
+							<th class="status">Trạng thái</th>
+							<th class="rate-of-progress">Tiến độ</th>
+							<th class="act">Xem</th>
+							<th class="act">Sửa</th>
+							<th class="act">Xóa</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="tp,i : ${list}">
+							<td class="stt" th:text="${i.count}">1</td>
+							<td class="name" th:text="${tp.name}">Tên chương trình đào tạo</td>
+							<td class="status">Chưa hoàn thành</td>
+							<td class="rate-of-progress">100%</td>
+							<td class="act">
+								<a href="" class="btn btn-view">
+									<i class="fa-solid fa-eye"></i>
+								</a>
+							</td>
+							<td class="act">
+								<a th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/chinh-sua?id=' + ${tp.id} }" class="btn btn-edit">
+									<i class="fa-solid fa-pen-to-square"></i>
+								</a>
+							</td>
+							<td class="act">
+								<a th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/xoa?id=' + ${tp.id} }" class="btn btn-minus" onclick="deleteTrainingProgram(this)">
+									<i class="fa-solid fa-minus"></i>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script th:if="${param.deleted}" th:inline="javascript">
+		
+document.addEventListener('DOMContentLoaded', function() {
+	setTimeout(()=>{
+		const Toast = Swal.mixin({
+			  toast: true,
+			  position: "top-end",
+			  showConfirmButton: false,
+			  timer: 1800,
+			  timerProgressBar: true,
+			  didOpen: (toast) => {
+			    toast.onmouseenter = Swal.stopTimer;
+			    toast.onmouseleave = Swal.resumeTimer;
+			  }
+			});
+			Toast.fire({
+			  icon: "success",
+			  title: "Xóa thành công!"
+			});
+		}, 800)
+    });
+	</script>
+
+
