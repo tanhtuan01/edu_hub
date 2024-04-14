@@ -220,7 +220,7 @@
 .semester-body table{
 	width: 100%;
 	font-size: var(--text-size14);
-	border: 1px solid var(--bg-silver);
+	border-color: var(--bg-silver);
 }
 
 .semester-body table tr th, .semester-body table tr td{
@@ -282,4 +282,303 @@
 
 .s-table form select option{
 	font-size: 18px;
+}
+
+
+
+/* LIST TRAINING PROGRAM */
+
+.list-training-program input.input-search-tp{
+	padding: 8px 10px; width: 100%;
+}
+
+
+.list-tp .row-tp{
+	display: flex;
+	flex-wrap: wrap;
+	background: white;
+	padding: 10px 0;
+}
+
+.list-tp .row-tp .tp-item{
+	width: calc(100% / 5);
+	padding: 10px;
+	border: 1px solid var(--bg-silver);
+	transition: all .5s ease;
+	font-size: 14px;
+	color: black;
+	min-height: 270px;
+}
+
+.list-tp .tp-item .tp-item-image img{
+	width: 80%;
+	display: block;
+	margin: auto;
+	filter: drop-shadow(3px 3px var(--primary-color));
+}
+
+.list-tp .tp-item-image {
+	margin: 0 0 10px 0;
+}
+
+.list-tp .row-tp .tp-item:hover{
+	border: 1px solid silver;
+}
+
+.tp-item-name{
+    display: -webkit-box;
+    margin-bottom: 4px;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: normal;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.tp-item-status .status{
+	color: var(--primary-color);
+}
+
+.slick-arrow{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 10;
+	width: fit-content;
+	border-radius: 50px;
+
+	border: 1px solid var(--bg-silver);
+	background: var(--primary-color);
+	color: white;
+}
+
+.slick-arrow.btn-slick-prev{
+	right: -12px;
+}
+
+.slick-arrow.btn-slick-next{
+	left: -12px;
+}
+
+.slick-arrow i{
+	font-size: 40px;
+	border-radius: 50%;
+	transition: all .5s ease;
+}
+
+.slick-arrow:hover i{
+	background: white;
+	color: var(--primary-color);
+}
+
+.slick-dots{
+	padding: 5px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.slick-dots li button{
+	border-radius: 50%;
+	padding: 5px 10px;
+	border: none;
+	border: 1px solid silver;
+	transition: all .5s linear;
+	background: white;
+	color: black;
+	margin: 0 2px;
+}
+.slick-dots .slick-active button{
+	background: var(--primary-color);
+	color: white;
+	border: none;
+	padding: 6px 11px;
+}
+
+.modal-mk {
+	position: absolute;
+	z-index:50;
+	top: 10vh;
+	width: 50vw;
+	height: 80vh;
+	background: var(--primary-color);
+	display: block;
+	right: -100%;
+	transition: right 1s ease;
+	border: 1px solid var(--primary-color);
+}
+.modal-mk.active{
+	right:0;
+}
+
+.modal-mk .list h1{
+	font-size: 16px;
+	text-transform: uppercase;
+	color: white;
+	font-weight: normal;
+	padding: 10px 20px;
+}
+
+.modal-mk .add-module-knowledgearea{
+	height: 100%;
+}
+
+.modal-mk .list{
+	height: calc(100% - 50px);
+}
+
+.modal-mk .list form {
+	height: 88%;
+	
+}
+
+.modal-mk .list form .table-container{
+	width: 100%;
+	overflow: auto;
+	max-height: 96%;
+	height: 95%;
+}
+
+.modal-mk .list form table{
+	width: 100%;
+	text-align: left;
+	padding: 5px 20px;
+	font-size: 14px;
+}
+
+.modal-mk .list form table tr th{
+	font-weight: 100;
+	padding: 8px 10px;
+	font-size: 15px;
+}
+
+.modal-mk .list form table caption{
+	font-size: 17px;
+	text-transform: uppercase;
+}
+
+.modal-mk .list form table tr td{
+
+	padding: 5px 10px;
+}
+
+.modal-mk .list form table tr th.stt{
+	width: 5%;
+}
+
+.modal-mk .list form table tr{
+		border: 1px solid white;
+}
+
+.modal-mk .list form table tr th.cb{
+	width: 3%;
+}
+
+.modal-mk .list form table tr.first-row{
+	background: white;
+}
+
+.modal-mk .list form table tr:nth-child(2n+2){
+	background: var(--bg-silver);
+}
+
+.modal-mk .list form .btn{
+	background: var(--secornd-color);
+	color: white;
+	margin-top: 2%;
+	margin-left: 2%;
+	width: fit-content;
+}
+
+.modal-mk .list form .btn:hover{
+	background: var(--primary-color);
+	border: 1px solid white;
+}
+.knowledge-parent span{
+	display: inline-block;
+	width: 500px;
+	font-size: 15px;
+	padding: 5px;
+	border-bottom: 1px solid var(--primary-color);
+	
+}
+.sub-knowledge{
+	padding: 3px;
+}
+.sub-knowledge .delete{
+	padding: 0 10px;
+}
+
+.sub-knowledge .delete i{
+	color: red;
+}
+
+.s-table caption{
+	padding: 10px;
+	font-size: 20px;
+}
+
+#tableListTp tr .rate-of-progress{
+	width: 6%!important;
+	text-align: center;
+}
+#tableListTp tr .status{
+	width: 12% !important;
+	text-align: center;
+}
+
+.list-training-program table{
+	width: 100%;
+	background: white;
+	font-size: 14px;
+	cursor: default;
+}
+
+.list-training-program table tr th{
+	font-weight: 100;
+	padding: 10px;
+	text-align: left;
+	background: var(--primary-color);
+	color: white;
+}
+
+.list-training-program table tr td{
+	padding: 5px 10px;
+		border: 1px solid var(--bg-silver);
+}
+
+.list-training-program table tr .stt, .list-training-program table tr .act{
+	width: 5%;
+	text-align: center;
+}
+
+.list-tp{
+	background: white;
+	padding: 10px 0;
+}
+
+.list-tp #tableListTp_wrapper{
+	font-size: 14px;
+}
+
+.list-tp .dataTables_length{
+	padding: 5px 0;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+	transition: all .3s ease;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+	background: var(--primary-color)!important;
+    color: white !important;
+     border-color:  var(--bg-silver)!important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:focus{
+	border-color:  red!important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover{
+	background: none !important;
 }

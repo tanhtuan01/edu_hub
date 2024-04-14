@@ -145,20 +145,20 @@ function createEditor(selector, text) {
 
 setProgram()
 
-function setProgram(){
-	if(!document.getElementById("tpItem")){
+function setProgram() {
+	if (!document.getElementById("tpItem")) {
 		return
 	}
 	var tpItem = document.getElementById("tpItem").value
-	
+
 	var iActive = document.querySelectorAll(".i.active")
 	iActive.forEach((i) => {
 		i.classList.remove("active")
 	})
-	
+
 	var selectorItem = `.i.i${tpItem}`
 	document.querySelector(selectorItem).classList.add("active")
-	
+
 	var selectorForm = `.form-content.i-${tpItem}`
 	var formContent = document.querySelectorAll(".form-content")
 
@@ -182,6 +182,8 @@ function changeProgram(e) {
 	var i = e.dataset.stt
 	var layout = `i-${i}`
 	var selector = `.form-content.${layout}`
+
+	document.getElementById("tpItemValue").value = i
 
 	var formContent = document.querySelectorAll(".form-content")
 
@@ -209,7 +211,7 @@ function nextOrPrevious(act, e) {
 	} else {
 		--i
 	}
-
+	document.getElementById("tpItemValue").value = i
 	var iActive = document.querySelectorAll(".i.active")
 	iActive.forEach((i) => {
 		i.classList.remove("active")
@@ -370,4 +372,118 @@ function checkInputSemester() {
 		}
 
 	}
+}
+
+function addModuleKnowledgeArea(e) {
+	console.log(e);
+	document.body.style.overflow = "hidden";
+	var modal = document.querySelector(".modal-mk");
+	modal.style.display = 'block';
+	var knowledgeArea = e.dataset.name
+	var id = e.dataset.id
+	modal.querySelector(".eh-header-title").innerHTML = 'Thêm Học Phần Cho: ' + knowledgeArea + '<a class="btn btn-primary" onclick="closeModal(this)">Đóng</a>'
+	var knowledgeID = document.getElementById("knowledgeID")
+	knowledgeID.value = id
+	setTimeout(function() {
+		modal.classList.add('active');
+	}, 10);
+}
+
+function closeModal(e) {
+	var modal = e.closest(".modal")
+	setTimeout(function() {
+		modal.classList.remove('active');
+	}, 10);
+}
+
+function programContentDelete(e) {
+	event.preventDefault()
+	var baseUrl = window.location.origin;
+	var href = e.getAttribute("href")
+	var url = baseUrl + href
+	console.log(baseUrl + href)
+	var module = e.closest(".sub-knowledge").querySelector("span").textContent
+	var knowledgeArea = e.closest(".knowledge").querySelector(".knowledge-parent span").textContent
+	Swal.fire({
+		title: "Xác nhận xóa?",
+		text: "Bạn có chắc muốn xóa: " + module + " trong khối " + knowledgeArea + " ?",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#57D45A",
+		cancelButtonColor: "#d33",
+		confirmButtonText: "Xóa!",
+		cancelButtonText: "Hủy"
+	}).then((result) => {
+		if (result.isConfirmed) {
+			window.location.href = url
+		}
+	});
+}
+
+function deleteModuleKnowledgeArea(e){
+	var knowledgeArea = e.dataset.name
+	var id = e.dataset.id
+	var href = e.getAttribute("href")
+	var baseUrl = window.location.origin;
+	var url = baseUrl + href + '?id=' +id
+	Swal.fire({
+		title: "Xác nhận xóa?",
+		text: "Bạn có chắc muốn xóa khối học phần: " + knowledgeArea,
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#57D45A",
+		cancelButtonColor: "#d33",
+		confirmButtonText: "Xóa!",
+		cancelButtonText: "Hủy"
+	}).then((result) => {
+		if (result.isConfirmed) {
+			window.location.href = url
+		}
+	});
+}
+
+function deleteModuleInSemester(e){
+	event.preventDefault()
+
+	var href = e.getAttribute("href")
+	var baseUrl = window.location.origin;
+	var url = baseUrl + href 
+	var module = e.dataset.name
+	var semester = e.dataset.semester
+	Swal.fire({
+		title: "Xác nhận xóa?",
+		text: "Bạn có chắc muốn xóa học phần: " + module +" trong học kỳ: " + semester,
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#57D45A",
+		cancelButtonColor: "#d33",
+		confirmButtonText: "Xóa!",
+		cancelButtonText: "Hủy"
+	}).then((result) => {
+		if (result.isConfirmed) {
+			window.location.href = url
+		}
+	});
+}
+
+function deleteTrainingProgram(e){
+	event.preventDefault()
+	var href = e.getAttribute("href")
+	var baseUrl = window.location.origin;
+	var url = baseUrl + href 
+	var name = e.closest("tr").querySelector(".name").textContent
+	Swal.fire({
+		title: "Xác nhận xóa?",
+		text: "Bạn có chắc muốn xóa chương trình đào tạo: " + name,
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#57D45A",
+		cancelButtonColor: "#d33",
+		confirmButtonText: "Xóa!",
+		cancelButtonText: "Hủy"
+	}).then((result) => {
+		if (result.isConfirmed) {
+			window.location.href = url
+		}
+	});
 }

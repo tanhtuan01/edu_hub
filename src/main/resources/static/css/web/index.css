@@ -492,5 +492,5 @@ border-radius: 3px;
 
 .eh-footer{
     height: 100px;
-    background: red;
+    background: var(--primary-color);
 }

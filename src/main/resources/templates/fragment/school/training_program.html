@@ -1,5 +1,5 @@
 <div class="right-body">
-<input type="hidden" id="tpItem" value="3">
+	<input type="hidden" id="tpItem" th:value="${tpItem}">
 	<div class="body-content r-content">
 		<div class="replace">
 			<div class="ctdt-content-first">
@@ -10,6 +10,8 @@
 				<form
 					th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/luu'}"
 					method="post" th:object="${tp}">
+					<input type="hidden" id="tpItemValue" name="tpItemValue" value="1">
+					<input type="hidden" th:field="*{id}">
 					<div class="eh-ctdt">
 						<div class="ctdt-menu">
 							<ul>
@@ -41,6 +43,10 @@
 										<div class="i i7">7</div>
 										<div>Phân phối môn học</div>
 								</a></li>
+								<li><a th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/phan-cong-giang-vien' }">
+										<div class="i i8"><i class="fa-solid fa-feather"></i></div>
+										<div>Phân công giảng viên</div>
+								</a></li>
 							</ul>
 						</div>
 						<div class="ctdt-form">
@@ -66,43 +72,45 @@
 										<div class="label">Tên chương trình:</div>
 										<div class="input">
 											<input type="text" name="name" th:field="*{name}" id=""
-												placeholder="Tên chương trình">
+												placeholder="Nhập tên chương trình đào tạo..."
+												required="required">
 										</div>
 									</div>
 									<div class="form-group">
 										<div class="label">Trình độ đào tạo:</div>
 										<div class="input">
-											<select name="" id="">
-												<option value="">Đại học</option>
-												<option value="">Cao đẳng</option>
+											<select name="" id="" th:field="*{level}">
+												<option value="level_undergraduate">Đại học</option>
+												<option value="level_master_degree">Thạc sĩ</option>
+												<option value="level_doctorate">Tiến sĩ</option>
 											</select>
 										</div>
 									</div>
 									<div class="form-group">
-										<div class="label">Ngành đào tạo:</div>
+										<div class="label">Chuyên ngành đào tạo:</div>
 										<div class="input">
-											<select name="" id="">
-												<option value="">...</option>
-												<option value="">...</option>
+											<select name="" th:field="*{idMajor}">
+												<option th:each="m: ${major}" th:value="${m.id}"
+													th:selected="${tp.idMajor == m.id}"
+													th:text="${m.majorName}"></option>
 											</select>
 										</div>
 									</div>
 									<div class="form-group">
-										<div class="label">Loại hình đào tạo:</div>
+										<div class="label">Loại hình, hình thức đào tạo:</div>
 										<div class="input">
-											<select name="" id="">
-												<option value="">Chính quy</option>
+											<select name="" id="" th:field="*{type}">
+												<option value="type_regular">Chính quy</option>
+												<option value="type_work_study">Vừa học vừa làm</option>
+												<option value="type_online_learning">Đào tạo từ xa</option>
 											</select>
 										</div>
 									</div>
 									<div class="form-group">
 										<div class="label">Khóa đào tạo:</div>
 										<div class="input">
-											<select name="" id="">
-												<option disabled></option>
-												<option value="">Đại học</option>
-												<option value="">Cử nhân</option>
-											</select>
+											<input type="text" placeholder="Nhập khóa đào tạo..."
+												th:field="*{cohort}">
 										</div>
 									</div>
 								</div>
@@ -234,10 +242,9 @@
 												<input th:field="*{numberOfSemesters}" value=""
 													type="number" min="0" max="10" name="semesterValue"
 													onkeydown="checkInputNumber(event)" id="inputSemester"
-													placeholder="Tên chương trình"
-													>
-													
-													<!-- <input th:field="*{numberOfSemesters}" value=""
+													placeholder="Tên chương trình">
+
+												<!-- <input th:field="*{numberOfSemesters}" value=""
 													type="number" min="0" max="10" name="semesterValue"
 													onkeydown="checkInputNumber(event)" id="inputSemester"
 													placeholder="Tên chương trình"
@@ -284,43 +291,32 @@
 								</div>
 				</form>
 				<div class="form-content-body">
-					<div class="form-group">
-						<input type="text" name="" id="" placeholder="Khối kiến thức">
-						<button type="button" class="btn">Thêm khối kiến thức</button>
-					</div>
+					<form th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/them-khoi-kien-thuc' }" method="post">
+						<div class="form-group">
+
+							<input type="text" name="khoiKienThuc" id="" placeholder="Nhập khối kiến thức..." required>
+							<button type="submit" class="btn">Thêm khối kiến thức</button>
+
+						</div>
+					</form>
 					<div class="box-knowledge-base">
-						<div class="knowledge">
+						<div class="knowledge" th:if="${programContent != null}" th:each="pc: ${programContent}">
 							<div class="knowledge-parent">
-								- Khối kiến thức Parent
-								<button type="button" class="pointer">
+								<span th:text="'- ' + ${pc.knowledgeArea}"></span>
+								<button type="button" class="pointer" th:attr="data-id=${pc.id}, data-name=${pc.knowledgeArea}" onclick="addModuleKnowledgeArea(this)">
 									<i class="fa-solid fa-plus"></i>
 								</button>
-								<button type="button" class="pointer">
+								<button type="button" class="pointer"  th:attr="data-id=${pc.id}, data-name=${pc.knowledgeArea}" onclick="deleteModuleKnowledgeArea(this)" th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/pg-xoa' }">
 									<i class="fa-solid fa-minus"></i>
 								</button>
 							</div>
 							<div class="sub-knowledge-container">
-								<div class="sub-knowledge">
-									<i class="fa-solid fa-circle-dot"></i> Khối kiến thức con
+								<div class="sub-knowledge" th:each="pcc : ${pc.knowledgeModules}">
+									<i class="fa-solid fa-circle-dot"></i> <span th:text="'Học phần: ' + ${pcc.modules.code} + ' / ' + ${pcc.modules.name} + ' (' + ${pcc.modules.credits} + ' tín chỉ)'"> Khối kiến thức con</span><a th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/pg-xoa-hp?id=' + ${pcc.id} }" onclick="programContentDelete(this)" class="delete" title="Xóa học phần"><i class="fa-solid fa-x"></i></a>
 								</div>
 							</div>
 						</div>
-						<div class="knowledge">
-							<div class="knowledge-parent">
-								- Khối kiến thức Parent
-								<button type="button" class="pointer">
-									<i class="fa-solid fa-plus"></i>
-								</button>
-								<button type="button" class="pointer">
-									<i class="fa-solid fa-minus"></i>
-								</button>
-							</div>
-							<div class="sub-knowledge-container">
-								<div class="sub-knowledge">
-									<i class="fa-solid fa-circle-dot"></i> Khối kiến thức con
-								</div>
-							</div>
-						</div>
+
 					</div>
 				</div>
 			</div>
@@ -382,12 +378,11 @@
 					</div>
 					<div class="semester-body">
 						<div class="s-table semester-table-1 hidden">
-							<form>
-								<input type="hidden" name="hocky" id="" value="1"> <select
-									name="" id="" class="btn-primary">
-									<option value="">Tên học phần</option>
-									<option value="">Tên học phần sad asdas asdd</option>
-									<option value="">Tên học phần</option>
+							<form method="POST" th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/them-hocphan-hocky' }">
+								<input type="hidden" name="semester" id="" value="1"> 
+								<select
+									name="idModule" id="" class="btn-primary">
+									<option th:each="km : ${knowledgeModule}" th:value="${km.modules.id}" th:text="${km.modules.name}">Tên học phần</option>
 								</select>
 								<button type="submit" class="btn btn-primary">
 									<i class="fa-solid fa-plus"></i> Thêm học phần
@@ -408,26 +403,29 @@
 									<th>Thực hành</th>
 									<th>Bài tập</th>
 								</tr>
-								<tr>
-									<td>1</td>
-									<td>2</td>
-									<td>3</td>
-									<td>4</td>
-									<td>5</td>
-									<td>6</td>
-									<td>7</td>
-									<td>8</td>
+								<tr th:each="s,i : ${sd}" th:if="${s.semester == 1}">
+									<td th:text="${i.count}">1</td>
+									<td th:text="${s.module.code}">2</td>
+									<td th:text="${s.module.name}">3</td>
+									<td th:text="${s.module.credits}">4</td>
+									<td th:text="${s.module.theory}">5</td>
+									<td th:text="${s.module.practise}">6</td>
+									<td th:text="${s.module.exercise}">7</td>
+									<td>
+										<a th:attr="data-name=${s.module.name}, data-semester=1" onclick="deleteModuleInSemester(this)" class="btn-minus" th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/hocky-xoa-hocphan?id=' +${s.id}  }">
+											<i class="fa-solid fa-minus"></i>
+										</a>
+									</td>
 								</tr>
 
 							</table>
 						</div>
 						<div class="s-table semester-table-2 hidden">
-							<form action="">
-								<input type="hidden" name="hocky" id="" value="2"> <select
-									name="" id="" class="btn-primary">
-									<option value="">Tên học phần</option>
-									<option value="">Tên học phần sad asdas asdd</option>
-									<option value="">Tên học phần</option>
+							<form method="POST" th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/them-hocphan-hocky' }">
+								<input type="hidden" name="semester" id="" value="2"> 
+								<select
+									name="idModule" id="" class="btn-primary">
+									<option th:each="km : ${knowledgeModule}" th:value="${km.modules.id}" th:text="${km.modules.name}">Tên học phần</option>
 								</select>
 								<button type="submit" class="btn btn-primary">
 									<i class="fa-solid fa-plus"></i> Thêm học phần
@@ -448,26 +446,29 @@
 									<th>Thực hành</th>
 									<th>Bài tập</th>
 								</tr>
-								<tr>
-									<td>1</td>
-									<td>2</td>
-									<td>3</td>
-									<td>4</td>
-									<td>5</td>
-									<td>6</td>
-									<td>7</td>
-									<td>8</td>
+								<tr th:each="s,i : ${sd}" th:if="${s.semester == 2}">
+									<td th:text="${i.count}">1</td>
+									<td th:text="${s.module.code}">2</td>
+									<td th:text="${s.module.name}">3</td>
+									<td th:text="${s.module.credits}">4</td>
+									<td th:text="${s.module.theory}">5</td>
+									<td th:text="${s.module.practise}">6</td>
+									<td th:text="${s.module.exercise}">7</td>
+									<td>
+										<a th:attr="data-name=${s.module.name}, data-semester=2" onclick="deleteModuleInSemester(this)" class="btn-minus" th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/hocky-xoa-hocphan?id=' +${s.id} }">
+											<i class="fa-solid fa-minus"></i>
+										</a>
+									</td>
 								</tr>
 
 							</table>
 						</div>
 						<div class="s-table semester-table-3 hidden">
-							<form action="">
-								<input type="hidden" name="hocky" id="" value="3"> <select
-									name="" id="" class="btn-primary">
-									<option value="">Tên học phần</option>
-									<option value="">Tên học phần sad asdas asdd</option>
-									<option value="">Tên học phần</option>
+							<form method="POST" th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/them-hocphan-hocky' }">
+								<input type="hidden" name="semester" id="" value="3"> 
+								<select
+									name="idModule" id="" class="btn-primary">
+									<option th:each="km : ${knowledgeModule}" th:value="${km.modules.id}" th:text="${km.modules.name}">Tên học phần</option>
 								</select>
 								<button type="submit" class="btn btn-primary">
 									<i class="fa-solid fa-plus"></i> Thêm học phần
@@ -488,26 +489,29 @@
 									<th>Thực hành</th>
 									<th>Bài tập</th>
 								</tr>
-								<tr>
-									<td>1</td>
-									<td>2</td>
-									<td>3</td>
-									<td>4</td>
-									<td>5</td>
-									<td>6</td>
-									<td>7</td>
-									<td>8</td>
+								<tr th:each="s,i : ${sd}" th:if="${s.semester == 3}">
+									<td th:text="${i.count}">1</td>
+									<td th:text="${s.module.code}">2</td>
+									<td th:text="${s.module.name}">3</td>
+									<td th:text="${s.module.credits}">4</td>
+									<td th:text="${s.module.theory}">5</td>
+									<td th:text="${s.module.practise}">6</td>
+									<td th:text="${s.module.exercise}">7</td>
+									<td>
+										<a th:attr="data-name=${s.module.name}, data-semester=3" onclick="deleteModuleInSemester(this)" class="btn-minus" th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/hocky-xoa-hocphan?id=' +${s.id} }">
+											<i class="fa-solid fa-minus"></i>
+										</a>
+									</td>
 								</tr>
 
 							</table>
 						</div>
 						<div class="s-table semester-table-4 hidden">
-							<form action="">
-								<input type="hidden" name="hocky" id="" value="4"> <select
-									name="" id="" class="btn-primary">
-									<option value="">Tên học phần</option>
-									<option value="">Tên học phần sad asdas asdd</option>
-									<option value="">Tên học phần</option>
+							<form method="POST" th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/them-hocphan-hocky' }">
+								<input type="hidden" name="semester" id="" value="4"> 
+								<select
+									name="idModule" id="" class="btn-primary">
+									<option th:each="km : ${knowledgeModule}" th:value="${km.modules.id}" th:text="${km.modules.name}">Tên học phần</option>
 								</select>
 								<button type="submit" class="btn btn-primary">
 									<i class="fa-solid fa-plus"></i> Thêm học phần
@@ -528,26 +532,29 @@
 									<th>Thực hành</th>
 									<th>Bài tập</th>
 								</tr>
-								<tr>
-									<td>1</td>
-									<td>2</td>
-									<td>3</td>
-									<td>4</td>
-									<td>5</td>
-									<td>6</td>
-									<td>7</td>
-									<td>8</td>
+								<tr th:each="s,i : ${sd}" th:if="${s.semester == 4}">
+									<td th:text="${i.count}">1</td>
+									<td th:text="${s.module.code}">2</td>
+									<td th:text="${s.module.name}">3</td>
+									<td th:text="${s.module.credits}">4</td>
+									<td th:text="${s.module.theory}">5</td>
+									<td th:text="${s.module.practise}">6</td>
+									<td th:text="${s.module.exercise}">7</td>
+									<td>
+										<a th:attr="data-name=${s.module.name}, data-semester=4" onclick="deleteModuleInSemester(this)" class="btn-minus" th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/hocky-xoa-hocphan?id=' +${s.id} }">
+											<i class="fa-solid fa-minus"></i>
+										</a>
+									</td>
 								</tr>
 
 							</table>
 						</div>
 						<div class="s-table semester-table-5 hidden">
-							<form action="">
-								<input type="hidden" name="hocky" id="" value="5"> <select
-									name="" id="" class="btn-primary">
-									<option value="">Tên học phần</option>
-									<option value="">Tên học phần sad asdas asdd</option>
-									<option value="">Tên học phần</option>
+							<form method="POST" th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/them-hocphan-hocky' }">
+								<input type="hidden" name="semester" id="" value="5"> 
+								<select
+									name="idModule" id="" class="btn-primary">
+									<option th:each="km : ${knowledgeModule}" th:value="${km.modules.id}" th:text="${km.modules.name}">Tên học phần</option>
 								</select>
 								<button type="submit" class="btn btn-primary">
 									<i class="fa-solid fa-plus"></i> Thêm học phần
@@ -568,26 +575,28 @@
 									<th>Thực hành</th>
 									<th>Bài tập</th>
 								</tr>
-								<tr>
-									<td>1</td>
-									<td>2</td>
-									<td>3</td>
-									<td>4</td>
-									<td>5</td>
-									<td>6</td>
-									<td>7</td>
-									<td>8</td>
+								<tr th:each="s,i : ${sd}" th:if="${s.semester == 5}">
+									<td th:text="${i.count}">1</td>
+									<td th:text="${s.module.code}">2</td>
+									<td th:text="${s.module.name}">3</td>
+									<td th:text="${s.module.credits}">4</td>
+									<td th:text="${s.module.theory}">5</td>
+									<td th:text="${s.module.practise}">6</td>
+									<td th:text="${s.module.exercise}">7</td>
+									<td>
+										<a th:attr="data-name=${s.module.name}, data-semester=5" onclick="deleteModuleInSemester(this)" class="btn-minus" th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/hocky-xoa-hocphan?id=' +${s.id} }">
+											<i class="fa-solid fa-minus"></i>
+										</a>
+									</td>
 								</tr>
-
 							</table>
 						</div>
 						<div class="s-table semester-table-6 hidden">
-							<form action="">
-								<input type="hidden" name="hocky" id="" value="6"> <select
-									name="" id="" class="btn-primary">
-									<option value="">Tên học phần</option>
-									<option value="">Tên học phần sad asdas asdd</option>
-									<option value="">Tên học phần</option>
+							<form method="POST" th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/them-hocphan-hocky' }">
+								<input type="hidden" name="semester" id="" value="6"> 
+								<select
+									name="idModule" id="" class="btn-primary">
+									<option th:each="km : ${knowledgeModule}" th:value="${km.modules.id}" th:text="${km.modules.name}">Tên học phần</option>
 								</select>
 								<button type="submit" class="btn btn-primary">
 									<i class="fa-solid fa-plus"></i> Thêm học phần
@@ -608,26 +617,28 @@
 									<th>Thực hành</th>
 									<th>Bài tập</th>
 								</tr>
-								<tr>
-									<td>1</td>
-									<td>2</td>
-									<td>3</td>
-									<td>4</td>
-									<td>5</td>
-									<td>6</td>
-									<td>7</td>
-									<td>8</td>
+								<tr th:each="s,i : ${sd}" th:if="${s.semester == 6}">
+									<td th:text="${i.count}">1</td>
+									<td th:text="${s.module.code}">2</td>
+									<td th:text="${s.module.name}">3</td>
+									<td th:text="${s.module.credits}">4</td>
+									<td th:text="${s.module.theory}">5</td>
+									<td th:text="${s.module.practise}">6</td>
+									<td th:text="${s.module.exercise}">7</td>
+									<td>
+										<a th:attr="data-name=${s.module.name}, data-semester=6" onclick="deleteModuleInSemester(this)" class="btn-minus" th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/hocky-xoa-hocphan?id=' +${s.id} }">
+											<i class="fa-solid fa-minus"></i>
+										</a>
+									</td>
 								</tr>
-
 							</table>
 						</div>
 						<div class="s-table semester-table-7 hidden">
-							<form action="">
-								<input type="hidden" name="hocky" id="" value="7"> <select
-									name="" id="" class="btn-primary">
-									<option value="">Tên học phần</option>
-									<option value="">Tên học phần sad asdas asdd</option>
-									<option value="">Tên học phần</option>
+							<form method="POST" th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/them-hocphan-hocky' }">
+								<input type="hidden" name="semester" id="" value="7"> 
+								<select
+									name="idModule" id="" class="btn-primary">
+									<option th:each="km : ${knowledgeModule}" th:value="${km.modules.id}" th:text="${km.modules.name}">Tên học phần</option>
 								</select>
 								<button type="submit" class="btn btn-primary">
 									<i class="fa-solid fa-plus"></i> Thêm học phần
@@ -648,26 +659,28 @@
 									<th>Thực hành</th>
 									<th>Bài tập</th>
 								</tr>
-								<tr>
-									<td>1</td>
-									<td>2</td>
-									<td>3</td>
-									<td>4</td>
-									<td>5</td>
-									<td>6</td>
-									<td>7</td>
-									<td>8</td>
+								<tr th:each="s,i : ${sd}" th:if="${s.semester == 7}">
+									<td th:text="${i.count}">1</td>
+									<td th:text="${s.module.code}">2</td>
+									<td th:text="${s.module.name}">3</td>
+									<td th:text="${s.module.credits}">4</td>
+									<td th:text="${s.module.theory}">5</td>
+									<td th:text="${s.module.practise}">6</td>
+									<td th:text="${s.module.exercise}">7</td>
+									<td>
+										<a th:attr="data-name=${s.module.name}, data-semester=7" onclick="deleteModuleInSemester(this)" class="btn-minus" th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/hocky-xoa-hocphan?id=' +${s.id} }">
+											<i class="fa-solid fa-minus"></i>
+										</a>
+									</td>
 								</tr>
-
 							</table>
 						</div>
 						<div class="s-table semester-table-8 hidden">
-							<form action="">
-								<input type="hidden" name="hocky" id="" value="8"> <select
-									name="" id="" class="btn-primary">
-									<option value="">Tên học phần</option>
-									<option value="">Tên học phần sad asdas asdd</option>
-									<option value="">Tên học phần</option>
+							<form method="POST" th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/them-hocphan-hocky' }">
+								<input type="hidden" name="semester" id="" value="8"> 
+								<select
+									name="idModule" id="" class="btn-primary">
+									<option th:each="km : ${knowledgeModule}" th:value="${km.modules.id}" th:text="${km.modules.name}">Tên học phần</option>
 								</select>
 								<button type="submit" class="btn btn-primary">
 									<i class="fa-solid fa-plus"></i> Thêm học phần
@@ -688,16 +701,28 @@
 									<th>Thực hành</th>
 									<th>Bài tập</th>
 								</tr>
-
+								<tr th:each="s,i : ${sd}" th:if="${s.semester == 8}">
+									<td th:text="${i.count}">1</td>
+									<td th:text="${s.module.code}">2</td>
+									<td th:text="${s.module.name}">3</td>
+									<td th:text="${s.module.credits}">4</td>
+									<td th:text="${s.module.theory}">5</td>
+									<td th:text="${s.module.practise}">6</td>
+									<td th:text="${s.module.exercise}">7</td>
+									<td>
+										<a th:attr="data-name=${s.module.name}, data-semester=8" onclick="deleteModuleInSemester(this)" class="btn-minus" th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/hocky-xoa-hocphan?id=' +${s.id} }">
+											<i class="fa-solid fa-minus"></i>
+										</a>
+									</td>
+								</tr>
 							</table>
 						</div>
 						<div class="s-table semester-table-9 hidden">
-							<form action="">
-								<input type="hidden" name="hocky" id="" value="9"> <select
-									name="" id="" class="btn-primary">
-									<option value="">Tên học phần</option>
-									<option value="">Tên học phần sad asdas asdd</option>
-									<option value="">Tên học phần</option>
+							<form method="POST" th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/them-hocphan-hocky' }">
+								<input type="hidden" name="semester" id="" value="9"> 
+								<select
+									name="idModule" id="" class="btn-primary">
+									<option th:each="km : ${knowledgeModule}" th:value="${km.modules.id}" th:text="${km.modules.name}">Tên học phần</option>
 								</select>
 								<button type="submit" class="btn btn-primary">
 									<i class="fa-solid fa-plus"></i> Thêm học phần
@@ -718,16 +743,28 @@
 									<th>Thực hành</th>
 									<th>Bài tập</th>
 								</tr>
-
+								<tr th:each="s,i : ${sd}" th:if="${s.semester == 9}">
+									<td th:text="${i.count}">1</td>
+									<td th:text="${s.module.code}">2</td>
+									<td th:text="${s.module.name}">3</td>
+									<td th:text="${s.module.credits}">4</td>
+									<td th:text="${s.module.theory}">5</td>
+									<td th:text="${s.module.practise}">6</td>
+									<td th:text="${s.module.exercise}">7</td>
+									<td>
+										<a th:attr="data-name=${s.module.name}, data-semester=9" onclick="deleteModuleInSemester(this)" class="btn-minus" th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/hocky-xoa-hocphan?id=' +${s.id} }">
+											<i class="fa-solid fa-minus"></i>
+										</a>
+									</td>
+								</tr>
 							</table>
 						</div>
 						<div class="s-table semester-table-10 hidden">
-							<form action="">
-								<input type="hidden" name="hocky" id="" value="10"> <select
-									name="" id="" class="btn-primary">
-									<option value="">Tên học phần</option>
-									<option value="">Tên học phần sad asdas asdd</option>
-									<option value="">Tên học phần</option>
+							<form method="POST" th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/them-hocphan-hocky' }">
+								<input type="hidden" name="semester" id="" value="10"> 
+								<select 
+									name="idModule" id="" class="btn-primary">
+									<option th:each="km : ${knowledgeModule}" th:value="${km.modules.id}" th:text="${km.modules.name}">Tên học phần</option>
 								</select>
 								<button type="submit" class="btn btn-primary">
 									<i class="fa-solid fa-plus"></i> Thêm học phần
@@ -748,17 +785,20 @@
 									<th>Thực hành</th>
 									<th>Bài tập</th>
 								</tr>
-								<tr>
-									<td>1</td>
-									<td>2</td>
-									<td>3</td>
-									<td>4</td>
-									<td>5</td>
-									<td>6</td>
-									<td>7</td>
-									<td>8</td>
+								<tr th:each="s,i : ${sd}" th:if="${s.semester == 10}">
+									<td th:text="${i.count}">1</td>
+									<td th:text="${s.module.code}">2</td>
+									<td th:text="${s.module.name}">3</td>
+									<td th:text="${s.module.credits}">4</td>
+									<td th:text="${s.module.theory}">5</td>
+									<td th:text="${s.module.practise}">6</td>
+									<td th:text="${s.module.exercise}">7</td>
+									<td>
+										<a th:attr="data-name=${s.module.name}, data-semester=10" onclick="deleteModuleInSemester(this)" class="btn-minus" th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/hocky-xoa-hocphan?id=' +${s.id} }">
+											<i class="fa-solid fa-minus"></i>
+										</a>
+									</td>
 								</tr>
-
 							</table>
 						</div>
 					</div>
@@ -770,3 +810,85 @@
 </div>
 </div>
 </div>
+
+<div class="modal modal-mk">
+	<div class="add-module-knowledgearea">
+		<div class="eh-header-title sub"></div>	
+		<div class="list">
+			<h1>Học phần hiện có</h1>
+			<form method="post" th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/them-hp-khoi-kt'}">
+				<input type="hidden" id="knowledgeID" name="knowledgeID">
+				<div class="table-container">
+				<table>
+					<caption>Danh sách học phần</caption>
+					<tr class="first-row">
+						<th class="cb"></th>
+						<th class="stt">STT</th>
+						<th>Mã học phần</th>
+						<th>Tên học phần</th>
+					</tr>
+					<tr th:each="m,i: ${module}">
+						<td>
+							<input type="checkbox" name="module" th:value="${m.id}">
+						</td>
+						<td th:text="${i.count}">1</td>
+						<td th:text="${m.code}">MHP1234</td>
+						<td th:text="${m.name}">Tên Học Phần</td>
+					</tr>
+					
+					
+				</table>
+				</div>
+				<div>
+					<button type="submit" class="btn btn-primary">Thêm học phần</button>
+				</div>
+			</form>
+		</div>	
+	</div>
+</div>
+
+<script th:if="${param.updated}" th:inline="javascript">
+		
+document.addEventListener('DOMContentLoaded', function() {
+	setTimeout(()=>{
+		const Toast = Swal.mixin({
+			  toast: true,
+			  position: "top-end",
+			  showConfirmButton: false,
+			  timer: 1800,
+			  timerProgressBar: true,
+			  didOpen: (toast) => {
+			    toast.onmouseenter = Swal.stopTimer;
+			    toast.onmouseleave = Swal.resumeTimer;
+			  }
+			});
+			Toast.fire({
+			  icon: "success",
+			  title: "Lưu thành công!"
+			});
+		}, 800)
+    });
+	</script>
+	
+	<script th:if="${param.failed}" th:inline="javascript">
+		
+document.addEventListener('DOMContentLoaded', function() {
+	setTimeout(()=>{
+		const Toast = Swal.mixin({
+			  toast: true,
+			  position: "top-end",
+			  showConfirmButton: false,
+			  timer: 1800,
+			  timerProgressBar: true,
+			  didOpen: (toast) => {
+			    toast.onmouseenter = Swal.stopTimer;
+			    toast.onmouseleave = Swal.resumeTimer;
+			  }
+			});
+			Toast.fire({
+			  icon: "error",
+			  title: "Đã xảy ra lỗi!"
+			});
+		}, 800)
+    });
+	</script>
