@@ -53,6 +53,11 @@ public class ProgramContent extends BaseEntity{
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	public ProgramContent(String knowledgeArea) {
+		super();
+		this.knowledgeArea = knowledgeArea;
+	}
 	
 	
 }

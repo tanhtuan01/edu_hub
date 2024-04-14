@@ -68,6 +68,17 @@ public class TrainingProgram extends BaseEntity{
 	
 	@OneToMany(mappedBy = "trainingProgram", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ProgramContent> programContents;
+	
+	@OneToMany(mappedBy = "trainingProgram", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<SubjectDistribution> subjectDistributions ;
+
+	public List<SubjectDistribution> getSubjectDistributions() {
+		return subjectDistributions;
+	}
+
+	public void setSubjectDistributions(List<SubjectDistribution> subjectDistributions) {
+		this.subjectDistributions = subjectDistributions;
+	}
 
 	public List<ProgramContent> getProgramContents() {
 		return programContents;

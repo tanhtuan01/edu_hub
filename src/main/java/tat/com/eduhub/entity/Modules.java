@@ -35,6 +35,17 @@ public class Modules extends BaseEntity{
 	@Column(name = "code", length = 20)
 	private String code;
 	
+	@OneToMany(mappedBy = "module", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<SubjectDistribution>  subjectDistributions;
+	
+	public List<SubjectDistribution> getSubjectDistributions() {
+		return subjectDistributions;
+	}
+
+	public void setSubjectDistributions(List<SubjectDistribution> subjectDistributions) {
+		this.subjectDistributions = subjectDistributions;
+	}
+
 	private int credits;
 	
 	private int theory;
