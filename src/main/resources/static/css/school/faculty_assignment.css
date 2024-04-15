@@ -80,3 +80,14 @@
 #facultyAssignment .status{
 	width: 10%;
 }
+
+#facultyAssignment ul li .btn-add{
+	font-size: 12px;
+	padding: 3px 5px;
+	border-radius: 3px;
+	background: var(--primary-color);
+}
+
+#facultyAssignment ul li{
+	padding: 2px;
+}

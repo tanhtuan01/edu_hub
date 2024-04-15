@@ -63,14 +63,14 @@
 								<td th:text="${i.count}">1</td>
 								<td><img th:src="@{'/img/lecturer/' + ${t.user.avt}}"
 									alt=""></td>
-								<td th:text="${t.user.userName}"></td>
-								<td th:text="${t.user.email}"></td>
+								<td class="name" th:text="${t.user.userName}"></td>
+								<td class="email" th:text="${t.user.email}"></td>
 								<td><a
 									th:href="@{'/school-admin/' + ${domain} + '/quan-ly-tai-khoan/giang-vien/dat-lai-mat-khau?id=' + ${t.user.id} }"
 									class="btn btn-primary" title="Đặt lại mật khẩu"> <i
 										class="fa-solid fa-rotate"></i>
 								</a></td>
-								<td><a
+								<td><a onclick="deleteLecturerAccount(this)"
 									th:href="@{'/school-admin/' + ${domain} + '/quan-ly-tai-khoan/giang-vien/xoa?id=' + ${t.id} }"
 									class="btn btn-delete"> <i class="fa-solid fa-x"></i>
 								</a></td>

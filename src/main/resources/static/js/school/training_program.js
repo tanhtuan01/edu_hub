@@ -374,19 +374,32 @@ function checkInputSemester() {
 	}
 }
 
-function addModuleKnowledgeArea(e) {
-	console.log(e);
+function slideOutModal(title){
 	document.body.style.overflow = "hidden";
 	var modal = document.querySelector(".modal-mk");
 	modal.style.display = 'block';
-	var knowledgeArea = e.dataset.name
-	var id = e.dataset.id
-	modal.querySelector(".eh-header-title").innerHTML = 'Thêm Học Phần Cho: ' + knowledgeArea + '<a class="btn btn-primary" onclick="closeModal(this)">Đóng</a>'
-	var knowledgeID = document.getElementById("knowledgeID")
-	knowledgeID.value = id
+	modal.querySelector(".eh-header-title").innerHTML = title + '<a class="btn btn-primary" onclick="closeModal(this)">Đóng</a>'
 	setTimeout(function() {
 		modal.classList.add('active');
 	}, 10);
+}
+
+function addUserToAddDocumentSyllabus(e){
+	console.log(e.closest("tr").querySelector(".info"))
+	var idValue = e.closest("tr").querySelector(".info").dataset.id
+	
+	var modal = document.querySelector(".modal-mk")
+	modal.querySelector("#ID").value = idValue
+	slideOutModal("Thêm giảng viên ")
+}
+
+function addModuleKnowledgeArea(e) {
+	var knowledgeArea = e.dataset.name
+	var id = e.dataset.id
+	var knowledgeID = document.getElementById("knowledgeID")
+	knowledgeID.value = id
+	var title = 'Thêm Học Phần Cho: ' + knowledgeArea
+	slideOutModal(title)
 }
 
 function closeModal(e) {
@@ -474,7 +487,7 @@ function deleteTrainingProgram(e){
 	var name = e.closest("tr").querySelector(".name").textContent
 	Swal.fire({
 		title: "Xác nhận xóa?",
-		text: "Bạn có chắc muốn xóa chương trình đào tạo: " + name,
+		text: "Bạn có chắc muốn xóa chương trình đào tạo: \n" + name,
 		icon: "warning",
 		showCancelButton: true,
 		confirmButtonColor: "#57D45A",

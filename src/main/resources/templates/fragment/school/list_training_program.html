@@ -32,7 +32,9 @@
 							<th class="name">Chương trình đào tạo</th>
 							<th class="status">Trạng thái</th>
 							<th class="rate-of-progress">Tiến độ</th>
+							<th class="act">Chi tiết</th>
 							<th class="act">Xem</th>
+							
 							<th class="act">Sửa</th>
 							<th class="act">Xóa</th>
 						</tr>
@@ -43,11 +45,17 @@
 							<td class="name" th:text="${tp.name}">Tên chương trình đào tạo</td>
 							<td class="status">Chưa hoàn thành</td>
 							<td class="rate-of-progress">100%</td>
+							<td class="rate-of-progress">
+								<a th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/pcgv?id=' + ${tp.id} }" class="btn btn-edit">
+									<i class="fa-solid fa-list-check"></i>
+								</a>
+							</td>
 							<td class="act">
 								<a href="" class="btn btn-view">
 									<i class="fa-solid fa-eye"></i>
 								</a>
 							</td>
+							
 							<td class="act">
 								<a th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/chinh-sua?id=' + ${tp.id} }" class="btn btn-edit">
 									<i class="fa-solid fa-pen-to-square"></i>

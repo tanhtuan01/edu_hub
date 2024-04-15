@@ -2,7 +2,7 @@
 	<div class="body-content r-content">
 		<div class="faculty-assignment">
 
-			<div class="eh-header-title">Tên chương trình đào tạo</div>
+			<div class="eh-header-title" th:text="${tp.name}">Tên chương trình đào tạo</div>
 
 			<div class="rate-of-progress">
 				Tiến độ <span>90</span><span>/</span><span>100</span>
@@ -15,7 +15,7 @@
 						<tr>
 							<th class="stt">STT</th>
 							<th>Tên học phần</th>
-
+							<th style="display: none;"></th>
 							<th>Đề cương</th>
 							<th>Tài liệu</th>
 							<th class="lecturer">Giảng viên phụ trách</th>
@@ -24,30 +24,32 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>STT</td>
-							<td>Tên học phần</td>
-
+						<tr th:each="tp,i : ${tp.subjectDistributions}">
+							<td th:text="${i.count}">STT</td>
+							<td th:text="${tp.module.name}">Tên học phần</td>
+							<td style="display: none;" class="info" th:attr="data-id=${tp.id}, data-name=${tp.module.name}"></td>
 							<td>Đề cương</td>
 							<td>Tài liệu</td>
-							<td>Nguyễn Nguyễn Văn A</td>
+							<td>
+								<ul>
+									<li th:each="u : ${tp.user}"><a th:text="${u.userName}"></a>
+										<br> <div class="line"></div><a class="btn-add"
+										onclick="addUserToAddDocumentSyllabus(this)"> <i
+											class="fa-solid fa-user-plus"></i>
+									</a></li>
+									<li th:unless="${tp.user}"><a class="btn-add"
+										onclick="addUserToAddDocumentSyllabus(this)"> <i
+											class="fa-solid fa-user-plus"></i>
+									</a></li>
+								</ul>
+							</td>
 							<td class="status"><i class="fa-solid fa-check"></i></td>
-							<td class="act"><a class="btn btn-primary"
-								title="Gửi thông báo nhắc nhở"> <i class="fa-solid fa-bell"></i>
-							</a></td>
+							<td class="act">
+								<a class="btn btn-primary disable"
+									title="Gửi thông báo nhắc nhở"> <i class="fa-solid fa-bell"></i>
+								</a></td>
 						</tr>
-						<tr>
-							<td>STT</td>
-							<td>Tên học phần</td>
 
-							<td>Đề cương</td>
-							<td>Tài liệu</td>
-							<td><a href="">Mời</a></td>
-							<td class="status"><i class="fa-solid fa-xmark"></i></td>
-							<td class="act"><a class="btn btn-primary"
-								title="Gửi thông báo nhắc nhở"> <i class="fa-solid fa-bell"></i>
-							</a></td>
-						</tr>
 					</tbody>
 				</table>
 
@@ -55,5 +57,66 @@
 
 		</div>
 	</div>
-
 </div>
+<div class="modal modal-mk">
+	<div class="add-module-knowledgearea">
+		<div class="eh-header-title sub"></div>
+		<div class="list" th:if="${#lists.size(list) == 0}">
+			<p class="text-center text-alert alert-warning">Bạn chưa thêm tài khoản giảng viên nào</p>
+		</div> 
+		<div class="list">
+			<h1>Danh sách giảng viên của trường</h1>
+			<form method="post" th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/pcgv' }">
+				<input type="hidden" id="ID" name="idsubjectdistribution">
+				<div class="table-container">
+					<table>
+
+						<tr class="first-row">
+							<th class="cb"></th>
+							<th class="avt">Hình ảnh</th>
+							<th>Giảng viên</th>
+						</tr>
+						<tr th:each="u : ${list}">
+							<td class="cb">
+								<input type="radio" name="user" th:value="${u.user.id}">
+							</td>
+					
+							<td class="avt">
+								<img th:src="@{'/img/lecturer/' + ${u.user.avt} }">
+							</td>
+							<td th:text="${u.user.userName}">Giảng viên</td>
+						</tr>
+				
+					</table>
+				</div>
+				<div>
+					<button type="submit" class="btn btn-primary">Thêm giảng
+						viên</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script th:if="${param.updated}" th:inline="javascript">
+		
+document.addEventListener('DOMContentLoaded', function() {
+	setTimeout(()=>{
+		const Toast = Swal.mixin({
+			  toast: true,
+			  position: "top-end",
+			  showConfirmButton: false,
+			  timer: 1800,
+			  timerProgressBar: true,
+			  didOpen: (toast) => {
+			    toast.onmouseenter = Swal.stopTimer;
+			    toast.onmouseleave = Swal.resumeTimer;
+			  }
+			});
+			Toast.fire({
+			  icon: "success",
+			  title: "Lưu thành công!"
+			});
+		}, 800)
+    });
+	</script>

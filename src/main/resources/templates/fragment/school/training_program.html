@@ -10,7 +10,7 @@
 				<form
 					th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/luu'}"
 					method="post" th:object="${tp}">
-					<input type="hidden" id="tpItemValue" name="tpItemValue" value="1">
+					<input type="hidden" id="tpItemValue" name="tpItemValue" th:value="${tpItem}">
 					<input type="hidden" th:field="*{id}">
 					<div class="eh-ctdt">
 						<div class="ctdt-menu">
@@ -43,7 +43,7 @@
 										<div class="i i7">7</div>
 										<div>Phân phối môn học</div>
 								</a></li>
-								<li><a th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/phan-cong-giang-vien' }">
+								<li><a th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/phan-cong-giang-vien?id=' + ${tp.id} }">
 										<div class="i i8"><i class="fa-solid fa-feather"></i></div>
 										<div>Phân công giảng viên</div>
 								</a></li>
@@ -808,10 +808,9 @@
 
 	</div>
 </div>
-</div>
-</div>
 
-<div class="modal modal-mk">
+
+<div class="modal modal-mk" style="display: none;">
 	<div class="add-module-knowledgearea">
 		<div class="eh-header-title sub"></div>	
 		<div class="list">

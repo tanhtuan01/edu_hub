@@ -33,7 +33,7 @@
 }
 
 .cm-right .input select{
-	width: 200px;
+	width: fit-content;
 }
 
 .cm-right table{

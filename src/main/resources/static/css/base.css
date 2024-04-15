@@ -209,3 +209,11 @@ input[type=number]::-webkit-outer-spin-button {
 h2.swal2-title{
 	font-size:20px;
 }
+
+.line{
+	height: 5px;
+}
+
+.btn.not-allowed{
+	cursor: not-allowed;
+}
