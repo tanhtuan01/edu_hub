@@ -1,5 +1,7 @@
 package tat.com.eduhub.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,5 +41,11 @@ public class TeacherOfSchoolServiceImpl implements TeacherOfSchoolService{
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
 		repository.deleteById(id);
+	}
+	
+	@Override
+	public List<TeacherOfSchool> listTeacherOfSchools(School school) {
+		// TODO Auto-generated method stub
+		return repository.findBySchoolAndIsAdminFalse(school);
 	}
 }

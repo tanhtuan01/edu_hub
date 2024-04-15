@@ -1,5 +1,7 @@
 package tat.com.eduhub.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,4 +18,6 @@ public interface TeacherOfSchoolService {
 	Page<TeacherOfSchool> pageTeacherOfSchool(School school, Pageable pageable);
 	
 	void delete(Long id);
+	
+	List<TeacherOfSchool> listTeacherOfSchools(School school);
 }

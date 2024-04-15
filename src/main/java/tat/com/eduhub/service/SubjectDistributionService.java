@@ -12,4 +12,8 @@ public interface SubjectDistributionService {
 	List<SubjectDistribution> findByTrainingProgram(TrainingProgram trainingProgram);
 	
 	void delete(Long id);
+	
+	SubjectDistribution get(Long id);
+	
+	List<SubjectDistribution> findByTrainingProgramAndSemesterEquals(TrainingProgram trainingProgram, int semester);
 }

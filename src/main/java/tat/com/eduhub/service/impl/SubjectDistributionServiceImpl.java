@@ -33,4 +33,17 @@ public class SubjectDistributionServiceImpl implements SubjectDistributionServic
 		// TODO Auto-generated method stub
 		repository.deleteById(id);
 	}
+	
+	@Override
+	public SubjectDistribution get(Long id) {
+		// TODO Auto-generated method stub
+		return repository.getOne(id);
+	}
+	
+	@Override
+	public List<SubjectDistribution> findByTrainingProgramAndSemesterEquals(TrainingProgram trainingProgram,
+			int semester) {
+		// TODO Auto-generated method stub
+		return repository.findByTrainingProgramAndSemesterEquals(trainingProgram, semester);
+	}
 }
