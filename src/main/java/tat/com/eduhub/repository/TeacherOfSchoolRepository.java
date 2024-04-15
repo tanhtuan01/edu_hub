@@ -1,5 +1,7 @@
 package tat.com.eduhub.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,4 +15,6 @@ public interface TeacherOfSchoolRepository extends JpaRepository<TeacherOfSchool
 	boolean existsByUserAndSchoolAndIsAdminTrue(User user, School school);
 	
 	Page<TeacherOfSchool> findBySchoolAndIsAdminFalse(School school, Pageable pageable);
+	
+	List<TeacherOfSchool> findBySchoolAndIsAdminFalse(School school);
 }
