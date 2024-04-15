@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import tat.com.eduhub.base.BASE_FIELD;
 import tat.com.eduhub.base.BASE_METHOD;
+import tat.com.eduhub.base.RateOfProcessTrainingProgram;
 import tat.com.eduhub.base.UserSchoolUtils;
 import tat.com.eduhub.component.SchoolAccountCheck;
 import tat.com.eduhub.component.UserHelper;
@@ -27,14 +28,18 @@ import tat.com.eduhub.entity.Modules;
 import tat.com.eduhub.entity.ProgramContent;
 import tat.com.eduhub.entity.School;
 import tat.com.eduhub.entity.SubjectDistribution;
+import tat.com.eduhub.entity.TeacherOfSchool;
 import tat.com.eduhub.entity.TrainingProgram;
 import tat.com.eduhub.entity.User;
+import tat.com.eduhub.service.EmailSenderService;
 import tat.com.eduhub.service.KnowledgeModuleService;
 import tat.com.eduhub.service.MajorService;
 import tat.com.eduhub.service.ModuleService;
 import tat.com.eduhub.service.ProgramContentService;
 import tat.com.eduhub.service.SchoolService;
+import tat.com.eduhub.service.SubjectDistributionDetailService;
 import tat.com.eduhub.service.SubjectDistributionService;
+import tat.com.eduhub.service.TeacherOfSchoolService;
 import tat.com.eduhub.service.TrainingProgramService;
 import tat.com.eduhub.service.UserService;
 
@@ -69,9 +74,19 @@ public class TrainingProgramController {
 	@Autowired
 	private SubjectDistributionService subjectDistributionService;
 	
+	@Autowired
+	private TeacherOfSchoolService tosService;
+	
+	@Autowired
+	private SubjectDistributionDetailService sddService;
+	
+	@Autowired
+	private EmailSenderService emailSenderService;
+	
 	private ModelMapper mapper = new ModelMapper();
 	
 	private Long idTpSaved = (long) 0;
+	private Long idTpAssignment = (long) 0;
 	
 	@GetMapping(value = {"/them-moi", "/create"})
 	@SchoolAccountCheck
@@ -92,7 +107,7 @@ public class TrainingProgramController {
 		TrainingProgram tp = new TrainingProgram();
 		tp.setName(name.trim());
 		tp.setSchool(schoolService.findByDomain(domain));
-		
+		tp.setStatus("3%");
 		idTpSaved = tpService.saveAndGetId(tp);
 		
 		
@@ -151,6 +166,21 @@ public class TrainingProgramController {
 		tp.setTotalCredits(dto.getTotalCredits()); tp.setSpecificObjective(dto.getSpecificObjective());
 		tp.setProcess(dto.getProcess()); tp.setTargetApplicants(dto.getTargetApplicants());
 		idTpSaved = tpService.saveAndGetId(tp);
+		TrainingProgram tp2 = tpService.get(idTpSaved);
+//		List<ProgramContent> programContents = programContentService.listByTrainingProgram(tp2);
+//		if(programContents.size() > 0) {
+//			System.err.println("Program Content: " + programContents.size());
+//			for(ProgramContent p : programContents) {
+//				System.err.println("ID: " + p.getId());
+//				
+//			}
+//		}else {
+//			System.err.println("Program Content: 0");
+//		}
+		
+		System.err.println("RATE OF PROCESS: " + RateOfProcessTrainingProgram.totalRateOfProcess(tp2, programContentService, knowledgeModuleService, subjectDistributionService, sddService));
+		
+
 		return "redirect:/school-admin/"+domain+"/chuong-trinh-dao-tao/viet-noi-dung?tpItem="+tpItemValue+"&updated";
 	}
 	
@@ -162,6 +192,7 @@ public class TrainingProgramController {
 		School school = schoolService.findByDomain(domain);
 		List<TrainingProgram> list = tpService.findBySchool(school);
 		model.addAttribute("list", list);
+		idTpSaved = (long)0;
 		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
 	}
 	
@@ -174,6 +205,18 @@ public class TrainingProgramController {
 			programContent.setKnowledgeArea(khoiKienThuc);
 			programContent.setTrainingProgram(tpService.get(idTpSaved));
 			programContentService.save(programContent);
+			
+			TrainingProgram tp2 = tpService.get(idTpSaved);
+			List<ProgramContent> programContents = programContentService.listByTrainingProgram(tp2);
+			if(programContents.size() > 0) {
+				System.err.println("Program Content: " + programContents.size());
+				for(ProgramContent p : programContents) {
+					System.err.println("ID: " + p.getId());
+				}
+			}else {
+				System.err.println("Program Content: 0");
+			}
+			
 			return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/viet-noi-dung?tpItem=6&updated";
 		}
 		return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/viet-noi-dung?tpItem=6&failed";
@@ -195,9 +238,6 @@ public class TrainingProgramController {
 				 knowledgeModule.setProgramContent(programContent);
 				 knowledgeModule.setModules(modules);
 				 knowledgeModuleService.save(knowledgeModule);
-				 
-				
-			
 			}
 		} catch (Exception e) {
 			System.err.println("LỖI: " + e.getMessage());
@@ -252,8 +292,50 @@ public class TrainingProgramController {
 	@SchoolAccountCheck
 	public String setLecturerAddModuleSyllabusFile(Model model, @PathVariable(name = "domain") String domain, Authentication authentication) {
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
+		if(idTpAssignment == 0) {
+			return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/danh-sach";
+		}
 		BASE_METHOD.FragmentAdminSchool("faculty_assignment", model);
+		TrainingProgram tp = tpService.get(idTpAssignment);
+		model.addAttribute("tp", tp);
+		School school = schoolService.findByDomain(domain);
+		List<TeacherOfSchool> list = tosService.listTeacherOfSchools(school);
+		model.addAttribute("list", list);
 		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
+	}
+	
+	@GetMapping(value = "/pcgv")
+	public String redirectToSetLecturerAddModuleSyllabusFile(@RequestParam(name = "id") Long id,
+			@PathVariable(name = "domain") String domain) {
+		idTpAssignment = id;
+		return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/phan-cong-giang-vien";
+	}
+	
+	@PostMapping(value = "/pcgv")
+	public String addLecturerToSetLecturerAddModuleSyllabusFile(@PathVariable(name = "domain") String domain,
+			HttpServletRequest request) {
+//		System.err.println("ID TP: " + idTpAssignment);
+//		System.err.println("ID idsubjectdistribution: " + request.getParameter("idsubjectdistribution"));
+//		System.err.println("ID USER: " + request.getParameter("user"));
+		User user = userService.get(Long.valueOf(request.getParameter("user")));
+		TrainingProgram trainingProgram = tpService.get(idTpAssignment);
+		SubjectDistribution subjectDistribution = subjectDistributionService.get(Long.valueOf(request.getParameter("idsubjectdistribution")));
+		subjectDistribution.setUser(user);
+		subjectDistribution.setTrainingProgram(trainingProgram);
+		subjectDistributionService.save(subjectDistribution);
+//		System.err.println("RECEIVE MAIL: " + user.getReceiveMail());
+		String moduleName = subjectDistribution.getModule().getName();
+		String toEmail = user.getReceiveMail();
+		String subject = "Thông báo";
+		String tpName = trainingProgram.getName();
+		StringBuffer messages = new StringBuffer();
+		messages.append("Bạn đã được thêm vào chương trình đào tạo: " + tpName );
+		messages.append("\nCông việc: thêm đề cương và tài liệu cho học phần: " + moduleName);
+		messages.append("\nĐường dẫn: http://localhost:2024/school-lecturer/hunre.edu.vn/chuong-trinh-dao-tao/..");
+		messages.append("\nĐược gửi từ: " + trainingProgram.getSchool().getName());
+		emailSenderService.sendEmail(toEmail, subject, messages.toString());
+		
+		return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/phan-cong-giang-vien?updated";
 	}
 	
 	@GetMapping(value = "/xoa")

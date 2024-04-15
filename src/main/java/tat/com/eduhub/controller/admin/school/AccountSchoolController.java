@@ -169,11 +169,11 @@ public class AccountSchoolController {
 		teacherOfSchool.setSchool(school);
 		teacherOfSchool.setUser(userService.get(idUserSave));
 		tosService.save(teacherOfSchool);
-//		emailSenderService.sendEmail(userDTO.getSendToEmail(), "Tài khoản từ " + school.getName() + " trên EduHub", 
-//				"Đây là tài khoản dành cho Giảng viên của bạn:  " + "\n" + "\tTên đăng nhập: " + userDTO.getEmail() + "\n"
-//				+"\tMật khẩu: " + password+ "\n"
-//				+"Đây là đường dẫn đến tài khoản của bạn: http://localhost:2024/school-lecturer/hunre.edu.vn/"
-//				+"\nTài khoản được tạo từ: " + school.getName());
+		emailSenderService.sendEmail(userDTO.getSendToEmail(), "Tài khoản từ " + school.getName() + " trên EduHub", 
+				"Đây là tài khoản dành cho Giảng viên của bạn:  " + "\n" + "\tTên đăng nhập: " + userDTO.getEmail() + "\n"
+				+"\tMật khẩu: " + password+ "\n"
+				+"Đây là đường dẫn đến tài khoản của bạn: http://localhost:2024/school-lecturer/hunre.edu.vn/"
+				+"\nTài khoản được tạo từ: " + school.getName());
 		return "redirect:/school-admin/" + domain + "/quan-ly-tai-khoan/giang-vien?sent";
 	}
 	
