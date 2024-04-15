@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -47,7 +48,17 @@ public class User extends BaseEntity{
 	@OneToOne(mappedBy = "user")
 	private TeacherOfSchool teacherOfSchool;
 
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<SubjectDistribution> subjectDistributions;
 	
+	public List<SubjectDistribution> getSubjectDistributions() {
+		return subjectDistributions;
+	}
+
+	public void setSubjectDistributions(List<SubjectDistribution> subjectDistributions) {
+		this.subjectDistributions = subjectDistributions;
+	}
+
 	public String getEmail() {
 		return email;
 	}

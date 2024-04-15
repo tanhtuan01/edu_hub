@@ -19,6 +19,19 @@ public class SubjectDistribution extends BaseEntity{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_module")
 	private Modules module;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_user")
+	private User user;
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 
 	public int getSemester() {
 		return semester;
@@ -43,5 +56,12 @@ public class SubjectDistribution extends BaseEntity{
 	public void setModule(Modules module) {
 		this.module = module;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "SubjectDistribution [semester=" + semester + ", trainingProgram=" + trainingProgram + ", module="
+				+ module + ", user=" + user + "]";
+	}
+
+
 }

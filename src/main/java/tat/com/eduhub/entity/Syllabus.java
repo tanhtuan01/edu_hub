@@ -1,10 +1,14 @@
 package tat.com.eduhub.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,11 +18,22 @@ public class Syllabus extends BaseEntity{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_module")
 	private Modules module;
-	
+
 	private String name;
 	
 	@Column(name = "file_name")
 	private String fileName;
+	
+	@OneToMany(mappedBy = "syllabus", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<SubjectDistributionDetail> subjectDistributionDetails;
+
+	public List<SubjectDistributionDetail> getSubjectDistributionDetails() {
+		return subjectDistributionDetails;
+	}
+
+	public void setSubjectDistributionDetails(List<SubjectDistributionDetail> subjectDistributionDetails) {
+		this.subjectDistributionDetails = subjectDistributionDetails;
+	}
 
 	public Modules getModule() {
 		return module;

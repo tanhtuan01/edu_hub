@@ -71,6 +71,17 @@ public class TrainingProgram extends BaseEntity{
 	
 	@OneToMany(mappedBy = "trainingProgram", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<SubjectDistribution> subjectDistributions ;
+	
+	@Size(max = 20)
+	private String status;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public List<SubjectDistribution> getSubjectDistributions() {
 		return subjectDistributions;
@@ -214,6 +225,11 @@ public class TrainingProgram extends BaseEntity{
 
 	public void setGraduatingCohort(String graduatingCohort) {
 		this.graduatingCohort = graduatingCohort;
+	}
+
+	public TrainingProgram() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	
