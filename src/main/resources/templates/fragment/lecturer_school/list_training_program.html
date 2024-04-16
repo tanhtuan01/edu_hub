@@ -1,0 +1,33 @@
+<div class="right-body list-training-program">
+	<div class="body-content r-content">
+		<div class="eh-header-title">Danh Sách Học phần Chương Trình Đào Tạo Mà bạn tham gia</div>
+
+		<div class="list-tp">
+
+			<div>
+				<table cellspacing="1" id="tableLecturerListTp">
+					<thead>
+						<tr>
+							<th class="stt">STT</th>
+							<th class="name">Học phần</th>
+							<th class="status">Chương trình đào tạo</th>
+							<th class="status">Trạng thái</th>
+							<th class="act">Thêm</th>
+							<th class="act">Xem</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="s,i : ${list}">
+							<td class="stt" th:text="${i.count}">STT</td>
+							<td class="name" th:text="${s.moduleName}"></td>
+							<td class="status" th:text="${s.tpName}">Trạng thái</td>
+							<td class="status" th:text="${s.status}"></td>
+							<td class="act">Thêm</td>
+							<td class="act">Xem</td>		
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
