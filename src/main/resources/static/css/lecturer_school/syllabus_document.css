@@ -1,0 +1,157 @@
+.right-body .syllabus{
+	background: white;
+}
+
+.right-body .syllabus form .form-group .label{
+	width: 120px;
+}
+
+.right-body .syllabus form .form-group .input{
+	width: 100%;
+}
+.right-body .syllabus form .form-group .input input[type='text']{
+	width: 50%;
+}
+
+.right-body .syllabus table{
+	width: 100%;
+	font-size: var(--text-size14);
+}
+
+.right-body .syllabus table tr th{
+	padding: 10px;
+	background: var(--primary-color);
+	color: white;
+	text-align: left;
+}
+
+.right-body .syllabus table tr td{
+	padding: 5px 10px;
+}
+
+.right-body .syllabus table tr .stt{
+	width: 5%;
+	text-align: center;
+}
+
+.right-body .syllabus table tr:nth-child(2n+2){
+	background: var(--bg-silver);
+}
+
+
+
+
+.modal-sd {
+	position: absolute;
+	z-index:50;
+	top: 10vh;
+	width: 50vw;
+	height: 80vh;
+	background: var(--primary-color);
+	display: block;
+	right: -100%;
+	transition: right 1s ease;
+	border: 1px solid var(--primary-color);
+}
+.modal-sd.active{
+	right:0;
+}
+
+.modal-sd .list h1{
+	font-size: 16px;
+	text-transform: uppercase;
+	color: white;
+	font-weight: normal;
+	padding: 10px 20px;
+}
+
+.modal-sd .add-from-list{
+	height: 100%;
+}
+
+.modal-sd .list{
+	height: calc(100% - 50px);
+}
+
+.modal-sd .list form {
+	height: 88%;
+	
+}
+
+.modal-sd .list form .table-container{
+	width: 100%;
+	overflow: auto;
+	max-height: 96%;
+	height: 95%;
+}
+
+.modal-sd .list form table{
+	width: 100%;
+	text-align: left;
+	padding: 5px 20px;
+	font-size: 14px;
+}
+
+.modal-sd .list form table tr th{
+	font-weight: 100;
+	padding: 7px 10px;
+	font-size: 14px;
+}
+
+.modal-sd .list form table caption{
+	font-size: 17px;
+	text-transform: uppercase;
+}
+
+.modal-sd .list form table tr td{
+
+	padding: 5px 10px;
+}
+
+.modal-sd .list form table tr th.stt{
+	width: 5%;
+}
+
+.modal-sd .list form table tr{
+		border: 1px solid white;
+		color: white;
+}
+
+.modal-sd .list form table tr th{
+	color: black;
+	
+} 
+
+.modal-sd .list form table tr th.cb{
+	width: 3%;
+}
+
+.modal-sd .list form table tr.first-row{
+	background: white;
+}
+
+
+.modal-sd .list form table tr:nth-child(2n+2){
+	background: #41c445;
+}
+
+.modal-sd .list form .btn.btn-primary{
+	background: var(--secornd-color);
+	color: white;
+	margin-top: 2%;
+	margin-left: 2%;
+	width: fit-content!important;
+}
+
+.modal-sd .list form .btn:hover{
+	background: var(--primary-color);
+	border: 1px solid white;
+}
+
+.modal-sd .eh-header-title.sub{
+	justify-content: space-between;
+    display: flex;
+}
+
+
+
