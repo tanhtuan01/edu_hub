@@ -67,11 +67,12 @@ public class DocumentController {
 	}
 	
 	@PostMapping(value = "/luu")
-	public String saveDocument(@ModelAttribute(name = "domain")String domain,
+	public String saveDocument(@PathVariable(name = "domain")String domain,
 			@ModelAttribute(name = "document") DocumentDTO documentDTO,
 			@RequestParam(name = "documentfile")MultipartFile documentFile) {
 
 		Document document = mapper.map(documentDTO, Document.class);
+		School school = schoolService.findByDomain(domain);
 		String documentFilePath;
 		
 		String extension = BASE_METHOD.getExtensionFileName(documentFile);
@@ -85,7 +86,9 @@ public class DocumentController {
 		}
 		
 		try {
+			document.setSchool(school);
 			documentService.save(document);
+			
 			Files.write(Paths.get(documentFilePath), documentFile.getBytes());
 		} catch (Exception e) {
 			// TODO: handle exception

@@ -72,10 +72,10 @@ public class SyllabusController {
 	
 	@PostMapping(value = "/luu")
 	public String saveSyllabus(@ModelAttribute(name = "syllabus") SyllabusDTO syllabusDTO,
-			@ModelAttribute(name = "domain")String domain,
+			@PathVariable(name = "domain")String domain,
 			@RequestParam(name = "syllabusfile", required = false) MultipartFile syllabusFile) {
 		System.err.println(syllabusDTO.toString());
-		
+		School school = schoolService.findByDomain(domain);
 		Modules modules = moduleService.get(syllabusDTO.getIdModule());
 		if(syllabusFile != null) {
 			String extension = BASE_METHOD.getExtensionFileName(syllabusFile);
@@ -86,14 +86,19 @@ public class SyllabusController {
 				Syllabus syllabus = mapper.map(syllabusDTO, Syllabus.class);
 				syllabus.setFileName(fileName);
 				Files.write(Paths.get(syllabusFilePath), syllabusFile.getBytes());
+				syllabus.setSchool(school);
 				syllabusService.save(syllabus);
+				return "redirect:/school-admin/" + domain + "/de-cuong/them-moi?added";
 			} catch (Exception e) {
 				// TODO: handle exception
+				return "redirect:/school-admin/" + domain + "/de-cuong/them-moi?failed";
 			}
 		}
 		
-	
 		return "redirect:/school-admin/" + domain + "/de-cuong/them-moi";
+		
+	
+		
 	}
 	
 	@GetMapping(value = "/tim-kiem")
