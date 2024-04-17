@@ -1,0 +1,263 @@
+
+<div class="right-body">
+	<div class="body-content r-content">
+		<div class="replace">
+			<div class="career-major">
+				<div class="eh-header-title ">
+					Học phần: <span th:text="${moduleName}"></span>
+				</div>
+				<div class="eh-header-title sub">Đề cương / tài liệu</div>
+
+				<div class="career-major-content">
+					<div class="cm-left">
+						<div class="button">
+							<a onclick="changeCM(this)" data-cm="career"
+								class="btn btn-primary active" href="">Đề cương</a> <a
+								onclick="changeCM(this)" data-cm="major" class="btn btn-primary"
+								href="">Tài liệu</a>
+						</div>
+					</div>
+					<div class="cm-right">
+						<div class="career-major-form">
+							<input type="hidden" name="action" id="cmAction"
+								th:value="${cmAction}">
+							<div class="cm-box career-form">
+								<div class="eh-header-title sub">Thêm Đề Cương</div>
+								<form
+									th:action="@{'/school-lecturer/' +${domain} + '/hoc-phan-chuong-trinh-dao-tao/them-de-cuong-hoc-phan' }"
+									method="post" enctype="multipart/form-data">
+									<input type="hidden" name="cmAction" id="" value="career">
+
+									<div class="form-group">
+										<div class="label">Tên đề cương:</div>
+										<div class="input">
+											<input type="text" name="syllabusname" id=""
+												placeholder="Nhập tên cho tệp đề cương" required>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">File:</div>
+										<div class="input">
+											<input type="file" style="background: white"
+												name="syllabusfile"
+												accept="application/msword, application/vnd.ms-powerpoint,text/plain, application/pdf"
+												onchange="checkFileExtension(this)" required="required">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="input">
+											<input type="submit" value="Thêm" class="btn btn-primary">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<div class="input">
+											<a class="btn btn-primary" onclick="addSyllabusFromListModal(this);">
+												Chọn từ danh sách có sẵn
+												<i class="fa-solid fa-table-list"></i>
+											</a>
+										</div>
+									</div>
+								</form>
+								<th:block th:if="${#lists.size(listSyllabus) == 0}">
+									<p class="text-alert text-center">
+										Bạn chưa thêm đề cương cho học phần này
+									</p>
+								</th:block>
+								<th:block th:if="${#lists.size(listSyllabus) > 0}">
+									<div>
+									<table>
+										<tr>
+											<th class="stt">STT</th>
+											<th>Tên đề cương</th>
+											<th class="act" colspan="2">Thao tác</th>
+										</tr>
+										<tr th:each="s,i : ${listSyllabus}">
+											<td class="stt" th:text="${i.count}"></td>
+											<td th:text="${s.syllabus.name}"></td>
+											<td class="act text-center"><a
+												th:href="@{'/file/syllabus/lecturer/' + ${domain} +'/' + ${s.syllabus.fileName} }"
+												class="btn btn-edit" download> <i
+													class="fa-solid fa-download"></i>
+											</a></td>
+											<td>
+												<a th:href="@{'/school-lecturer/' + ${domain} + '/hoc-phan-chuong-trinh-dao-tao/xoa-de-cuong?id=' + ${s.id} }" class="act btn btn-minus">
+													<i class="fa-solid fa-minus"></i>
+												</a>
+											</td>
+										</tr>
+									</table>
+								</div>
+								</th:block>
+							</div>
+							<div class="cm-box major-form hidden">
+								<form
+									th:action="@{'/school-lecturer/' +${domain} + '/hoc-phan-chuong-trinh-dao-tao/them-tai-lieu-hoc-phan' }"
+									method="post" enctype="multipart/form-data">
+									<div class="eh-header-title sub">Thêm Tài liệu</div>
+									<input type="hidden" name="cmAction" id="" value="major">
+									<div class="form-group">
+										<div class="label">Tên tài liệu:</div>
+										<div class="input">
+											<input type="text" name="documentname" id="" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">Đối tượng:</div>
+										<div class="input">
+											<select name="type" id="">
+												<option value="for_lecturer">Giảng viên</option>
+												<option value="for_student">Sinh viên</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">Chia sẻ:</div>
+										<div class="input">
+											<select name="share" id="">
+												<option value="private">Nội bộ</option>
+												<option value="public">Công khai</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="label">File:</div>
+										<div class="input">
+											<input type="file" style="background: white"
+												name="documentfile"
+												accept="application/msword, application/vnd.ms-powerpoint,text/plain, application/pdf"
+												onchange="checkFileExtension(this)" required="required">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="input">
+											<input type="submit" value="Thêm" class="btn btn-primary">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="input">
+											<a class="btn btn-primary" onclick="addDocumentFromListModal(this);">
+												Chọn từ danh sách có sẵn
+												<i class="fa-solid fa-table-list"></i>
+											</a>
+										</div>
+									</div>
+								</form>
+								<th:block th:if="${#lists.size(listDocument) == 0}">
+									<p class="text-alert text-center">
+										Bạn chưa thêm tài liệu cho học phần này
+									</p>
+								</th:block>
+								<th:block th:if="${#lists.size(listDocument) > 0}">
+									
+									<div>
+									<table>
+										<tr>
+											<th class="stt">STT</th>
+											<th>Tên tài liệu</th>
+											<th>Đối tượng</th>
+											<th>Chia sẻ</th>
+											<th class="act" colspan="2">Thao tác</th>
+										</tr>
+										<tr th:each="d,i : ${listDocument}">
+											<td class="stt" th:text="${i.count}"></td>
+											<td th:text="${d.document.name}"></td>
+											<td
+												th:text="${d.document.type == 'for_lecturer'} ? 'Giảng viên' : 'Sinh viên'">Giảng
+												viên</td>
+												
+											<td class="" th:text="${d.document.share == 'public'} ? 'Công khai' : 'Nội bộ'"></td>
+											<td class="act text-center" th:if="${d.document.share == 'private'}">
+												<a class="btn btn-edit"
+													onclick="previewFile(this)"
+													th:href="@{'/file/document/' +${domain} + '/' + ${d.document.fileName}}"
+													target="_blank" download>
+													<i class="fa-solid fa-download"></i>
+												</a></td>
+											<td class="act text-center" th:if="${d.document.share == 'public'}">
+											<a class="btn btn-edit"
+												onclick="previewFile(this)"
+												th:href="@{'/file/document/public/' + ${d.document.fileName}}"
+												target="_blank" download>
+													<i class="fa-solid fa-download"></i>
+												</a></td>
+												
+												<td>
+												<a th:href="@{'/school-lecturer/' + ${domain} + '/hoc-phan-chuong-trinh-dao-tao/xoa-tai-lieu?id=' + ${d.id} }" class="act btn btn-minus">
+													<i class="fa-solid fa-minus"></i>
+												</a>
+											</td>
+										</tr>
+									</table>
+								</div>
+								
+								</th:block>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal modal-sd" style="display: none;">
+	<div class="add-from-list">
+		<div class="eh-header-title sub"></div>	
+		<div class="list list-syllabus">
+			<h1>Học phần hiện có</h1>
+			<form method="post" th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/them-hp-khoi-kt'}">
+				<input type="hidden" id="knowledgeID" name="knowledgeID">
+				<div class="table-container">
+				<table>
+					
+					<tr class="first-row">
+						<th class="cb"></th>
+						<th class="stt">STT</th>
+						<th>Mã học phần</th>
+						<th>Tên học phần</th>
+					</tr>
+					<tr th:each="m,i: ${module}">
+						<td>
+							<input type="checkbox" name="module" th:value="${m.id}">
+						</td>
+						<td th:text="${i.count}">1</td>
+						<td th:text="${m.code}">MHP1234</td>
+						<td th:text="${m.name}">Tên Học Phần</td>
+					</tr>
+					
+					
+				</table>
+				</div>
+				<div>
+					<button type="submit" class="btn btn-primary">Thêm học phần</button>
+				</div>
+			</form>
+		</div>	
+	</div>
+</div>
+
+
+<script th:if="${param.deleted}" th:inline="javascript">
+		
+	document.addEventListener('DOMContentLoaded', function() {
+		setTimeout(()=>{
+			const Toast = Swal.mixin({
+				  toast: true,
+				  position: "top-end",
+				  showConfirmButton: false,
+				  timer: 1800,
+				  timerProgressBar: true,
+				  didOpen: (toast) => {
+				    toast.onmouseenter = Swal.stopTimer;
+				    toast.onmouseleave = Swal.resumeTimer;
+				  }
+				});
+				Toast.fire({
+				  icon: "success",
+				  title: "Xóa thành công"
+				});
+			}, 800)
+	    });
+</script>
