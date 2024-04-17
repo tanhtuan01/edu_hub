@@ -17,4 +17,6 @@ public interface TeacherOfSchoolRepository extends JpaRepository<TeacherOfSchool
 	Page<TeacherOfSchool> findBySchoolAndIsAdminFalse(School school, Pageable pageable);
 	
 	List<TeacherOfSchool> findBySchoolAndIsAdminFalse(School school);
+	
+	boolean existsByUserAndSchoolAndIsAdminFalse(User user, School school);
 }

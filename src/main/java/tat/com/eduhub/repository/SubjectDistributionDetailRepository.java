@@ -17,4 +17,7 @@ public interface SubjectDistributionDetailRepository extends JpaRepository<Subje
 	
 	List<SubjectDistributionDetail> findBySubjectDistribution(SubjectDistribution subjectDistribution);
 	
+	List<SubjectDistributionDetail> findBySubjectDistributionAndDocumentIsNull(SubjectDistribution subjectDistribution);
+	
+	List<SubjectDistributionDetail> findBySubjectDistributionAndSyllabusIsNull(SubjectDistribution subjectDistribution);
 }
