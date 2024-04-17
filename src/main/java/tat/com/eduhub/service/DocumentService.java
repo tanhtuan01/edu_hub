@@ -10,4 +10,8 @@ public interface DocumentService {
 	Document save(Document document);
 	
 	Page<Document> findDocumentWithIdModuleAndNameModuleAndDocumentType(Long id, String name, String type, Pageable pageable);
+
+	Long saveAndGetID(Document document);
+	
+	Document get(Long id);
 }

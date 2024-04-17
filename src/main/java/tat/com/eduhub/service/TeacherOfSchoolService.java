@@ -20,4 +20,6 @@ public interface TeacherOfSchoolService {
 	void delete(Long id);
 	
 	List<TeacherOfSchool> listTeacherOfSchools(School school);
+	
+	boolean existsByUserAndSchoolLecturer(User user, School school);
 }

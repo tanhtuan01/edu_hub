@@ -14,4 +14,8 @@ public interface SyllabusService {
 	Page<Syllabus> findByModuleCodeOrModuleName(String value, Pageable pageable);
 
 	Page<Syllabus> findByIdModuleAndModuleCodeOrModuleName(Long id,String value,Pageable pageable);
+	
+	Long saveAndGetId(Syllabus syllabus);
+	
+	Syllabus get(Long id);
 }
