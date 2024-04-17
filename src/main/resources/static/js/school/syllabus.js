@@ -4,7 +4,7 @@ function checkFileExtension(input) {
   
   if (!allowedExtensions.includes(fileExtension)) {
     input.value = ''; 
-    alert('Chỉ hỗ trợ các file: Word, Powerpoint, Text, Pdf');
+    alert('File không hợp lệ, chỉ chọn các file: Word, Powerpoint, Text, Pdf');
   }
 }
 

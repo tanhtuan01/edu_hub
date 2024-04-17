@@ -22,8 +22,16 @@
 							<td class="name" th:text="${s.moduleName}"></td>
 							<td class="status" th:text="${s.tpName}">Trạng thái</td>
 							<td class="status" th:text="${s.status}"></td>
-							<td class="act">Thêm</td>
-							<td class="act">Xem</td>		
+							<td class="act">
+								<a class="btn btn-edit" th:href="@{'/school-lecturer/'+${domain}+'/hoc-phan-chuong-trinh-dao-tao/tndhp?id=' + ${s.id} }">
+									<i class="fa-solid fa-file-circle-plus"></i>
+								</a>
+							</td>
+							<td class="act">
+								<a class="btn btn-view">
+									<i class="fa-solid fa-circle-info"></i>
+								</a>
+							</td>		
 						</tr>
 					</tbody>
 				</table>

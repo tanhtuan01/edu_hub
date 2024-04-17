@@ -23,7 +23,7 @@ function toChangeCm(){
 		return
 	}
 	var cmActionValue = document.getElementById("cmAction").value
-
+	console.log("cmActionValue: " + cmActionValue);
 	var cm = document.querySelectorAll('[data-cm]')
 	cm.forEach((c)=>{
 		if(c.dataset.cm == cmActionValue){

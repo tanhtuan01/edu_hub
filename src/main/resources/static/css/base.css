@@ -79,6 +79,12 @@ input {
     font-size: var(--sup-header-title);
 }
 
+.eh-header-title.sub2{
+	height: 2.3rem;
+	font-size: var(--sup-header-title);
+	background: transparent;
+}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;

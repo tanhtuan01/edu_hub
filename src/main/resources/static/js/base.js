@@ -18,9 +18,12 @@ function removeParamatersOnUrl() {
 }
 
 window.onload = () => {
-	removeParamatersOnUrl()
+	/*removeParamatersOnUrl()*/
 }
 
+window.addEventListener('beforeunload', function() {
+      removeParamatersOnUrl()
+});
 
 
 function validateFormAndNoSubmit(e) {

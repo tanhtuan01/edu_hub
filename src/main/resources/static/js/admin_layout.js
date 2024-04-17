@@ -51,7 +51,7 @@ function stopArrowUpDown(event) {
 
 
 window.onload = () => {
-	removeParamatersOnUrl()
+	/*removeParamatersOnUrl()*/
 	showLoadingSpinner()
 	setTimeout(()=>{
 		hideLoadingSpinner()

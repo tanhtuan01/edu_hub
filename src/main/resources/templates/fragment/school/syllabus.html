@@ -120,3 +120,49 @@
 		</div>
 	</div>
 </div>
+
+	<script th:if="${param.failed}" th:inline="javascript">
+		
+document.addEventListener('DOMContentLoaded', function() {
+	setTimeout(()=>{
+		const Toast = Swal.mixin({
+			  toast: true,
+			  position: "top-end",
+			  showConfirmButton: false,
+			  timer: 1800,
+			  timerProgressBar: true,
+			  didOpen: (toast) => {
+			    toast.onmouseenter = Swal.stopTimer;
+			    toast.onmouseleave = Swal.resumeTimer;
+			  }
+			});
+			Toast.fire({
+			  icon: "error",
+			  title: "Đã xảy ra lỗi!"
+			});
+		}, 800)
+    });
+	</script>
+	
+		<script th:if="${param.added}" th:inline="javascript">
+		
+document.addEventListener('DOMContentLoaded', function() {
+	setTimeout(()=>{
+		const Toast = Swal.mixin({
+			  toast: true,
+			  position: "top-end",
+			  showConfirmButton: false,
+			  timer: 1800,
+			  timerProgressBar: true,
+			  didOpen: (toast) => {
+			    toast.onmouseenter = Swal.stopTimer;
+			    toast.onmouseleave = Swal.resumeTimer;
+			  }
+			});
+			Toast.fire({
+			  icon: "success",
+			  title: "Đã thêm thành công"
+			});
+		}, 800)
+    });
+	</script>
