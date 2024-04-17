@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import tat.com.eduhub.entity.SubjectDistribution;
 import tat.com.eduhub.entity.TrainingProgram;
+import tat.com.eduhub.entity.User;
 import tat.com.eduhub.repository.SubjectDistributionRepository;
 import tat.com.eduhub.service.SubjectDistributionService;
 
@@ -45,5 +46,11 @@ public class SubjectDistributionServiceImpl implements SubjectDistributionServic
 			int semester) {
 		// TODO Auto-generated method stub
 		return repository.findByTrainingProgramAndSemesterEquals(trainingProgram, semester);
+	}
+	
+	@Override
+	public List<SubjectDistribution> listByUser(User user) {
+		// TODO Auto-generated method stub
+		return repository.findByUser(user);
 	}
 }

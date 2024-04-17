@@ -28,4 +28,28 @@ public class SubjectDistributionDetailServiceImpl implements SubjectDistribution
 		// TODO Auto-generated method stub
 		return repository.findBySubjectDistribution(subjectDistribution);
 	}
+	
+	@Override
+	public SubjectDistributionDetail save(SubjectDistributionDetail subjectDistributionDetail) {
+		// TODO Auto-generated method stub
+		return repository.save(subjectDistributionDetail);
+	}
+	
+	@Override
+	public List<SubjectDistributionDetail> listSyllabusBySubjectDistribution(SubjectDistribution subjectDistribution) {
+		// TODO Auto-generated method stub
+		return repository.findBySubjectDistributionAndDocumentIsNull(subjectDistribution);
+	}
+	
+	@Override
+	public List<SubjectDistributionDetail> listDocumentBySubjectDistribution(SubjectDistribution subjectDistribution) {
+		// TODO Auto-generated method stub
+		return repository.findBySubjectDistributionAndSyllabusIsNull(subjectDistribution);
+	}
+	
+	@Override
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		repository.deleteById(id);
+	}
 }

@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import net.bytebuddy.asm.Advice.OffsetMapping.Sort;
@@ -50,4 +51,5 @@ public class TrainingProgramServiceImpl implements TrainingProgramService{
 		// TODO Auto-generated method stub
 		repository.deleteById(id);
 	}
+	
 }

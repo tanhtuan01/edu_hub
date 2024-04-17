@@ -39,4 +39,17 @@ public class SyllabusServiceImpl implements SyllabusService{
 		// TODO Auto-generated method stub
 		return repository.findByIdModuleAndModuleCodeOrModuleName(id, value, pageable);
 	}
+	
+	@Override
+	public Long saveAndGetId(Syllabus syllabus) {
+		// TODO Auto-generated method stub
+		Syllabus s = repository.saveAndFlush(syllabus);
+		return s.getId();
+	}
+	
+	@Override
+	public Syllabus get(Long id) {
+		// TODO Auto-generated method stub
+		return repository.getOne(id);
+	}
 }

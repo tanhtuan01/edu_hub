@@ -27,4 +27,17 @@ public class DocumentServiceImpl implements DocumentService{
 		// TODO Auto-generated method stub
 		return repository.findDocumentWithIdModuleAndNameModuleAndDocumentType(id, name, type, pageable);
 	}
+	
+	@Override
+	public Long saveAndGetID(Document document) {
+		// TODO Auto-generated method stub
+		Document d = repository.saveAndFlush(document);
+		return d.getId();
+	}
+	
+	@Override
+	public Document get(Long id) {
+		// TODO Auto-generated method stub
+		return repository.getOne(id);
+	}
 }

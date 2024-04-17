@@ -48,4 +48,10 @@ public class TeacherOfSchoolServiceImpl implements TeacherOfSchoolService{
 		// TODO Auto-generated method stub
 		return repository.findBySchoolAndIsAdminFalse(school);
 	}
+	
+	@Override
+	public boolean existsByUserAndSchoolLecturer(User user, School school) {
+		// TODO Auto-generated method stub
+		return repository.existsByUserAndSchoolAndIsAdminFalse(user, school);
+	}
 }
