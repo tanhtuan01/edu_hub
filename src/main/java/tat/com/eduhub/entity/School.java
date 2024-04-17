@@ -43,6 +43,12 @@ public class School extends BaseEntity{
 	
 	@OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Modules> modules;
+	
+	@OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Document> documents;
+	
+	@OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Syllabus> syllabus;
 
 	public String getName() {
 		return name;

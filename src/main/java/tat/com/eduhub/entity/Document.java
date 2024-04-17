@@ -33,6 +33,18 @@ public class Document extends BaseEntity{
 	
 	@OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<SubjectDistributionDetail> subjectDistributionDetails;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_school")
+	private School school;
+
+	public School getSchool() {
+		return school;
+	}
+
+	public void setSchool(School school) {
+		this.school = school;
+	}
 
 	public List<SubjectDistributionDetail> getSubjectDistributionDetails() {
 		return subjectDistributionDetails;
@@ -80,6 +92,24 @@ public class Document extends BaseEntity{
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+
+	public Document(String type, String share, String name, String fileName) {
+		super();
+		this.type = type;
+		this.share = share;
+		this.name = name;
+		this.fileName = fileName;
+	}
+
+	@Override
+	public String toString() {
+		return "Document [type=" + type + ", share=" + share + ", name=" + name + ", fileName=" + fileName + "]";
+	}
+
+	public Document() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	

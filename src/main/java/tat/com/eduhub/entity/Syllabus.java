@@ -26,6 +26,18 @@ public class Syllabus extends BaseEntity{
 	
 	@OneToMany(mappedBy = "syllabus", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<SubjectDistributionDetail> subjectDistributionDetails;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_school")
+	private School school;
+
+	public School getSchool() {
+		return school;
+	}
+
+	public void setSchool(School school) {
+		this.school = school;
+	}
 
 	public List<SubjectDistributionDetail> getSubjectDistributionDetails() {
 		return subjectDistributionDetails;
