@@ -46,10 +46,10 @@
 									</div>
 									<div class="form-group">
 										<div class="input">
-											<input type="submit" value="Thêm" class="btn btn-primary">
+											<input type="submit" value="Thêm mới" class="btn btn-primary">
 										</div>
 									</div>
-									
+									<p class="text-alert">hoặc</p>
 									<div class="form-group">
 										<div class="input">
 											<a class="btn btn-primary" onclick="addSyllabusFromListModal(this);">
@@ -65,7 +65,7 @@
 									</p>
 								</th:block>
 								<th:block th:if="${#lists.size(listSyllabus) > 0}">
-									<div>
+									<div class="table">
 									<table>
 										<tr>
 											<th class="stt">STT</th>
@@ -74,14 +74,14 @@
 										</tr>
 										<tr th:each="s,i : ${listSyllabus}">
 											<td class="stt" th:text="${i.count}"></td>
-											<td th:text="${s.syllabus.name}"></td>
+											<td class="name" th:text="${s.syllabus.name}"></td>
 											<td class="act text-center"><a
 												th:href="@{'/file/syllabus/lecturer/' + ${domain} +'/' + ${s.syllabus.fileName} }"
 												class="btn btn-edit" download> <i
 													class="fa-solid fa-download"></i>
 											</a></td>
 											<td>
-												<a th:href="@{'/school-lecturer/' + ${domain} + '/hoc-phan-chuong-trinh-dao-tao/xoa-de-cuong?id=' + ${s.id} }" class="act btn btn-minus">
+												<a onclick="deleteSyllabusOfModuleFromList(this)" th:href="@{'/school-lecturer/' + ${domain} + '/hoc-phan-chuong-trinh-dao-tao/xoa-de-cuong?id=' + ${s.id} }" class="act btn btn-minus">
 													<i class="fa-solid fa-minus"></i>
 												</a>
 											</td>
@@ -131,9 +131,10 @@
 									</div>
 									<div class="form-group">
 										<div class="input">
-											<input type="submit" value="Thêm" class="btn btn-primary">
+											<input type="submit" value="Thêm mới" class="btn btn-primary">
 										</div>
 									</div>
+									<p class="text-alert">hoặc</p>
 									<div class="form-group">
 										<div class="input">
 											<a class="btn btn-primary" onclick="addDocumentFromListModal(this);">
@@ -150,7 +151,7 @@
 								</th:block>
 								<th:block th:if="${#lists.size(listDocument) > 0}">
 									
-									<div>
+									<div class="table">
 									<table>
 										<tr>
 											<th class="stt">STT</th>
@@ -161,7 +162,7 @@
 										</tr>
 										<tr th:each="d,i : ${listDocument}">
 											<td class="stt" th:text="${i.count}"></td>
-											<td th:text="${d.document.name}"></td>
+											<td class="name" th:text="${d.document.name}"></td>
 											<td
 												th:text="${d.document.type == 'for_lecturer'} ? 'Giảng viên' : 'Sinh viên'">Giảng
 												viên</td>
@@ -183,7 +184,7 @@
 												</a></td>
 												
 												<td>
-												<a th:href="@{'/school-lecturer/' + ${domain} + '/hoc-phan-chuong-trinh-dao-tao/xoa-tai-lieu?id=' + ${d.id} }" class="act btn btn-minus">
+												<a onclick="deleteDocumentOfModuleFromList(this)" th:href="@{'/school-lecturer/' + ${domain} + '/hoc-phan-chuong-trinh-dao-tao/xoa-tai-lieu?id=' + ${d.id} }" class="act btn btn-minus">
 													<i class="fa-solid fa-minus"></i>
 												</a>
 											</td>
@@ -206,36 +207,64 @@
 	<div class="add-from-list">
 		<div class="eh-header-title sub"></div>	
 		<div class="list list-syllabus">
-			<h1>Học phần hiện có</h1>
-			<form method="post" th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/them-hp-khoi-kt'}">
-				<input type="hidden" id="knowledgeID" name="knowledgeID">
+			<h1></h1>
+			<form onsubmit="checkCbBeforSubmit(this)" method="post" th:action="@{'/school-lecturer/' + ${domain} + '/hoc-phan-chuong-trinh-dao-tao/them-de-cuong'}">
+				
 				<div class="table-container">
 				<table>
 					
 					<tr class="first-row">
 						<th class="cb"></th>
 						<th class="stt">STT</th>
-						<th>Mã học phần</th>
-						<th>Tên học phần</th>
+						<th>Đề cương</th>
 					</tr>
-					<tr th:each="m,i: ${module}">
+					<tr th:each="s,i: ${syllabusExist}">
 						<td>
-							<input type="checkbox" name="module" th:value="${m.id}">
+							<input type="checkbox" name="syllabus" th:value="${s.id}">
 						</td>
 						<td th:text="${i.count}">1</td>
-						<td th:text="${m.code}">MHP1234</td>
-						<td th:text="${m.name}">Tên Học Phần</td>
+						<td th:text="${s.name}">Tên Học Phần</td>
 					</tr>
 					
 					
 				</table>
 				</div>
-				<div>
-					<button type="submit" class="btn btn-primary">Thêm học phần</button>
+				<div class="bottom-button">
+					<button type="submit" class="btn btn-primary">Thêm đề cương</button>
 				</div>
 			</form>
-		</div>	
+		</div>
+		
+		<div class="list list-document">
+			<h1></h1>
+			<form onsubmit="checkCbBeforSubmit(this)" method="post" th:action="@{'/school-lecturer/' + ${domain} + '/hoc-phan-chuong-trinh-dao-tao/them-tai-lieu'}">
+				
+				<div class="table-container">
+				<table>
+					
+					<tr class="first-row">
+						<th class="cb"></th>
+						<th class="stt">STT</th>
+						<th>Tài liệu</th>
+					</tr>
+					<tr th:each="d,i: ${documentExist}">
+						<td>
+							<input type="checkbox" name="document" th:value="${d.id}">
+						</td>
+						<td th:text="${i.count}">1</td>
+						<td th:text="${d.name}">Tên Học Phần</td>
+					</tr>
+					
+					
+				</table>
+				</div>
+				<div class="bottom-button">
+					<button type="submit" class="btn btn-primary">Thêm tài liệu</button>
+				</div>
+			</form>
+		</div>		
 	</div>
+	
 </div>
 
 
@@ -257,6 +286,29 @@
 				Toast.fire({
 				  icon: "success",
 				  title: "Xóa thành công"
+				});
+			}, 800)
+	    });
+</script>
+
+<script th:if="${param.added}" th:inline="javascript">
+		
+	document.addEventListener('DOMContentLoaded', function() {
+		setTimeout(()=>{
+			const Toast = Swal.mixin({
+				  toast: true,
+				  position: "top-end",
+				  showConfirmButton: false,
+				  timer: 1800,
+				  timerProgressBar: true,
+				  didOpen: (toast) => {
+				    toast.onmouseenter = Swal.stopTimer;
+				    toast.onmouseleave = Swal.resumeTimer;
+				  }
+				});
+				Toast.fire({
+				  icon: "success",
+				  title: "Thêm thành công"
 				});
 			}, 800)
 	    });
