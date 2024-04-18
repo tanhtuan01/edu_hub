@@ -1,0 +1,64 @@
+.lecturer-account{
+	background: white;
+	padding: 10px 0;
+}
+
+.lecturer-account form {
+	width: 100%;
+	display: flex;
+}
+.lecturer-account form .left{
+	width: 25%;
+	padding: 0 20px;
+}
+.lecturer-account form .right{
+	width: 75%;
+}
+
+.lecturer-account .form-group .label{
+	width: 150px;
+}
+.lecturer-account .form-group .input{
+	width: 100%;	
+}
+.lecturer-account .form-group .input input[type='text']{
+	width: 50%;
+}
+
+#image-container {
+    width: 100%;
+    margin: auto;
+    position: relative;
+    height: 250px;
+    padding: 10px;
+	border: 1px solid var(--bg-silver);
+    border-radius: 5px;
+}
+
+#image-link {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: var(--bg-silver);
+    padding: 10px 12px;
+    border-radius: 50%;
+    text-align: center;
+    transition: all .3s ease;
+    color: dodgerblue;
+}
+
+#image-link i {
+    font-size: 20px;
+
+}
+
+#uploaded-image{
+	width: 100%;
+	height: calc(100% - 20px);
+	border-radius: 5px;
+}
+
+#image-link:hover,#image-link-right:hover {
+    background: var(--primary-color);
+    color: white;
+}
