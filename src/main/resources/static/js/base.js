@@ -168,4 +168,5 @@ function chooseImage(e, inputName) {
     
     // Kích hoạt sự kiện click trên input[type=file] ẩn
     fileInput.click();
+   // e.closest("#image-container").querySelector(".errorLoadImg").style.display = "none"
 }
