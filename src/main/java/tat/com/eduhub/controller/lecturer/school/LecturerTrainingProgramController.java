@@ -26,6 +26,7 @@ import tat.com.eduhub.component.LecturerSchoolAccountCheck;
 import tat.com.eduhub.dto.SubjectDistributionDTO;
 import tat.com.eduhub.entity.Document;
 import tat.com.eduhub.entity.Modules;
+import tat.com.eduhub.entity.School;
 import tat.com.eduhub.entity.SubjectDistribution;
 import tat.com.eduhub.entity.SubjectDistributionDetail;
 import tat.com.eduhub.entity.Syllabus;
@@ -112,16 +113,23 @@ public class LecturerTrainingProgramController {
 		if(idSubjectDistribution == 0 || idSubjectDistribution == null) {
 			return "redirect:/school-lecturer/" + domain + "/hoc-phan-chuong-trinh-dao-tao/danh-sach";
 		}
+		School school = schoolService.findByDomain(domain);
 		String moduleName = sdService.get(idSubjectDistribution).getModule().getName();
  		model.addAttribute("moduleName", moduleName);
  		
  		List<SubjectDistributionDetail> listSyllabus = sddService.listSyllabusBySubjectDistribution(sdService.get(idSubjectDistribution));
  		model.addAttribute("listSyllabus", listSyllabus);
- 		System.err.println("list Syllabus size: " + listSyllabus.size());
+// 		System.err.println("list Syllabus size: " + listSyllabus.size());
  		List<SubjectDistributionDetail> listDocument = sddService.listDocumentBySubjectDistribution(sdService.get(idSubjectDistribution));
  		model.addAttribute("listDocument", listDocument);
- 		System.err.println("list listDocument size: " + listDocument.size());
+// 		System.err.println("list listDocument size: " + listDocument.size());
  		model.addAttribute("cmAction", cmAction);
+ 		
+ 		List<Document> listDocumentExistent = documentService.listBySchool(school);
+ 		List<Syllabus> listSyllabusExistent = syllabusService.listBySchool(school);
+ 		model.addAttribute("documentExist", listDocumentExistent);
+ 		model.addAttribute("syllabusExist", listSyllabusExistent);
+ 		
 		return BASE_FIELD.LECTURER_SCHOOL_LAYOUT;
 	}
 	
@@ -231,5 +239,62 @@ public class LecturerTrainingProgramController {
 			return "redirect:/school-lecturer/" + domain + "/hoc-phan-chuong-trinh-dao-tao/them-noi-dung-hoc-phan?failed";
 		}
 		
+	}
+	
+	@PostMapping(value = "/them-de-cuong")
+	public String addSyllabusModuleOfTrainingProgram(@PathVariable(name = "domain") String domain,
+			HttpServletRequest request) {
+		
+		try {
+			this.cmAction = "career";
+			String [] syllabusID = request.getParameterValues("syllabus");
+			
+			for(String id : syllabusID) {
+				Long syllabusId = Long.parseLong(id);
+				SubjectDistribution sd = sdService.get(idSubjectDistribution);
+				Syllabus s = syllabusService.get(syllabusId);
+				boolean existBySyllabus = sddService.existsBySyllabus(s);
+				
+				if(!existBySyllabus) {
+					SubjectDistributionDetail sdd = new SubjectDistributionDetail();
+					sdd.setSubjectDistribution(sd);
+					sdd.setSyllabus(s);
+					sddService.save(sdd);
+				}
+			}
+			return "redirect:/school-lecturer/" + domain + "/hoc-phan-chuong-trinh-dao-tao/them-noi-dung-hoc-phan?added";
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return "redirect:/school-lecturer/" + domain + "/hoc-phan-chuong-trinh-dao-tao/them-noi-dung-hoc-phan?failed";
+	}
+	
+	@PostMapping(value = "/them-tai-lieu")
+	public String addDocumentModuleOfTrainingProgram(@PathVariable(name = "domain") String domain,
+			HttpServletRequest request) {
+		try {
+			this.cmAction = "major";
+			String [] documentID = request.getParameterValues("document");
+			
+			for(String id : documentID) {
+				Long documentId = Long.parseLong(id);
+				SubjectDistribution sd = sdService.get(idSubjectDistribution);
+				Document d = documentService.get(documentId);
+				
+				boolean existByDocument = sddService.existsByDocument(d);
+				if(!existByDocument) {
+					SubjectDistributionDetail sdd = new SubjectDistributionDetail();
+					sdd.setSubjectDistribution(sd);
+					sdd.setDocument(d);
+					sddService.save(sdd);
+				}
+			}
+			return "redirect:/school-lecturer/" + domain + "/hoc-phan-chuong-trinh-dao-tao/them-noi-dung-hoc-phan?added";
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return "redirect:/school-lecturer/" + domain + "/hoc-phan-chuong-trinh-dao-tao/them-noi-dung-hoc-phan?failed";
 	}
 }
