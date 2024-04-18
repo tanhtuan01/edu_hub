@@ -1,5 +1,10 @@
 function changeCM(e){
 	event.preventDefault()
+	
+	if(document.querySelector(".modal")){
+		document.querySelector(".modal").classList.remove('active')
+	}
+	
 	var target = e.dataset.cm
 
 	var cm = document.querySelectorAll('[data-cm]')
