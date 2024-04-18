@@ -8,6 +8,10 @@ import org.springframework.data.repository.query.Param;
 
 import tat.com.eduhub.entity.SubjectDistributionDetail;
 import tat.com.eduhub.entity.SubjectDistribution;
+import tat.com.eduhub.entity.Syllabus;
+import tat.com.eduhub.entity.Document;
+
+
 
 
 public interface SubjectDistributionDetailRepository extends JpaRepository<SubjectDistributionDetail, Long>{
@@ -20,4 +24,8 @@ public interface SubjectDistributionDetailRepository extends JpaRepository<Subje
 	List<SubjectDistributionDetail> findBySubjectDistributionAndDocumentIsNull(SubjectDistribution subjectDistribution);
 	
 	List<SubjectDistributionDetail> findBySubjectDistributionAndSyllabusIsNull(SubjectDistribution subjectDistribution);
+
+	boolean existsBySyllabus(Syllabus syllabus);
+	
+	boolean existsByDocument(Document document);
 }

@@ -1,8 +1,11 @@
 package tat.com.eduhub.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import tat.com.eduhub.entity.School;
 import tat.com.eduhub.entity.Syllabus;
 
 public interface SyllabusService {
@@ -18,4 +21,6 @@ public interface SyllabusService {
 	Long saveAndGetId(Syllabus syllabus);
 	
 	Syllabus get(Long id);
+	
+	List<Syllabus> listBySchool(School school);
 }

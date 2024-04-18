@@ -2,8 +2,10 @@ package tat.com.eduhub.service;
 
 import java.util.List;
 
+import tat.com.eduhub.entity.Document;
 import tat.com.eduhub.entity.SubjectDistribution;
 import tat.com.eduhub.entity.SubjectDistributionDetail;
+import tat.com.eduhub.entity.Syllabus;
 
 public interface SubjectDistributionDetailService {
 
@@ -18,4 +20,8 @@ public interface SubjectDistributionDetailService {
 	List<SubjectDistributionDetail> listDocumentBySubjectDistribution(SubjectDistribution subjectDistribution);
 
 	void delete(Long id);
+	
+	boolean existsBySyllabus(Syllabus syllabus);
+	
+	boolean existsByDocument(Document document);
 }

@@ -1,5 +1,7 @@
 package tat.com.eduhub.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import tat.com.eduhub.entity.Document;
+import tat.com.eduhub.entity.School;
 import tat.com.eduhub.repository.DocumentRepository;
 import tat.com.eduhub.service.DocumentService;
 
@@ -39,5 +42,11 @@ public class DocumentServiceImpl implements DocumentService{
 	public Document get(Long id) {
 		// TODO Auto-generated method stub
 		return repository.getOne(id);
+	}
+	
+	@Override
+	public List<Document> listBySchool(School school) {
+		// TODO Auto-generated method stub
+		return repository.findBySchool(school);
 	}
 }

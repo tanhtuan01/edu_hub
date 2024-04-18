@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import tat.com.eduhub.entity.Document;
 import tat.com.eduhub.entity.SubjectDistribution;
 import tat.com.eduhub.entity.SubjectDistributionDetail;
+import tat.com.eduhub.entity.Syllabus;
 import tat.com.eduhub.repository.SubjectDistributionDetailRepository;
 import tat.com.eduhub.service.SubjectDistributionDetailService;
 
@@ -51,5 +53,17 @@ public class SubjectDistributionDetailServiceImpl implements SubjectDistribution
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
 		repository.deleteById(id);
+	}
+	
+	@Override
+	public boolean existsBySyllabus(Syllabus syllabus) {
+		// TODO Auto-generated method stub
+		return repository.existsBySyllabus(syllabus);
+	}
+	
+	@Override
+	public boolean existsByDocument(Document document) {
+		// TODO Auto-generated method stub
+		return repository.existsByDocument(document);
 	}
 }
