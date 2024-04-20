@@ -9,9 +9,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-
+import tat.com.eduhub.custom.CustomAuthorizationRequestResolver;
 import tat.com.eduhub.service.UserService;
 
 @Configuration
@@ -20,6 +21,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ClientRegistrationRepository clientRegistrationRepository;
 	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -51,6 +55,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	        .and()
 	        .formLogin()
 	            .loginPage("/dang-nhap")
+	            .failureUrl("/dang-nhap?error")
 	            .permitAll()
 	        .and()
 	        .logout()
@@ -59,6 +64,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	            .logoutRequestMatcher(new AntPathRequestMatcher("/dang-xuat"))
 	            .logoutSuccessUrl("/")
 	            .permitAll()
+	        .and()
+	        .oauth2Login()
+	        	.loginPage("/dang-nhap-google")
+	        	.defaultSuccessUrl("/afterGoogleLoginSuccess")
+	        	.authorizationEndpoint()
+	        	.authorizationRequestResolver(new CustomAuthorizationRequestResolver(clientRegistrationRepository))
 	        
 	        	;
 	}
