@@ -1,7 +1,9 @@
+
 <div class="eh-body eh-sign">
 	<div class="sign r-content">
 		<div class="sign-form sign-in">
 			<div class="sign-title">Đăng Nhập</div>
+			
 			<div class="social">
 				<ul>
 					<li>
@@ -16,6 +18,9 @@
 					<p class="text-center text-alert"></p>
 					<p th:if="${param.error}" class="text-center text-alert alert-error">
 						Sai tên đăng nhập hoặc mật khẩu
+					</p>
+					<p th:if="${param.failure}" class="text-center text-alert alert-warning">
+						Bạn cần đăng nhập đúng tài khoản để tiếp tục
 					</p>
 					<div class="form-group">
 						<div class="label">Email</div>
