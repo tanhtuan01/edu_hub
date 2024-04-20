@@ -22,7 +22,7 @@ public class GoogleLogin {
 	        OAuth2User oauth2User = authenticationToken.getPrincipal();
 	        String email = oauth2User.getAttribute("email");
 	        System.err.println("Email: " + email);
-	        
+	        System.err.println("After Google Login Success");
 	        String name = oauth2User.getAttribute("name");
 	        System.err.println("Name: " + name);
 	        model.addAttribute("name", name);
