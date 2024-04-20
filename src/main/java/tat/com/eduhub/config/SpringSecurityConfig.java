@@ -70,7 +70,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	        	.defaultSuccessUrl("/afterGoogleLoginSuccess")
 	        	.authorizationEndpoint()
 	        	.authorizationRequestResolver(new CustomAuthorizationRequestResolver(clientRegistrationRepository))
-	        
 	        	;
 	}
 	
