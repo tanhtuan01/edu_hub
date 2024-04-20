@@ -12,6 +12,7 @@ public class CustomAuthorizationRequestResolver implements OAuth2AuthorizationRe
 
 	// thay đổi tham số prompt mặc định để cho phép chọn tài khoản khác để đăng nhập
 	// nếu không tài khoản google trước đó đã được đăng nhập sẽ được đăng nhập luôn
+	
 	private final OAuth2AuthorizationRequestResolver defaultResolver;
 	
 	public CustomAuthorizationRequestResolver(ClientRegistrationRepository clientRegistrationRepository) {
