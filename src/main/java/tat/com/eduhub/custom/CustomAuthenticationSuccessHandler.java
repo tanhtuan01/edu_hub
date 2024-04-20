@@ -47,12 +47,19 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
 	    // Lấy URL trước đó (nếu có)
 	    SavedRequest savedRequest = requestCache.getRequest(request, response);
+
 	    String redirectUrl = savedRequest != null ? savedRequest.getRedirectUrl() : "/";
 	    
+	    
 	    if(redirectUrl.contains("school-admin") && authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMINSCHOOL"))||
-	    	redirectUrl.contains("school-lecturer") && authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_LECTURERSCHOOL"))) {
+	    	redirectUrl.contains("school-lecturer") && authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_LECTURERSCHOOL")) ||
+	    	redirectUrl.contains("u/") && authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_STUDENT"))) {
 	    	response.sendRedirect(redirectUrl);
-	    }
+	    }else if(authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMINSCHOOL"))||
+		    	 authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_LECTURERSCHOOL")) ||
+		     	 authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_STUDENT"))) {
+	    	response.sendRedirect(redirectUrl);
+	    }  
 	    else {
 	    	response.sendRedirect("/dang-xuat");
 	    }
