@@ -8,6 +8,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -74,12 +75,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 					.addLogoutHandler(new SecurityContextLogoutHandler())// Khi người dùng đăng xuất, SecurityContextLogoutHandler sẽ xóa bỏ thông tin về bảo mật (bao gồm thông tin xác thực, quyền truy cập, v.v.) khỏi security context. Điều này đảm bảo rằng người dùng không thể tiếp tục truy cập vào các tài nguyên được bảo vệ sau khi đăng xuất.
 					.permitAll()
 				.and()
+				.sessionManagement()
+					.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+					.sessionFixation().newSession() // Tạo phiên làm việc mới cho mỗi yêu cầu
+				.and()
 				.oauth2Login()
 					.loginPage("/dang-nhap-google")
 					.defaultSuccessUrl("/afterGoogleLoginSuccess")
 					.authorizationEndpoint()
 					.authorizationRequestResolver(new CustomAuthorizationRequestResolver(clientRegistrationRepository))
-				;
+				
+					;
 	}
 
 	private AuthenticationSuccessHandler authenticationSuccessHandler() {
