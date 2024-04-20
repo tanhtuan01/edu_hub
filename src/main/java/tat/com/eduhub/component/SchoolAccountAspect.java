@@ -81,6 +81,9 @@ public class SchoolAccountAspect {
 	                    HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
 	                    response.sendRedirect("/dang-xuat");
 	                }
+	            }else {
+	            	 HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
+	                    response.sendRedirect("/dang-xuat");
 	            }
 	        }
 	    }
