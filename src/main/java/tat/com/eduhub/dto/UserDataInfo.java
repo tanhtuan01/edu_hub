@@ -11,6 +11,8 @@ public class UserDataInfo {
 	private String loginMethod;
 	
 	private String role;
+	
+	private String domain;
 
 	public String getEmail() {
 		return email;
@@ -49,12 +51,23 @@ public class UserDataInfo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserDataInfo(String email, String name, String loginMethod, String role) {
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
+
+	public UserDataInfo(String email, String name, String loginMethod, String role, String domain) {
 		super();
 		this.email = email;
 		this.name = name;
 		this.loginMethod = loginMethod;
 		this.role = role;
+		this.domain = domain;
 	}
+
+	
 	
 }
