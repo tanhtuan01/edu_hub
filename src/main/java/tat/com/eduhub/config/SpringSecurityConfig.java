@@ -18,9 +18,11 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import tat.com.eduhub.component.UserHelper;
 //import tat.com.eduhub.custom.CustomAuthenticationFailureHandler;
 import tat.com.eduhub.custom.CustomAuthenticationSuccessHandler;
 import tat.com.eduhub.custom.CustomAuthorizationRequestResolver;
+import tat.com.eduhub.service.TeacherOfSchoolService;
 import tat.com.eduhub.service.UserService;
 
 @Configuration
@@ -33,6 +35,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private ClientRegistrationRepository clientRegistrationRepository;
 
+	@Autowired
+	private TeacherOfSchoolService teacherOfSchoolService;
+	
+	@Autowired
+	private UserHelper userHelper;
+	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -90,7 +98,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private AuthenticationSuccessHandler authenticationSuccessHandler() {
 		RequestCache requestCache = new HttpSessionRequestCache();
-		return new CustomAuthenticationSuccessHandler(requestCache);
+		return new CustomAuthenticationSuccessHandler(requestCache, userService, teacherOfSchoolService, userHelper);
 	}
 
 
