@@ -62,6 +62,7 @@ public class UserServiceImpl implements UserService{
 				passwordEncoder.encode(userDTO.getPasswords()), Arrays.asList(new Role("ROLE_STUDENT"))
 			);
 		user.setAvt("no-avatar.png");
+		user.setReceiveMail(userDTO.getReceiveMail());
 		User userSave = repository.saveAndFlush(user);
 		return userSave.getId();
 	}

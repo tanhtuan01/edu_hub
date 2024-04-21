@@ -19,4 +19,6 @@ public interface TeacherOfSchoolRepository extends JpaRepository<TeacherOfSchool
 	List<TeacherOfSchool> findBySchoolAndIsAdminFalse(School school);
 	
 	boolean existsByUserAndSchoolAndIsAdminFalse(User user, School school);
+	
+	TeacherOfSchool findByUser(User user);
 }
