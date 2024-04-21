@@ -17,7 +17,7 @@ public class TeacherOfSchool extends BaseEntity{
 	@JoinColumn(name = "id_user", referencedColumnName = "id")
 	private User user;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_school")
 	private School school;
 	
