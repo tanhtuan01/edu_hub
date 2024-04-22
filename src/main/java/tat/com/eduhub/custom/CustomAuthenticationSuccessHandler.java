@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 
+import tat.com.eduhub.base.BASE_METHOD;
 import tat.com.eduhub.component.UserHelper;
 import tat.com.eduhub.dto.UserDataInfo;
 import tat.com.eduhub.entity.TeacherOfSchool;
@@ -76,7 +77,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	    	response.sendRedirect("/dang-xuat");
 	    }
 	    
-	    else if(roleName.equals("ROLE_ADMINSCHOOL")|| roleName.equals("ROLE_LECTURERSCHOOL") || roleName.equals("ROLE_STUDENT")) {
+	    else if(roleName.equals("ROLE_ADMINSCHOOL")|| roleName.equals("ROLE_LECTURERSCHOOL") || 
+	    		roleName.equals("ROLE_STUDENT") || roleName.equals("ROLE_USER")) {
 	    	response.sendRedirect(redirectUrl);
 	    }  
 	    else {
@@ -86,22 +88,17 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	   
 	}
 
-	private String extractValueFromUrl(String url, String prefix) {
-	    int startIndex = url.indexOf(prefix);
-	    if (startIndex != -1) {
-	        int endIndex = url.indexOf("/", startIndex + prefix.length());
-	        if (endIndex != -1) {
-	            return url.substring(startIndex + prefix.length(), endIndex);
-	        } else {
-	            return url.substring(startIndex + prefix.length());
-	        }
-	    }
-	    return null;
-	}
+	
 	
 	private String domain(String email) {
 		User user = userService.findByEmail(email);
-		String domain = tosService.findByUser(user).getSchool().getDomain();
+		TeacherOfSchool teacherOfSchool = tosService.findByUser(user);
+		String domain = "";
+		if(teacherOfSchool != null) {
+			domain = teacherOfSchool.getSchool().getDomain();
+		}else {
+			domain = BASE_METHOD.extractValueFromEmail(email);
+		}
 		return domain;
 	}
 	
