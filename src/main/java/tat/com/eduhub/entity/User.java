@@ -36,6 +36,9 @@ public class User extends BaseEntity{
 	private String receiveMail;
 	
 	private String avt;
+	
+	@Size(max = 20)
+	private String type;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
@@ -134,8 +137,13 @@ public class User extends BaseEntity{
 		this.teacherOfSchool = teacherOfSchool;
 	}
 
-	
+	public String getType() {
+		return type;
+	}
 
-	
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	
 }
