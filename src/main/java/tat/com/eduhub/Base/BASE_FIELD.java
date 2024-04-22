@@ -15,4 +15,6 @@ public class BASE_FIELD {
 	public static final String SCHOOL_ADMIN_LAYOUT = "layout/admin_school";
 	
 	public static final String LECTURER_SCHOOL_LAYOUT = "layout/lecturer_school";
+	
+	public static final String STUDENT_SCHOOL_LAYOUT = "layout/student_school";
 }
