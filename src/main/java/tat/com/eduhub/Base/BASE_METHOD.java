@@ -136,5 +136,30 @@ public class BASE_METHOD {
 	    return extension;
 	}
 	
+	public static String extractValueFromUrl(String url, String prefix) {
+	    int startIndex = url.indexOf(prefix);
+	    if (startIndex != -1) {
+	        int endIndex = url.indexOf("/", startIndex + prefix.length());
+	        if (endIndex != -1) {
+	            return url.substring(startIndex + prefix.length(), endIndex);
+	        } else {
+	            return url.substring(startIndex + prefix.length());
+	        }
+	    }
+	    return null;
+	}
+	
+	public static String extractValueFromEmail(String email) {
+	    int atIndex = email.indexOf('@');
+	    if (atIndex != -1 && atIndex < email.length() - 1) {
+	        return email.substring(atIndex + 1);
+	    }
+	    return "";
+	}
+	
+	public static void FragmentStudentSchool(String fragment, Model model) {
+		String fragmentUrl =  "fragment/student_school/" + fragment;
+		model.addAttribute("fragment", fragmentUrl);
+	}
 
 }
