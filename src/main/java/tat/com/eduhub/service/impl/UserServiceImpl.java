@@ -50,6 +50,7 @@ public class UserServiceImpl implements UserService{
 					userDTO.getUserName(), userDTO.getEmail(),
 					passwordEncoder.encode(userDTO.getPasswords()), Arrays.asList(new Role("ROLE_STUDENT"))
 				);
+		user.setType("system_account");
 		user.setAvt("logo_user.png");
 		return repository.save(user);
 	}
@@ -62,6 +63,7 @@ public class UserServiceImpl implements UserService{
 				passwordEncoder.encode(userDTO.getPasswords()), Arrays.asList(new Role("ROLE_STUDENT"))
 			);
 		user.setAvt("no-avatar.png");
+		user.setType("system_account");
 		user.setReceiveMail(userDTO.getReceiveMail());
 		User userSave = repository.saveAndFlush(user);
 		return userSave.getId();
@@ -95,6 +97,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public Long createLecturerAndGetId(User user) {
 		// TODO Auto-generated method stub
+		user.setType("system_account");
 		User save = repository.saveAndFlush(user);
 		return save.getId();
 	}
