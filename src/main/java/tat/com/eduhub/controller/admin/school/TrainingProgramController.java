@@ -108,6 +108,7 @@ public class TrainingProgramController {
 		tp.setName(name.trim());
 		tp.setSchool(schoolService.findByDomain(domain));
 		tp.setStatus("3%");
+		tp.setPostStatus(false);
 		idTpSaved = tpService.saveAndGetId(tp);
 		
 		
@@ -346,5 +347,21 @@ public class TrainingProgramController {
 			@RequestParam(name = "id")Long id) {
 		tpService.delete(id);
 		return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/danh-sach?deleted";
+	}
+	
+	@GetMapping(value = "/trang-thai")
+	public String updatePostStatus(@PathVariable(name = "domain") String domain,
+			@RequestParam(name = "act") String act,
+			@RequestParam(name = "id") Long id) {
+		
+		TrainingProgram trainingProgram = tpService.get(id);
+		if(act.equals("post")) {
+			trainingProgram.setPostStatus(true);
+		}else {
+			trainingProgram.setPostStatus(false);
+		}
+		tpService.save(trainingProgram);
+		
+		return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/danh-sach?updated";
 	}
 }
