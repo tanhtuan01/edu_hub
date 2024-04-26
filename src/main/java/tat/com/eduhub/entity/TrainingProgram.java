@@ -74,6 +74,17 @@ public class TrainingProgram extends BaseEntity{
 	
 	@Size(max = 20)
 	private String status;
+	
+	@Column(name = "post_status")
+	private boolean postStatus;
+
+	public boolean isPostStatus() {
+		return postStatus;
+	}
+
+	public void setPostStatus(boolean postStatus) {
+		this.postStatus = postStatus;
+	}
 
 	public String getStatus() {
 		return status;
