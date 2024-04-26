@@ -1,11 +1,11 @@
 <div class="right-body">
 	<div class="body-content r-content">
-		<div class="faculty-assignment">
-
+		<div class="faculty-assignment"> <br>
+<a th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/danh-sach'}" class="btn btn-primary txt14"><i class="fa-solid fa-caret-left"></i> Quay lại</a>
 			<div class="eh-header-title" th:text="${tp.name}">Tên chương trình đào tạo</div>
-
+		
 			<div class="rate-of-progress">
-				Tiến độ <span>90</span><span>/</span><span>100</span>
+				Tiến độ: <span th:text="${tp.status}">90</span>
 			</div>
 			<div>
 
@@ -16,11 +16,11 @@
 							<th class="stt">STT</th>
 							<th>Tên học phần</th>
 							<th style="display: none;"></th>
-							<th>Đề cương</th>
-							<th>Tài liệu</th>
+							<th style="width: 15%">Đề cương & Tài liệu</th>
+							<th style="width: 7%">Học kỳ</th>
 							<th class="lecturer">Giảng viên phụ trách</th>
-							<th class="status">Trạng thái</th>
-							<th class="act">Thao tác</th>
+							<th class="act">Xem tệp</th>
+							<th class="act">Thông báo</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -28,8 +28,8 @@
 							<td th:text="${i.count}">STT</td>
 							<td th:text="${tp.module.name}">Tên học phần</td>
 							<td style="display: none;" class="info" th:attr="data-id=${tp.id}, data-name=${tp.module.name}"></td>
-							<td>Đề cương</td>
-							<td>Tài liệu</td>
+							<td th:text="${#lists.size(tp.subjectDistributionDetails)} + ' tệp'"></td>
+							<td th:text="${tp.semester}"></td>
 							<td>
 								<ul>
 									<li th:each="u : ${tp.user}"><a th:text="${u.userName}"></a>
@@ -43,7 +43,11 @@
 									</a></li>
 								</ul>
 							</td>
-							<td class="status"><i class="fa-solid fa-check"></i></td>
+							<td class="act">
+								<a class="btn btn-view">
+									<i class="fa-solid fa-file-invoice"></i>
+								</a>
+							</td>
 							<td class="act">
 								<a class="btn btn-primary disable"
 									title="Gửi thông báo nhắc nhở"> <i class="fa-solid fa-bell"></i>

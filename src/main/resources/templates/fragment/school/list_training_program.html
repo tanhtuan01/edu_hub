@@ -30,11 +30,11 @@
 						<tr>
 							<th class="stt">STT</th>
 							<th class="name">Chương trình đào tạo</th>
+							<th class="status">Đăng tải</th>
 							<th class="status">Trạng thái</th>
 							<th class="rate-of-progress">Tiến độ</th>
 							<th class="act">Chi tiết</th>
 							<th class="act">Xem</th>
-							
 							<th class="act">Sửa</th>
 							<th class="act">Xóa</th>
 						</tr>
@@ -43,8 +43,14 @@
 						<tr th:each="tp,i : ${list}">
 							<td class="stt" th:text="${i.count}">1</td>
 							<td class="name" th:text="${tp.name}">Tên chương trình đào tạo</td>
-							<td class="status">Chưa hoàn thành</td>
-							<td class="rate-of-progress">100%</td>
+							<td class="status" th:if="${tp.postStatus}">
+								<p>Đã đăng</p> (<a th:href="@{'/school-admin/' +${domain} + '/chuong-trinh-dao-tao/trang-thai?act=unpost&id=' + ${tp.id} }">thay đổi > chưa đăng</a>)
+							</td>
+							<td class="status" th:unless="${tp.postStatus}">
+								<p>Chưa đăng</p> (<a th:href="@{'/school-admin/' +${domain} + '/chuong-trinh-dao-tao/trang-thai?act=post&id=' + ${tp.id} }">thay đổi > đăng</a>)
+							</td>
+							<td th:text="${tp.status == '100%'} ? 'Hoàn thành' : 'Chưa hoàn thành'" class="status">Chưa hoàn thành</td>
+							<td th:text="${tp.status}" class="rate-of-progress">100%</td>
 							<td class="rate-of-progress">
 								<a th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/pcgv?id=' + ${tp.id} }" class="btn btn-edit">
 									<i class="fa-solid fa-list-check"></i>
@@ -92,6 +98,29 @@ document.addEventListener('DOMContentLoaded', function() {
 			Toast.fire({
 			  icon: "success",
 			  title: "Xóa thành công!"
+			});
+		}, 800)
+    });
+	</script>
+	
+	<script th:if="${param.updated}" th:inline="javascript">
+		
+document.addEventListener('DOMContentLoaded', function() {
+	setTimeout(()=>{
+		const Toast = Swal.mixin({
+			  toast: true,
+			  position: "top-end",
+			  showConfirmButton: false,
+			  timer: 1800,
+			  timerProgressBar: true,
+			  didOpen: (toast) => {
+			    toast.onmouseenter = Swal.stopTimer;
+			    toast.onmouseleave = Swal.resumeTimer;
+			  }
+			});
+			Toast.fire({
+			  icon: "success",
+			  title: "Cập nhật thành công!"
 			});
 		}, 800)
     });
