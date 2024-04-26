@@ -56,14 +56,14 @@ public class SubjectDistributionDetailServiceImpl implements SubjectDistribution
 	}
 	
 	@Override
-	public boolean existsBySyllabus(Syllabus syllabus) {
+	public boolean existsBySyllabus(Syllabus syllabus, SubjectDistribution subjectDistribution) {
 		// TODO Auto-generated method stub
-		return repository.existsBySyllabus(syllabus);
+		return repository.existsBySyllabusAndSubjectDistribution(syllabus, subjectDistribution);
 	}
 	
 	@Override
-	public boolean existsByDocument(Document document) {
+	public boolean existsByDocument(Document document, SubjectDistribution subjectDistribution) {
 		// TODO Auto-generated method stub
-		return repository.existsByDocument(document);
+		return repository.existsByDocumentAndSubjectDistribution(document, subjectDistribution);
 	}
 }

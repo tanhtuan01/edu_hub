@@ -25,7 +25,7 @@ public interface SubjectDistributionDetailRepository extends JpaRepository<Subje
 	
 	List<SubjectDistributionDetail> findBySubjectDistributionAndSyllabusIsNull(SubjectDistribution subjectDistribution);
 
-	boolean existsBySyllabus(Syllabus syllabus);
+	boolean existsBySyllabusAndSubjectDistribution(Syllabus syllabus, SubjectDistribution subjectDistribution);
 	
-	boolean existsByDocument(Document document);
+	boolean existsByDocumentAndSubjectDistribution(Document document, SubjectDistribution subjectDistribution);
 }

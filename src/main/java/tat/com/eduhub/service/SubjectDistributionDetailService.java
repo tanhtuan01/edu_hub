@@ -21,7 +21,7 @@ public interface SubjectDistributionDetailService {
 
 	void delete(Long id);
 	
-	boolean existsBySyllabus(Syllabus syllabus);
+	boolean existsBySyllabus(Syllabus syllabus, SubjectDistribution subjectDistribution);
 	
-	boolean existsByDocument(Document document);
+	boolean existsByDocument(Document document, SubjectDistribution subjectDistribution);
 }
