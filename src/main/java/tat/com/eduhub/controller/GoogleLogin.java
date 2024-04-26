@@ -12,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Controller;
@@ -42,24 +43,31 @@ public class GoogleLogin {
 	@GetMapping(value = "/afterGoogleLoginSuccess")
 	public String googleLoginSuccess(Principal principal, Model model,
 			HttpServletRequest request, HttpServletResponse response) {
+		RequestCache requestCache = new HttpSessionRequestCache();
+		
+		SavedRequest savedRequest = requestCache.getRequest(request, response);
+
+	    String redirectUrl = savedRequest != null ? savedRequest.getRedirectUrl() : "/";
+	    
+	    UserDataInfo userDataInfo = new UserDataInfo();
 		if (principal instanceof OAuth2AuthenticationToken) {
 	        OAuth2AuthenticationToken authenticationToken = (OAuth2AuthenticationToken) principal;
 	       
-	        boolean authenticated = authenticationToken.isAuthenticated();
-	        System.err.println(authenticated);
+//	        boolean authenticated = authenticationToken.isAuthenticated();
+//	        System.err.println(authenticated);
 	        
 	        OAuth2User oauth2User = authenticationToken.getPrincipal();
 	        String email = oauth2User.getAttribute("email");
-	        System.err.println("Email: " + email);
-	        System.err.println("After Google Login Success");
+//	        System.err.println("Email: " + email);
+//	        System.err.println("After Google Login Success");
 	        String name = oauth2User.getAttribute("name");
-	        System.err.println("Name: " + name);
-	        model.addAttribute("name", name);
-	        model.addAttribute("email", email);
+//	        System.err.println("Name: " + name);
+//	        model.addAttribute("name", name);
+//	        model.addAttribute("email", email);
 	        Optional<String> role = oauth2User.getAuthorities().stream().map(GrantedAuthority::getAuthority).findFirst();
 	       
 	        User findUser = userService.findByEmail(email);
-	        System.err.println(principal.getName());
+//	        System.err.println(principal.getName());
 	        if(findUser == null) {
 	        	User user = new User();
 	 	        user.setEmail(email);
@@ -74,12 +82,15 @@ public class GoogleLogin {
 	        	System.err.println("Have System Account");
 	        }
 	        
-//	        SavedRequest savedRequest = cache.getRequest(request, response);
-//
-//		    String redirectUrl = savedRequest != null ? savedRequest.getRedirectUrl() : "/";
-//		    
-//		    System.err.println(redirectUrl);
+	        userDataInfo.setEmail(email);
+	        String domain = BASE_METHOD.extractValueFromEmail(email);
+	        userDataInfo.setDomain(domain);
+	        userDataInfo.setRole("ROLE_USER");
+	        userDataInfo.setLoginMethod("google_account");
+	        userDataInfo.setName(name);
+	        userHelper.storeUserDataInfo(userDataInfo, request);
 	    }
+		System.err.println("redirectUrl: " + redirectUrl);
 		return "googleLoginSuccess";
 	}
 
