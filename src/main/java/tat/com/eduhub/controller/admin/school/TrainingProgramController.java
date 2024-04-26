@@ -364,4 +364,22 @@ public class TrainingProgramController {
 		
 		return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/danh-sach?updated";
 	}
+	
+	@GetMapping(value = "/chi-tiet")
+	@SchoolAccountCheck
+	public String viewTrainingProgram(@RequestParam(name = "id", required = false) Long id, Model model,
+			Authentication authentication, @PathVariable(name = "domain") String domain) {
+		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
+		if(id != null) {
+			idTpSaved = id;
+		}
+		if(idTpSaved == null || idTpSaved == 0) {
+			return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/danh-sach";
+		}
+		BASE_METHOD.FragmentAdminSchool("view_training_program", model);
+		TrainingProgram tp = tpService.get(idTpSaved);
+		model.addAttribute("tp", tp);
+		
+		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
+	}
 }
