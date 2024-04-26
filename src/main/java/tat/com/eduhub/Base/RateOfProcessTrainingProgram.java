@@ -82,21 +82,25 @@ public class RateOfProcessTrainingProgram {
 					return 0;
 				}else {
 					for(SubjectDistributionDetail sds: sdd) {
-						if(sds.getSyllabus() == null) {
+						if(sds.getSyllabus() == null &&sds.getDocument() == null) {
+							count ++;
+						}
+						if(sds.getSyllabus() == null && sds.getDocument() != null) {
 							syllabus ++;
 						}
-						if(sds.getDocument() == null) {
+						if(sds.getSyllabus() != null && sds.getDocument() == null) {
 							document ++;
 						}
 					}
 				}
 			}
 		}
-		if(syllabus == 0 && document != 0 || syllabus != 0 && document == 0) {
+		
+		if(syllabus > 0 && document == 0 || syllabus == 0 && document > 0) {
 			return 5;
 		}
 		
-		return (document == 0 && syllabus == 0) ? 10: 0;
+		return (count == 0) ? 10: 0;
 	
 	}
 	
@@ -125,21 +129,21 @@ public class RateOfProcessTrainingProgram {
 		
 		Long idTP = trainingProgram.getId();
 		int rateOfProcess = fromTrainingProgram(trainingProgram);
-		System.err.println("1___" + rateOfProcess);
+		//System.err.println("1___" + rateOfProcess);
 		List<ProgramContent> programContents = programContentService.listByTrainingProgram(trainingProgram);
 		if(programContents.size() > 0) {
 			rateOfProcess += fromListProgramContent(programContents);
-			System.err.println("2___" + rateOfProcess);
+			//System.err.println("2___" + rateOfProcess);
 			List<KnowledgeModule> knowledgeModules = knowledgeModuleService.listKnowledgeModuleByTrainingProgram(idTP);
 			rateOfProcess += fromListKnowledgeModule(knowledgeModules);
-			System.err.println("3___" + rateOfProcess);
+			//System.err.println("3___" + rateOfProcess);
 			List<SubjectDistribution> subjectDistributions = subjectDistributionService.findByTrainingProgram(trainingProgram);
 			rateOfProcess += fromListSubjectDistribution( subjectDistributionService, trainingProgram);
-			System.err.println("4___" + rateOfProcess);
+			//System.err.println("4___" + rateOfProcess);
 			rateOfProcess += fromListSubjectDistributionDetail(subjectDistributions, subjectDistributionDetailService);
-			System.err.println("5___" + rateOfProcess);
+			//System.err.println("5___" + rateOfProcess);
 			rateOfProcess += fromLecturerListSubjectDistribution(subjectDistributions);
-			System.err.println("6___" + rateOfProcess);
+			//System.err.println("6___" + rateOfProcess);
 		}
 		
 		return  rateOfProcess;
