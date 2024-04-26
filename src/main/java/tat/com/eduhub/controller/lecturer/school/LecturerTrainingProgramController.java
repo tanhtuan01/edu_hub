@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import tat.com.eduhub.base.BASE_FIELD;
 import tat.com.eduhub.base.BASE_METHOD;
+import tat.com.eduhub.base.RateOfProcessTrainingProgram;
 import tat.com.eduhub.base.UserSchoolUtils;
 import tat.com.eduhub.component.LecturerSchoolAccountCheck;
 import tat.com.eduhub.dto.SubjectDistributionDTO;
@@ -30,9 +31,12 @@ import tat.com.eduhub.entity.School;
 import tat.com.eduhub.entity.SubjectDistribution;
 import tat.com.eduhub.entity.SubjectDistributionDetail;
 import tat.com.eduhub.entity.Syllabus;
+import tat.com.eduhub.entity.TrainingProgram;
 import tat.com.eduhub.entity.User;
 import tat.com.eduhub.service.DocumentService;
+import tat.com.eduhub.service.KnowledgeModuleService;
 import tat.com.eduhub.service.ModuleService;
+import tat.com.eduhub.service.ProgramContentService;
 import tat.com.eduhub.service.SchoolService;
 import tat.com.eduhub.service.SubjectDistributionDetailService;
 import tat.com.eduhub.service.SubjectDistributionService;
@@ -68,9 +72,17 @@ public class LecturerTrainingProgramController {
 	@Autowired
 	private ModuleService moduleService;
 	
+	@Autowired
+	private ProgramContentService programContentService;
+	
+	@Autowired
+	private KnowledgeModuleService knowledgeModuleService;
+	
 	Long idSubjectDistribution = (long) 0;
 	
 	String cmAction = "career";
+	
+	Long idTp = null;
 	
 	@GetMapping(value = {"","/danh-sach"})
 	@LecturerSchoolAccountCheck
@@ -99,6 +111,8 @@ public class LecturerTrainingProgramController {
 			@RequestParam(name = "id") Long id) {
 		idSubjectDistribution = id;
 		this.cmAction = "career";
+		SubjectDistribution subjectDistribution = sdService.get(id);
+		idTp = subjectDistribution.getTrainingProgram().getId();
 		return "redirect:/school-lecturer/" + domain + "/hoc-phan-chuong-trinh-dao-tao/them-noi-dung-hoc-phan";
 		
 	}
@@ -163,7 +177,7 @@ public class LecturerTrainingProgramController {
 			sdd.setSyllabus(s);
 			sdd.setSubjectDistribution(sd);
 			sddService.save(sdd);
-			
+			updateStatusTp();
 			return "redirect:/school-lecturer/" + domain + "/hoc-phan-chuong-trinh-dao-tao/them-noi-dung-hoc-phan?added" ;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -204,7 +218,7 @@ public class LecturerTrainingProgramController {
 			sdd.setSubjectDistribution(s);
 			sddService.save(sdd);
 			Files.write(Paths.get(documentFilePath), documentFile.getBytes());
-			
+			updateStatusTp();
 		} catch (Exception e) {
 			// TODO: handle exception
 	
@@ -219,6 +233,7 @@ public class LecturerTrainingProgramController {
 		this.cmAction = "career";
 		try {
 			sddService.delete(id);
+			updateStatusTp();
 			return "redirect:/school-lecturer/" + domain + "/hoc-phan-chuong-trinh-dao-tao/them-noi-dung-hoc-phan?deleted";
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -233,6 +248,7 @@ public class LecturerTrainingProgramController {
 		this.cmAction = "major";
 		try {
 			sddService.delete(id);
+			updateStatusTp();
 			return "redirect:/school-lecturer/" + domain + "/hoc-phan-chuong-trinh-dao-tao/them-noi-dung-hoc-phan?deleted";
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -248,12 +264,13 @@ public class LecturerTrainingProgramController {
 		try {
 			this.cmAction = "career";
 			String [] syllabusID = request.getParameterValues("syllabus");
-			
+			System.err.println("THÊM ĐỀ CƯƠNG");
 			for(String id : syllabusID) {
+				System.err.println(id);
 				Long syllabusId = Long.parseLong(id);
 				SubjectDistribution sd = sdService.get(idSubjectDistribution);
 				Syllabus s = syllabusService.get(syllabusId);
-				boolean existBySyllabus = sddService.existsBySyllabus(s);
+				boolean existBySyllabus = sddService.existsBySyllabus(s, sd);
 				
 				if(!existBySyllabus) {
 					SubjectDistributionDetail sdd = new SubjectDistributionDetail();
@@ -262,6 +279,7 @@ public class LecturerTrainingProgramController {
 					sddService.save(sdd);
 				}
 			}
+			updateStatusTp();
 			return "redirect:/school-lecturer/" + domain + "/hoc-phan-chuong-trinh-dao-tao/them-noi-dung-hoc-phan?added";
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -282,7 +300,7 @@ public class LecturerTrainingProgramController {
 				SubjectDistribution sd = sdService.get(idSubjectDistribution);
 				Document d = documentService.get(documentId);
 				
-				boolean existByDocument = sddService.existsByDocument(d);
+				boolean existByDocument = sddService.existsByDocument(d, sd);
 				if(!existByDocument) {
 					SubjectDistributionDetail sdd = new SubjectDistributionDetail();
 					sdd.setSubjectDistribution(sd);
@@ -290,11 +308,18 @@ public class LecturerTrainingProgramController {
 					sddService.save(sdd);
 				}
 			}
+			updateStatusTp();
 			return "redirect:/school-lecturer/" + domain + "/hoc-phan-chuong-trinh-dao-tao/them-noi-dung-hoc-phan?added";
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		
 		return "redirect:/school-lecturer/" + domain + "/hoc-phan-chuong-trinh-dao-tao/them-noi-dung-hoc-phan?failed";
+	}
+	
+	public void updateStatusTp() {
+		TrainingProgram trainingProgram = tpService.get(idTp);
+		trainingProgram.setStatus(RateOfProcessTrainingProgram.totalRateOfProcess(trainingProgram, programContentService, knowledgeModuleService, sdService, sddService) + "%");
+		tpService.save(trainingProgram);
 	}
 }

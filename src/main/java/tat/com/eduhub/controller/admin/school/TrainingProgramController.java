@@ -165,22 +165,12 @@ public class TrainingProgramController {
 		tp.setNumberOfSemesters(dto.getNumberOfSemesters()); tp.setType(dto.getType());
 		tp.setTotalCredits(dto.getTotalCredits()); tp.setSpecificObjective(dto.getSpecificObjective());
 		tp.setProcess(dto.getProcess()); tp.setTargetApplicants(dto.getTargetApplicants());
+		tp.setStatus(RateOfProcessTrainingProgram.totalRateOfProcess(tp, programContentService, knowledgeModuleService, subjectDistributionService, sddService) + "%");
 		idTpSaved = tpService.saveAndGetId(tp);
 		TrainingProgram tp2 = tpService.get(idTpSaved);
-//		List<ProgramContent> programContents = programContentService.listByTrainingProgram(tp2);
-//		if(programContents.size() > 0) {
-//			System.err.println("Program Content: " + programContents.size());
-//			for(ProgramContent p : programContents) {
-//				System.err.println("ID: " + p.getId());
-//				
-//			}
-//		}else {
-//			System.err.println("Program Content: 0");
-//		}
-		
+
 		System.err.println("RATE OF PROCESS: " + RateOfProcessTrainingProgram.totalRateOfProcess(tp2, programContentService, knowledgeModuleService, subjectDistributionService, sddService));
 		
-
 		return "redirect:/school-admin/"+domain+"/chuong-trinh-dao-tao/viet-noi-dung?tpItem="+tpItemValue+"&updated";
 	}
 	
@@ -207,6 +197,8 @@ public class TrainingProgramController {
 			programContentService.save(programContent);
 			
 			TrainingProgram tp2 = tpService.get(idTpSaved);
+			tp2.setStatus(RateOfProcessTrainingProgram.totalRateOfProcess(tp2, programContentService, knowledgeModuleService, subjectDistributionService, sddService) + "%");
+			tpService.save(tp2);
 			List<ProgramContent> programContents = programContentService.listByTrainingProgram(tp2);
 			if(programContents.size() > 0) {
 				System.err.println("Program Content: " + programContents.size());
@@ -239,6 +231,9 @@ public class TrainingProgramController {
 				 knowledgeModule.setModules(modules);
 				 knowledgeModuleService.save(knowledgeModule);
 			}
+			TrainingProgram tp = tpService.get(idTpSaved);
+			tp.setStatus(RateOfProcessTrainingProgram.totalRateOfProcess(tp, programContentService, knowledgeModuleService, subjectDistributionService, sddService) + "%");
+			tpService.save(tp);
 		} catch (Exception e) {
 			System.err.println("LỖI: " + e.getMessage());
 		}
@@ -270,6 +265,9 @@ public class TrainingProgramController {
 		subjectDistribution.setTrainingProgram(tpService.get(idTpSaved));
 		subjectDistribution.setSemester(semester);
 		subjectDistributionService.save(subjectDistribution);
+		TrainingProgram tp = tpService.get(idTpSaved);
+		tp.setStatus(RateOfProcessTrainingProgram.totalRateOfProcess(tp, programContentService, knowledgeModuleService, subjectDistributionService, sddService) + "%");
+		tpService.save(tp);
 		return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/viet-noi-dung?tpItem=7&updated";
 	}
 	
@@ -284,7 +282,11 @@ public class TrainingProgramController {
 	@GetMapping(value = "/hocky-xoa-hocphan")
 	public String deleteModuleInSemester(@ModelAttribute(name = "domain") String domain,
 			@RequestParam(name = "id") Long id) {
+		
 		subjectDistributionService.delete(id);
+		TrainingProgram tp = tpService.get(idTpSaved);
+		tp.setStatus(RateOfProcessTrainingProgram.totalRateOfProcess(tp, programContentService, knowledgeModuleService, subjectDistributionService, sddService) + "%");
+		tpService.save(tp);
 		return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/viet-noi-dung?tpItem=7&updated";
 	}
 	
@@ -331,10 +333,11 @@ public class TrainingProgramController {
 		StringBuffer messages = new StringBuffer();
 		messages.append("Bạn đã được thêm vào chương trình đào tạo: " + tpName );
 		messages.append("\nCông việc: thêm đề cương và tài liệu cho học phần: " + moduleName);
-		messages.append("\nĐường dẫn: http://localhost:2024/school-lecturer/hunre.edu.vn/chuong-trinh-dao-tao/..");
+		messages.append("\nĐường dẫn: http://localhost:2024/school-lecturer/hunre.edu.vn/hoc-phan-chuong-trinh-dao-tao/danh-sach");
 		messages.append("\nĐược gửi từ: " + trainingProgram.getSchool().getName());
 		emailSenderService.sendEmail(toEmail, subject, messages.toString());
-		
+		trainingProgram.setStatus(RateOfProcessTrainingProgram.totalRateOfProcess(trainingProgram, programContentService, knowledgeModuleService, subjectDistributionService, sddService) + "%");
+		tpService.save(trainingProgram);
 		return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/phan-cong-giang-vien?updated";
 	}
 	
