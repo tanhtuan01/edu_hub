@@ -35,6 +35,10 @@
     font-family: Roboto-Regular, Helvetica Neue, Helvetica, Tahoma, Arial, Sans-serif;
 }
 
+.txt14{
+	font-size: var(--text-size14); 
+}
+
 a {
     text-decoration: none;
     cursor: pointer;

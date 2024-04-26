@@ -382,6 +382,7 @@ border-radius: 3px;
 
 .sign-form form .input input[type='text'], .sign-form form .input input[type='password'], .sign-form form .input input[type='email'], .sign-form form .input input[type='number']{
     width: 270px;
+    font-size: var(--text-size14);
 }
 .sign-form form .input {
     position: relative;

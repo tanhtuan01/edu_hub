@@ -600,3 +600,41 @@
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover{
 	background: none !important;
 }
+
+
+.content-ctdt{
+	max-height: 80vh;
+	overflow-y: auto;
+}
+
+.box-ctdt{
+	padding: 10px 20px;
+	 font-size: var(--text-size14);
+}
+
+.box-ctdt .menu{
+	line-height: 25px;
+}
+
+.box-ctdt .sub-menu{
+	padding: 0 25px;
+}
+
+.box-ctdt .sub-menu li{
+	list-style-type: disc
+}
+
+.content-ctdt .eh-header-title.sub{
+	color: white!important;
+	border-bottom: 1px solid var(--primary-color);
+	background: var(--primary-color);
+}
+
+.box-ctdt div[id^="CONTENT"] {
+  padding: 0 20px;
+  font-size: var(--text-size14);
+}
+
+.content-ctdt{
+	scroll-behavior: smooth;
+}
