@@ -1,5 +1,8 @@
 package tat.com.eduhub.config;
 
+
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,6 +14,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -41,11 +48,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserHelper userHelper;
 	
+	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
+	
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
@@ -61,11 +69,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/eh-admin/**", "/dang-ky/**", "/js/**", "/css/**", "/img/**")
-				.permitAll()
+		http.authorizeRequests()
+				.antMatchers("/", "/student/**" ,"/eh-admin/**", "/dang-ky/**", "/js/**", "/css/**", "/img/**")
+					.permitAll()
 				.antMatchers("/school-admin/**").hasRole("ADMINSCHOOL")
 				.antMatchers("/school-lecturer/**").hasRole("LECTURERSCHOOL")
-				.antMatchers("/student/**").hasAnyRole("USER", "STUDENT")
+				.antMatchers("/student/**").hasAnyAuthority("ROLE_USER", "ROLE_STUDENT")
 				.anyRequest()
 				.authenticated()
 				.and()
@@ -89,18 +98,30 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 					.sessionFixation().newSession() // Tạo phiên làm việc mới cho mỗi yêu cầu
 				.and()
 				.oauth2Login()
+					
 					.loginPage("/dang-nhap-google")
 					.defaultSuccessUrl("/afterGoogleLoginSuccess")
 					.authorizationEndpoint()
 					.authorizationRequestResolver(new CustomAuthorizationRequestResolver(clientRegistrationRepository))
-				
+					.and()
+					.userInfoEndpoint().userService(oAuth2UserService())
 					;
 	}
+	
+	  private OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService() {
+	        DefaultOAuth2UserService delegate = new DefaultOAuth2UserService();
+	        return (userRequest) -> {
+	            OAuth2User oauth2User = delegate.loadUser(userRequest);
+	            
+	            // Trích xuất thông tin vai trò từ oauth2User và cung cấp nó cho Spring Security
+	            
+	            return oauth2User;
+	        };
+	    }
 
 	private AuthenticationSuccessHandler authenticationSuccessHandler() {
 		RequestCache requestCache = new HttpSessionRequestCache();
 		return new CustomAuthenticationSuccessHandler(requestCache, userService, teacherOfSchoolService, userHelper);
 	}
 
-
-}
+}		
