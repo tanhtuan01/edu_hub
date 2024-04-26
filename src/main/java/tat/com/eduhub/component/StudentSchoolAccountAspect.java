@@ -40,10 +40,11 @@ public class StudentSchoolAccountAspect {
 	        }
 	        
 	        if (model != null) {
-	            UserDataInfo userDataInfo = (UserDataInfo) model.getAttribute("userDataInfo");
+	            UserDataInfo userDataInfo = (UserDataInfo) model.getAttribute("user");
 	            String domain = userDataInfo.getDomain();
 	            School school = schoolService.findByDomain(domain);
-	            if (school != null) {
+	            String domainUrl = (String) model.getAttribute("domain");
+	            if (school == null || !domain.equals(domainUrl)) {
 	            	HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
                     response.sendRedirect("/dang-xuat");
 	            }
