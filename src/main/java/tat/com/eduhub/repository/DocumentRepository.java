@@ -19,4 +19,7 @@ public interface DocumentRepository extends JpaRepository<Document, Long>{
 	Page<Document> findDocumentWithIdModuleAndNameModuleAndDocumentType(@Param("id") Long id, @Param("name") String name, @Param("type") String type, Pageable pageable);
 
 	List<Document> findBySchool(School school);
+	
+	@Query("select d from Document d where d.school.id = :id_school AND d.module.name like %:value% OR d.module.code like %:value% AND d.module.type = 'for_student'")
+	List<Document> documentStudentbySchool(@Param("id_school") Long idSchool, @Param("value") String value);
 }

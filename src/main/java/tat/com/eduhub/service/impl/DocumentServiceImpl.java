@@ -49,4 +49,10 @@ public class DocumentServiceImpl implements DocumentService{
 		// TODO Auto-generated method stub
 		return repository.findBySchool(school);
 	}
+	
+	@Override
+	public List<Document> documentStudentbySchool(@Param("id_school") Long idSchool, @Param("value") String value) {
+		// TODO Auto-generated method stub
+		return repository.documentStudentbySchool(idSchool, value);
+	}
 }

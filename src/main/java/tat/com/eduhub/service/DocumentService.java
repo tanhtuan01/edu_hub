@@ -19,4 +19,6 @@ public interface DocumentService {
 	Document get(Long id);
 
 	List<Document> listBySchool(School school);
+	
+	List<Document> documentStudentbySchool(Long idSchool, String value);
 }
