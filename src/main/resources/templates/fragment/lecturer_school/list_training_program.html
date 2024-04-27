@@ -1,0 +1,52 @@
+<div class="r-content">
+	<div class="eh-header-title">Chương trình đào tạo</div>
+
+	<th:block th:if="${#lists.size(tp) == 0}">
+		<p class="text-alert text-center">Chưa có chương trình đào tạo nào
+			được đăng</p>
+	</th:block>
+
+	<th:block th:if="${#lists.size(tp) > 0}">
+
+		<div class="list-ltp">
+			<div th:each="t:  ${tp}" class="tp-item">
+				<div class="tp-img">
+					<img th:src="@{'/img/tp.png'}" alt="">
+				</div>
+				<div class="tp-name" title="" th:text="${t.name}">Chương trình
+					đào tạo Lorem ipsum dolor sit, amet. Lorem, ipsum dolor sit amet.
+					Lorem ipsum, dolor sit amet, consectetur adipisicing elit.
+					Delectus, ab!</div>
+				<th:block
+					th:if="${t.level != null && t.level == 'level_undergraduate'}">
+					<div class="tp-level" title=""
+						th:text="'Trình độ đào tạo: Đại học'"></div>
+				</th:block>
+				<th:block
+					th:if="${t.level != null && t.level == 'level_master_degree'}">
+					<div class="tp-level" title=""
+						th:text="'Trình độ đào tạo: Thạc sĩ'"></div>
+				</th:block>
+				<th:block th:if="${t.level != null && t.level == 'level_doctorate'}">
+					<div class="tp-level" title=""
+						th:text="'Trình độ đào tạo: Tiến sĩ'"></div>
+				</th:block>
+
+
+				<th:block th:if="${t.cohort != null}">
+					<div class="tp-cohort" title=""
+						th:text="'Khóa đào tạo: ' + ${t.cohort}"></div>
+				</th:block>
+				<div class="date">
+					<small th:text="${t.createdDate}">25.04.2024</small>
+				</div>
+				<div class="tp-button">
+					<a
+						th:href="@{'/school-lecturer/' + ${domain} + '/chuong-trinh-dao-tao/xem?ct=' +${t.name} + '&id=' + ${t.id} }"
+						class="btn btn-primary">Xem</a>
+				</div>
+			</div>
+
+		</div>
+	</th:block>
+</div>
