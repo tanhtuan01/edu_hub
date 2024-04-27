@@ -12,14 +12,15 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 	
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
-	
+	 <link rel="stylesheet" type="text/css"
+	href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <link rel="stylesheet" th:href="@{/css/base.css}">
 <link rel="stylesheet" th:href="@{/css/admin_layout.css}">
 <link rel="stylesheet" th:href="@{/css/lecturer_school/training_program.css}">
 <link rel="stylesheet" th:href="@{/css/lecturer_school/syllabus_document.css}">
 <link rel="stylesheet" th:href="@{/css/school/industry_major.css}">
 <link rel="stylesheet" th:href="@{/css/lecturer_school/account.css}">
-
+ <link rel="stylesheet" th:href="@{/css/school/training_program.css}">
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <script
@@ -82,6 +83,23 @@
 						</div>
 					</div>
 					<div class="left-menu-item">
+						<div class="header-nav-title" title="Học phần Chương trình đào tạo">Chương trình đào tạo</div>
+						<div class="left-menu-content">
+							<ul>
+							
+								<li><a
+									th:href="@{'/school-lecturer/' +${domain} + '/chuong-trinh-dao-tao/danh-sach'}">
+										<div class="menu-content">
+											<div class="menu-icon">
+												<i class="fa-solid fa-layer-group"></i>
+											</div>
+											<div class="menu-title">Danh sách</div>
+										</div>
+								</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="left-menu-item">
 						<div class="header-nav-title" title="Học phần Chương trình đào tạo">Học phần CTĐT</div>
 						<div class="left-menu-content">
 							<ul>
@@ -90,7 +108,7 @@
 									th:href="@{'/school-lecturer/' +${domain} + '/hoc-phan-chuong-trinh-dao-tao/danh-sach'}">
 										<div class="menu-content">
 											<div class="menu-icon">
-												<i class="fa-solid fa-layer-group"></i>
+												<i class="fa-solid fa-book"></i>
 											</div>
 											<div class="menu-title">Danh sách</div>
 										</div>
@@ -198,8 +216,7 @@
 	<div id="loading-spinner"
 		style="width: 100%; position: fixed; top: 0; bottom: 0; background: rgba(237, 240, 240, 0.5); z-index: 999999999;"></div>
 		
-	
-		
+	   
 		
 	<!-- <script type="text/javascript"
 		src="https://code.jquery.com/jquery-1.11.0.min.js"></script> -->
@@ -217,6 +234,15 @@
 	<script type="text/javascript" th:src="@{/js/lecturer_school/datatable.js}"></script>
 	
 	<script type="text/javascript" th:src="@{/js/lecturer_school/syllabus_document.js}"></script>
+	
+	
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+		
+	<script type="text/javascript" th:src="@{/js/lecturer_school/slickslider.js}"></script>
+	<script type="text/javascript" th:src="@{/js/lecturer_school/lecturer_school.js}"></script>
 
 </body>
 
