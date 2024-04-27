@@ -1,12 +1,13 @@
 
-<div class="content">
+<div class="content" style="height: 80vh">
 	<div class="eh-school-title">Tài liệu</div>
 	<div class="search">
-		<form action="">
+		<form th:action="@{'/student/'+${domain} + '/tim-tai-lieu'}"
+			method="GET">
 			<div class="form-group">
 				<div class="label">Học phần</div>
 				<div class="input">
-					<input type="text" autofocus name="" id=""
+					<input type="text" autofocus name="hocphan" id=""
 						placeholder="Tìm kiếm theo tên hoặc mã học phần...">
 				</div>
 			</div>
@@ -18,62 +19,48 @@
 			</div>
 		</form>
 	</div>
-	<div class="eh-school-title">Danh sách</div>
-	<div class="list-document">
-		<table cellspacing="0">
-			<thead>
-				<tr>
-					<th class="stt">STT</th>
-					<th class="module">Học phần</th>
-					<th>Tên tài liệu</th>
-					<th class="act">Xem trước</th>
-					<th class="act">Tải về</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td class="stt">1</td>
-					<td class="module">Học phần Lorem ipsum dolor sit, amet
-						consectetur adipisicing, elit. Hic, tempora!</td>
-					<td>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-						Ipsum odit aspernatur cumque maxime inventore eligendi,
-						necessitatibus consequatur ducimus fugit, repellat.</td>
-					<td class="act"><a href="" class="btn btn-view"> <i
-							class="fa-solid fa-eye"></i>
-					</a></td>
-					<td class="act"><a href="" class="btn"> <i
-							class="fa-solid fa-download"></i>
-					</a></td>
-				</tr>
-				<tr>
-					<td class="stt">1</td>
-					<td class="module">Học phần Lorem ipsum dolor sit, amet
-						consectetur adipisicing, elit. Hic, tempora!</td>
-					<td>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-						Ipsum odit aspernatur cumque maxime inventore eligendi,
-						necessitatibus consequatur ducimus fugit, repellat.</td>
-					<td class="act"><a href="" class="btn btn-view"> <i
-							class="fa-solid fa-eye"></i>
-					</a></td>
-					<td class="act"><a href="" class="btn"> <i
-							class="fa-solid fa-download"></i>
-					</a></td>
-				</tr>
-				<tr>
-					<td class="stt">1</td>
-					<td class="module">Học phần Lorem ipsum dolor sit, amet
-						consectetur adipisicing, elit. Hic, tempora!</td>
-					<td>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-						Ipsum odit aspernatur cumque maxime inventore eligendi,
-						necessitatibus consequatur ducimus fugit, repellat.</td>
-					<td class="act"><a href="" class="btn btn-view"> <i
-							class="fa-solid fa-eye"></i>
-					</a></td>
-					<td class="act"><a href="" class="btn"> <i
-							class="fa-solid fa-download"></i>
-					</a></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+	<th:block th:if="${documents != null}">
+
+		<div class="eh-school-title">Danh sách</div>
+		<div class="list-document">
+			<table cellspacing="0">
+				<thead>
+					<tr>
+						<th class="stt">STT</th>
+						<th class="module">Học phần</th>
+						<th>Tên tài liệu</th>
+						<th class="act">Xem trước</th>
+						<th class="act">Tải về</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="d,i : ${documents}">
+						<td class="stt" th:text="${i.count}"></td>
+						<td class="module" th:text="${d.module.name}">Học phần Lorem ipsum dolor sit, amet
+							consectetur adipisicing, elit. Hic, tempora!</td>
+						<td th:text="${d.fileName}">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+							Ipsum odit aspernatur cumque maxime inventore eligendi,
+							necessitatibus consequatur ducimus fugit, repellat.</td>
+						<td class="act"><a href="" class="btn btn-view"> <i
+								class="fa-solid fa-eye"></i>
+						</a></td>
+						<th:block th:if="${d.share == 'private'}">
+							<td class="act">
+							<a th:href="@{'/file/document/' + ${domain} +'/' +${d.fileName} }" class="btn" download> 
+								<i class="fa-solid fa-download"></i>
+							</a></td>
+						</th:block>
+						<th:block th:if="${d.share == 'public'}">
+							<td class="act">
+							<a th:href="@{'/file/document/public/' +${d.fileName} }" class="btn" download> 
+								<i class="fa-solid fa-download"></i>
+							</a></td>
+						</th:block>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+
+	</th:block>
 </div>

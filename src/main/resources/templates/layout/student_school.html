@@ -6,8 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edu Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css"
+	href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    
     <link rel="stylesheet" th:href="@{/css/base.css}">
+     <link rel="stylesheet" th:href="@{/css/school/training_program.css}">
     <link rel="stylesheet" th:href="@{/css/student/student_school.css}">
+   
+    
+     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 </head>
 
 <body>
@@ -15,7 +22,7 @@
         <div class="eh-wrap">
             <div class="eh-top-bar r-content">
                 <div class="back">
-                    <a href=""><i class="fa-solid fa-caret-left"></i> Quay lại</a>
+                    <a th:href="@{/}"><i class="fa-solid fa-caret-left"></i> Quay lại</a>
                 </div>
                 <div class="logo">
                     <img src="https://images.unsplash.com/photo-1713184355726-d3a31d822fcc?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
@@ -30,11 +37,13 @@
                     <div class="left">
                         <ul>
                             <li>
-                                <a th:href="@{'/student/' + ${user.domain} }" th:class="${act == 'index' ? 'active' : ''}"><i class="fa-solid fa-layer-group"></i> Chương trình đào tạo</a>
+                                <a th:href="@{'/student/' + ${domain} }" th:class="${act == 'index' ? 'active' : ''}"><i class="fa-solid fa-layer-group"></i> Chương trình đào tạo</a>
                             </li>
-                            <li>
-                                <a th:href="@{'/student/' + ${user.domain} +'/tai-lieu' }" th:class="${act == 'document' ? 'active' : ''}"><i class="fa-solid fa-file"></i> Tài liệu</a>
-                            </li>
+                            <th:block th:if="${user.domain == domain}">
+                            	<li>
+                               	 <a th:href="@{'/student/' + ${domain} +'/tai-lieu' }" th:class="${act == 'document' ? 'active' : ''}"><i class="fa-solid fa-file"></i> Tài liệu</a>
+                           	 	</li>
+                            </th:block>
                         </ul>
                     </div>
                     <div class="right">
@@ -47,6 +56,20 @@
             <div class="r-content"></div>
         </div>
     </div>
+    
+    <script type="text/javascript"
+		src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+		
+	 <script type="text/javascript"
+		th:src="@{'/js/student_school/slickslider.js'}"></script>
+		
+		<script type="text/javascript"
+		th:src="@{'/js/student_school/student_school.js'}"></script>
+    
 </body>
+
+	
 
 </html>

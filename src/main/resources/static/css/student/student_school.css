@@ -94,13 +94,15 @@
     padding: 10px;
     display: flex;
     flex-wrap: wrap;
+    position: relative;
 }
 
 .list-tp .tp-item {
     width: 280px;
     padding: 5px;
     border: 1px solid var(--bg-silver);
-    margin: 3px 0;
+    margin: 3px 1px;
+    height: 330px;
 }
 
 .list-tp .tp-item .tp-img {
@@ -110,22 +112,29 @@
 }
 
 .list-tp .tp-item img {
-    width: 100%;
+    width: 80%;
     height: 100%;
     transition: all .5s ease;
     cursor: zoom-in;
+    display: block;
+    margin: auto;
 }
 
 .tp-item .tp-name {
     display: -webkit-box;
     margin-bottom: 4px;
     overflow: hidden;
-    font-size: 14px;
+    font-size: var(--text-size14);
     line-height: normal;
     text-overflow: ellipsis;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    padding: 2px;
+    margin-top: 5px;
+}
+
+.tp-item .tp-cohort , .tp-level{
+	font-size: var(--text-size14);
+	padding: 3px 0;
 }
 
 .tp-item .tp-button a {
@@ -138,7 +147,7 @@
     text-align: right;
 }
 
-.list-tp .tp-item .tp-img:hover img {
+.list-tp .tp-item:hover img {
     scale: 1.5;
 }
 
@@ -201,9 +210,53 @@ table tr .module {
 
 
 
+button.slick-arrow{
+	position: absolute;
+	top: 50%;
+	z-index: 20;
+	border: none;
+	transform: translateY(-50%);
+	background: transparent;
+}
 
+button.slick-arrow i{
+	font-size: 30px;
+	color: var(--primary-color);
+}
 
+.list-tp button.slick-arrow i:hover{
+	color: #3fa941;
+}
 
+.list-tp button.btn-slick-prev{
+	left: 0!important;
+}
+
+.list-tp button.btn-slick-next{
+	right:0!important;
+}
+
+.slick-dots {
+	margin: auto;
+}
+
+.slick-dots li{
+	display: inline-block;
+	padding: 5px;
+}
+
+.slick-dots button{
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	border: 1px solid var(--bg-silver);
+	cursor: pointer;
+}
+
+.slick-dots li.slick-active button{
+	background: var(--primary-color);
+	color: white;
+}
 
 .eh-footer {
     height: 100px;
