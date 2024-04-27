@@ -46,7 +46,7 @@ import tat.com.eduhub.service.UserService;
 
 @Controller
 @RequestMapping(value = "/school-lecturer/{domain}/hoc-phan-chuong-trinh-dao-tao")
-public class LecturerTrainingProgramController {
+public class LecturerModuleTrainingProgramController {
 
 	@Autowired
 	private SchoolService schoolService;
