@@ -20,6 +20,6 @@ public interface DocumentRepository extends JpaRepository<Document, Long>{
 
 	List<Document> findBySchool(School school);
 	
-	@Query("select d from Document d where d.school.id = :id_school AND d.module.name like %:value% OR d.module.code like %:value% AND d.module.type = 'for_student'")
+	@Query("select d from Document d where d.school.id = :id_school AND d.module.name like %:value% OR d.module.code like %:value% AND d.type = 'for_student'")
 	List<Document> documentStudentbySchool(@Param("id_school") Long idSchool, @Param("value") String value);
 }
