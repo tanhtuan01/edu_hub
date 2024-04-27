@@ -16,5 +16,7 @@ public interface TrainingProgramService {
 	List<TrainingProgram> findBySchool(School school);
 	
 	void delete(Long id);
+	
+	List<TrainingProgram> trainingProgramPostedBySchool(School school);
 
 }

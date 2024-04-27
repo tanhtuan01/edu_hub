@@ -14,4 +14,5 @@ public interface TrainingProgramRepository extends JpaRepository<TrainingProgram
 
 	List<TrainingProgram> findBySchool(School school);
 	
+	List<TrainingProgram> findBySchoolAndPostStatusTrue(School school);
 }

@@ -52,4 +52,10 @@ public class TrainingProgramServiceImpl implements TrainingProgramService{
 		repository.deleteById(id);
 	}
 	
+	@Override
+	public List<TrainingProgram> trainingProgramPostedBySchool(School school) {
+		// TODO Auto-generated method stub
+		return repository.findBySchoolAndPostStatusTrue(school);
+	}
+	
 }
