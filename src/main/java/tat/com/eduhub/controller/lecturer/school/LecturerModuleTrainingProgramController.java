@@ -88,7 +88,7 @@ public class LecturerModuleTrainingProgramController {
 	@LecturerSchoolAccountCheck
 	public String listTrainingProgram(@PathVariable(name = "domain") String domain,Model model,
 			Authentication authentication) {
-		BASE_METHOD.FragmentLecturerSchool("list_training_program", model);
+		BASE_METHOD.FragmentLecturerSchool("list_module_training_program", model);
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
 		User user = userService.findByEmail(authentication.getName());
 		List<SubjectDistribution> subjectDistributions = sdService.listByUser(user);
