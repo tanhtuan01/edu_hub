@@ -3,6 +3,7 @@ package tat.com.eduhub.service.impl;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,8 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User get(Long id) {
 		// TODO Auto-generated method stub
-		return repository.getOne(id);
+		Optional<User> userOptional = repository.findById(id);
+		return userOptional.orElse(null);
 	}
 	
 	@Override

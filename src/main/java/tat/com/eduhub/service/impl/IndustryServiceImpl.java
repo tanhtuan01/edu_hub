@@ -1,6 +1,7 @@
 package tat.com.eduhub.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,7 +41,8 @@ public class IndustryServiceImpl implements IndustryService{
 	@Override
 	public Industry get(Long id) {
 		// TODO Auto-generated method stub
-		return repository.getOne(id);
+		Optional<Industry> optional = repository.findById(id);
+		return optional.orElse(null);
 	}
 	
 	@Override

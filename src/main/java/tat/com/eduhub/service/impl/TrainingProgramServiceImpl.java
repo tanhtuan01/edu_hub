@@ -2,6 +2,7 @@ package tat.com.eduhub.service.impl;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -35,7 +36,8 @@ public class TrainingProgramServiceImpl implements TrainingProgramService{
 	@Override
 	public TrainingProgram get(Long id) {
 		// TODO Auto-generated method stub
-		return repository.getOne(id);
+		 Optional<TrainingProgram> optionalTrainingProgram = repository.findById(id);
+		 return optionalTrainingProgram.orElse(null);
 	}
 	
 	@Override

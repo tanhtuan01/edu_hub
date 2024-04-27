@@ -1,6 +1,7 @@
 package tat.com.eduhub.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -53,7 +54,8 @@ public class SyllabusServiceImpl implements SyllabusService{
 	@Override
 	public Syllabus get(Long id) {
 		// TODO Auto-generated method stub
-		return repository.getOne(id);
+		Optional<Syllabus> sOptional = repository.findById(id);
+		return sOptional.orElse(null);
 	}
 	
 	@Override
