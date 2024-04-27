@@ -167,6 +167,7 @@ public class LecturerTrainingProgramController {
 		syllabus.setFileName(fileName);
 		syllabus.setModule(modules);
 		syllabus.setName(syllabusName);
+		syllabus.setSchool(schoolService.findByDomain(domain));
 		Long savedSyllabusID  = syllabusService.saveAndGetId(syllabus);
 		
 		Syllabus s = syllabusService.get(savedSyllabusID);
@@ -205,11 +206,16 @@ public class LecturerTrainingProgramController {
 			
 			String documentFilePath;
 			
+			SubjectDistribution sd = sdService.get(idSubjectDistribution);
+			Modules modules = moduleService.get(sd.getModule().getId());
+			
 			if(share.equals("private")) {
 				documentFilePath = BASE_METHOD.documentPathUploadPrivate(domain, fileName);
 			}else {
 				documentFilePath = BASE_METHOD.documentPathUploadPublic(fileName);
 			}
+			document.setModule(modules);
+			document.setSchool(schoolService.findByDomain(domain));
 			Long savedDocumentID = documentService.saveAndGetID(document);
 			SubjectDistribution s = sdService.get(idSubjectDistribution);
 			
