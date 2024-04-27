@@ -122,6 +122,14 @@ public class BASE_METHOD {
         return unaccented;
 	}
 	
+	public static String slug(String input) {
+		String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        String unaccented = normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "").toLowerCase();
+        unaccented = unaccented.replaceAll("đ", "d");
+        unaccented = unaccented.replaceAll(" ","-");
+        return unaccented;
+	}
+	
 	public static String getExtensionFileName(MultipartFile file) {
 	    String filename = file.getOriginalFilename();
 	    String extension = "";
