@@ -27,35 +27,7 @@ public class SchoolAccountAspect {
 	
 	@Autowired
 	private TeacherOfSchoolService tosService;
-	
-//	@Before("@annotation(SchoolAccountCheck)")
-//	public void checkAccount(JoinPoint joinPoint) throws IOException {
-//		
-//		Object[] args = joinPoint.getArgs();
-//		Model model = null;
-//		
-//		for(Object arg : args) {
-//			if(arg instanceof Model) {
-//				model = (Model) arg;
-//				break;
-//			}
-//		}
-//		
-//		if(model != null) {
-//			User user = (User) model.getAttribute("user");
-//			School school = (School) model.getAttribute("school");
-//			System.err.println("__________before check");
-//			if (user != null && school != null) {
-//		        boolean validAccount = tosService.existsByUserAndSchool(user, school);
-//		        System.err.println(validAccount + "");
-//		        if (!validAccount) {
-//		            HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
-//		            response.sendRedirect("/sign-in");
-//		        }
-//		    }
-//		}
-//		
-//	}
+
 
 	@AfterReturning(value = "@annotation(SchoolAccountCheck)", returning = "returnValue")
 	public void checkAccountAfterReturning(JoinPoint joinPoint, Object returnValue) throws IOException {
@@ -69,22 +41,27 @@ public class SchoolAccountAspect {
 	                break;
 	            }
 	        }
-	        
+
+	        boolean error = false;
 	        if (model != null) {
 	            User user = (User) model.getAttribute("user");
 	            School school = (School) model.getAttribute("school");
 	            
 	            if (user != null && school != null) {
 	                boolean validAccount = tosService.existsByUserAndSchoolAdmin(user, school);
-	                
+
 	                if (!validAccount) {
-	                    HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
-	                    response.sendRedirect("/dang-xuat");
+	                    error = true;
 	                }
 	            }else {
-	            	 HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
-	                    response.sendRedirect("/dang-xuat");
+	            	error = true;
 	            }
+	        }else {
+	        	error = true;
+	        }
+	        if(error) {
+	        	HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
+                response.sendRedirect("/dang-xuat");
 	        }
 	    }
 	}
