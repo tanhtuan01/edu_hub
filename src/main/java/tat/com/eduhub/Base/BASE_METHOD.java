@@ -76,6 +76,22 @@ public class BASE_METHOD {
 		return filePath;
 	}
 	
+	public static String lecturerImagePathUpload(String fileName) {
+		Path path = Paths.get("src", "main", "resources", "static", "img", "lecturer");
+		if(!Files.exists(path)) {
+			try {
+				Files.createDirectories(path);
+				System.err.println("Created path: " + path);
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.err.println("Cant create path: " + e.getMessage());
+			}
+		}
+		String filePath = Paths.get("src", "main", "resources", "static", "img", "lecturer", fileName)
+				.toString();
+		return filePath;
+	}
+	
 	public static String syllabusLecturerPathUpload(String domain, String fileName) {
 		Path path = Paths.get("src", "main", "resources", "static", "file", "syllabus", "lecturer", domain);
 		if(!Files.exists(path)) {
