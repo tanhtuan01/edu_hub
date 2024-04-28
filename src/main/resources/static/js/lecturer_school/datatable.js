@@ -1,6 +1,7 @@
 
 
-let tableLecturerListTp = new DataTable('#tableLecturerListTp');
+if(document.getElementById("tableLecturerListTp")){
+	let tableLecturerListTp = new DataTable('#tableLecturerListTp');
 
 $('#tableLecturerListTp').DataTable().destroy();
 
@@ -27,4 +28,5 @@ $(document).ready(function() {
     
     });
 });
+}
 

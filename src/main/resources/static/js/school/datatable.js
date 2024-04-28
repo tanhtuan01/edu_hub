@@ -1,4 +1,5 @@
-let tableListTp = new DataTable('#tableListTp');
+if(document.getElementById("tableListTp")){
+	let tableListTp = new DataTable('#tableListTp');
 
 $('#tableListTp').DataTable().destroy();
 
@@ -26,7 +27,9 @@ $(document).ready(function() {
     });
 });
 
-
+}
+if(document.getElementById("facultyAssignment")){
+	
 let facultyAssignment = new DataTable('#facultyAssignment');
 
 $('#facultyAssignment').DataTable().destroy();
@@ -55,3 +58,5 @@ $(document).ready(function() {
     });
 });
 
+
+}

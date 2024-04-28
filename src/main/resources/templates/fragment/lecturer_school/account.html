@@ -1,3 +1,4 @@
+
 <div class="right-body">
 
 	<div class="body-content r-content">
@@ -5,14 +6,15 @@
 		<div class="eh-header-title">Quản lý tài khoản</div>
 
 		<div class="lecturer-account">
-			<form>
+			<form method="post" th:action="@{'/school-lecturer/' +${domain} + '/quan-ly-tai-khoan/cap-nhat' }"
+			th:object="${user}" enctype="multipart/form-data">
 
 				<div class="left">
 					<div id="image-container">
 						<input type="file" name="newAvt" style="display: none;"> 
 						<a href="" class="errorLoadImg" style="display: none;">Hiển thị
 							lại ảnh</a> 
-						<img id="uploaded-image" src="" alt="Avatar"
+						<img id="uploaded-image" th:src="@{'/img/lecturer/' + ${user.avt} }" alt="Avatar"
 							onerror="handleImageError(this)"> 
 						<a id="image-link"
 							href="#" onclick="chooseImage(this,'newAvt')"> <i
@@ -25,19 +27,19 @@
 				<div class="form-group">
 						<div class="label">Tên tài khoản</div>
 						<div class="input">
-							<input type="text" readonly="readonly" value="Tên đăng nhập">
+							<input type="text" readonly="readonly" th:field="*{userName}">
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="label">Tên đăng nhập</div>
 						<div class="input">
-							<input type="text" readonly="readonly" value="Tên đăng nhập">
+							<input type="text" readonly="readonly" th:field="*{email}">
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="label">Email nhận thông báo</div>
 						<div class="input">
-							<input type="text" value="Tên đăng nhập">
+							<input type="text" value="Tên đăng nhập" th:field="*{receiveMail}">
 						</div>
 					</div>
 					<div class="form-group">
@@ -54,3 +56,35 @@
 	</div>
 
 </div>
+
+<script type="text/javascript"
+		src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" th:src="@{/js/sweetalert2.all.min.js}"></script>
+<script th:if="${param.updated}" th:inline="javascript">
+
+	 document.addEventListener('DOMContentLoaded', function() {
+		 setTimeout( ()=>{
+			
+			const Toast =  Swal.mixin({
+				
+				  toast: true,
+				  position: "top-end",
+				  showConfirmButton: false,
+				  timer: 1800,
+				  timerProgressBar: true,
+				  didOpen: (toast) => {
+				    toast.onmouseenter = Swal.stopTimer;
+				    toast.onmouseleave = Swal.resumeTimer;
+				  }
+				});
+				 Toast.fire({
+				  icon: "success",
+				  title: "Cập nhật thành công"
+				});
+				
+				/* await location.reload() */
+				
+			}, 800)
+/* 			history.replaceState(null, document.title, location.href); */
+	    });
+</script>

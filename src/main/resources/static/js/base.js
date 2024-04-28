@@ -39,7 +39,6 @@ function validateFormAndNoSubmit(e) {
                 form.querySelector(selector).style.borderBottom = '1px solid red';
                 return false;
             } else {
-				console.log(form.querySelector("#email"))
                 form.querySelector(selector).parentElement.querySelector(".text-error").textContent = '';
                 form.querySelector(selector).style.borderBottom = 'none';
                 return true;
