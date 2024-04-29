@@ -1,0 +1,154 @@
+
+<div class="eh-body r-content">
+	<div class="banner">
+		<div class="banner-content">
+			<div class="content">
+				<div class="title">
+					Trở thành giảng viên <br> trên EduHub
+				</div>
+				<p class="message">Đăng ký để trở thành giảng viên ngay</p>
+				<div class="button">
+					<a href="#dang-ky-ngay" class="btn btn-primary"> Đăng ký ngay </a>
+				</div>
+			</div>
+			<div class="img">
+				<img src="" alt="">
+			</div>
+		</div>
+	</div>
+	<div class="reason">
+		<div class="title">Lý do để bắt đầu?</div>
+		<div class="reason-content">
+			<div class="item">
+				<div class="item-img">
+					<img src="https://s.udemycdn.com/teaching/value-prop-teach-v3.jpg"
+						alt="">
+				</div>
+				<div class="item-content">Giảng dạy theo cách của bạn</div>
+				<div class="item-desc">Xuất bản khóa học mong muốn, theo cách
+					mong muốn và bạn luôn có quyền kiểm soát nội dung của riêng mình.</div>
+			</div>
+			<div class="item">
+				<div class="item-img">
+					<img src="https://s.udemycdn.com/teaching/value-prop-teach-v3.jpg"
+						alt="">
+				</div>
+				<div class="item-content">Giảng dạy theo cách của bạn</div>
+				<div class="item-desc">Dạy những gì bạn biết và giúp học viên
+					khám phá sở thích, tiếp thu kỹ năng mới và thăng tiến trong sự
+					nghiệp của họ.</div>
+			</div>
+			<div class="item">
+				<div class="item-img">
+					<img src="https://s.udemycdn.com/teaching/value-prop-teach-v3.jpg"
+						alt="">
+				</div>
+				<div class="item-content">Giảng dạy theo cách của bạn</div>
+				<div class="item-desc">Mở rộng mạng lưới nghề nghiệp, xây dựng
+					kiến thức chuyên môn và kiếm thu nhập từ mỗi lượt ghi danh có trả
+					phí.</div>
+			</div>
+		</div>
+	</div>
+	<div class="statistics number">
+		<div class="s">
+			<div class="number">1k +</div>
+			<div class="content">Học viên</div>
+		</div>
+		<div class="s">
+			<div class="number">100 +</div>
+			<div class="content">Giảng viên</div>
+		</div>
+		<div class="s">
+			<div class="number">1k +</div>
+			<div class="content">Khóa học</div>
+		</div>
+	</div>
+	<div class="how-it-work">
+		<div class="title">Cách thức bắt đầu</div>
+		<div class="hiw-content">
+			<div class="title">Bắt đầu nhanh chóng, dễ dàng</div>
+			<div class="hiw-tt">
+				<div class="box box1">
+					<div class="content">Lên kế hoạch cho chương trình</div>
+				</div>
+				<div class="arrow">
+					<i class="fa-solid fa-arrow-right-long"></i>
+				</div>
+				<div class="box box2">
+					<div class="content">Quay video, tạo bài học</div>
+				</div>
+				<div class="arrow">
+					<i class="fa-solid fa-arrow-right-long"></i>
+				</div>
+				<div class="box box3">
+					<div class="content">Ra mắt khóa học</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="start-now">
+		<div class="title">Trở thành giảng viên ngay hôm nay</div>
+		<br>
+		<div class="message">bằng cách hoàn thiện biểu mẫu này</div>
+		<div id="dang-ky-ngay">
+			<form th:action="@{'/giang-day/tao-tai-khoan'}" th:object="${user}" method="post">
+				<p class="text-center text-alert"></p>
+				<p th:if="${param.success}"
+						class="text-center text-alert alert-success">Đăng ký thành
+						công.</p>
+					<p th:if="${param.error}"
+						class="text-center text-alert alert-error">Đăng ký thất bại</p>
+				<div class="form-group">
+					<div class="label">
+						Họ và Tên <span title="Không được để trống" class="not-empty">*</span>
+					</div>
+					<div class="input">
+						<input type="text" name="username" id="name"
+							th:field="*{userName}" placeholder="Điền họ và tên của bạn">
+						<br>
+						<p class="text-error"></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="label">Chức danh</div>
+					<div class="input">
+						<input type="text" name="" id="" placeholder="Chức danh của bạn" th:field="*{diploma}">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="label">
+						Email <span title="Không được để trống" class="not-empty">*</span>
+					</div>
+					<div class="input">
+						<input type="text" name="email" id="email" th:field="*{email}"
+							placeholder="Điền email của bạn"> <br>
+						<p class="text-error"></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="label">
+						Mật khẩu <span title="Không được để trống" class="not-empty">*</span>
+					</div>
+					<div class="input">
+						<input type="password" name="password" id="pass"
+							placeholder="Điền mật khẩu bạn muốn dùng" th:field="*{passwords}">
+						<br>
+						<p class="text-error"></p>
+						<button type="button" class="to-text pointer"
+							onclick="inputPasswordToText(this)">
+							<i class="fa-regular fa-eye open"></i> <i
+								class="fa-solid fa-eye-slash close"></i>
+						</button>
+					</div>
+				</div>
+				<div class="form-group">
+						<div class="input">
+							<input type="submit" class="btn btn-primary" name="" id=""
+								value="Đăng Ký" onclick="validateForm(this)">
+						</div>
+					</div>
+			</form>
+		</div>
+	</div>
+</div>

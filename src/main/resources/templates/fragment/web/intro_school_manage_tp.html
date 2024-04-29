@@ -1,0 +1,113 @@
+<div class="eh-body ">
+	<div class="top-content">
+		<div class="r-content content-img">
+			<div class="content">
+				<div class="title">
+					Quản lý <br> chương trình đào tạo
+				</div>
+				<div class="desc">Quản lý chương trình đào tạo của trường học
+				</div>
+				<br>
+				<div class="button">
+					<a href="#dang-ky-ngay" class="btn btn-primary">Quản lý ngay</a>
+				</div>
+			</div>
+			<div class="img">
+				<img src="tp.png" alt="">
+			</div>
+		</div>
+	</div>
+	<div class="target">
+		<div class="title">Đối tượng hướng đến</div>
+		<div class="message">Hiện tại, đối tượng mà chúng tôi đang hướng
+			đến là các trường đại học, cao đẳng.</div>
+	</div>
+	<div class="feature">
+		<div class="title">Chức năng</div>
+		<div class="message">Chức năng của chương trình</div>
+		<div class="list-feature r-content">
+			<div class="item">
+				<div class="item-title">Tạo chương trình đào tạo</div>
+				<div class="desc"></div>
+			</div>
+			<div class="item">
+				<div class="item-title">Phân công giảng viên</div>
+				<div class="desc"></div>
+			</div>
+			<div class="item">
+				<div class="item-title">Theo dõi tiến độ</div>
+				<div class="desc"></div>
+			</div>
+			<div class="item">
+				<div class="item-title">Quản lý đề cương & tài liệu</div>
+				<div class="desc"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="benefit">
+		<div class="title">Lợi ích</div>
+		<div class="benefit-list r-content">
+			<ul>
+				<li>Dễ dàng phân công giảng viên</li>
+				<li>Dễ dàng quản lý tài liệu</li>
+				<li>Sinh viên dễ dàng tìm kiếm tài liệu học phần</li>
+			</ul>
+		</div>
+
+	</div>
+	<div class="form-register ">
+		<div class="form r-content">
+			<div class="title">Đăng ký ngay</div>
+			<div class="message">hãy hoàn thiện biểu mẫu bên dưới</div>
+			<div id="dang-ky-ngay">
+				<form th:action="@{/quan-ly-ctdt/tao-tai-khoan}" method="POST"
+					th:object="${school}">
+					<p class="text-center text-alert"></p>
+					<p th:if="${param.success}"
+						class="text-center text-alert alert-success">Đăng ký thành
+						công, chúng tôi sẽ phản hồi qua email cho bạn.</p>
+					<p th:if="${param.error}"
+						class="text-center text-alert alert-error">Đăng ký thất bại</p>
+					<div class="form-group">
+						<div class="label">Tên trường</div>
+						<div class="input">
+							<input type="text" name="" id="name" th:field="*{name}"><br>
+							<p class="text-error"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Tền miền trường</div>
+						<div class="input">
+							<input type="text" name="" id="domain"
+								placeholder="eg: eduhub.edu.vn" th:field="*{domain}"><br>
+							<p class="text-error"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Email</div>
+						<div class="input">
+							<input type="email" name="" id="email" th:field="*{email}"><br>
+							<p class="text-error"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Số điện thoại(hotline)</div>
+						<div class="input">
+							<input type="number" name="" id="phone"
+								onkeydown="checkInputNumber(event)" maxlength="11"
+								minlength="10" th:field="*{hotline}"><br>
+							<p class="text-error"></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input">
+							<input type="submit" class="btn btn-primary" name="" id=""
+								value="Đăng Ký" onclick="validateForm(this)">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
