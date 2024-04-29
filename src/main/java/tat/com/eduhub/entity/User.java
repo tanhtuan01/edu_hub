@@ -63,6 +63,17 @@ public class User extends BaseEntity{
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<StudentLessons> studentLessons;
 	
+	@Size(max = 60)
+	private String major;
+	
+	public String getMajor() {
+		return major;
+	}
+
+	public void setMajor(String major) {
+		this.major = major;
+	}
+
 	public List<StudentLessons> getStudentLessons() {
 		return studentLessons;
 	}
