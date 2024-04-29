@@ -48,18 +48,5 @@ public class SignUpController {
 		}
 	}
 	
-	@GetMapping(value = "/quan-ly")
-	public String signUpPageManage(Model model) {
-		BASE_METHOD.FragmentWeb("page_sign_up_manage",model);
-		SchoolDTO schoolDTO = new SchoolDTO();
-		model.addAttribute("school", schoolDTO);
-		return BASE_FIELD.WEB_LAYOUT;
-	}
-	
-	@PostMapping(value = "/quan-ly")
-	public String signUpManage(@ModelAttribute(name = "school") SchoolDTO schoolDTO) {
-		schoolService.signUp(schoolDTO);
-		return "redirect:/dang-ky/quan-ly?success";
-	}
 	
 }
