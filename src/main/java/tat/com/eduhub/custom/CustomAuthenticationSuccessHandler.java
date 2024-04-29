@@ -1,6 +1,7 @@
 package tat.com.eduhub.custom;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Optional;
 
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
@@ -42,6 +44,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 	        Authentication authentication) throws IOException, ServletException {
+		
 		UserDataInfo userDataInfo = new UserDataInfo();
 		
 		String email = authentication.getName();	    
@@ -57,28 +60,30 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	    Optional<String> role = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).findFirst();
 	    String roleName = role.orElse("");
 //	    authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMINSCHOOL"))
-	    System.err.println("Role: " + roleName);
+	    //System.err.println("Role: " + roleName);
 	    String domain = domain(email);
 	    
-	    System.err.println("Domain: " + domain);
+	    //System.err.println("Domain: " + domain);
 	    userDataInfo.setDomain(domain);
 	    userDataInfo.setRole(roleName);
 	    userHelper.storeUserDataInfo(userDataInfo, request);
 	    if(redirectUrl.contains("school-admin") && roleName.equals("ROLE_ADMINSCHOOL") ||
 	    	redirectUrl.contains("school-lecturer") && roleName.equals("ROLE_LECTURERSCHOOL") ||
 	    	redirectUrl.contains("u/") && roleName.equals("ROLE_STUDENT")||
-	    	redirectUrl.contains("student") && roleName.equals("ROLE_STUDENT")) {
+	    	redirectUrl.contains("student") && roleName.equals("ROLE_STUDENT") ||
+	    	redirectUrl.contains("lecturer") && roleName.equals("ROLE_LECTURER")) {
 	    	response.sendRedirect(redirectUrl);
 	    }else if(redirectUrl.contains("school-admin") && !roleName.equals("ROLE_ADMINSCHOOL")||
 		    	redirectUrl.contains("school-lecturer") && !roleName.equals("ROLE_LECTURERSCHOOL") ||
 		    	redirectUrl.contains("u/") && !roleName.equals("ROLE_STUDENT")||
-		    	redirectUrl.contains("student") && !roleName.equals("ROLE_STUDENT")
+		    	redirectUrl.contains("student") && !roleName.equals("ROLE_STUDENT") ||
+		    	redirectUrl.contains("lecturer") && !roleName.equals("ROLE_LECTURER")
 	    		) {
 	    	response.sendRedirect("/dang-xuat");
 	    }
 	    
 	    else if(roleName.equals("ROLE_ADMINSCHOOL")|| roleName.equals("ROLE_LECTURERSCHOOL") || 
-	    		roleName.equals("ROLE_STUDENT") || roleName.equals("ROLE_USER")) {
+	    		roleName.equals("ROLE_STUDENT") || roleName.equals("ROLE_USER") || roleName.equals("ROLE_LECTURER")) {
 	    	response.sendRedirect(redirectUrl);
 	    }  
 	    else {
