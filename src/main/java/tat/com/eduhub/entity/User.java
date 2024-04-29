@@ -54,6 +54,39 @@ public class User extends BaseEntity{
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<SubjectDistribution> subjectDistributions;
 	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Courses> courses;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<StudentCourses> studentCourses;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<StudentLessons> studentLessons;
+	
+	public List<StudentLessons> getStudentLessons() {
+		return studentLessons;
+	}
+
+	public void setStudentLessons(List<StudentLessons> studentLessons) {
+		this.studentLessons = studentLessons;
+	}
+
+	public List<StudentCourses> getStudentCourses() {
+		return studentCourses;
+	}
+
+	public void setStudentCourses(List<StudentCourses> studentCourses) {
+		this.studentCourses = studentCourses;
+	}
+
+	public List<Courses> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Courses> courses) {
+		this.courses = courses;
+	}
+
 	@Size(max = 60)
 	private String diploma;
 	
