@@ -1,0 +1,142 @@
+.top-content .title{
+	font-size: 35px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -.048rem;
+    padding: 10px 0;
+}
+
+.top-content {
+	background: var(--bg-silver);
+	border: 1px outset var(--bg-silver);
+}
+
+.content-img{
+	display: flex;
+	padding: 80px;
+}
+
+.content-img .content{
+	width: 40%;
+	margin: auto;
+}
+
+.content-img .img{
+	width: 60%;
+	text-align: center;
+}
+
+.content-img .img img{
+	width: 200px;
+	height: 200px;
+}
+
+.target, .feature{
+	margin: 50px 0;
+	text-align: center;
+}
+
+.target .title, .feature .title{
+	font-size: 30px;
+	
+}
+
+.target .message{
+	padding: 10px;
+	width: 400px;
+	margin: auto;
+	font-size: 16px;
+}
+
+.form-register{
+	padding: 50px 0;
+	background: var(--bg-silver);
+}
+
+.form-register .form{
+	padding: 50px;
+}
+
+.form-register .title{
+	font-size: 30px;
+	padding: 0 20px;
+}
+
+.form-register .message{
+	padding: 10px 20px;
+}
+
+.form-register form .label{
+	width: 160px;
+}
+
+.form-register form .input{
+	width: 80%;
+
+}
+
+.form-register form input:not(.btn){
+	width: 60%;
+	background: white;
+}
+
+.form-register form input:not(.btn){
+	border: 1px solid var(--bg-silver);
+	transition: all .3s ease;
+}
+
+.form-register form input:not(.btn):focus{
+	border: 1px solid var(--primary-color);
+}
+
+.form-register form .form-group:last-child{
+	padding: 7px;
+}
+
+
+
+.feature{
+	background: var(--primary-color);
+	padding: 50px;
+	color: white;
+}
+
+.feature .list-feature{
+	display: flex;
+	justify-content: center;
+	padding: 20px 0;
+	justify-content: space-evenly;
+}
+
+
+.feature .list-feature .item .item-title{
+	font-size: 20px;
+}
+
+.benefit{
+	padding: 50px;
+}
+
+.benefit .title{
+	font-size: 30px;
+	text-align: center;
+}
+
+.benefit ul{
+	width: 500px;
+	margin: auto;
+}
+
+.benefit ul li{
+	font-size: 16px;
+	padding: 10px 20px;
+	border-bottom: 1px solid var(--primary-color);
+	margin: 5px 0;
+	transition: all .3s ease;
+	border-radius: 3px;
+}
+
+.benefit ul li:hover{
+	background: var(--primary-color);
+	color: white;
+}

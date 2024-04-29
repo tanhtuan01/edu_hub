@@ -1,0 +1,193 @@
+.banner .banner-content .img{
+	width: 100%;
+	height: 400px;
+	background: var(--bg-silver);
+}
+/* .banner .banner-content .img img{
+	width: 100%;
+	height: 100%;
+}
+ */
+.banner-content{
+	position: relative;
+}
+
+.banner-content .content .title{
+	font-size: 35px;
+	font-weight: 100;
+/* 	font-family: 'Times New Roman', Georgia, Times, serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; */
+	font-weight: 700;
+        line-height: 1.15;
+        letter-spacing: -.048rem;
+        max-width: 36em;
+}
+
+.banner-content .content{
+	position: absolute;
+	top: 30%;
+	left: 150px;
+}
+
+.banner-content .content .message{
+	margin: 20px 0;
+}
+
+.reason, .how-it-work{
+	padding: 50px 0;
+}
+
+.reason .title, .how-it-work .title{
+	font-size: 30px;
+	text-align: center;
+	padding: 50px 0;
+}
+
+.reason-content {
+	width: 100%;
+	display: flex;
+	justify-content:  space-evenly;
+}
+
+.reason-content .item{
+	flex-basis: calc((100% / 3) - 20px);
+	text-align: center;
+}
+
+.reason-content .item-content{
+	font-weight: 700;
+	font-size: 20px;
+}
+
+.reason-content .item-desc{
+	line-height: 22px;
+	padding: 10px 20px;
+}
+
+.hiw-content .title{
+	font-size: 20px;
+	padding: 0 50px;
+}
+
+.hiw-tt{
+	display: flex;
+	justify-content: center;
+	padding: 10px;
+}
+
+.hiw-tt .box{
+	padding: 15px 25px;
+	margin: 0 10px;
+	border-radius: 5px;
+	border: 1px solid var(--bg-silver);
+	background: var(--primary-color);
+	color: white;
+}
+
+
+
+.hiw-tt .box .content{
+	font-size: 16px;
+}
+
+.hiw-tt .arrow{
+	margin: auto 0;
+}
+
+.hiw-tt .arrow i{
+	font-size: 22px;
+}
+
+.statistics.number{
+	padding: 20px;
+	background: var(--primary-color);
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.statistics.number .s{
+	text-align: center;
+	color: white;
+}
+
+.statistics.number .s .number{
+	font-size: 35px;
+	
+	font-weight: bold;
+	word-spacing: 5px;
+}
+
+.start-now{
+	background: var(--bg-silver);
+	padding: 50px 0;
+	text-align: center;
+}
+
+.start-now .title{
+	font-size: 25px;
+}
+
+.start-now .message{
+	padding-bottom: 5px;
+}
+
+.start-now form{
+	width: 50%;
+	margin: auto;
+}
+
+.start-now form .label{
+	width: 18%;
+	text-align: left;
+}
+
+.start-now form .input{
+	width: 82%;
+}
+
+.start-now form input:not(.btn){
+	background: white;
+	width: 100%;
+	border: 1px solid var(--bg-silver);
+	transition: all .3s ease;
+}
+
+.start-now form input:not(.btn):focus{
+	border: 1px solid var(--primary-color);
+}
+
+.start-now form input.btn{
+	width: 50%;
+}
+
+#dang-ky-ngay  form .input {
+    position: relative;
+}
+
+#dang-ky-ngay form .input .to-text{
+    position: absolute;
+    display: block;
+    background: var(--primary-color);
+    height: fit-content;
+    right: 0;
+    top: 0;
+    padding: 10px;
+    color: white;
+    border: none;
+    z-index: 2;
+    width: 40px;
+}
+
+#dang-ky-ngay form .input .to-text .close{
+    display: none;
+}
+
+#dang-ky-ngay form .input .to-text .open{
+    display: block;
+}
+
+#dang-ky-ngay form .input .to-text.active .close{
+    display: block;
+}
+#dang-ky-ngay form .input .to-text.active .open{
+    display: none;
+}
