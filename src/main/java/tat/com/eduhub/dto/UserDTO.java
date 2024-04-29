@@ -13,6 +13,16 @@ public class UserDTO {
 	private String sendToEmail;
 	
 	private String receiveMail;
+	
+	private String diploma;
+
+	public String getDiploma() {
+		return diploma;
+	}
+
+	public void setDiploma(String diploma) {
+		this.diploma = diploma;
+	}
 
 	public String getUserName() {
 		return userName;

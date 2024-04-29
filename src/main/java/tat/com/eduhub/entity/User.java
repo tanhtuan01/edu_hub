@@ -54,6 +54,17 @@ public class User extends BaseEntity{
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<SubjectDistribution> subjectDistributions;
 	
+	@Size(max = 60)
+	private String diploma;
+	
+	public String getDiploma() {
+		return diploma;
+	}
+
+	public void setDiploma(String diploma) {
+		this.diploma = diploma;
+	}
+
 	public List<SubjectDistribution> getSubjectDistributions() {
 		return subjectDistributions;
 	}
