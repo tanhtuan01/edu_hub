@@ -1,0 +1,91 @@
+<div class="hero">
+	<h1>Thêm một khóa học mới!</h1>
+	<p>Chia sẻ kiến thức của bạn thông qua khóa học.</p>
+</div>
+
+<div class="add-courses r-content">
+	<form action="">
+		<div class="message">Hoàn thiện thông tin dưới đây để ra mắt
+			khóa học</div>
+		<div class="form-group">
+			<div class="label">
+				Tên khóa học <span class="not-empty">*</span>
+			</div>
+			<div class="input">
+				<input type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="label">
+				Mô tả ngắn <span class="not-empty">*</span>
+			</div>
+			<div class="input">
+				<input type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="label">
+				Loại <span class="not-empty">*</span>
+			</div>
+			<div class="input">
+				<select id="course-type" onchange="togglePaymentFields(this)">
+					<option value="free">Miễn phí</option>
+					<option value="paid">Trả phí</option>
+				</select>
+			</div>
+		</div>
+		<div id="payment-fields">
+			<div class="form-group">
+				<div class="label">
+					Giá gốc <span class="not-empty">*</span>
+				</div>
+				<div class="input">
+					<input type="number" onkeydown="checkInputNumber(event)"
+						id="oldPrice" oninput="toNewPrice(this)"> <br> <small
+						id="oldPriceTxt"></small>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="label">Giảm giá</div>
+				<div class="input">
+					<input type="number" onkeydown="checkInputNumber(event)"
+						id="discount" oninput="toNewPrice(this)"> <br> <small
+						id="discountTxt"></small>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="label">Giá mới</div>
+				<div class="input">
+					<input type="number" readonly id="newPrice"> <br> <small
+						id="newPriceTxt"></small>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="label">
+				Hình ảnh <span class="not-empty">*</span>
+			</div>
+			<div class="input">
+				<input type="file" onchange="addCoursesChangeImage(this)" id="inputImage" accept="image/*">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="label">
+				Mô tả chi tiết <span class="not-empty">*</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="input">
+				<textarea name="" id="addDescCourses"></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="input">
+				<input type="submit" class="btn btn-primary" value="Xác nhận">
+			</div>
+		</div>
+		<div class="image-choosed">
+			<img src="" alt="" id="imageChoosed">
+		</div>
+	</form>
+</div>

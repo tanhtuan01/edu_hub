@@ -1,0 +1,397 @@
+ .lecturer-header {
+     position: sticky;
+     top: 64px;
+     z-index: 90;
+ }
+
+ .lecturer-header .content {
+     background-color: #f2f2f2;
+     padding: 20px;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     position: sticky;
+ }
+
+ .lecturer-nav ul {
+     list-style-type: none;
+     margin: 0;
+     padding: 0;
+ }
+
+ .lecturer-nav ul li {
+     display: inline;
+     margin-right: 10px;
+     padding: 3px 0;
+ }
+
+ .lecturer-nav ul li.active {
+     border-bottom: 2px solid var(--primary-color);
+ }
+
+ .lecturer-nav ul li a {
+     text-decoration: none;
+     color: #333;
+ }
+
+ .hero {
+     background-color: #f9f9f9;
+     text-align: center;
+     padding: 50px;
+ }
+
+ .hero h1 {
+     font-size: 36px;
+     margin-bottom: 20px;
+ }
+
+ .hero p {
+     font-size: 18px;
+     color: #555;
+     margin-bottom: 30px;
+ }
+
+ .cta-button {
+     display: inline-block;
+     background-color: #333;
+     color: #fff;
+     padding: 10px 20px;
+     text-decoration: none;
+     border-radius: 5px;
+ }
+
+ .featured-courses {
+     padding: 50px;
+     text-align: center;
+ }
+
+ .featured-courses h2 {
+     font-size: 24px;
+     margin-bottom: 20px;
+ }
+
+ .list-courses {
+     display: flex;
+     justify-content: center;
+     flex-wrap: wrap;
+ }
+
+ .list-courses a {
+     color: black;
+ }
+
+ .course {
+     display: inline-block;
+     margin: 20px;
+     max-width: 300px;
+     text-align: left;
+     border: 1px solid #ddd;
+     border-radius: 5px;
+     padding: 20px;
+     transition: all .3s ease;
+     height: 390px;
+     position: relative;
+     overflow: hidden;
+ }
+
+ .course:hover {
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+     transform: scale(1.05);
+ }
+
+ .course img {
+     width: 100%;
+     height: auto;
+     margin-bottom: 10px;
+ }
+
+ .course h3.title {
+     display: -webkit-box;
+     margin-bottom: 4px;
+     overflow: hidden;
+     font-size: 14px;
+     line-height: normal;
+     text-overflow: ellipsis;
+     -webkit-line-clamp: 2;
+     -webkit-box-orient: vertical;
+ }
+
+ .course p.total-students {
+     font-size: 14px;
+ }
+
+ .course p.total-lesson{
+    padding: 5px 0;
+ }
+
+ .course p.status{
+    position: absolute;
+    right: 0;
+    padding: 10px;
+    bottom: 0;
+    width: fit-content;
+    color: white;
+    border-top-left-radius: 5px;
+ }
+
+ .course.on-ready:hover{
+    box-shadow: 0 0 10px var(--primary-color);
+ }
+
+.course.not-ready:hover{
+     box-shadow: 0 0 10px var(--color-warning);
+}
+
+.course.in-progress:hover{
+    box-shadow: 0 0 10px #1AEB32;
+}
+
+ .course p.status.on-ready{
+    background-color: var(--primary-color);
+ }
+
+ .course p.status.not-ready{
+    background-color: var(--color-warning);
+ }
+
+.course p.status.in-progress{
+    background-color: #1AEB32;
+}
+ .course p.short-description {
+     display: -webkit-box;
+     margin-bottom: 4px;
+     overflow: hidden;
+     font-size: 14px;
+     line-height: normal;
+     text-overflow: ellipsis;
+     -webkit-line-clamp: 3;
+     -webkit-box-orient: vertical;
+ }
+
+
+ #payment-fields {
+     opacity: 0;
+     height: 0;
+     padding: 0;
+     overflow: hidden;
+     transition: all 0.3s ease;
+ }
+
+ #payment-fields.visible {
+     opacity: 1;
+     height: auto;
+ }
+
+ .add-courses {
+     padding: 50px;
+ }
+
+ .add-courses form .form-group {
+     padding: 10px 25px;
+ }
+
+ .add-courses form .form-group .label {
+     width: 120px;
+ }
+
+ .add-courses form .form-group .input {
+     width: 100%;
+ }
+
+ .add-courses form .form-group .input input:not(.btn) {
+     width: 70%;
+     border: 1px solid var(--bg-silver);
+     transition: all .3s ease;
+     background-color: white;
+ }
+
+ .add-courses form .form-group .input input:not(.btn):hover,
+ .add-courses form .form-group .input input:not(.btn):focus {
+     border: 1px solid var(--primary-color);
+ }
+
+ .add-courses form .form-group .input select {
+     padding: 10px 30px;
+ }
+
+ .add-courses form .form-group .input select option {
+     font-size: 20px;
+ }
+
+ .add-courses form .message {
+     font-size: 18px;
+     padding: 10px 25px;
+ }
+
+ .add-courses form .input input.btn {
+     width: 200px;
+     padding: 10px 0;
+     margin: auto;
+ }
+
+ .add-courses{
+    position: relative;
+ }
+
+ .add-courses form .image-choosed{
+    position: absolute;
+    right: 0;
+    top: 5%;
+ }
+
+  .add-courses form .image-choosed img{
+    width: 300px;
+    height: 300px;
+  }
+
+
+ .ck-restricted-editing_mode_standard{
+    height: 300px;
+ }
+
+
+
+/* INFO */
+.courses-info .info-row{
+    display: flex;
+}
+
+
+.info-row .left{
+    width: 30%;
+}
+
+.info-row .left .box img{
+    width: 300px;
+    height: 200px;
+    border-radius: 5px;
+}
+
+.info-row .right{
+    width: 70%;
+    text-align: left;
+    padding: 0 20px;
+}
+
+.info-row .right div{
+    padding-bottom: 8px;
+}
+
+.info-row .right .name{
+    font-size: 22px;
+}
+
+.info-row .right .button{
+
+    padding: 10px 0;
+
+}
+
+.info-row .right .button .btn{
+    margin: 0;
+}
+
+.lesson-item{
+    margin: 5px;
+    padding: 5px 0;
+}
+
+.lesson-item .in-item{
+    display: flex;
+}
+
+.lesson-item .in-item .img{
+    width: 30%;
+    text-align: right;
+    padding: 0 20px;
+}
+
+.lesson-item .in-item .info{
+    width: 70%;
+    text-align: left;
+    padding: 0 10px;
+    border-bottom: 3px solid var(--bg-silver);
+}
+
+.lesson-item .in-item .img img{
+    width: 100px;
+    height: 100px;
+}
+
+.lesson-item .in-item .info div{
+    padding-bottom: 10px;
+}
+
+.lesson-item .in-item .info .name{
+    font-size: 20px;
+}
+.lesson-item .in-item .info .button{
+    padding: 5px 0;
+}
+.lesson-item .in-item .info .button .btn{
+    margin: 0;
+}
+
+
+/* INFO */
+
+
+/* ADD LESSON */
+
+.add-lesson form .form-group .label{
+    width: 125px;
+    text-align: left;
+}
+
+.add-lesson form .form-group .input{
+    width: 100%;
+        text-align: left;
+}
+
+.add-lesson form .form-group .input input:not(.btn){
+    width: 80%;
+    background-color: white;
+    border: 1px solid var(--bg-silver);
+    border-bottom-color: var(--primary-color);
+    transition: all .3s ease;
+}
+
+.add-lesson form .form-group .input input:hover, .add-lesson form .form-group .input input:focus{
+    border-color: var(--primary-color);
+}
+
+.add-lesson form .form-group .input input[type='file']{
+    width: fit-content;
+}
+
+.add-lesson form .form-group .input input.btn{
+    margin: 0;
+}
+/* ADD LESSON */
+
+
+.lesson-container{
+    text-align: center;
+    padding: 20px;
+}
+
+.lesson-container .lesson .content video{
+    width: 80%;
+    height: 550px;
+}
+
+.lesson-container .lesson .content .info{
+    text-align: left;
+    padding: 5px 20px;
+    line-height: 25px;
+}
+
+.lesson-container .lesson .content .info .title{
+    font-size: 20px;
+}
+
+.lesson-container .lesson .content .video .button{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 20px;
+}
