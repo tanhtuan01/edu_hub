@@ -31,6 +31,75 @@ public class Courses extends BaseEntity{
 	
 	@OneToMany(mappedBy = "courses", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<StudentCourses> studentCourses;
+	
+	@Size(max = 15)
+	private String type;
+	
+	@Column(name = "old_price")
+	private Long oldPrice;
+	
+	@Column(columnDefinition = "TINYINT")
+	private int discount;
+	
+	@Column(name = "new_price")
+	private Long newPrice;
+	
+	@Size(max = 255)
+	private String image;
+	
+	@Column(name = "short_description")
+	private String shortDescription;
+	
+	@Size(max = 20)
+	private String status;
+
+	public String getShortDescription() {
+		return shortDescription;
+	}
+
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Long getOldPrice() {
+		return oldPrice;
+	}
+
+	public void setOldPrice(Long oldPrice) {
+		this.oldPrice = oldPrice;
+	}
+
+	public int getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
+
+	public Long getNewPrice() {
+		return newPrice;
+	}
+
+	public void setNewPrice(Long newPrice) {
+		this.newPrice = newPrice;
+	}
 
 	public String getName() {
 		return name;

@@ -31,6 +31,26 @@ public class Lesson extends BaseEntity{
 	
 	@OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<StudentLessons> studentLessons;
+	
+	private boolean preview;
+	
+	private String content;
+
+	public boolean isPreview() {
+		return preview;
+	}
+
+	public void setPreview(boolean preview) {
+		this.preview = preview;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
 
 	public String getName() {
 		return name;
