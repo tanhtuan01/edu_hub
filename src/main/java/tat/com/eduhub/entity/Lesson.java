@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "tb_lession")
+@Table(name = "tb_lesson")
 public class Lesson extends BaseEntity{
 
 	@Size(max = 120)

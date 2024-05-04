@@ -53,6 +53,14 @@ public class Courses extends BaseEntity{
 	@Size(max = 20)
 	private String status;
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public String getShortDescription() {
 		return shortDescription;
 	}
@@ -139,6 +147,14 @@ public class Courses extends BaseEntity{
 
 	public void setStudentCourses(List<StudentCourses> studentCourses) {
 		this.studentCourses = studentCourses;
+	}
+
+	@Override
+	public String toString() {
+		return "Courses [name=" + name + ", description=" + description + ", user=" + user + ", lessons=" + lessons
+				+ ", studentCourses=" + studentCourses + ", type=" + type + ", oldPrice=" + oldPrice + ", discount="
+				+ discount + ", newPrice=" + newPrice + ", image=" + image + ", shortDescription=" + shortDescription
+				+ ", status=" + status + "]";
 	}
 	
 	
