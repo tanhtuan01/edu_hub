@@ -1,0 +1,88 @@
+
+<div class="hero">
+	<h1>Thêm bài học mới</h1>
+	<p>Thêm một bài học mới vào khóa học</p>
+</div>
+<a onclick="goBack()" class="btn btn-back"><i
+	class="fa-solid fa-arrow-left-long"></i> Trở lại</a>
+<div class="featured-courses">
+	<h2 th:text="'Khóa học: ' + ${c.name}">Khóa học ABC</h2>
+	<p>Thông tin bài học</p>
+	<div class="add-lesson r-content">
+		<form th:action="@{'/lecturer/khoa-hoc/bai-hoc/them-moi'}"
+			th:object="${l}" method="post" enctype="multipart/form-data">
+			<input type="hidden" th:field="*{idCourses}"> <input
+				type="hidden" th:field="*{id}">
+			<div class="form-group">
+				<div class="label">
+					Tên bài học <span class="not-empty">*</span>
+				</div>
+				<div class="input">
+					<input type="text" th:field="*{name}" required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="label">
+					Mô tả ngắn <span class="not-empty">*</span>
+				</div>
+				<div class="input">
+					<input type="text" th:field="*{description}" required="required">
+				</div>
+			</div>
+				<div class="form-group">
+					<div class="label">
+						Video 
+					</div>
+					<div class="input">
+						<input type="file" name="videoFile" accept="video/*"
+							onchange="checkVideo(event)">
+					</div>
+				</div>
+			<div class="form-group">
+				<div class="label">
+					Xem trước <span class="not-empty">*</span>
+				</div>
+				<div class="input">
+					<select th:field="*{preview}">
+						<option value="0">Không xem trước</option>
+						<option value="1">Cho xem trước</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="label">
+					Nội dung bài học <span class="not-empty">*</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input">
+					<textarea name="" id="addLesson" th:field="*{content}"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input">
+					<th:block th:if="*{id == null}">
+						<input type="submit" class="btn btn-primary" value="Thêm bài học"
+							name="" id="">
+					</th:block>
+					<th:block th:if="*{id != null}">
+						<input type="submit" class="btn btn-primary"
+							value="Cập nhật bài học" name="" id="">
+					</th:block>
+				</div>
+			</div>
+			<th:block th:if="${l.fileName != null}">
+
+				<div class="editExistVideo">
+					<p class="text-alert alert-success">Video đang dạy</p>
+					<video controls>
+						<source th:src="@{'/file/video/' + ${l.fileName}}">
+					</video>
+				</div>
+			</th:block>
+		</form>
+	</div>
+
+
+</div>
+

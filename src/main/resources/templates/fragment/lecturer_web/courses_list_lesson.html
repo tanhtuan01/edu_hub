@@ -1,0 +1,134 @@
+<div class="hero">
+	<h1>Quản lý khóa học</h1>
+	<p>Hãy quản lý để đưa ra những bài học chất lượng hơn.</p>
+</div>
+<div class="featured-courses">
+	<h2>Thông tin khóa học</h2>
+	<div class="courses-info r-content">
+		<div class="info-row">
+			<div class="left">
+				<div class="box">
+					<div class="img">
+						<img th:src="@{'/img/courses_lesson/' + ${c.image}}" alt="">
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<div class="name" th:field="${c.name}">Khóa học</div>
+				<div class="short-desc" th:field="${c.shortDescription}">Mô tả
+					ngắn về khóa học</div>
+				<div th:if="${c.type == 'free'}" class="type">Miễn phí</div>
+				<th:block th:if="${c.type == 'paid'}">
+					<div class="type">Trả phí</div>
+					<div class="price"
+						th:text="${#numbers.formatDecimal(c.newPrice, 1, 'POINT', 0, 'POINT')} + 'đ'">899999999
+						vnđ</div>
+					<div>
+						<p>
+							<del>
+								<small
+									th:text="${#numbers.formatDecimal(c.oldPrice, 1, 'POINT', 0, 'POINT')} + 'đ'"></small>
+							</del>
+							- <small th:text="${c.discount} + '%'"></small>
+						</p>
+					</div>
+				</th:block>
+
+
+				<div class="button">
+					<a th:href="@{'/lecturer/khoa-hoc/chinh-sua?courses_id=' +${c.id} }" class="btn btn-primary">Sửa thông tin</a> 
+					<a th:href="@{'/lecturer/khoa-hoc/bai-hoc/them-moi?courses_id=' + ${c.id}}" class="btn btn-primary">Thêm bài học</a>
+					<a th:href="@{'/lecturer/khoa-hoc/bai-hoc/hoc-vien?courses_id=' + ${c.id}}" class="btn btn-primary">Danh sách học viên</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br> <br>
+	<th:block th:if="${#lists.size(l) == 0}">
+		<p>Bạn chưa thêm 1 bài học nào</p>
+		<p>Hãy thêm bài học để hoàn thiện khóa học</p>
+		<p style="text-align: right">
+			<a class="btn btn-primary">Trạng thái: chưa sẵn sàng</a>
+		</p>
+	</th:block>
+	<th:block th:if="${#lists.size(l) > 0}">
+		<h2>Danh sách bài học</h2>
+
+		<p>
+			Tổng số: <span th:text="${#lists.size(l)}"></span> bài
+		</p>
+		<p th:if="${c.status == 'not_ready' || c.status == 'on_ready' }" style="text-align: right">
+			<a th:href="@{'/lecturer/khoa-hoc/trang-thai?status=in_progress&courses_id=' +${c.id}}" class="btn btn-minus text-alert">Công bố khóa học ngay</a>
+		</p>
+		<p th:if="${c.status == 'in_progress'}" style="text-align: right">
+			<a class="btn btn-primary">Trạng thái: Đã công bố</a>
+		</p>
+	</th:block>
+		<div class="r-content list-lesson">
+			<div class="lesson-item" th:each="ls : ${l}">
+				<div class="in-item">
+					<div class="img">
+						<th:block th:if="${ls.fileName != null}">
+							<video controls>
+								<source th:src="@{'/file/video/' + ${ls.fileName}}"
+									type="video/mp4">
+							</video>
+						</th:block>
+						<th:block th:if="${ls.fileName == null}">
+							<img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/699327-icon-55-document-text-1024.png">
+						</th:block>
+					</div>
+					<div class="info">
+						<div class="name" th:text="${ls.name}">Tên bài học</div>
+						<div class="short-desc" th:text="${ls.description}">Mô tả
+							ngắn bài học</div>
+						<div class="button">
+							<a th:href="@{'/lecturer/khoa-hoc/bai-hoc/xem?lesson_id=' + ${ls.id} + '&courses_id=' + ${ls.idCourses} }" class="btn btn-primary">Xem bài học</a> 
+							<a th:href="@{'/lecturer/khoa-hoc/bai-hoc/chinh-sua?lesson_id=' +${ls.id} + '&courses_id=' + ${ls.idCourses} }" class="btn btn-warning">Chỉnh sửa</a> <a
+								onclick="deleteLesson(this)"
+								th:href="@{'/lecturer/khoa-hoc/bai-hoc/xoa?courses_id=' + ${ls.idCourses} +'&lesson_id=' + ${ls.id}}"
+								class="btn btn-minus">Xóa</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+
+</div>
+
+<script th:inline="javascript">
+  function showToast(icon, message) {
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(() => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 1800,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: icon,
+          title: message
+        });
+      }, 800);
+    });
+  }
+</script>
+
+<script th:if="${param.added}" th:inline="javascript">
+	showToast("success", "Thêm bài học thành công!");
+</script>
+
+<script th:if="${param.deleted}" th:inline="javascript">
+	showToast("success", "Xóa bài học thành công!");
+</script>
+
+<script th:if="${param.updated}" th:inline="javascript">
+	showToast("success", "Cập nhật thành công!");
+</script>

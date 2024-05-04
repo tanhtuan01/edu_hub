@@ -1,18 +1,28 @@
-<div class="hero">
+<th:block th:if="${courses.id == null}">
+	<div class="hero">
 	<h1>Thêm một khóa học mới!</h1>
 	<p>Chia sẻ kiến thức của bạn thông qua khóa học.</p>
 </div>
+</th:block>
+<th:unless th:if="${courses.id}">
+<div class="hero">
+	<h1>Cập nhật khóa học!</h1>
+	<p>Chỉnh sửa để khóa học trở nên thu hút học viên hơn.</p>
+</div>
+</th:unless>
 
 <div class="add-courses r-content">
-	<form action="">
+	<form th:action="@{'/lecturer/khoa-hoc/them-moi'}" method="post" th:object="${courses}" enctype="multipart/form-data" autocomplete="off">
 		<div class="message">Hoàn thiện thông tin dưới đây để ra mắt
 			khóa học</div>
+			<input type="hidden" th:field="*{id}" >
+			<input type="hidden" th:field="*{status}" >
 		<div class="form-group">
 			<div class="label">
 				Tên khóa học <span class="not-empty">*</span>
 			</div>
 			<div class="input">
-				<input type="text">
+				<input type="text" th:field="*{name}">
 			</div>
 		</div>
 		<div class="form-group">
@@ -20,7 +30,7 @@
 				Mô tả ngắn <span class="not-empty">*</span>
 			</div>
 			<div class="input">
-				<input type="text">
+				<input type="text" th:field="*{shortDescription}">
 			</div>
 		</div>
 		<div class="form-group">
@@ -28,7 +38,7 @@
 				Loại <span class="not-empty">*</span>
 			</div>
 			<div class="input">
-				<select id="course-type" onchange="togglePaymentFields(this)">
+				<select id="course-type" onchange="togglePaymentFields(this)" th:field="*{type}">
 					<option value="free">Miễn phí</option>
 					<option value="paid">Trả phí</option>
 				</select>
@@ -41,22 +51,22 @@
 				</div>
 				<div class="input">
 					<input type="number" onkeydown="checkInputNumber(event)"
-						id="oldPrice" oninput="toNewPrice(this)"> <br> <small
-						id="oldPriceTxt"></small>
+						id="oldPrice" oninput="toNewPrice(this)" th:field="*{oldPrice}" onchange="checkInputNumberHasValue(this)"> <br> 
+						<small id="oldPriceTxt"></small>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="label">Giảm giá</div>
 				<div class="input">
 					<input type="number" onkeydown="checkInputNumber(event)"
-						id="discount" oninput="toNewPrice(this)"> <br> <small
+						id="discount" oninput="toNewPrice(this)" th:field="*{discount}" onchange="checkInputNumberHasValue(this)"> <br> <small
 						id="discountTxt"></small>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="label">Giá mới</div>
 				<div class="input">
-					<input type="number" readonly id="newPrice"> <br> <small
+					<input type="number" readonly id="newPrice" th:field="*{newPrice}" onchange="checkInputNumberHasValue(this)" > <br> <small
 						id="newPriceTxt"></small>
 				</div>
 			</div>
@@ -66,7 +76,12 @@
 				Hình ảnh <span class="not-empty">*</span>
 			</div>
 			<div class="input">
-				<input type="file" onchange="addCoursesChangeImage(this)" id="inputImage" accept="image/*">
+				<th:block th:if="*{id == null}">
+					<input type="file" onchange="addCoursesChangeImage(this)" name="imageFile" id="inputImage" accept="image/*" required>
+				</th:block>
+				<th:block th:if="*{id != null}">
+					<input type="file" onchange="addCoursesChangeImage(this)" name="imageFile" id="inputImage" accept="image/*" >
+				</th:block>
 			</div>
 		</div>
 		<div class="form-group">
@@ -76,7 +91,7 @@
 		</div>
 		<div class="form-group">
 			<div class="input">
-				<textarea name="" id="addDescCourses"></textarea>
+				<textarea name="" id="addDescCourses" th:field="*{description}"></textarea>
 			</div>
 		</div>
 		<div class="form-group">
@@ -85,7 +100,35 @@
 			</div>
 		</div>
 		<div class="image-choosed">
-			<img src="" alt="" id="imageChoosed">
+
+				<img th:src="@{'/img/courses_lesson/' + *{image}}" alt="" id="imageChoosed">
+	
 		</div>
 	</form>
 </div>
+
+<script th:if="${param.failed}" th:inline="javascript">
+
+	 document.addEventListener('DOMContentLoaded', function() {
+		 setTimeout( ()=>{
+			
+			const Toast =  Swal.mixin({
+				
+				  toast: true,
+				  position: "top-end",
+				  showConfirmButton: false,
+				  timer: 1800,
+				  timerProgressBar: true,
+				  didOpen: (toast) => {
+				    toast.onmouseenter = Swal.stopTimer;
+				    toast.onmouseleave = Swal.resumeTimer;
+				  }
+				});
+				 Toast.fire({
+				  icon: "error",
+				  title: "Đã xảy ra lỗi khi thêm khóa học, hãy thử lại"
+				});
+				
+			}, 800)
+	    });
+</script>

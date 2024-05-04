@@ -3,9 +3,13 @@
 
 <head>
     <title>Trang chủ - Giảng viên</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" th:href="@{/css/base.css}">
     <link rel="stylesheet" th:href="@{/css/web/index.css}">
     <link rel="stylesheet" th:href="@{/css/lecturer_web/lecturer.css}">
+    
+    <script
+	src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
 </head>
 
 <body>
@@ -24,21 +28,22 @@
                                 &nbsp;Edu Hub
                             </div>
                         </div>
-                        <div class="right-menu">
+                         <div class="right-menu">
                             <ul>
-                                <li class="top-menu-item"><a href="">Trang Chủ</a></li>
-                                <li class="top-menu-item"><a href="">Đăng Ký Quản Lý</a></li>
+                                <li class="top-menu-item"><a th:href="@{/}">Trang Chủ</a></li>
+                                <li class="top-menu-item"><a th:href="@{'/quan-ly-ctdt'}">Quản lý CTĐT</a></li>
+                                 <li class="top-menu-item"><a th:href="@{'/giang-day'}">Giảng dạy</a></li>
                                 <li class="top-menu-item">
-                                    <a>Tài khoản</a>
-                                    <div class="top-option-item">
+                                    <a th:href="@{'/profile/'}">Tài khoản của tôi</a>
+                                   <!--  <div class="top-option-item">
                                         <ul>
                                             <li><a href="">Tài khoản của tôi</a></li>
                                             <li><a href="">Khóa học của tôi</a></li>
                                             <li><a href="">Đăng xuất</a></li>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                 </li>
-                                <li class="top-menu-item"><a href="">Tạo tài khoản</a></li>
+                                <li class="top-menu-item"><a th:href="@{/dang-ky}">Tạo tài khoản</a></li>
                             </ul>
                         </div>
                     </div>
@@ -52,9 +57,9 @@
                         </div>
                         <div class="lecturer-nav">
                             <ul>
-                                <li class="active"><a href="#">Trang chủ</a></li>
-                                <li><a href="#">Quản lý khóa học</a></li>
-                                <li><a href="#">Thêm khóa học</a></li>
+                                <li class="active"><a th:href="@{/lecturer/}">Trang chủ</a></li>
+                                <li><a th:href="@{/lecturer/khoa-hoc/quan-ly}">Quản lý khóa học</a></li>
+                                <li><a th:href="@{/lecturer/khoa-hoc/them-moi}">Thêm khóa học</a></li>
                                 <li><a href="#">Quản lý học viên</a></li>
                                 <li><a href="#">Đăng xuất</a></li>
                             </ul>
@@ -69,10 +74,17 @@
         </div>
     </div>
 
+	<div id="loading-spinner"
+		style="width: 100%; position: fixed; top: 0; bottom: 0; background: rgba(237, 240, 240, 0.5); z-index: 999999999;"></div>
+		<script type="text/javascript" th:src="@{/js/loading_spinner.js}"></script>
+
 	<script type="text/javascript" th:src="@{'/js/ckeditor.js'}"></script>
 	<script type="text/javascript" th:src="@{'/js/lecturer_web/ckeditor.js'}"></script>
     <script type="text/javascript" th:src="@{'/js/lecturer_web/index.js'}"></script>
 
+<script type="text/javascript"
+		src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" th:src="@{/js/sweetalert2.all.min.js}"></script>
 </body>
 
 </html>

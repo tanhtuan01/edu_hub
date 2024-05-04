@@ -1,0 +1,98 @@
+
+<div class="hero">
+	<h1>Xin chào, Giảng viên!</h1>
+	<p>Hãy quản lý và chia sẻ kiến thức của bạn với học viên của mình.</p>
+</div>
+<div class="featured-courses">
+	<h2>Khóa học đang được quản lý</h2>
+	<div class="list-courses">
+		<a th:href="@{'/lecturer/khoa-hoc/xem?courses_id=' + ${c.id}}" th:each="c : ${courses}" class="container">
+			<div class="course in-progress" th:class="'course ' + ${c.status}">
+				<img th:src="@{'/img/courses_lesson/' + ${c.image} }" alt="Khóa học">
+				<h3 class="title" th:text="${c.name}"></h3>
+				<p class="short-description" th:text="${c.shortDescription}"></p>
+				<th:block th:if="${c.type == 'paid'}">
+					<div class="type">
+						<p class="text" th:text="${c.parseType()}"></p>
+						<p class="newPrice"
+							th:text="${#numbers.formatDecimal(c.newPrice, 1, 'POINT', 0, 'POINT')} + 'đ'"></p>
+						<p>
+							<small class="oldPrice"><del
+									th:text="${#numbers.formatDecimal(c.oldPrice, 1, 'POINT', 0, 'POINT')} + 'đ'"></del></small>
+							- <small th:text="${c.discount} + '%'"></small>
+						</p>
+					</div>
+
+				</th:block>
+
+				<th:block th:if="${c.type == 'free'}">
+					<div class="type">
+						<p class="text" th:text="${c.parseType()}"></p>
+					</div>
+
+				</th:block>
+
+				<th:block>
+					<div class="button-status">
+						<a th:href="@{'/lecturer/khoa-hoc/quan-ly/xoa?id=' + ${c.id}}"
+							class="btn btn-delete" onclick="deleteCourses(this)">Xóa</a>
+						<p th:class="'status ' + ${c.status}" th:text="${c.parseStatus()}"></p>
+					</div>
+				</th:block>
+
+			</div>
+		</a>
+	</div>
+</div>
+
+<script th:if="${param.added}" th:inline="javascript">
+
+	 document.addEventListener('DOMContentLoaded', function() {
+		 setTimeout( ()=>{
+			
+			const Toast =  Swal.mixin({
+				
+				  toast: true,
+				  position: "top-end",
+				  showConfirmButton: false,
+				  timer: 1800,
+				  timerProgressBar: true,
+				  didOpen: (toast) => {
+				    toast.onmouseenter = Swal.stopTimer;
+				    toast.onmouseleave = Swal.resumeTimer;
+				  }
+				});
+				 Toast.fire({
+				  icon: "success",
+				  title: "Thêm khóa học thành công!"
+				});
+				
+			}, 800)
+	    });
+</script>
+
+<script th:if="${param.deleted}" th:inline="javascript">
+
+	 document.addEventListener('DOMContentLoaded', function() {
+		 setTimeout( ()=>{
+			
+			const Toast =  Swal.mixin({
+				
+				  toast: true,
+				  position: "top-end",
+				  showConfirmButton: false,
+				  timer: 1800,
+				  timerProgressBar: true,
+				  didOpen: (toast) => {
+				    toast.onmouseenter = Swal.stopTimer;
+				    toast.onmouseleave = Swal.resumeTimer;
+				  }
+				});
+				 Toast.fire({
+				  icon: "success",
+				  title: "Xóa khóa học thành công!"
+				});
+				
+			}, 800)
+	    });
+</script>

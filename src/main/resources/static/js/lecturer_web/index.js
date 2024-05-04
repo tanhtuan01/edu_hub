@@ -1,3 +1,15 @@
+window.onload = () => {
+	showLoadingSpinner()
+	setTimeout(() => {
+		hideLoadingSpinner()
+	}, 500)
+}
+
+
+function goBack(){
+	window.history.back();
+}
+
 function checkInputNumber(event) {
 	var value = event.key
 	stopArrowUpDown(event)
@@ -12,6 +24,19 @@ function stopArrowUpDown(event) {
 	}
 }
 
+function checkInputNumberHasValue(e) {
+
+	var inputValue = parseInt(e.value)
+	var paymentFields = e.closest("#payment-fields")
+	if (inputValue > 0) {
+		paymentFields.classList.add("visible")
+		document.getElementById("course-type").value = "paid"
+	}
+
+
+
+
+}
 
 function togglePaymentFields(e) {
 	var courseType = document.getElementById("course-type").value;
@@ -20,6 +45,15 @@ function togglePaymentFields(e) {
 	if (courseType === "paid") {
 		paymentFields.classList.add("visible")
 	} else {
+		var paymentFieldNumber = paymentFields.querySelectorAll("input[type='number']")
+		paymentFieldNumber.forEach((s) => {
+			s.value = 0
+		})
+
+		var paymentSmallField = paymentFields.querySelectorAll("small")
+		paymentSmallField.forEach((s) => {
+			s.textContent = ''
+		})
 		paymentFields.classList.remove("visible");
 	}
 }
@@ -122,31 +156,123 @@ function soSangChu(so) {
 }
 
 function addCoursesChangeImage(input) {
-  const file = input.files[0];
-  const imageChoosed = document.getElementById('imageChoosed');
+	const file = input.files[0];
+	const imageChoosed = document.getElementById('imageChoosed');
 
-  const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-  const maxSizeInBytes = 5 * 1024 * 1024; 
+	const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+	const maxSizeInBytes = 5 * 1024 * 1024;
 
-  if (!allowedExtensions.exec(file.name)) {
-    alert('Hãy chọn 1 tệp hình ảnh.');
-    input.value = ''; 
-    return;
-  }
+	if (!allowedExtensions.exec(file.name)) {
+		alert('Hãy chọn 1 tệp hình ảnh.');
+		input.value = '';
+		return;
+	}
 
-  if (file.size > maxSizeInBytes) {
-    alert('Kích thước ảnh quá lớn, vượt quá 5MB.');
-    input.value = ''; 
-    return;
-  }
+	if (file.size > maxSizeInBytes) {
+		alert('Kích thước ảnh quá lớn, vượt quá 5MB.');
+		input.value = '';
+		return;
+	}
 
-  const reader = new FileReader();
+	const reader = new FileReader();
 
-  reader.addEventListener('load', function() {
-    imageChoosed.src = reader.result;
-  });
+	reader.addEventListener('load', function() {
+		imageChoosed.src = reader.result;
+	});
 
-  if (file) {
-    reader.readAsDataURL(file);
-  }
+	if (file) {
+		reader.readAsDataURL(file);
+	}
 }
+
+function deleteCourses(e) {
+	event.preventDefault()
+	var href = e.getAttribute("href")
+	var originUrl = window.location.origin
+	var url = originUrl + href
+	var container = e.closest(".course")
+	var title = container.querySelector(".title").textContent
+
+	Swal.fire({
+		title: "Xác nhận xóa",
+		text: `Bạn có chắc muốn xóa khóa học: ${title} ?`,
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33",
+		confirmButtonText: "Xóa!"
+	}).then((result) => {
+		if (result.isConfirmed) {
+			window.location.href = url
+		}
+	});
+}
+
+function checkVideo(event) {
+	var fileInput = event.target;
+	var file = fileInput.files[0];
+
+	if (file) {
+		var fileName = file.name;
+		var fileExtension = fileName.split('.').pop().toLowerCase();
+		var fileSize = file.size;
+		var maxSize = 100 * 1024 * 1024; // 50MB
+
+		if (fileExtension !== 'mp4' && fileExtension !== 'mov' && fileExtension !== 'avi') {
+			alert('Hãy chọn một tệp video (mp4, mov, avi)');
+			fileInput.value = '';
+		} else if (fileSize > maxSize) {
+			alert('Kích thước tệp quá lớn. Vui lòng chọn tệp nhỏ hơn 100MB.');
+			fileInput.value = '';
+		}
+	} else {
+		console.log('Không có tệp được chọn.');
+	}
+}
+
+function deleteLesson(e) {
+	event.preventDefault()
+
+	var lesson = e.closest(".lesson-item")
+	var name = lesson.querySelector(".name").textContent
+	
+	
+	var url = window.location.origin + e.getAttribute("href")
+
+	Swal.fire({
+		title: "Xác nhận xóa?",
+		text: `Bạn có chắc muốn xóa bài học: ${name}`,
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#ff0000",
+		cancelButtonColor: "#57D45A",
+		confirmButtonText: "Xóa",
+		cancelButtonText: "Hủy xóa"
+	}).then((result) => {
+		if (result.isConfirmed) {
+			window.location.href = url
+		}
+	});
+}
+
+checkOptionCourses()
+function checkOptionCourses(){
+	if(!document.getElementById("course-type")){
+		return
+	}
+	var coursesTypeValue = document.getElementById("course-type").value
+	if(coursesTypeValue == "paid"){
+		document.getElementById("payment-fields").classList.add("visible")
+	}
+}
+valueToPriceText()
+function valueToPriceText(){
+	if(!document.getElementById("course-type")){
+		return
+	}
+	var oldPrice = parseInt(document.getElementById("oldPrice").value)
+	document.getElementById("oldPriceTxt").innerText = soSangChu(oldPrice)
+	var newPrice = parseInt(document.getElementById("newPrice").value)
+	document.getElementById("newPriceTxt").innerText = soSangChu(newPrice)
+}
+
