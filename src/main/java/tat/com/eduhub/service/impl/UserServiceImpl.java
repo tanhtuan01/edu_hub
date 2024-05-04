@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService{
 			);
 		user.setAvt("no-avatar.png");
 		user.setType("system_account");
-		user.setReceiveMail(userDTO.getReceiveMail());
+		user.setReceiveMail(userDTO.getEmail());
 		User userSave = repository.saveAndFlush(user);
 		return userSave.getId();
 	}
