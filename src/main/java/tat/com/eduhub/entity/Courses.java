@@ -32,6 +32,28 @@ public class Courses extends BaseEntity{
 	@OneToMany(mappedBy = "courses", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<StudentCourses> studentCourses;
 	
+	@OneToMany(mappedBy = "courses", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<CategoryLesson> categoryLessons;
+	
+	@Size(max = 120)
+	private String area;
+	
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public List<CategoryLesson> getCategoryLessons() {
+		return categoryLessons;
+	}
+
+	public void setCategoryLessons(List<CategoryLesson> categoryLessons) {
+		this.categoryLessons = categoryLessons;
+	}
+
 	@Size(max = 15)
 	private String type;
 	
@@ -52,6 +74,17 @@ public class Courses extends BaseEntity{
 	
 	@Size(max = 20)
 	private String status;
+	
+	@Column(name = "vote_score")
+	private Double voteScore;
+
+	public Double getVoteScore() {
+		return voteScore;
+	}
+
+	public void setVoteScore(Double voteScore) {
+		this.voteScore = voteScore;
+	}
 
 	public String getStatus() {
 		return status;

@@ -35,6 +35,18 @@ public class Lesson extends BaseEntity{
 	private boolean preview;
 	
 	private String content;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_category_lesson")
+	private CategoryLesson categoryLesson;
+
+	public CategoryLesson getCategoryLesson() {
+		return categoryLesson;
+	}
+
+	public void setCategoryLesson(CategoryLesson categoryLesson) {
+		this.categoryLesson = categoryLesson;
+	}
 
 	public boolean isPreview() {
 		return preview;
