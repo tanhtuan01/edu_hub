@@ -22,7 +22,15 @@
 				Tên khóa học <span class="not-empty">*</span>
 			</div>
 			<div class="input">
-				<input type="text" th:field="*{name}">
+				<input type="text" th:field="*{name}" required="required">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="label">
+				Lĩnh vực, chuyên ngành <span class="not-empty">*</span>
+			</div>
+			<div class="input">
+				<input type="text" th:field="*{area}" required="required">
 			</div>
 		</div>
 		<div class="form-group">
@@ -30,7 +38,7 @@
 				Mô tả ngắn <span class="not-empty">*</span>
 			</div>
 			<div class="input">
-				<input type="text" th:field="*{shortDescription}">
+				<input type="text" th:field="*{shortDescription}" required="required">
 			</div>
 		</div>
 		<div class="form-group">
