@@ -1,0 +1,24 @@
+<div class="r-content view-file">
+	<div class="eh-header-title" th:text="${tp.name}"></div>
+	<div class="eh-header-title sub" th:text="'Học phần: ' + ${sd.module.name}"></div>
+	<a th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/pcgv?id=' +${tp.id} }" class="btn btn-primary">Trước</a>
+	<div>
+		<ul>
+			<li class="name">Tài liệu</li>
+			<li th:each="sdd: ${sd.subjectDistributionDetails}">
+				<th:block th:if="${sdd.document != null && sdd.document.share == 'private'}">
+					<a th:href="@{'/file/document/' + ${domain} + '/' + ${sdd.document.fileName} }" th:text="${sdd.document.name}" download></a>
+				</th:block>
+				<th:block th:if="${sdd.document != null && sdd.document.share == 'public'}">
+					<a th:href="@{'/file/document/public/' + ${sdd.document.fileName} }" th:text="${sdd.document.name}" download></a>
+				</th:block>
+			</li>
+			<li class="name">Đề cương</li>
+			<li th:each="sdd: ${sd.subjectDistributionDetails}">
+				<th:block th:if="${sdd.syllabus != null}">
+					<a th:href="@{'/file/syllabus/lecturer/' + ${domain} +'/' + ${sdd.syllabus.fileName} }" th:text="${sdd.syllabus.name}" download> </a>
+				</th:block>
+			</li>
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,89 @@
+<div class="r-content view-courses">
+
+	<div class="left">
+		<div class="courses-name" th:text="${courses.name}"></div>
+		<div class="short-description"
+			th:text="'Lĩnh vực, chuyên ngành: ' + ${courses.area}"></div>
+		<div class="short-description" th:text="${courses.shortDescription}"></div>
+		<div class="description">Chi tiết khóa học</div>
+		<div class="short-description" th:text="${courses.description}"
+			id="viewCoursesDesc" style="display: none"></div>
+		<div class="short-description" id="toViewCoursesDesc"></div>
+
+		<div class="description">Nội dung khóa học</div>
+
+		<div class="list-lesson">
+			<div class="category-lesson">
+				<div class="item" onclick="toggleCategoryLessonContentList(this)"
+					th:each="ctls :${categoryLessons}">
+					<div class="header">
+						<div class="left">
+							<div class="icon">
+								<i class="down fa-solid fa-chevron-down"></i> <i
+									class="up fa-solid fa-chevron-up"></i>
+							</div>
+							<div class="name" th:text="${ctls.name}">Tên DANH MỤC BÀI
+								HỌC</div>
+						</div>
+						<div class="right"
+							th:text="${#lists.size(ctls.lessons)} + ' bài học'"></div>
+					</div>
+					<div class="content-list hide">
+						<div class="content" th:each="ls,i : ${ctls.lessons}">
+							<div class="left">
+								<th:block th:if="${ls.fileName != null}">
+									<div>
+										<i class="fa-solid fa-play"></i>
+									</div>
+								</th:block>
+								<th:block th:if="${ls.fileName == null}">
+									<div>
+										<i class="fa-solid fa-file-lines"></i>
+									</div>
+								</th:block>
+								<div class="stt" th:text="${i.count}">1</div>
+								<div class="name" th:text="${ls.name}">Tên bài học</div>
+							</div>
+							<div class="right">
+								<th:block th:if="${ls.preview}">
+									<a
+										th:href="@{'/courses/bai-hoc/xem-truoc?courses_id=' + ${courses.id} +'&lesson_id=' + ${ls.id} }"
+										class="btn btn-view">Xem</a>
+								</th:block>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+	</div>
+	<div class="right" style="text-align: center">
+		<div class="content-right">
+			<img th:src="@{'/img/courses_lesson/' + ${courses.image}}">
+
+			<th:block th:if="${courses.type == 'paid'}">
+				<div class="type">Trả phí</div>
+				<div class="new-price" th:text="${#numbers.formatDecimal(courses.newPrice, 1, 'POINT', 0, 'POINT')} + 'đ'"></div>
+				<div > <del class="old-price" th:text="${#numbers.formatDecimal(courses.oldPrice, 1, 'POINT', 0, 'POINT')} + 'đ'"></del> -<small th:text=" ${courses.discount} + '%'"></small> </div>
+				<div class="button">
+					<a class="btn btn-primary">Mua ngay</a>
+				</div>
+			</th:block>
+			<th:block th:if="${courses.type == 'free'}">
+				<div class="type">Miễn phí</div>
+				<div class="button">
+					<a class="btn btn-primary">Tham gia ngay</a>
+				</div>
+			</th:block>
+			
+			
+		</div>
+
+
+	</div>
+
+</div>

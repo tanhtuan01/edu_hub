@@ -1,0 +1,112 @@
+<div class="hero">
+	<h1>Danh mục bài học!</h1>
+	<p>Khóa học trở lên rõ ràng hơn.</p>
+</div>
+
+<div class="title-courses">
+	Khóa học : <span th:text="${courses.name}"></span>
+</div>
+
+<div class="category-lesson r-content">
+
+	<div class="left">
+		<th:block th:if="${categoryLesson.id == null}">
+			<div class="title">Thêm Mới</div>
+		</th:block>
+
+		<th:block th:if="${categoryLesson.id != null}">
+			<div class="title">Chỉnh sửa</div>
+		</th:block>
+
+		<form method="post" th:object="${categoryLesson}"
+			th:action="@{/lecturer/khoa-hoc/bai-hoc/danh-muc/luu}">
+			<input type="hidden" th:field="*{idCourses}"> <input
+				type="hidden" th:field="*{id}">
+			<div class="form-group">
+				<div class="label">Danh mục</div>
+				<div class="input">
+					<input th:field="*{name}">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="label">Số thứ tự</div>
+				<div class="input">
+					<input type="number" onkeydown="checkInputNumber(event)"
+						th:field="*{stt}">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="input">
+					<input type="submit" class="btn btn-primary" value="Xác nhận">
+					<th:block th:if="${categoryLesson.id != null}">
+						<a th:href="@{'/lecturer/khoa-hoc/bai-hoc/danh-muc?courses_id=' + ${courses.id} }" class="btn btn-primary">Thêm mới</a>
+					</th:block>
+				</div>
+			</div>
+
+
+		</form>
+	</div>
+	<div class="right">
+		<div class="title">Danh Mục Bài Học</div>
+		<th:block th:if="${#lists.size(categoryLessons) == 0}">
+			<p class="text-center">Danh mục bài học trống</p>
+		</th:block>
+		<th:block th:if="${#lists.size(categoryLessons) > 0}">
+			<div class="table-container">
+				<table cellspacing="0">
+					<tr>
+						<th class="stt">STT</th>
+						<th class="ttht">Thứ tự hiển thị</th>
+						<th class="name">Danh mục bài học</th>
+						<th class="stt">Sửa</th>
+						<th class="stt">Xóa</th>
+					</tr>
+					<tr th:each="c,i : ${categoryLessons}">
+						<td class="stt" th:text="${i.count}">1</td>
+						<td class="ttht" th:text="${c.stt}">1</td>
+						<td class="name" th:text="${c.name}">Khái niệm, kỹ thuật cần
+							biết</td>
+						<td class="stt"><a
+							th:href="@{'/lecturer/khoa-hoc/bai-hoc/danh-muc/chinh-sua?category_lesson_id=' + ${c.id} + '&courses_id=' + ${courses.id} }"
+							class="btn btn-edit"> <i class="fa-solid fa-pen-to-square"></i>
+						</a></td>
+						<td class="stt"><a onclick="deleteCategoryLesson(this)"
+							th:href="@{'/lecturer/khoa-hoc/bai-hoc/danh-muc/xoa?category_lesson_id=' + ${c.id} + '&courses_id=' + ${courses.id} }"
+							class="btn btn-minus"> <i class="fa-solid fa-minus"></i>
+						</a></td>
+					</tr>
+
+				</table>
+			</div>
+		</th:block>
+	</div>
+
+</div>
+
+<script th:if="${param.updated}" th:inline="javascript">
+
+	 document.addEventListener('DOMContentLoaded', function() {
+		 setTimeout( ()=>{
+			
+			const Toast =  Swal.mixin({
+				
+				  toast: true,
+				  position: "top-end",
+				  showConfirmButton: false,
+				  timer: 1800,
+				  timerProgressBar: true,
+				  didOpen: (toast) => {
+				    toast.onmouseenter = Swal.stopTimer;
+				    toast.onmouseleave = Swal.resumeTimer;
+				  }
+				});
+				 Toast.fire({
+				  icon: "success",
+				  title: "Cật nhật thành công"
+				});
+				
+			}, 800)
+	    });
+</script>
