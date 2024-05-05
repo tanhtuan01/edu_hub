@@ -177,6 +177,7 @@ border-radius: 3px;
     border-radius: 5px 5px 0 0;
     width: 100%;
     height: 150px;
+    padding: 10px 20px;
 }
 
 #giang-vien .r .box .info,
@@ -225,7 +226,7 @@ border-radius: 3px;
 
 #khoa-hoc .r .box {
     margin: 5px 0;
-    box-shadow: 0 4px 6px 1px var(--primary-color);
+   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     border-radius: 5px;
     width: calc(100% / 3 - 20px);
     height: 330px;
@@ -234,14 +235,10 @@ border-radius: 3px;
     position: relative;
 }
 
-/* #khoa-hoc .r .box::before, #giang-vien .r .box::before{
-    content: '';
-    top: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 10;
-} */
+#khoa-hoc .r .box:hover{
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
 
 #khoa-hoc .r .box .info .name {
     font-weight: 700;
@@ -459,6 +456,138 @@ border-radius: 3px;
 
 /* END SIGN IN SIGN UP */
 
+/* VIEW COURSES */
+.view-courses{
+	padding: 50px 10px;
+	line-height: 25px;
+	display: flex;
+}
+
+.view-courses .courses-name{
+	font-size: 25px;
+	padding: 10px 0;
+}
+
+.view-courses .short-description{
+	padding: 2px 0;
+}
+
+.view-courses .description{
+	font-size: 20px;
+}
+
+.view-courses .left{
+	width: 75%;
+}
+
+.view-courses .right{
+	width: 25%;
+}
+
+.view-courses .right .type{
+	font-size: 20px;
+}
+.view-courses .right .new-price{
+	font-size: 18px;
+}
+.view-courses .right .old-price{
+	color: red;
+}
+.view-courses .right .button{
+	padding: 10px;
+}
+
+.view-courses .right img{
+	width: 250px;
+	height: 150px;
+	border: 1px solid silver;
+	border-radius: 5px;
+}
+
+#toViewCoursesDesc{
+	padding: 10px 0 50px;
+}
+
+
+.list-lesson .category-lesson .item {
+	width: 100%;
+	margin: 1px;
+}
+
+.list-lesson .category-lesson .item .content-list .content{
+	display :flex;
+	padding:10px 50px;
+	border-bottom: 1px solid var(--bg-silver);
+}
+
+.list-lesson .category-lesson .item .content-list .content .stt{
+	padding: 0 10px;
+}
+
+.list-lesson .category-lesson .item .content-list .content .name{
+	font-size: var(--text-size14);
+}
+
+.list-lesson .category-lesson .item .content-list .content .right .btn{
+	padding: 5px 10px;
+	margin: 0;
+}
+
+.list-lesson .category-lesson .item .content-list.hide{
+	display: none;
+}
+
+.r-content.list-lesson{
+	padding: 20px 0;
+}
+
+.list-lesson .category-lesson .item .header {
+	display: flex;
+	padding: 10px 20px;
+	width: 100%;
+	justify-content: space-between;
+		background: var(--bg-silver);
+	border: 1px solid rgb(225, 222, 222);
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.list-lesson .category-lesson .item .left {
+	display: flex;
+}
+
+.list-lesson .category-lesson .item .right {
+	text-align: right;
+}
+
+.list-lesson .category-lesson .item .icon {
+	padding: 0 20px;
+}
+
+.list-lesson .category-lesson .item .icon.up i.down{
+	display: none;
+}
+
+.list-lesson .category-lesson .item .icon.up i.up{
+	display: block;
+}
+
+
+.list-lesson .category-lesson .item .icon i.up {
+	display: none;
+}
+
+.list-lesson .category-lesson .item .icon i {
+	font-size: 20px;
+	color: var(--primary-color);
+}
+
+.list-lesson .category-lesson .item .name {
+	font-size: 16px;
+}
+
+
+/* END VIEW COURSES */
 .star {
         fill: gold;
         width: 20px;
