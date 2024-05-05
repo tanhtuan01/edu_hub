@@ -20,11 +20,15 @@ import org.springframework.web.multipart.MultipartFile;
 import tat.com.eduhub.base.BASE_FIELD;
 import tat.com.eduhub.base.BASE_METHOD;
 import tat.com.eduhub.component.UserHelper;
+import tat.com.eduhub.dto.CategoryLessonDTO;
 import tat.com.eduhub.dto.CoursesDTO;
+import tat.com.eduhub.dto.GetLessonDTO;
 import tat.com.eduhub.dto.LessonDTO;
+import tat.com.eduhub.entity.CategoryLesson;
 import tat.com.eduhub.entity.Courses;
 import tat.com.eduhub.entity.Lesson;
 import tat.com.eduhub.entity.User;
+import tat.com.eduhub.service.CategoryLessonService;
 import tat.com.eduhub.service.CoursesService;
 import tat.com.eduhub.service.LessonService;
 
@@ -42,6 +46,9 @@ public class LecturerWebLessonController {
 	private UserHelper userHelper;
 	
 	private ModelMapper mapper = new ModelMapper();
+	
+	@Autowired
+	private CategoryLessonService categoryLessonService;
 	
 	@GetMapping(value = {"","/"})
 	public String redirectToCoursesPage() {
@@ -68,6 +75,9 @@ public class LecturerWebLessonController {
 		BASE_METHOD.FragmentLecturerWeb("add_lesson", model);
 		model.addAttribute("l", lessonDTO);
 		model.addAttribute("c", coursesDTO);
+		List<CategoryLesson> categoryLessons = categoryLessonService.listByCourses(courses);
+		model.addAttribute("categoryLessons", categoryLessons);
+		model.addAttribute("act", "manage");
 		return BASE_FIELD.LECTURER_WEB_LAYOUT;
 	}
 	
@@ -92,6 +102,10 @@ public class LecturerWebLessonController {
 		
 		model.addAttribute("l", lessonDTO);
 		model.addAttribute("c", coursesDTO);
+		model.addAttribute("act", "manage");
+		
+		List<CategoryLesson> categoryLessons = categoryLessonService.listByCourses(courses);
+		model.addAttribute("categoryLessons", categoryLessons);
 		
 		BASE_METHOD.FragmentLecturerWeb("add_lesson", model);
 		return BASE_FIELD.LECTURER_WEB_LAYOUT;
@@ -102,11 +116,11 @@ public class LecturerWebLessonController {
 			@RequestParam(name = "videoFile") MultipartFile video) {
 		
 		Courses courses = coursesService.get(lessonDTO.getIdCourses());
+		CategoryLesson categoryLesson = categoryLessonService.get(lessonDTO.getIdCategoryLesson());
 		if(lessonDTO.getId() == null) {
 			
 			Lesson lesson = mapper.map(lessonDTO, Lesson.class);
-			
-			
+			lesson.setCategoryLesson(categoryLesson);
 			lesson.setCourses(courses);
 			
 			if(!video.isEmpty()) {
@@ -137,6 +151,7 @@ public class LecturerWebLessonController {
 			lesson.setName(lessonDTO.getName());
 			lesson.setPreview(lessonDTO.isPreview());
 			lesson.setCourses(courses);
+			lesson.setCategoryLesson(categoryLesson);
 			String oldFile = lesson.getFileName();
 			if(!video.isEmpty()) {
 
@@ -160,8 +175,6 @@ public class LecturerWebLessonController {
 			lessonService.save(lesson);
 			return "redirect:/lecturer/khoa-hoc/xem?courses_id=" + lessonDTO.getIdCourses() + "&updated";
 		}
-		
-		
 		
 	}
 	
@@ -198,8 +211,134 @@ public class LecturerWebLessonController {
 			coursesService.save(courses);
 		}
 		
-		
-		
 		return "redirect:/lecturer/khoa-hoc/xem?courses_id=" + idCourses + "&deleted";
 	}
+	
+	@GetMapping(value = "/danh-muc")
+	public String categoryLessonPage(Model model, Authentication authentication,
+			@RequestParam(name = "courses_id", required = false) Long idCourses) {
+		if(idCourses == null) {
+			return "redirect:/lecturer/khoa-hoc";
+		}
+		User user = userHelper.getUserLogged(authentication);
+		boolean checkUserCourses = coursesService.checkCoursesWithUser(user, idCourses);
+		if(!checkUserCourses) {
+			return "redirect:/lecturer/khoa-hoc";
+		}
+		BASE_METHOD.FragmentLecturerWeb("category_lesson", model);
+		model.addAttribute("act", "manage");
+		CategoryLessonDTO categoryLessonDTO = new CategoryLessonDTO();
+		categoryLessonDTO.setIdCourses(idCourses);
+		model.addAttribute("categoryLesson", categoryLessonDTO);
+		Courses courses = coursesService.get(idCourses);
+		List<CategoryLesson> categoryLessons = categoryLessonService.listByCourses(courses);
+		model.addAttribute("categoryLessons", categoryLessons);
+		model.addAttribute("courses", courses);
+		return BASE_FIELD.LECTURER_WEB_LAYOUT;
+	}
+	
+	@PostMapping(value = "/danh-muc/luu")
+	public String saveCategoryLesson(@ModelAttribute(name = "categoryLesson") CategoryLessonDTO categoryLessonDTO) {
+		Courses courses = coursesService.get(categoryLessonDTO.getIdCourses());
+		if(categoryLessonDTO.getId() == null) {
+			CategoryLesson categoryLesson = mapper.map(categoryLessonDTO, CategoryLesson.class);
+			categoryLesson.setCourses(courses);
+			categoryLessonService.save(categoryLesson);
+		}else {
+			CategoryLesson categoryLesson = categoryLessonService.get(categoryLessonDTO.getId());
+			categoryLesson.setCourses(courses);
+			categoryLesson.setName(categoryLessonDTO.getName());
+			categoryLesson.setStt(categoryLessonDTO.getStt());
+			categoryLessonService.save(categoryLesson);
+		}
+		return "redirect:/lecturer/khoa-hoc/bai-hoc/danh-muc?courses_id=" + courses.getId() + "&updated";
+	}
+	
+	@GetMapping(value = "/danh-muc/xoa")
+	public String deleteCategoryLesson(@RequestParam(name = "category_lesson_id", required = false) Long idCategoryLesson,
+			@RequestParam(name = "courses_id", required = false) Long idCourses, Authentication authentication) {
+		if(idCategoryLesson == null && idCourses != null) {
+			return "redirect:/lecturer/khoa-hoc/bai-hoc/danh-muc?courses_id=" + idCourses;
+		}
+		if(idCategoryLesson != null && idCourses == null) {
+			return "redirect:/lecturer/khoa-hoc";
+		}
+		User user = userHelper.getUserLogged(authentication);
+		boolean checkUserCourses = coursesService.checkCoursesWithUser(user, idCourses);
+		if(!checkUserCourses) {
+			return "redirect:/lecturer/khoa-hoc";
+		}
+		Courses courses = coursesService.get(idCourses);
+		boolean existsByCoursesAndIdCategoryLesson = categoryLessonService.existsByCoursesAndId(courses, idCategoryLesson);
+		if(!existsByCoursesAndIdCategoryLesson) {
+			return "redirect:/lecturer/khoa-hoc";
+		}
+		categoryLessonService.delete(idCategoryLesson);
+		return "redirect:/lecturer/khoa-hoc/bai-hoc/danh-muc?courses_id=" + courses.getId() + "&updated";
+	}
+	
+	@GetMapping(value = "/danh-muc/chinh-sua")
+	public String editCategoryLesson(@RequestParam(name = "category_lesson_id") Long idCategoryLesson,
+			@RequestParam(name = "courses_id") Long idCourses, Authentication authentication,
+			Model model) {
+		User user = userHelper.getUserLogged(authentication);
+		boolean checkUserCourses = coursesService.checkCoursesWithUser(user, idCourses);
+		if(!checkUserCourses) {
+			return "redirect:/lecturer/khoa-hoc";
+		}
+		BASE_METHOD.FragmentLecturerWeb("category_lesson", model);
+		model.addAttribute("act", "manage");
+		
+		Courses courses = coursesService.get(idCourses);
+		List<CategoryLesson> categoryLessons = categoryLessonService.listByCourses(courses);
+		model.addAttribute("categoryLessons", categoryLessons);
+		model.addAttribute("courses", courses);
+		
+		CategoryLesson categoryLesson = categoryLessonService.get(idCategoryLesson);
+		CategoryLessonDTO categoryLessonDTO = mapper.map(categoryLesson, CategoryLessonDTO.class);
+		categoryLessonDTO.setIdCourses(courses.getId());
+		
+		model.addAttribute("categoryLesson", categoryLessonDTO);
+		return BASE_FIELD.LECTURER_WEB_LAYOUT;
+	}
+	
+	@GetMapping(value = "/xem")
+	public String viewLesson(Model model, Authentication authentication,
+			@RequestParam(name = "lesson_id", required = false) Long idLesson,
+			@RequestParam(name = "courses_id", required = false) Long idCourses) {
+		
+		if(idCourses == null || idLesson == null) {
+			return "redirect:/lecturer/khoa-hoc";
+		}
+		Courses courses = coursesService.get(idCourses);
+		if(idCourses != null) {
+			User user = userHelper.getUserLogged(authentication);
+			boolean checkUserCoursesId = coursesService.checkCoursesWithUser(user, idCourses);
+			if(!checkUserCoursesId) {
+				return "redirect:/lecturer/khoa-hoc";
+			}
+			
+			boolean checkCoursesLessonId = lessonService.existsByCoursesAndId(courses, idLesson);
+			if(!checkCoursesLessonId) {
+				return "redirect:/lecturer/khoa-hoc";
+			}
+			
+		}
+		BASE_METHOD.FragmentLecturerWeb("view_lesson", model);
+		Lesson lesson = lessonService.get(idLesson);
+		LessonDTO lessonDTO = mapper.map(lesson, LessonDTO.class);
+		model.addAttribute("lesson", lessonDTO);
+		model.addAttribute("courses", courses);
+		List<Lesson> lessons = lessonService.listByCourses(courses);
+		List<LessonDTO> lessonDTOs = lessons.stream().map(l -> mapper.map(l, LessonDTO.class)).toList();
+		GetLessonDTO getLessonDTO = new GetLessonDTO(lessonDTOs, lessonDTO);
+		model.addAttribute("getLessonDTO", getLessonDTO);
+//		System.err.println("NEXT: " + getLessonDTO.getNextIDLesson());
+//		System.err.println("PREVIOUS: " + getLessonDTO.getPreviousIDLesson());
+//		System.err.println("IS NEXT: " + getLessonDTO.isNext());
+//		System.err.println("IS PREVIOUS: " + getLessonDTO.isPrevious());
+		return BASE_FIELD.LECTURER_WEB_LAYOUT;
+	}
+	
+	
 }
