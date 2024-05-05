@@ -22,9 +22,11 @@ import tat.com.eduhub.base.BASE_METHOD;
 import tat.com.eduhub.component.UserHelper;
 import tat.com.eduhub.dto.CoursesDTO;
 import tat.com.eduhub.dto.LessonDTO;
+import tat.com.eduhub.entity.CategoryLesson;
 import tat.com.eduhub.entity.Courses;
 import tat.com.eduhub.entity.Lesson;
 import tat.com.eduhub.entity.User;
+import tat.com.eduhub.service.CategoryLessonService;
 import tat.com.eduhub.service.CoursesService;
 import tat.com.eduhub.service.LessonService;
 
@@ -43,6 +45,9 @@ public class LecturerWebCoursesController {
 	
 	private ModelMapper mapper = new ModelMapper();
 	
+	@Autowired
+	private CategoryLessonService categoryLessonService;
+	
 	@GetMapping
 	public String coursesPage() {
 		return "redirect:/lecturer/khoa-hoc/quan-ly";
@@ -52,6 +57,7 @@ public class LecturerWebCoursesController {
 	public String addCoursesPage(Model model) {
 		BASE_METHOD.FragmentLecturerWeb("add_courses", model);
 		model.addAttribute("courses", new CoursesDTO());
+		model.addAttribute("act", "addc");
 		return BASE_FIELD.LECTURER_WEB_LAYOUT;
 	}
 	
@@ -98,6 +104,7 @@ public class LecturerWebCoursesController {
 			courses.setNewPrice(coursesDTO.getNewPrice());
 			courses.setDiscount(coursesDTO.getDiscount());
 			courses.setType(coursesDTO.getType());
+			courses.setArea(coursesDTO.getArea());
 			String oldFileName = courses.getImage();
 			if(!image.isEmpty()) {
 				String extension = BASE_METHOD.getExtensionFileName(image);
@@ -136,6 +143,8 @@ public class LecturerWebCoursesController {
 		Courses courses = coursesService.get(idCourses);
 		CoursesDTO coursesDTO = mapper.map(courses, CoursesDTO.class);
 		model.addAttribute("courses", coursesDTO);
+		model.addAttribute("act", "addc");
+		model.addAttribute("act", "manage");
 		return BASE_FIELD.LECTURER_WEB_LAYOUT;
 	}
 	
@@ -157,6 +166,9 @@ public class LecturerWebCoursesController {
 		List<LessonDTO> lessonDTOs = lessons.stream().map(l -> mapper.map(l, LessonDTO.class)).collect(Collectors.toList());
 		model.addAttribute("c", coursesDTO);
 		model.addAttribute("l", lessonDTOs);
+		model.addAttribute("act", "manage");
+		List<CategoryLesson> categoryLessons = categoryLessonService.listByCourses(courses);
+		model.addAttribute("categoryLessons", categoryLessons);
 		return BASE_FIELD.LECTURER_WEB_LAYOUT;
 	}
 	
