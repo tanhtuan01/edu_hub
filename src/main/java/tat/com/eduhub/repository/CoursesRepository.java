@@ -12,4 +12,8 @@ public interface CoursesRepository extends JpaRepository<Courses, Long>{
 	List<Courses> findByUser(User user);
 	
 	boolean existsByUserAndIdEquals(User user, Long id);
+	
+	List<Courses> findByStatusAndTypeEquals(String status, String type);
+	
+	boolean existsByIdEqualsAndStatusEquals(Long idCourses, String status);
 }

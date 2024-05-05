@@ -18,4 +18,7 @@ public interface SubjectDistributionRepository extends JpaRepository<SubjectDist
 	List<SubjectDistribution> findByTrainingProgramAndSemesterEquals(TrainingProgram trainingProgram, int semester);
 
 	List<SubjectDistribution> findByUser(User user);
+	
+	boolean existsByTrainingProgramAndId(TrainingProgram trainingProgram, Long idSd);
+
 }

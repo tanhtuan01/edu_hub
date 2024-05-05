@@ -55,4 +55,10 @@ public class SubjectDistributionServiceImpl implements SubjectDistributionServic
 		// TODO Auto-generated method stub
 		return repository.findByUser(user);
 	}
+	
+	@Override
+	public boolean existsByTrainingProgramAndId(TrainingProgram trainingProgram, Long idSd) {
+		// TODO Auto-generated method stub
+		return repository.existsByTrainingProgramAndId(trainingProgram, idSd);
+	}
 }

@@ -12,4 +12,8 @@ public interface CategoryLessonService {
 	CategoryLesson save(CategoryLesson categoryLesson);
 	
 	boolean existsByCoursesAndId(Courses courses, Long idCategoryLesson);
+	
+	void delete(Long id);
+	
+	CategoryLesson get(Long id);
 }

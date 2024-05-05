@@ -50,4 +50,16 @@ public class CoursesServiceImpl implements CoursesService{
 		// TODO Auto-generated method stub
 		return repository.existsByUserAndIdEquals(user, id);
 	}
+	
+	@Override
+	public List<Courses> listByStatusAndType(String status, String type) {
+		// TODO Auto-generated method stub
+		return repository.findByStatusAndTypeEquals(status, type);
+	}
+	
+	@Override
+	public boolean existsByIdAndStatus(Long idCourses, String status) {
+		// TODO Auto-generated method stub
+		return repository.existsByIdEqualsAndStatusEquals(idCourses, status);
+	}
 }

@@ -19,4 +19,6 @@ public interface SubjectDistributionService {
 	List<SubjectDistribution> findByTrainingProgramAndSemesterEquals(TrainingProgram trainingProgram, int semester);
 
 	List<SubjectDistribution> listByUser(User user);
+	
+	boolean existsByTrainingProgramAndId(TrainingProgram trainingProgram, Long idSd);
 }

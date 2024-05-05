@@ -16,4 +16,8 @@ public interface CoursesService {
 	Courses get(Long id);
 	
 	boolean checkCoursesWithUser(User user, Long id);
+	
+	List<Courses> listByStatusAndType(String status, String type);
+	
+	boolean existsByIdAndStatus(Long idCourses, String status);
 }
