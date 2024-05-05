@@ -3,8 +3,7 @@
 	<h1>Thêm bài học mới</h1>
 	<p>Thêm một bài học mới vào khóa học</p>
 </div>
-<a onclick="goBack()" class="btn btn-back"><i
-	class="fa-solid fa-arrow-left-long"></i> Trở lại</a>
+
 <div class="featured-courses">
 	<h2 th:text="'Khóa học: ' + ${c.name}">Khóa học ABC</h2>
 	<p>Thông tin bài học</p>
@@ -13,6 +12,17 @@
 			th:object="${l}" method="post" enctype="multipart/form-data">
 			<input type="hidden" th:field="*{idCourses}"> <input
 				type="hidden" th:field="*{id}">
+				
+			<div class="form-group">
+				<div class="label">
+					Danh mục <span class="not-empty">*</span>
+				</div>
+				<div class="input">
+					<select th:field="*{idCategoryLesson}">
+						<option th:selected="${l.idCategoryLesson == c.id}" th:each="c : ${categoryLessons}" th:value="${c.id}" th:text="${c.name}"></option>
+					</select>
+				</div>
+			</div>
 			<div class="form-group">
 				<div class="label">
 					Tên bài học <span class="not-empty">*</span>

@@ -36,9 +36,15 @@
 
 
 				<div class="button">
-					<a th:href="@{'/lecturer/khoa-hoc/chinh-sua?courses_id=' +${c.id} }" class="btn btn-primary">Sửa thông tin</a> 
-					<a th:href="@{'/lecturer/khoa-hoc/bai-hoc/them-moi?courses_id=' + ${c.id}}" class="btn btn-primary">Thêm bài học</a>
-					<a th:href="@{'/lecturer/khoa-hoc/bai-hoc/hoc-vien?courses_id=' + ${c.id}}" class="btn btn-primary">Danh sách học viên</a>
+					<a
+						th:href="@{'/lecturer/khoa-hoc/chinh-sua?courses_id=' +${c.id} }"
+						class="btn btn-primary">Sửa thông tin</a> <a
+						th:href="@{'/lecturer/khoa-hoc/bai-hoc/them-moi?courses_id=' + ${c.id}}"
+						class="btn btn-primary">Thêm bài học</a> <a
+						th:href="@{'/lecturer/khoa-hoc/bai-hoc/danh-muc?courses_id=' + ${c.id}}"
+						class="btn btn-primary">Danh mục bài học</a> <a
+						th:href="@{'/lecturer/khoa-hoc/bai-hoc/hoc-vien?courses_id=' + ${c.id}}"
+						class="btn btn-primary">Danh sách học viên</a>
 				</div>
 			</div>
 		</div>
@@ -57,13 +63,17 @@
 		<p>
 			Tổng số: <span th:text="${#lists.size(l)}"></span> bài
 		</p>
-		<p th:if="${c.status == 'not_ready' || c.status == 'on_ready' }" style="text-align: right">
-			<a th:href="@{'/lecturer/khoa-hoc/trang-thai?status=in_progress&courses_id=' +${c.id}}" class="btn btn-minus text-alert">Công bố khóa học ngay</a>
+		<p th:if="${c.status == 'not_ready' || c.status == 'on_ready' }"
+			style="text-align: right">
+			<a
+				th:href="@{'/lecturer/khoa-hoc/trang-thai?status=in_progress&courses_id=' +${c.id}}"
+				class="btn btn-minus text-alert">Công bố khóa học ngay</a>
 		</p>
 		<p th:if="${c.status == 'in_progress'}" style="text-align: right">
 			<a class="btn btn-primary">Trạng thái: Đã công bố</a>
 		</p>
 	</th:block>
+<!-- 	<th:block th:if="${#lists.size(l) > 0}">
 		<div class="r-content list-lesson">
 			<div class="lesson-item" th:each="ls : ${l}">
 				<div class="in-item">
@@ -75,7 +85,8 @@
 							</video>
 						</th:block>
 						<th:block th:if="${ls.fileName == null}">
-							<img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/699327-icon-55-document-text-1024.png">
+							<img
+								src="https://cdn1.iconfinder.com/data/icons/hawcons/32/699327-icon-55-document-text-1024.png">
 						</th:block>
 					</div>
 					<div class="info">
@@ -83,8 +94,11 @@
 						<div class="short-desc" th:text="${ls.description}">Mô tả
 							ngắn bài học</div>
 						<div class="button">
-							<a th:href="@{'/lecturer/khoa-hoc/bai-hoc/xem?lesson_id=' + ${ls.id} + '&courses_id=' + ${ls.idCourses} }" class="btn btn-primary">Xem bài học</a> 
-							<a th:href="@{'/lecturer/khoa-hoc/bai-hoc/chinh-sua?lesson_id=' +${ls.id} + '&courses_id=' + ${ls.idCourses} }" class="btn btn-warning">Chỉnh sửa</a> <a
+							<a
+								th:href="@{'/lecturer/khoa-hoc/bai-hoc/xem?lesson_id=' + ${ls.id} + '&courses_id=' + ${ls.idCourses} }"
+								class="btn btn-primary">Xem bài học</a> <a
+								th:href="@{'/lecturer/khoa-hoc/bai-hoc/chinh-sua?lesson_id=' +${ls.id} + '&courses_id=' + ${ls.idCourses} }"
+								class="btn btn-warning">Chỉnh sửa</a> <a
 								onclick="deleteLesson(this)"
 								th:href="@{'/lecturer/khoa-hoc/bai-hoc/xoa?courses_id=' + ${ls.idCourses} +'&lesson_id=' + ${ls.id}}"
 								class="btn btn-minus">Xóa</a>
@@ -93,7 +107,59 @@
 				</div>
 			</div>
 		</div>
-	</th:block>
+	</th:block> -->
+
+	<div class="r-content list-lesson">
+		<div class="category-lesson">
+			<div class="item" onclick="toggleCategoryLessonContentList(this)" th:each="ctls :${categoryLessons}">
+				<div class="header">
+					<div class="left">
+						<div class="icon">
+							<i class="down fa-solid fa-chevron-down"></i> <i
+								class="up fa-solid fa-chevron-up"></i>
+						</div>
+						<div class="name" th:text="${ctls.name}">Tên DANH MỤC BÀI HỌC</div>
+					</div>
+					<div class="right" th:text="${#lists.size(ctls.lessons)} + ' bài học'"></div>
+				</div>
+				<div class="content-list hide">
+					<div class="content" th:each="ls,i : ${ctls.lessons}">
+						<div class="left">
+							<th:block th:if="${ls.fileName != null}">
+								<div>
+									<i class="fa-solid fa-play"></i>
+								</div>
+							</th:block>
+							<th:block th:if="${ls.fileName == null}">
+								<div>
+									<i class="fa-solid fa-file-lines"></i>
+								</div>
+							</th:block>
+							<div class="stt" th:text="${i.count}">1</div>
+							<div class="name" th:text="${ls.name}">Tên bài học</div>
+						</div>
+						<div class="right">
+							<div class="button">
+								<a
+								th:href="@{'/lecturer/khoa-hoc/bai-hoc/xem?lesson_id=' + ${ls.id} + '&courses_id=' + ${c.id} }"
+								class="btn btn-primary">Xem bài học</a> 
+								<a
+								th:href="@{'/lecturer/khoa-hoc/bai-hoc/chinh-sua?lesson_id=' +${ls.id} + '&courses_id=' + ${c.id} }"
+								class="btn btn-warning">Chỉnh sửa</a> 
+								<a
+								onclick="deleteLesson(this)"
+									th:href="@{'/lecturer/khoa-hoc/bai-hoc/xoa?courses_id=' + ${c.id} +'&lesson_id=' + ${ls.id}}"
+								class="btn btn-minus">Xóa</a>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			
+
+		</div>
+	</div>
 
 </div>
 

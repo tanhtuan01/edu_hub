@@ -1,15 +1,17 @@
 
 <div class="hero">
-	<h1>Xin chào, Giảng viên!</h1>
-	<p>Hãy quản lý và chia sẻ kiến thức của bạn với học viên của mình.</p>
+	<h1>Quản Lý Khóa Học!</h1>
+	<p>Hãy quản lý để đưa ra những khóa học chất lượng.</p>
 </div>
 <div class="featured-courses">
 	<h2>Khóa học đang được quản lý</h2>
 	<div class="list-courses">
-		<a th:href="@{'/lecturer/khoa-hoc/xem?courses_id=' + ${c.id}}" th:each="c : ${courses}" class="container">
+		<a th:href="@{'/lecturer/khoa-hoc/xem?courses_id=' + ${c.id}}"
+			th:each="c : ${courses}" class="container">
 			<div class="course in-progress" th:class="'course ' + ${c.status}">
 				<img th:src="@{'/img/courses_lesson/' + ${c.image} }" alt="Khóa học">
 				<h3 class="title" th:text="${c.name}"></h3>
+				<p class="short-description" th:text="'Lĩnh vực, chuyên ngành: ' +${c.area}"></p>
 				<p class="short-description" th:text="${c.shortDescription}"></p>
 				<th:block th:if="${c.type == 'paid'}">
 					<div class="type">
@@ -32,13 +34,11 @@
 
 				</th:block>
 
-				<th:block>
-					<div class="button-status">
-						<a th:href="@{'/lecturer/khoa-hoc/quan-ly/xoa?id=' + ${c.id}}"
-							class="btn btn-delete" onclick="deleteCourses(this)">Xóa</a>
-						<p th:class="'status ' + ${c.status}" th:text="${c.parseStatus()}"></p>
-					</div>
-				</th:block>
+				<div class="button-status">
+					<a th:href="@{'/lecturer/khoa-hoc/quan-ly/xoa?id=' + ${c.id}}"
+						class="btn btn-delete" onclick="deleteCourses(this)">Xóa</a>
+					<p th:class="'status ' + ${c.status}" th:text="${c.parseStatus()}"></p>
+				</div>
 
 			</div>
 		</a>

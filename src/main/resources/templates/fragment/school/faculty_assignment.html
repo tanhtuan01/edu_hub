@@ -24,27 +24,27 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="tp,i : ${tp.subjectDistributions}">
+						<tr th:each="t,i : ${tp.subjectDistributions}">
 							<td th:text="${i.count}">STT</td>
-							<td th:text="${tp.module.name}">Tên học phần</td>
-							<td style="display: none;" class="info" th:attr="data-id=${tp.id}, data-name=${tp.module.name}"></td>
-							<td th:text="${#lists.size(tp.subjectDistributionDetails)} + ' tệp'"></td>
-							<td th:text="${tp.semester}"></td>
+							<td th:text="${t.module.name}">Tên học phần</td>
+							<td style="display: none;" class="info" th:attr="data-id=${t.id}, data-name=${t.module.name}"></td>
+							<td th:text="${#lists.size(t.subjectDistributionDetails)} + ' tệp'"></td>
+							<td th:text="${t.semester}"></td>
 							<td>
 								<ul>
-									<li th:each="u : ${tp.user}"><a th:text="${u.userName}"></a>
+									<li th:each="u : ${t.user}"><a th:text="${u.userName}"></a>
 										<br> <div class="line"></div><a class="btn-add"
 										onclick="addUserToAddDocumentSyllabus(this)"> <i
 											class="fa-solid fa-user-plus"></i>
 									</a></li>
-									<li th:unless="${tp.user}"><a class="btn-add"
+									<li th:unless="${t.user}"><a class="btn-add"
 										onclick="addUserToAddDocumentSyllabus(this)"> <i
 											class="fa-solid fa-user-plus"></i>
 									</a></li>
 								</ul>
 							</td>
 							<td class="act">
-								<a class="btn btn-view">
+								<a th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/xem-tep/' + ${t.id}}" class="btn btn-view">
 									<i class="fa-solid fa-file-invoice"></i>
 								</a>
 							</td>
