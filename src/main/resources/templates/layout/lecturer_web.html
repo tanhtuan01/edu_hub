@@ -2,89 +2,92 @@
 <html>
 
 <head>
-    <title>Trang chủ - Giảng viên</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" th:href="@{/css/base.css}">
-    <link rel="stylesheet" th:href="@{/css/web/index.css}">
-    <link rel="stylesheet" th:href="@{/css/lecturer_web/lecturer.css}">
-    
-    <script
+<title>Trang chủ - Giảng viên</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+	integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" th:href="@{/css/base.css}">
+<link rel="stylesheet" th:href="@{/css/web/index.css}">
+<link rel="stylesheet" th:href="@{/css/lecturer_web/lecturer.css}">
+
+<script
 	src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
 </head>
 
 <body>
-    <div class="eh-container-index">
-        <div class="eh-wrap">
-            <div class="eh-top-bar">
-                <div class="eh-top-nav">
-                    <div class="top-menu  r-content">
-                        <div class="left-menu">
-                            <div class="logo">
-                                <a href="">
-                                    <img src="https://images.unsplash.com/photo-1711117479077-9440ebf76551?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-                                </a>
-                            </div>
-                            <div id="logo-title">
-                                &nbsp;Edu Hub
-                            </div>
-                        </div>
-                         <div class="right-menu">
-                            <ul>
-                                <li class="top-menu-item"><a th:href="@{/}">Trang Chủ</a></li>
-                                <li class="top-menu-item"><a th:href="@{'/quan-ly-ctdt'}">Quản lý CTĐT</a></li>
-                                 <li class="top-menu-item"><a th:href="@{'/giang-day'}">Giảng dạy</a></li>
-                                <li class="top-menu-item">
-                                    <a th:href="@{'/profile/'}">Tài khoản của tôi</a>
-                                   <!--  <div class="top-option-item">
-                                        <ul>
-                                            <li><a href="">Tài khoản của tôi</a></li>
-                                            <li><a href="">Khóa học của tôi</a></li>
-                                            <li><a href="">Đăng xuất</a></li>
-                                        </ul>
-                                    </div> -->
-                                </li>
-                                <li class="top-menu-item"><a th:href="@{/dang-ky}">Tạo tài khoản</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="eh-body">
-                <div class="lecturer-header">
-                    <div class="content">
-                        <div class="logo">
-                            <!-- <img src="logo.png" alt="Logo"> -->
-                        </div>
-                        <div class="lecturer-nav">
-                            <ul>
-                                <li class="active"><a th:href="@{/lecturer/}">Trang chủ</a></li>
-                                <li><a th:href="@{/lecturer/khoa-hoc/quan-ly}">Quản lý khóa học</a></li>
-                                <li><a th:href="@{/lecturer/khoa-hoc/them-moi}">Thêm khóa học</a></li>
-                                <li><a href="#">Quản lý học viên</a></li>
-                                <li><a href="#">Đăng xuất</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div th:replace="~{${fragment}}"></div>
-            </div>
-            <div class="eh-footer">
-                <div class="r-content"></div>
-            </div>
-        </div>
-    </div>
+	<div class="eh-container-index">
+		<div class="eh-wrap">
+			<div class="eh-top-bar">
+				<div class="eh-top-nav">
+					<div class="top-menu  r-content">
+						<div class="left-menu">
+							<div class="logo">
+								<a href=""> <img
+									src="https://images.unsplash.com/photo-1711117479077-9440ebf76551?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+									alt="">
+								</a>
+							</div>
+							<div id="logo-title">&nbsp;Edu Hub</div>
+						</div>
+						<div class="right-menu">
+							<ul>
+								<li class="top-menu-item"><a th:href="@{/}">Trang Chủ</a></li>
+								<li class="top-menu-item"><a th:href="@{'/quan-ly-ctdt'}">Quản
+										lý CTĐT</a></li>
+								<li class="top-menu-item"><a th:href="@{'/giang-day'}">Giảng
+										dạy</a></li>
+								<li class="top-menu-item"><a th:href="@{'/profile/'}">Tài
+										khoản của tôi</a> </li>
+								<li class="top-menu-item"><a th:href="@{/dang-ky}">Tạo
+										tài khoản</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="eh-body">
+				<div class="lecturer-header">
+					<div class="content">
+						<div class="logo">
+							<!-- <img src="logo.png" alt="Logo"> -->
+							<a onclick="goBack()" class="btn btn-back"><i
+								class="fa-solid fa-arrow-left-long"></i> Trở lại</a>
+						</div>
+						<div class="lecturer-nav">
+							<ul>
+								<li th:class="${act == 'home'} ? 'active' : ''" class="active"><a th:href="@{/lecturer/}">Trang chủ</a></li>
+								<li th:class="${act == 'manage'} ? 'active' : ''" class="active">
+									<a th:href="@{/lecturer/khoa-hoc/quan-ly}">Quản lý
+										khóa học</a></li>
+								<li th:class="${act == 'addc'} ? 'active' : ''" class="active">
+									<a th:href="@{/lecturer/khoa-hoc/them-moi}">Thêm
+										khóa học</a></li>
+								<li><a th:href="@{'/dang-xuat'}">Đăng xuất</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div th:replace="~{${fragment}}"></div>
+			</div>
+			<div class="eh-footer">
+				<div class="r-content"></div>
+			</div>
+		</div>
+	</div>
 
 	<div id="loading-spinner"
 		style="width: 100%; position: fixed; top: 0; bottom: 0; background: rgba(237, 240, 240, 0.5); z-index: 999999999;"></div>
-		<script type="text/javascript" th:src="@{/js/loading_spinner.js}"></script>
+	<script type="text/javascript" th:src="@{/js/loading_spinner.js}"></script>
 
 	<script type="text/javascript" th:src="@{'/js/ckeditor.js'}"></script>
-	<script type="text/javascript" th:src="@{'/js/lecturer_web/ckeditor.js'}"></script>
-    <script type="text/javascript" th:src="@{'/js/lecturer_web/index.js'}"></script>
+	<script type="text/javascript"
+		th:src="@{'/js/lecturer_web/ckeditor.js'}"></script>
+	<script type="text/javascript" th:src="@{'/js/lecturer_web/index.js'}"></script>
 
-<script type="text/javascript"
+	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" th:src="@{/js/sweetalert2.all.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/sweetalert2.all.min.js}"></script>
 </body>
 
 </html>
