@@ -233,19 +233,25 @@ function checkVideo(event) {
 function deleteLesson(e) {
 	event.preventDefault()
 
-	var lesson = e.closest(".lesson-item")
+	var lesson = e.closest(".content-list")
 	var name = lesson.querySelector(".name").textContent
 	
 	
 	var url = window.location.origin + e.getAttribute("href")
+	
+	var text = `Bạn có chắc muốn xóa bài học: ${name}`
+	
+	showToastDelete(text, url)
+}
 
+function showToastDelete(text, url){
 	Swal.fire({
 		title: "Xác nhận xóa?",
-		text: `Bạn có chắc muốn xóa bài học: ${name}`,
+		text: text,
 		icon: "warning",
 		showCancelButton: true,
-		confirmButtonColor: "#ff0000",
-		cancelButtonColor: "#57D45A",
+		confirmButtonColor: "#57D45A",
+		cancelButtonColor: "#ff0000",
 		confirmButtonText: "Xóa",
 		cancelButtonText: "Hủy xóa"
 	}).then((result) => {
@@ -276,3 +282,31 @@ function valueToPriceText(){
 	document.getElementById("newPriceTxt").innerText = soSangChu(newPrice)
 }
 
+function deleteCategoryLesson(e){
+	event.preventDefault()
+	
+	var tr = e.closest("tr")
+	
+	var name = tr.querySelector(".name").textContent
+	
+	var text = `Bạn có chắc muốn xóa: ${name}`
+	
+	var url = window.location.origin + e.getAttribute("href")
+	
+	showToastDelete(text, url)
+}
+
+function toggleCategoryLessonContentList(e){
+	e.querySelector(".icon").classList.toggle("up")
+	e.querySelector(".content-list").classList.toggle("hide")
+}
+
+parseValueCKEDITOR("viewLessonContent", "toViewLessonContent")
+
+function parseValueCKEDITOR(from_id, to_id){
+	if(!document.getElementById(from_id)){
+		return
+	}
+	var value = document.getElementById(from_id).textContent
+	document.getElementById(to_id).innerHTML = value
+}
