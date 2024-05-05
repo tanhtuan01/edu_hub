@@ -68,6 +68,12 @@ public class UserDataInfo {
 		this.domain = domain;
 	}
 
+	@Override
+	public String toString() {
+		return "UserDataInfo [email=" + email + ", name=" + name + ", loginMethod=" + loginMethod + ", role=" + role
+				+ ", domain=" + domain + "]";
+	}
+
 	
 	
 }

@@ -21,6 +21,16 @@ public class CoursesDTO {
 	private String status;
 	
 	private String image;
+	
+	private String area;
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
 
 	public String getImage() {
 		return image;

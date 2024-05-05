@@ -15,6 +15,16 @@ public class LessonDTO {
 	private String content;
 	
 	private Long idCourses;
+	
+	private Long idCategoryLesson;
+
+	public Long getIdCategoryLesson() {
+		return idCategoryLesson;
+	}
+
+	public void setIdCategoryLesson(Long idCategoryLesson) {
+		this.idCategoryLesson = idCategoryLesson;
+	}
 
 	public Long getIdCourses() {
 		return idCourses;
@@ -86,5 +96,6 @@ public class LessonDTO {
 		return "LessonDTO [id=" + id + ", name=" + name + ", description=" + description + ", fileName=" + fileName
 				+ ", preview=" + preview + ", content=" + content + ", idCourses=" + idCourses + "]";
 	}
+
 	
 }
