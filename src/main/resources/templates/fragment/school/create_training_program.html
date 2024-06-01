@@ -1,6 +1,7 @@
 <div class="right-body">
 	<div class="body-content r-content">
 		<div class="replace">
+			<div class="eh-header-title">Tạo mới chương trình đào tạo</div>
 			<div class="ctdt-content-first">
 				<form method="POST" th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/them-moi'}">
 					 <input
@@ -9,7 +10,16 @@
 					<button class="btn btn-primary" type="submit">Tạo</button>
 				</form>
 			</div>
-
+			<div class="eh-header-title">Đã thêm gần đây</div>
+			<div class="list recent-add-tp">
+				<div class="tp" th:each="t, i : ${tp}">
+					<p class="name">[[${i.count}]]. [[${t.name}]]</p>
+					<div class="button">
+						<a class="btn btn-view" th:href="@{'/school-admin/' + ${domain}+'/chuong-trinh-dao-tao/chi-tiet?id=' +${t.id} }">Xem</a>
+						<a class="btn btn-edit" th:href="@{'/school-admin/' + ${domain}+'/chuong-trinh-dao-tao/chinh-sua?id=' +${t.id} }">Chỉnh sửa</a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

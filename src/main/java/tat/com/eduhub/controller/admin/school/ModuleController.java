@@ -63,11 +63,13 @@ public class ModuleController {
 		BASE_METHOD.FragmentAdminSchool("create_module", model);
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
 		School school = schoolService.findByDomain(domain);
+		BASE_METHOD.titleAndAction("Học phần", "add-module", model);
 		model.addAttribute("moduleAction", "add");
 		model.addAttribute("addOrEdit", "add");
 		if (requestURI.equals("/school-admin/" + domain + "/hoc-phan/danh-sach")
 				|| requestURI.equals("/school-admin/" + domain + "/hoc-phan")) {
 			model.addAttribute("moduleAction", "list");
+			BASE_METHOD.titleAndAction("Danh sách học phần", "list-module", model);
 		}
 		
 
@@ -79,8 +81,10 @@ public class ModuleController {
 		List<MajorDTO> majorDTOs = majors.stream().map(m -> mapper.map(m, MajorDTO.class)).collect(Collectors.toList());
 		model.addAttribute("majors", majorDTOs);
 		
-		model.addAttribute("page", page);
-		model.addAttribute("totalPages", modulePage.getTotalPages());
+		/*
+		 * model.addAttribute("page", page); model.addAttribute("totalPages",
+		 * modulePage.getTotalPages());
+		 */
 		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
 	}
 
@@ -143,4 +147,29 @@ public class ModuleController {
 		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
 	}
 
+	@GetMapping(value = "/danh-sach/loc")
+	@SchoolAccountCheck
+	public String filterModule(Model model, @RequestParam(name = "cndt") Long idMajor,
+			@PathVariable(name = "domain") String domain, Authentication authentication) {
+
+		BASE_METHOD.FragmentAdminSchool("create_module", model);
+		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
+		School school = schoolService.findByDomain(domain);
+		BASE_METHOD.titleAndAction("Lọc học phần", "list-module", model);
+		model.addAttribute("moduleAction", "list");
+		model.addAttribute("addOrEdit", "add");
+		
+
+		model.addAttribute("module", new ModuleDTO());
+
+		List<Major> majors = majorService.listMajorByIdSchool(school.getId());
+		List<MajorDTO> majorDTOs = majors.stream().map(m -> mapper.map(m, MajorDTO.class)).collect(Collectors.toList());
+		model.addAttribute("majors", majorDTOs);
+		Major m = majorService.get(idMajor);
+		List<Modules> modules = moduleService.findBySchoolAndMajor(school, m);
+		
+		model.addAttribute("listmodule", modules);
+		model.addAttribute("idMajor", idMajor);
+		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT; 
+	}
 }

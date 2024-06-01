@@ -32,11 +32,15 @@ import tat.com.eduhub.component.StudentAccountCheck;
 import tat.com.eduhub.component.UserHelper;
 import tat.com.eduhub.dto.UserDataInfo;
 import tat.com.eduhub.entity.Document;
+import tat.com.eduhub.entity.Industry;
+import tat.com.eduhub.entity.Major;
 import tat.com.eduhub.entity.Role;
 import tat.com.eduhub.entity.School;
 import tat.com.eduhub.entity.TrainingProgram;
 import tat.com.eduhub.entity.User;
 import tat.com.eduhub.service.DocumentService;
+import tat.com.eduhub.service.IndustryService;
+import tat.com.eduhub.service.MajorService;
 import tat.com.eduhub.service.SchoolService;
 import tat.com.eduhub.service.TrainingProgramService;
 import tat.com.eduhub.service.UserService;
@@ -63,6 +67,12 @@ public class StudentSchoolController {
 	@Autowired
 	private DocumentService documentService;
 	
+	@Autowired
+	private IndustryService industryService;
+	
+	@Autowired
+	private MajorService majorService;
+	
 	@GetMapping(value = {"/","/trang-chu",""})
 //	@StudentAccountCheck
 	public String studentSchoolHomePage(Model model, HttpServletRequest request,
@@ -78,6 +88,13 @@ public class StudentSchoolController {
 		School school = schoolService.findByDomain(domain);
 		List<TrainingProgram> trainingPrograms = tpService.trainingProgramPostedBySchool(school);
 		model.addAttribute("tp", trainingPrograms);
+		model.addAttribute("school", school);
+		
+		List<Industry> industries = industryService.listIndustryBySchool(school, "desc");
+		model.addAttribute("industries", industries);
+		
+		List<Major> majors = majorService.listMajorByIdSchool(school.getId());
+		model.addAttribute("majors", majors);
 		
 		model.addAttribute("act", "index");
 		
@@ -95,6 +112,8 @@ public class StudentSchoolController {
 		model.addAttribute("domain", domain);
 		model.addAttribute("act", "document");
 		model.addAttribute("documents", null);
+		School school = schoolService.findByDomain(domain);
+		model.addAttribute("school", school);
 		return BASE_FIELD.STUDENT_SCHOOL_LAYOUT;
 	}
 	
@@ -107,7 +126,8 @@ public class StudentSchoolController {
 		model.addAttribute("domain", domain);
 		userHelper.getUserDataInfo(request, model);
 		String slugCt = BASE_METHOD.slug(ct);
-		
+		School school = schoolService.findByDomain(domain);
+		model.addAttribute("school", school);
 		return "redirect:/student/" + domain + "/chuong-trinh-dao-tao/" + slugCt +"?id="+id;
 	}
 	
@@ -116,14 +136,15 @@ public class StudentSchoolController {
 			HttpServletRequest request, HttpServletResponse response, Principal principal,
 			Authentication authentication,
 			@RequestParam(name = "id") Long id) {
-		
+		model.addAttribute("act", "index");
 		model.addAttribute("domain", domain);
 		getDataUserAfterGoogleLogin(response, request, principal, authentication);
 		userHelper.getUserDataInfo(request, model);
 		if(id == null) {
 			return "redirect:/student/" + domain;
 		}
-		
+		School school = schoolService.findByDomain(domain);
+		model.addAttribute("school", school);
 		TrainingProgram trainingProgram = tpService.get(id);
 		model.addAttribute("tp", trainingProgram);
 		BASE_METHOD.FragmentStudentSchool("view_training_program.html", model);
@@ -145,6 +166,9 @@ public class StudentSchoolController {
 		}else {
 			model.addAttribute("documents", null);
 		}
+		model.addAttribute("act", "document");
+		model.addAttribute("school", school);
+		model.addAttribute("hocphan", hocPhan);
 		BASE_METHOD.FragmentStudentSchool("document", model);
 		return BASE_FIELD.STUDENT_SCHOOL_LAYOUT;
 	}

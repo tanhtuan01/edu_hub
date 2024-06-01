@@ -80,7 +80,7 @@
 }
 
 .cm-right table tr td.icon a{
-	filter: drop-shadow(4px 4px 4px);
+
 }
 
 
@@ -118,6 +118,7 @@
 
  .syllabus table tr td{
 	padding: 5px 10px;
+	border: 1px solid silver;
 }
 
 .syllabus table tr .stt{
@@ -127,4 +128,19 @@
 .syllabus table tr .act{
 	width: 15%;
 	text-align: center;
+}
+
+#asListModule_filter{
+	    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 5px 0;
+}
+
+#asListModule_filter input{
+	width: 80%;
+}
+
+input[type='file']{
+	border: none;
 }

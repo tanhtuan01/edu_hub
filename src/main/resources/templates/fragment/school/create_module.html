@@ -1,11 +1,11 @@
-<input type="hidden" name="" id="cmAction" th:value="${moduleAction}">
+<!-- <input type="hidden" name="" id="cmAction" th:value="${moduleAction}"> -->
 <div class="right-body">
 	<div class="body-content r-content">
 		<div class="replace">
 			<div class="career-major">
 				<div class="eh-header-title">Học Phần</div>
 				<div class="career-major-content">
-					<div class="cm-left">
+					<!-- <div class="cm-left">
 						<div class="button">
 							<a th:if="${addOrEdit == 'add'}" onclick="changeCM(this)"
 								data-cm="add" class="btn btn-primary active" href=""> Thêm
@@ -13,21 +13,27 @@
 								data-cm="add" class="btn btn-primary active" href=""> Chỉnh
 								sửa</a> <a onclick="changeCM(this)" data-cm="list"
 								class="btn btn-primary" href="">Danh sách</a>
-								<!--  <a
+							 <a
 								onclick="changeCM(this)" data-cm="syllabus"
 								class="btn btn-primary" href="">Đề cương học phần</a> <a
 								onclick="changeCM(this)" data-cm="document"
-								class="btn btn-primary" href="">Tài liệu học phần</a> -->
+								class="btn btn-primary" href="">Tài liệu học phần</a>
 						</div>
-					</div>
+					</div> -->
+	
 					<div class="cm-right">
 						<div class="career-major-form">
+					
+							<div th:class="${moduleAction == 'add' || moduleAction == 'edit' ? 'cm-box add-form' : 'hidden'}">
+								<div th:if="${addOrEdit == 'add'}" class="eh-header-title sub">Thêm
+									Học Phần</div>
 
-							<div class="cm-box add-form">
-								<div th:if="${addOrEdit == 'add'}"
-									class="eh-header-title sub">Thêm Học Phần</div>
-								<div th:if="${addOrEdit == 'edit'}"
-									class="eh-header-title sub">Chỉnh Sửa Học Phần</div>
+								<th:block th:if="${addOrEdit == 'edit'}">
+									<div class="eh-header-title sub">Chỉnh Sửa Học Phần</div>
+									<a th:href="@{'/school-admin/'+${domain}+'/hoc-phan/them-moi'}"
+										class="btn btn-add">Thêm mới</a>
+								</th:block>
+
 								<form method="POST"
 									th:action="@{'/school-admin/' + ${domain} + '/hoc-phan/luu'}"
 									th:object="${module}">
@@ -104,50 +110,78 @@
 									</div>
 								</form>
 							</div>
-							<div class="cm-box list-form hidden">
+							<div th:class="${moduleAction == 'list' ? 'cm-box list-form' : 'hidden'}">
 								<div class="eh-header-title sub">Danh Sách Học Phần</div>
+								<div>
+									<form method="GET" th:action="@{'/school-admin/' + ${domain} + '/hoc-phan/danh-sach/loc'}">
+										<div class="form-group">
+											<div class="label">Chuyên ngành đào tạo</div>
+											<div class="input">
+												<select name="cndt">
+													<option>Chọn chuyên ngành đào tạo</option>
+													<option th:each="m : ${majors}" th:selected="${m.id == idMajor}" th:value="${m.id}">[[${m.majorName}]]</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="input">
+												<input type="submit" class="btn btn-primary" value="Lọc">
+											</div>
+										</div>
+									</form>
+								</div>
 								<div class="table-container">
-									<p th:if="${param.delete_success}"
-										class="text-center text-alert alert-success">Xóa thành
-										công.</p>
-
-									<p th:if="${param.save_success}"
-										class="text-center text-alert alert-success">Lưu thành
-										công.</p>
-									<table border="1" cellpadding="30" cellspacing="0">
-										<tr>
-											<th style="width: 5%;">STT</th>
-											<th style="width: 15%;">Mã học phần</th>
-											<th style="width: 42%;">Tên học phần</th>
-											<th>Chuyên ngành</th>
-											<th colspan="4" class="text-center">Thao tác</th>
-										</tr>
-										<tr th:each="m,i : ${listmodule}">
-											<td th:text="${i.count}">1</td>
-											<td th:text="${m.code}">SSS</td>
-											<td th:text="${m.name}">Tên học phần</td>
-											<td th:text="${m.major.majorName}">Tên học phần</td>
-											<td title="Xem" class="text-center"><a href=""> <i
+								
+									<table border="1" id="asListModule" cellpadding="30" cellspacing="0"
+										style="border-color: var(--bg-silver)">
+										<thead>
+											<tr>
+												<th style="width: 20px;">STT</th>
+												<!-- <th>Mã học phần</th> -->
+												<th>Tên học phần</th>
+												<th>Chuyên ngành</th>
+												<th>Tín chỉ</th>
+												<th>Lý thuyết</th>
+												<th>Thực hành</th>
+												<th>Bài tập</th>
+												<th>Tự học</th>
+												<th style="width: 20px;">Sửa</th>
+												<th style="width: 20px;">Xóa</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="m,i : ${listmodule}">
+												<td th:text="${i.count}">1</td>
+												<!-- <td th:text="${m.code}">SSS</td> -->
+												<td th:text="${m.name}">Tên học phần</td>
+												<td th:text="${m.major.majorName}">Tên học phần</td>
+												<!-- <td title="Xem" class="text-center"><a href=""> <i
 													class="fa-solid fa-eye"></i>
 											</a></td>
 											<td title="Xem tài liệu" class="text-center"><a href="">
 													<i class="fa-solid fa-file"></i>
-											</a></td>
-											<td title="Sửa" class="text-center"><a
-												th:href="@{'/school-admin/'+${domain} +'/hoc-phan/chinh-sua?id=' + ${m.id}}">
-													<i class="fa-solid fa-pen-to-square"></i>
-											</a></td>
-											<td title="Xóa" class="text-center"><a
-												onclick="showConfirmDeleteDialog(event)"
-												th:attr="data-name=${m.name}"
-												th:href="@{'/school-admin/'+${domain} +'/hoc-phan/xoa?id=' + ${m.id}}">
-													<i class="fa-solid fa-trash-can"></i>
-											</a></td>
-										</tr>
+											</a></td> -->
+												<td th:text="${m.credits}"></td>
+												<td th:text="${m.theory}"></td>
+												<td th:text="${m.practise}"></td>
+												<td th:text="${m.exercise}"></td>
+												<td th:text="${m.selfStudy}"></td>
+												<td title="Sửa" class="text-center"><a
+													th:href="@{'/school-admin/'+${domain} +'/hoc-phan/chinh-sua?id=' + ${m.id}}">
+														<i class="fa-solid fa-pen-to-square"></i>
+												</a></td>
+												<td title="Xóa" class="text-center"><a
+													onclick="showConfirmDeleteDialog(event)"
+													th:attr="data-name=${m.name}"
+													th:href="@{'/school-admin/'+${domain} +'/hoc-phan/xoa?id=' + ${m.id}}">
+														<i class="fa-solid fa-trash-can"></i>
+												</a></td>
+											</tr>
+										</tbody>
 									</table>
 								</div>
 
-								<div class="page">
+								<!-- <div class="page">
 									<ul>
 										<li th:if="${totalPages > 1}"
 											th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
@@ -156,7 +190,7 @@
 											th:text="${pageNumber}"
 											th:class="${pageNumber == page} ? 'page-active' : ''"></a></li>
 									</ul>
-								</div>
+								</div> -->
 							</div>
 							<!-- <div class="cm-box syllabus-form hidden">
 								<div class="eh-header-title sub">Thêm Đề Cương</div>
@@ -236,3 +270,54 @@
 		</div>
 	</div>
 </div>
+
+
+										
+
+<script th:if="${param.delete_success}" th:inline="javascript">
+		
+document.addEventListener('DOMContentLoaded', function() {
+	setTimeout(()=>{
+		const Toast = Swal.mixin({
+			  toast: true,
+			  position: "top-end",
+			  showConfirmButton: false,
+			  timer: 1800,
+			  timerProgressBar: true,
+			  didOpen: (toast) => {
+			    toast.onmouseenter = Swal.stopTimer;
+			    toast.onmouseleave = Swal.resumeTimer;
+			  }
+			});
+			Toast.fire({
+			  icon: "success",
+			  title: "Xóa thành công!"
+			});
+		}, 800)
+    });
+	</script>
+	
+	
+
+<script th:if="${param.save_success}" th:inline="javascript">
+		
+document.addEventListener('DOMContentLoaded', function() {
+	setTimeout(()=>{
+		const Toast = Swal.mixin({
+			  toast: true,
+			  position: "top-end",
+			  showConfirmButton: false,
+			  timer: 1800,
+			  timerProgressBar: true,
+			  didOpen: (toast) => {
+			    toast.onmouseenter = Swal.stopTimer;
+			    toast.onmouseleave = Swal.resumeTimer;
+			  }
+			});
+			Toast.fire({
+			  icon: "success",
+			  title: "Lưu thành công!"
+			});
+		}, 800)
+    });
+	</script>

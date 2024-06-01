@@ -23,4 +23,6 @@ public interface SyllabusService {
 	Syllabus get(Long id);
 	
 	List<Syllabus> listBySchool(School school);
+	
+	void delete(Long id);
 }

@@ -11,7 +11,7 @@
 .eh__admin .eh-content .eh-content-left{
 	width: 220px;
 	border-right: 1px solid rgba(0, 0, 0, .1);
-	min-width: 220px;
+	min-width: 230px;
 	transition: all .3s ease-in-out;
 }
 
@@ -103,17 +103,27 @@
 .left-menu-content li:hover{
 	border-bottom: 1px solid rgba(0, 0, 0, .4);
 /* 	border-right: 1px solid rgba(0, 0, 0, .4); */
-	background: linear-gradient(to right,rgb(128 104 130),rgb(139 158 98))!important;
+	background: var(--primary-color)!important;
 	box-shadow: -1px 0px 2px 0px black;
 	animation: liItemHover .8s linear infinite;
 }
 .left-menu-content li:hover .menu-content, .left-menu-content li:hover .menu-content .menu-icon{
 	color: white!important;
 }
+
+.left-menu-content li.active{
+	background: var(--primary-color);
+		
+}
+
+.left-menu-content li.active .menu-content .menu-icon i, .left-menu-content li.active .menu-content{
+	color: white;
+}
+
 /* RIGHT */
 
 .right-header{
-	padding: 18px 20px;
+	padding: 17px 20px;
 	background: var(--bg-silver);
 
 }
@@ -202,6 +212,7 @@
 
 .user-show .user-nav li a{
 	color: white;
+	display: block;
 }
 
 .user-show-active{
@@ -297,10 +308,75 @@
 	background: var(--bg-silver);
 }
 
+#school .body-content{
+		min-height: 80vh;
+		background: white;
+}
 
+#school .right-body{
+	border-bottom: 1px solid silver;
 
+}
 
+#school .footer{
+	background: var(--bg-silver)!important;
+	padding: 10px;
+	margin-top: 30px;
+	border-top: 2px solid silver;
+	
+}
 
+#school .footer .r-content{
+	background: var(--bg-silver)!important;
+	height: fit-content!important;
+}
+
+#school .footer .title{
+	text-transform: uppercase;
+	font-size: 18px;
+	text-align: center;
+}
+
+#school .footer .coppyright{
+	text-align: center;
+	padding: 10px;
+	background: black;
+	font-size: var(--text-size14);
+	color: white;
+	margin-top: 20px;
+}
+
+#school .footer .col .logo img{
+	width: 200px;
+	height: 150px;
+	display: block;
+	margin: auto;
+}
+
+#school .footer .list{
+	display: flex;
+	font-size: var(--text-size14);
+}
+
+#school .footer .col{
+	padding: 5px 15px;
+	flex-basis: calc(100% / 3);
+	line-height: 22px;
+	align-items: flex-end;
+}
+
+#school .footer .col .title{
+	font-size: 17px;
+	text-align: left;
+}
+
+#school .footer .col p{
+	text-align: justify;
+}
+
+#school .footer .col a{
+	color: black;
+}
 /* PAGE */
 
 

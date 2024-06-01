@@ -1,0 +1,41 @@
+<div class="r-content view-lesson">
+	<div class="title">Xem bài học</div>
+
+	<th:block th:if="${lesson.fileName != null}">
+		<div class="box-view">
+			<video controls>
+				<source th:src="@{'/file/video/' + ${lesson.fileName}}" type="video/mp4">
+			</video>
+		</div>
+	</th:block>
+
+	<div class="lesson-name" th:text="${lesson.name}">Tên bài học</div>
+	<div class="content">
+		<div class="lesson-description">
+		<span th:text="${lesson.description}">Nội dung</span>
+		</div>
+		<div class="lesson-content">
+			Nội dung bài học:
+			<div>
+				<div id="viewLessonContent" th:text="${lesson.content}"
+					style="display: none"></div>
+				<div id="toViewLessonContent"></div>
+			</div>
+		</div>
+	</div>
+	<div class="button">
+		<th:block th:if="${getLessonDTO.isPrevious()}">
+			<a th:href="@{'/courses/bai-hoc/hoc?lesson_id=' + ${getLessonDTO.getPreviousIDLesson} + '&courses_id=' + ${courses.id} }" class="btn btn-previous">Bài trước đó</a>
+		</th:block>
+		<th:block th:unless="${getLessonDTO.isPrevious()}">
+			<a class="btn btn-previous not-allowed">Bài trước đó</a>
+		</th:block>
+		<th:block th:if="${getLessonDTO.isNext()}">
+			<a th:href="@{'/courses/bai-hoc/hoc?lesson_id=' + ${getLessonDTO.getNextIDLesson} + '&courses_id=' + ${courses.id} }" class="btn btn-primary">Bài tiếp theo</a>
+		</th:block>
+		<th:block th:unless="${getLessonDTO.isNext()}">
+			<a class="btn btn-primary">Hoàn thành</a>
+		</th:block>
+		
+	</div>
+</div>

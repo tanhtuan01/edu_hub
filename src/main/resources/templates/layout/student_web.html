@@ -3,6 +3,7 @@
 
 <head>
     <title>Trang chủ - Học viên</title>
+    <link rel="icon" type="image/x-icon" href="/img/eduhub.jpg">
     <link rel="stylesheet" th:href="@{/css/base.css}">
     <link rel="stylesheet" th:href="@{/css/web/index.css}">
     <link rel="stylesheet" th:href="@{/css/student_web/student_web.css}">
@@ -18,7 +19,7 @@
                         <div class="left-menu">
                             <div class="logo">
                                 <a href="">
-                                    <img src="https://images.unsplash.com/photo-1711117479077-9440ebf76551?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                                    <img src="/img/eduhub.jpg" alt="">
                                 </a>
                             </div>
                             <div id="logo-title">
@@ -45,8 +46,8 @@
                 <div class="container">
                     <nav class="sidebar">
                         <ul>
-                            <li><a href="#" class="active">Trang chủ</a></li>
-                            <li><a href="#">Khóa học của tôi</a></li>
+                            <li><a th:href="@{/e-student/tai-khoan-cua-toi}" th:class="${act == 'home'} ? 'active' : ''">Trang chủ</a></li>
+                            <li><a th:href="@{/e-student/khoa-hoc}" th:class="${act == 'courses'} ? 'active' : ''">Khóa học của tôi</a></li>
                             <li><a th:href="@{/dang-xuat}">Đăng xuất</a></li>
                         </ul>
                     </nav>

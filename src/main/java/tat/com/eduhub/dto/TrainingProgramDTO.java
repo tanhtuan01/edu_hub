@@ -43,6 +43,16 @@ public class TrainingProgramDTO {
 	private String process;
 	
 	private String graduatingCohort;
+	
+	private String domain;
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
 
 	public Long getId() {
 		return id;

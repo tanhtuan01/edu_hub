@@ -2,6 +2,7 @@ package tat.com.eduhub.custom;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -13,8 +14,9 @@ public class CustomErrorController implements ErrorController{
 
 	
 	@GetMapping("/error")
-    public String handleError(HttpServletRequest request) {
+    public String handleError(HttpServletRequest request, HttpServletResponse response) {
 
+	
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         
         if (status != null) {
@@ -25,6 +27,11 @@ public class CustomErrorController implements ErrorController{
                 return "error/404"; 
             }
 
+            if (statusCode == HttpStatus.METHOD_NOT_ALLOWED.value()) {
+            	
+                return "error/405"; 
+            }
+            	
             // Xử lý lỗi 403
             if (statusCode == HttpStatus.FORBIDDEN.value()) {
                 return "error/403"; 
@@ -39,6 +46,7 @@ public class CustomErrorController implements ErrorController{
         
         return "error";
     }
+	
 	
 	@Override
 	public String getErrorPath() {

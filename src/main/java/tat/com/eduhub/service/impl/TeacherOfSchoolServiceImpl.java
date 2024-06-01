@@ -60,4 +60,10 @@ public class TeacherOfSchoolServiceImpl implements TeacherOfSchoolService{
 		// TODO Auto-generated method stub
 		return repository.findByUser(user);
 	}
+	
+	@Override
+	public TeacherOfSchool findByUserAdminSchool(School school) {
+		// TODO Auto-generated method stub
+		return repository.findBySchoolAndIsAdminTrue(school);
+	}
 }

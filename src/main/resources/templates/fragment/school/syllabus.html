@@ -10,7 +10,7 @@
 						<div class="label">Học phần:</div>
 						<div class="input">
 							<select name="" id="" th:field="*{idModule}">
-								<option th:each="m : ${module}" th:value="${m.id}"
+								<option  th:each="m : ${module}" th:value="${m.id}"
 									th:text=" 'Học phần: ' + ${m.name} + ' (' + ${m.code}+ ') / CN: ' + ${m.majorName}">Học
 									Phần 1</option>
 							</select>
@@ -20,7 +20,7 @@
 						<div class="label">Tên đề cương:</div>
 						<div class="input">
 							<input type="text" name="" th:field="*{name}"
-								placeholder="Nhập tên đề cương">
+								placeholder="Nhập tên đề cương" required>
 						</div>
 					</div>
 					<div class="form-group">
@@ -28,7 +28,7 @@
 						<div class="input">
 							<input type="file" style="background: white" name="syllabusfile"
 								accept="application/msword, application/vnd.ms-powerpoint,text/plain, application/pdf"
-								onchange="checkFileExtension(this)">
+								onchange="checkFileExtension(this)" required="required">
 						</div>
 					</div>
 					<div class="form-group">
@@ -56,7 +56,7 @@
 						<div class="input">
 							<select name="idModule" id="idModule">
 								<option value="0">Bạn chưa chọn học phần</option>
-								<option th:each="m : ${module}" th:value="${m.id}"
+								<option th:selected="${m.id == idModule}" th:each="m : ${module}" th:value="${m.id}"
 									th:text=" 'Học phần: ' + ${m.name} + ' (' + ${m.code}+ ') / CN: ' + ${m.majorName}">Học
 									Phần 1</option>
 							</select>
@@ -66,7 +66,7 @@
 					<div class="form-group">
 						<div class="label">Tìm theo:</div>
 						<div class="input">
-							<input type="text" name="keyword"
+							<input type="text" name="keyword" th:value="${key}"
 								placeholder="Tìm theo mã hoặc tên học phần">
 						</div>
 
@@ -83,25 +83,28 @@
 				</th:block>
 				<th:block th:if="${length > 0 && act == 'search'}">
 					<div class="eh-header-title">Danh sách</div>
-					<table>
+					<table cellspacing="0">
 						<tr>
 							<th class="stt">STT</th>
 							<th>Tên đề cương</th>
 							<th>Mã học phần</th>
 							<th>Học phần</th>
-							<th class="act" colspan="2">Thao tác</th>
+							<th class="act" colspan="3">Thao tác</th>
 						</tr>
 						<tr th:each="s,i : ${listSearch}">
 							<td th:text="${i.count}">STT</td>
-							<td th:text="${s.name}">File</td>
+							<td class="name" th:text="${s.name}">File</td>
 							<td th:text="${s.module.code}">Mã học phần</td>
-							<td th:text="${s.module.name}">Học phần</td>
-							<td><a onclick="previewFile(this)"
+							<td class="modulename" th:text="${s.module.name}">Học phần</td>
+							<td><a onclick="previewFile(this)" title="Xem"
 								th:href="@{'/file/syllabus/lecturer/' + ${domain} + '/' + ${s.fileName}}"
-								target="_blank">Xem trước</a></td>
-							<td><a
+								target="_blank"><i class="fa-solid fa-eye"></i></a></td>
+							<td><a title="Tải xuống"
 								th:href="@{'/file/syllabus/lecturer/' + ${domain} + '/' + ${s.fileName}}"
-								target="_blank" download>Tải về</a></td>
+								 download><i class="fa-solid fa-download"></i></a></td>
+							<td><a onclick="deleteSyllabus(this)" title="Xóa"
+								th:href="@{'/school-admin/' +${domain} + '/de-cuong/xoa?id=' + ${s.id} + '&idModule=' + ${idModule} + '&keyword=' + ${keyword} + '&page=' + ${page} }"
+								><i class="fa-solid fa-trash"></i></a></td>
 						</tr>
 
 					</table>
@@ -110,7 +113,7 @@
 							<li th:if="${totalPages >= 1}"
 								th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
 								th:unless="${pageNumber == 0}"><a
-								th:href="${pageNumber == page} ? '#!' : @{'/school-admin/' + ${domain} + '/de-cuong/tim-kiem?page=' + ${pageNumber} + '&key=' + ${key} + '&idModule=' + ${idModule} }"
+								th:href="${pageNumber == page} ? '#!' : @{'/school-admin/' + ${domain} + '/de-cuong/tim-kiem?page=' + ${pageNumber} + '&keyword=' + ${key} + '&idModule=' + ${idModule} }"
 								th:text="${pageNumber}"
 								th:class="${pageNumber == page} ? 'page-active' : ''"></a></li>
 						</ul>
@@ -162,6 +165,29 @@ document.addEventListener('DOMContentLoaded', function() {
 			Toast.fire({
 			  icon: "success",
 			  title: "Đã thêm thành công"
+			});
+		}, 800)
+    });
+	</script>
+	
+		<script th:if="${param.dc}" th:inline="javascript">
+		
+document.addEventListener('DOMContentLoaded', function() {
+	setTimeout(()=>{
+		const Toast = Swal.mixin({
+			  toast: true,
+			  position: "top-end",
+			  showConfirmButton: false,
+			  timer: 1800,
+			  timerProgressBar: true,
+			  didOpen: (toast) => {
+			    toast.onmouseenter = Swal.stopTimer;
+			    toast.onmouseleave = Swal.resumeTimer;
+			  }
+			});
+			Toast.fire({
+			  icon: "success",
+			  title: "Đã xóa thành công"
 			});
 		}, 800)
     });

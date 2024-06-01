@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import tat.com.eduhub.entity.Industry;
 import tat.com.eduhub.entity.Major;
 
 public interface MajorService {
@@ -18,4 +19,6 @@ public interface MajorService {
 	Major get(Long id);
 	
 	void delete(Long id);
+	
+	boolean checkMajorWithIndustry(Long id, Industry industry);
 }

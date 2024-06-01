@@ -1,0 +1,103 @@
+.index-content{
+	background: white;
+}
+.index-content .top-content .list{
+	display: flex;
+	flex-wrap: wrap;
+	background: white;
+	justify-content: space-around;
+}
+
+.top-content .item {
+	padding: 10px 20px;
+	border: 1px solid var(--primary-color);
+	border-radius: 5px;
+	margin: 5px;
+	min-width: 220px; 
+	flex-basis: calc(90% / 4)
+}
+
+.top-content .item .icon-number{
+	display: flex;
+}
+
+.top-content .item .icon-number img{
+	width: 60px;
+	height: 60px;
+}
+
+.top-content .item .icon-number .number{
+	display: inline-block;
+	margin: auto;
+	font-size: 35px;
+	font-weight: bold;
+	color: var(--primary-color);
+}
+
+.top-content .item .name{
+	padding: 10px 0 5px;
+	font-size: 17px;
+}
+
+.index-content .content-below .box{
+	padding: 10px; 
+	background: white;
+	margin: 5px 0;
+}
+
+.index-content .content-below .box .title{
+	font-size: 18px;
+	text-transform: uppercase;
+	padding: 8px 10px;
+	background: var(--primary-color);
+	color: white;
+}
+
+.index-content .content-below .box .detail .content{
+	line-height: 23px;
+	border: 1px solid var(--bg-silver);
+	padding: 5px 10px;
+	display: flex;
+	font-size: var(--text-size14);
+}
+
+.index-content .content-below .box .detail .content .name{
+	width: 95%;
+}
+
+.index-content .content-below .box .detail .content a{
+	width: 5%;
+	display: block;
+	text-align: center;
+	border-left: 1px solid var(--bg-silver);
+}
+
+.index-content .content-below .box .majors-modules{
+	display: flex;
+}
+
+.index-content .content-below .box .majors, .index-content .content-below .box .modules{
+	flex-basis: calc(100% / 2);
+	padding: 5px 10px;
+}
+
+.index-content .content-below .box .majors-modules h3{
+	font-weight: 500;
+	border-bottom: 1px solid var(--bg-silver);
+	padding: 5px 0;
+}
+
+.index-content .content-below .box .majors .item, .index-content .content-below .box .modules .item{
+	line-height: 22px;
+	cursor: pointer;
+	font-size: var(--text-size14);
+}
+
+.index-content .content-below .box .majors .item.active{
+	    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(128, 128, 128, 0.3) 100%);
+}
+
+.index-content .content-below .box .majors .list, .index-content .content-below .box .modules .list{
+	max-height: 250px;
+	overflow-y: auto; 
+}

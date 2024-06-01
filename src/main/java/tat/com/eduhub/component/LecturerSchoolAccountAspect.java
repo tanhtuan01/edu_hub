@@ -43,7 +43,7 @@ public class LecturerSchoolAccountAspect {
 	            School school = (School) model.getAttribute("school");
 	            if (user != null && school != null) {
 	                boolean validAccount = tosService.existsByUserAndSchoolLecturer(user, school);
-	                if (!validAccount) {
+	                if (!validAccount || !school.getStatus().equals("is_active")) {
 	                    HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
 	                    response.sendRedirect("/dang-xuat");
 	                }

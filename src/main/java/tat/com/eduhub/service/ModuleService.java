@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import tat.com.eduhub.entity.Major;
 import tat.com.eduhub.entity.Modules;
 import tat.com.eduhub.entity.School;
 
@@ -20,4 +21,5 @@ public interface ModuleService {
 	
 	List<Modules> findBySchool(School school);
 	
+	List<Modules> findBySchoolAndMajor(School school, Major major);
 }

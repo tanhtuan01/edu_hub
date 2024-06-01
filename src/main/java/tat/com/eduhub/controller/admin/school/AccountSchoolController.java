@@ -74,7 +74,8 @@ public class AccountSchoolController {
 		School school = schoolService.findByDomain(domain);
 		SchoolDTO schoolDTO = mapper.map(school, SchoolDTO.class);
 		model.addAttribute("s", schoolDTO);
-
+		
+		BASE_METHOD.titleAndAction("Thay đổi thông tin", "account", model);
 		
 		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
 	}
@@ -148,7 +149,7 @@ public class AccountSchoolController {
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
 		BASE_METHOD.FragmentAdminSchool("lecturer", model);
 		model.addAttribute("userDTO", new UserDTO());
-		
+		BASE_METHOD.titleAndAction("Giảng viên trường", "lecturer", model);
 		setDataLecturer(domain, model, page, size);
 		
 		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;

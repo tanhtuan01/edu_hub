@@ -1,5 +1,7 @@
 package tat.com.eduhub.service.impl;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import tat.com.eduhub.dto.SchoolDTO;
 import tat.com.eduhub.entity.School;
+import tat.com.eduhub.entity.TrainingProgram;
 import tat.com.eduhub.repository.SchoolRepository;
 import tat.com.eduhub.service.SchoolService;
 
@@ -63,5 +66,19 @@ public class SchoolServiceImpl implements SchoolService{
 	public School findByDomain(String domain) {
 		// TODO Auto-generated method stub
 		return repository.findByDomainEquals(domain);
+	}
+	
+	@Override
+	public List<School> listByStatus(String status) {
+		// TODO Auto-generated method stub
+		List<School> list = repository.findByStatus(status);
+		list.sort(Comparator.comparing(School::getId).reversed());
+		return list;
+	}
+	
+	@Override
+	public List<School> findAll() {
+		// TODO Auto-generated method stub
+		return repository.findAll();
 	}
 }

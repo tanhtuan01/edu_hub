@@ -49,8 +49,8 @@ public class SchoolAccountAspect {
 	            
 	            if (user != null && school != null) {
 	                boolean validAccount = tosService.existsByUserAndSchoolAdmin(user, school);
-
-	                if (!validAccount) {
+	                
+	                if (!validAccount || !school.getStatus().equals("is_active")) {
 	                    error = true;
 	                }
 	            }else {

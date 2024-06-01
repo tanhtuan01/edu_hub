@@ -59,7 +59,7 @@ public class LecturerDocumentController {
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
 		
 		model.addAttribute("act", "add");
-		
+		BASE_METHOD.titleAndAction("Tài liệu", "document", model);
 		setData(model, domain);
 		return BASE_FIELD.LECTURER_SCHOOL_LAYOUT;
 	}
@@ -110,7 +110,7 @@ public class LecturerDocumentController {
 		if(idModule == null) {
 			return "redirect:/school-lecturer/" + domain + "/tai-lieu";
 		}
-
+		BASE_METHOD.titleAndAction("Tài liệu", "document", model);
 		Pageable pageable = PageRequest.of(page - 1, size);
 		Page<Document> documentPage;
 		String txt = null;

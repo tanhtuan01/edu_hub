@@ -41,7 +41,7 @@ public class LecturerAccount {
 		BASE_METHOD.FragmentLecturerSchool("account", model);
 		User user = userService.findByEmail(authentication.getName());
 		model.addAttribute("user", user);
-		
+		BASE_METHOD.titleAndAction("Quản lý tài khoản", "account", model);
 		return BASE_FIELD.LECTURER_SCHOOL_LAYOUT;
 	}
 	

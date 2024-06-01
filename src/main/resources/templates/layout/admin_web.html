@@ -4,8 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Edu Hub -</title>
-<link rel="icon" type="image/x-icon" href="">
+<title>[[${title}]]</title>
+<link rel="icon" type="image/x-icon" href="/img/eduhub.png">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
@@ -13,9 +13,17 @@
 <link rel="stylesheet" th:href="@{/css/base.css}">
 <link rel="stylesheet" th:href="@{/css/admin_layout.css}">
 <link rel="stylesheet" th:href="@{/css/admin/admin.css}">
+<link rel="stylesheet" th:href="@{/css/footer.css}">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
 
+<!-- DATA TABLE -->
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 </head>
 
 <body>
@@ -24,12 +32,12 @@
 			<div class="eh-content-left" id="leftContent">
 				<div class="content-left-logo">
 					<div class="top-logo">
-						<a href="">
+						<a th:href="@{'/eh-admin'}">
 							<div class="logo-img">
-								<img id="admin-logo" src="" alt="">
+								<img id="admin-logo" src="/img/eduhub.png" alt="">
 							</div>
 							<div class="logo-img-behind">
-								<img id="admin-logo" src="" alt="">
+								<img id="admin-logo" src="/img/eduhub.png" alt="">
 							</div>
 						</a>
 					</div>
@@ -37,11 +45,11 @@
 				<div class="left-user-log">
 					<div class="user-info">
 						<div class="user-info-avt">
-							<img src="" alt="">
+							<img th:src="'/img/' + ${user.avt}" alt="Avatar Account">
 						</div>
 						<div class="user-info-name">
-							<div class="user-name">ANH TUẤN</div>
-							<div class="user-email">trieuanhtuan@gmail.com</div>
+							<div class="user-name">[[${user.userName}]]</div>
+							<div class="user-email">[[${user.email}]]</div>
 						</div>
 					</div>
 				</div>
@@ -50,7 +58,8 @@
 						<div class="header-nav-title">TRANG CHỦ</div>
 						<div class="left-menu-content">
 							<ul>
-								<li><a href="">
+								<li th:class="${action == 'index' ? 'active' : ''}"><a
+									th:href="@{'/eh-admin'}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-house"></i>
@@ -62,17 +71,16 @@
 						</div>
 					</div>
 					<div class="left-menu-item">
-						<div class="header-nav-title">Đăng ký quản lý</div>
+						<div class="header-nav-title">Yêu cầu quản lý</div>
 						<div class="left-menu-content">
 							<ul>
-								<li><a href="">
+								<li th:class="${action == 'request' ? 'active' : ''}"><a
+									th:href="@{'/eh-admin/yeu-cau'}">
 										<div class="menu-content">
 											<div class="menu-icon">
-												<i class="fa-regular fa-file"></i>
+												<i class="fa-solid fa-list"></i>
 											</div>
-											<div class="menu-title">
-												Yêu cầu <span>(1)</span>
-											</div>
+											<div class="menu-title">Yêu cầu</div>
 										</div>
 								</a></li>
 							</ul>
@@ -82,33 +90,92 @@
 						<div class="header-nav-title">Giảng Viên</div>
 						<div class="left-menu-content">
 							<ul>
-								<li><a href="">
+
+								<li th:class="${action == 'lecturer' ? 'active' : ''}"><a
+									th:href="@{'/eh-admin/giang-vien/danh-sach'}">
 										<div class="menu-content">
 											<div class="menu-icon">
-												<i class="fa-regular fa-file"></i>
+												<i class="fa-solid fa-users"></i>
 											</div>
-											<div class="menu-title">Thêm mới</div>
-										</div>
-								</a></li>
-								<li><a href="">
-										<div class="menu-content">
-											<div class="menu-icon">
-												<i class="fa-regular fa-file"></i>
-											</div>
-											<div class="menu-title">Yêu cầu</div>
+											<div class="menu-title">Danh sách</div>
 										</div>
 								</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="left-menu-item">
-						<div class="header-nav-title">Học Viên</div>
+						<div class="header-nav-title">Học Viên, Người dùng</div>
 						<div class="left-menu-content">
 							<ul>
-								<li><a href="">
+								<li th:class="${action == 'student' ? 'active' : ''}"><a
+									th:href="@{'/eh-admin/hoc-vien-nguoi-dung/danh-sach'}">
 										<div class="menu-content">
 											<div class="menu-icon">
-												<i class="fa-regular fa-file"></i>
+												<i class="fa-solid fa-users-between-lines"></i>
+											</div>
+											<div class="menu-title">Danh Sách</div>
+										</div>
+								</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="left-menu-item">
+						<div class="header-nav-title">Trường Học</div>
+						<div class="left-menu-content">
+							<ul>
+								<li th:class="${action == 'school' ? 'active' : ''}"><a
+									th:href="@{'/eh-admin/truong-hoc/danh-sach'}">
+										<div class="menu-content">
+											<div class="menu-icon">
+												<i class="fa-solid fa-school"></i>
+											</div>
+											<div class="menu-title">Danh Sách</div>
+										</div>
+								</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="left-menu-item">
+						<div class="header-nav-title">Bài Viết</div>
+						<div class="left-menu-content">
+							<ul>
+								<li th:class="${action == 'article' ? 'active' : ''}"><a
+									th:href="@{'/eh-admin/bai-viet'}">
+										<div class="menu-content">
+											<div class="menu-icon">
+												<i class="fa-solid fa-newspaper"></i>
+											</div>
+											<div class="menu-title">Danh Sách</div>
+										</div>
+								</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="left-menu-item">
+						<div class="header-nav-title">Doanh thu</div>
+						<div class="left-menu-content">
+							<ul>
+								<li th:class="${action == 'contact' ? 'active' : ''}"><a
+									th:href="@{'/eh-admin/doanh-thu'}">
+										<div class="menu-content">
+											<div class="menu-icon">
+												<i class="fa-solid fa-money-bill"></i>
+											</div>
+											<div class="menu-title">Xem</div>
+										</div>
+								</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="left-menu-item">
+						<div class="header-nav-title">Liên Hệ & Góp ý</div>
+						<div class="left-menu-content">
+							<ul>
+								<li th:class="${action == 'contact' ? 'active' : ''}"><a
+									th:href="@{'/eh-admin/lien-he-gop-y'}">
+										<div class="menu-content">
+											<div class="menu-icon">
+												<i class="fa-solid fa-message"></i>
 											</div>
 											<div class="menu-title">Danh Sách</div>
 										</div>
@@ -138,17 +205,17 @@
 						</div>
 						<div class="top-header-right">
 							<div class="top-right-content">
-								<div class="top-mail">
+							<!-- 	<div class="top-mail">
 									<a href=""><i class="fa-regular fa-envelope"></i></a>
 								</div>
 								<div class="top-notify">
 									<a href=""><i class="fa-regular fa-bell"></i></a>
-								</div>
+								</div> -->
 								<div class="top-user">
 									<div class="top-user-content">
 										<a href="#!" onclick="userShow()">
 											<div class="item-content">
-												<div class="top-user-name">Anh Tuấn</div>
+												<div class="top-user-name">[[${user.userName}]]</div>
 												<div class="triangle"></div>
 											</div>
 										</a>
@@ -156,7 +223,7 @@
 											<ul class="user-nav">
 												<li><a href=""><i class="fa-solid fa-gear"></i>&nbsp;Thay
 														đổi thông tin</a></li>
-												<li><a href=""><i
+												<li><a th:href="@{'/dang-xuat'}"><i
 														class="fa-solid fa-right-from-bracket"></i>&nbsp;Đăng xuất</a>
 												</li>
 											</ul>
@@ -167,8 +234,59 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div th:replace="~{${fragment}}"></div>
+			</div>
+		</div>
+
+		<div class="eh-footer">
+			<div class="footer">
+				<div class="r-content">
+					<div class="title">Quản lý chương trình đào tạo</div>
+					<div class="list">
+						<div class="col">
+							<div class="logo">
+								<a th:href="@{'/'}"> <img src="/img/eduhub.png">
+								</a>
+							</div>
+							<div>
+								<h3 class="title">Chương trình Đào tạo</h3>
+							</div>
+							<p>Hệ thống quản lý chương trình đào tạo cung cấp thông tin
+								đầy đủ về các chương trình đào tạo, bao gồm thông tin chung, mục
+								tiêu, chuẩn đầu ra, cơ hội nghề nghiệp, và nội dung chương
+								trình.</p>
+						</div>
+						<div class="col" style="padding-top: 150px;">
+							<div>
+								<h3 class="title">Liên kết khác</h3>
+							</div>
+							<div class="links">
+								<ul>
+									<li><a th:href="@{'/'}">Trang chủ</a></li>
+									<li><a th:href="@{'/gioi-thieu'}">Giới thiệu</a></li>
+									<li><a th:href="@{'/trang-chu#lien-he'}">Liên hệ & góp
+											ý</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col" style="padding-top: 150px;">
+							<div>
+								<h3 class="title">Thông tin website</h3>
+							</div>
+							<div class="info">
+								<p>
+									<a href="mailto: eduhub.contact2024@gmail.com">Email:
+										eduhub.contact2024@gmail.com</a>
+								</p>
+								<p>Địa chỉ: Số 41A đường Phú Diễn, Q. Bắc Từ Liêm, TP. Hà
+									Nội</p>
+
+							</div>
+						</div>
+					</div>
+					<div class="coppyright">@2024 EduHub</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -195,6 +313,12 @@
 	<script type="text/javascript" th:src="@{/js/base.js}"></script>
 	<script type="text/javascript" th:src="@{/js/admin_layout.js}"></script>
 	<script type="text/javascript" th:src="@{/js/dialog_overlay.js}"></script>
+
+	<script type="text/javascript" th:src="@{/js/sweetalert2.all.min.js}"></script>
+	
+	<script type="text/javascript" th:src="@{/js/admin/datatable.js}"></script>
+	
+	<script type="text/javascript" th:src="@{/js/admin/admin.js}"></script>
 </body>
 
 </html>

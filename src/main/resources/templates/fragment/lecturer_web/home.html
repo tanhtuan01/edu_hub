@@ -7,46 +7,46 @@
 		<div class="list">
 			<div class="item">
 				<div class="content">
-					<img src="statistics_courses.png" alt="">
+					<img src="/img/statistics_courses.png" alt="">
 					<p class="title">Khóa học</p>
-					<p class="value">10</p>
+					<p class="value" th:text="${totalCourses}">10</p>
 				</div>
 			</div>
 			<div class="item">
 				<div class="content">
-					<img src="statistics_students.png" alt="">
+					<img src="/img/statistics_students.png" alt="">
 					<p class="title">Học viên</p>
-					<p class="value">999999999</p>
+					<p class="value" th:text="${totalStudent}">999999999</p>
 				</div>
 			</div>
 			<div class="item">
 				<div class="content">
-					<img src="statistics_certificate.png" alt="">
+					<img src="/img/statistics_certificate.png" alt="">
 					<p class="title">Chứng chỉ đã cấp</p>
-					<p class="value">100</p>
+					<p class="value">0</p>
 				</div>
 			</div>
 		</div>
 		<div class="list">
 			<div class="item">
 				<div class="content">
-					<img src="statistics_money.png" alt="">
+					<img src="/img/statistics_money.png" alt="">
 					<p class="title">Tổng Doanh thu</p>
-					<p class="value">+ 999999999</p>
+					<p class="value" th:text="${#numbers.formatDecimal(totalPrice, 1, 'POINT', 0, 'POINT')} + 'đ'">+ 999999999</p>
 				</div>
 			</div>
 			<div class="item">
 				<div class="content">
-					<img src="statistics_withdraw.png" alt="">
+					<img src="/img/statistics_withdraw.png" alt="">
 					<p class="title">Số tiền đã rút</p>
-					<p class="value">+ 999999999</p>
+					<p class="value">- 0</p>
 				</div>
 			</div>
 			<div class="item">
 				<div class="content">
-					<img src="statistics_courses.png" alt="">
+					<img src="/img/statistics_money.png" alt="">
 					<p class="title">Số tiền còn lại</p>
-					<p class="value">+ 999999999</p>
+					<p class="value" th:text="${#numbers.formatDecimal(totalPrice, 1, 'POINT', 0, 'POINT')} + 'đ'"></p>
 				</div>
 			</div>
 		</div>
@@ -64,19 +64,12 @@
 					<th class="time">Thời gian</th>
 					<th class="view">Xem</th>
 				</tr>
-				<tr>
-					<td class="stt">1</td>
-					<td class="name">Nguyễn Văn A</td>
-					<td class="courses">Khóa hỌC ABC</td>
-					<td class="time">2024/05/04</td>
-					<td class="view"><a href="">Xem</a></td>
-				</tr>
-				<tr>
-					<td class="stt">1</td>
-					<td class="name">Nguyễn Văn A</td>
-					<td class="courses">Khóa hỌC ABC</td>
-					<td class="time">2024/05/04</td>
-					<td class="view"><a href="">Xem</a></td>
+				<tr th:each="s,i : ${listStudentJoin}">
+					<td class="stt" th:text="${i.count}">1</td>
+					<td class="name" th:text="${s.name}">Nguyễn Văn A</td>
+					<td class="courses" th:text="${s.coursesName}">Khóa hỌC ABC</td>
+					<td class="time" th:text="${s.date}">2024/05/04</td>
+					<td class="view"><a href="#">Xem</a></td>
 				</tr>
 			</table>
 		</div>
@@ -87,84 +80,13 @@
 	<div class="r-content">
 		<div class="title">Học viên được cấp chứng chỉ gia gần đây</div>
 		<div class="list">
-			<table>
+			<table style="display: none;">
 				<tr>
 					<th class="stt">STT</th>
 					<th class="name">Họ Và Tên Học Viên</th>
 					<th class="courses">Khóa học</th>
 					<th class="time">Thời gian</th>
 					<th class="view">Xem</th>
-				</tr>
-				<tr>
-					<td class="stt">1</td>
-					<td class="name">Nguyễn Văn A</td>
-					<td class="courses">Khóa hỌC ABC</td>
-					<td class="time">2024/05/04</td>
-					<td class="view"><a href="">Xem</a></td>
-				</tr>
-				<tr>
-					<td class="stt">1</td>
-					<td class="name">Nguyễn Văn A</td>
-					<td class="courses">Khóa hỌC ABC</td>
-					<td class="time">2024/05/04</td>
-					<td class="view"><a href="">Xem</a></td>
-				</tr>
-				<tr>
-					<td class="stt">1</td>
-					<td class="name">Nguyễn Văn A</td>
-					<td class="courses">Khóa hỌC ABC</td>
-					<td class="time">2024/05/04</td>
-					<td class="view"><a href="">Xem</a></td>
-				</tr>
-				<tr>
-					<td class="stt">1</td>
-					<td class="name">Nguyễn Văn A</td>
-					<td class="courses">Khóa hỌC ABC</td>
-					<td class="time">2024/05/04</td>
-					<td class="view"><a href="">Xem</a></td>
-				</tr>
-				<tr>
-					<td class="stt">1</td>
-					<td class="name">Nguyễn Văn A</td>
-					<td class="courses">Khóa hỌC ABC</td>
-					<td class="time">2024/05/04</td>
-					<td class="view"><a href="">Xem</a></td>
-				</tr>
-				<tr>
-					<td class="stt">1</td>
-					<td class="name">Nguyễn Văn A</td>
-					<td class="courses">Khóa hỌC ABC</td>
-					<td class="time">2024/05/04</td>
-					<td class="view"><a href="">Xem</a></td>
-				</tr>
-				<tr>
-					<td class="stt">1</td>
-					<td class="name">Nguyễn Văn A</td>
-					<td class="courses">Khóa hỌC ABC</td>
-					<td class="time">2024/05/04</td>
-					<td class="view"><a href="">Xem</a></td>
-				</tr>
-				<tr>
-					<td class="stt">1</td>
-					<td class="name">Nguyễn Văn A</td>
-					<td class="courses">Khóa hỌC ABC</td>
-					<td class="time">2024/05/04</td>
-					<td class="view"><a href="">Xem</a></td>
-				</tr>
-				<tr>
-					<td class="stt">1</td>
-					<td class="name">Nguyễn Văn A</td>
-					<td class="courses">Khóa hỌC ABC</td>
-					<td class="time">2024/05/04</td>
-					<td class="view"><a href="">Xem</a></td>
-				</tr>
-
-				<tr>
-					<td class="stt">1</td>
-					<td class="name">Nguyễn Văn A</td>
-					<td class="courses">Khóa hỌC ABC</td>
-					<td class="time">2024/05/04</td>
-					<td class="view"><a href="">Xem</a></td>
 				</tr>
 			</table>
 		</div>

@@ -109,4 +109,10 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		repository.deleteById(id);
 	}
+	
+	@Override
+	public List<User> listRoleUserStudent() {
+		// TODO Auto-generated method stub
+		return repository.findRoleUserStudent();
+	}
 }

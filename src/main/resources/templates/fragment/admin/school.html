@@ -1,0 +1,49 @@
+<div class="right-body">
+	<div class="body-content r-content">
+
+		<div class="eh-header-title">Danh sách trường học</div>
+
+		<div class="table-container">
+
+			<table id="SchoolOnWeb" cellpadding="10">
+				<thead>
+					<tr>
+						<th>STT</th>
+						<th>Trường</th>
+						<th>Địa chỉ</th>
+						<th>Domain</th>
+						<th>Số Ngành</th>
+						<th>Số Chuyên ngành</th>
+						<th>CTĐT</th>
+						<th class="text-center">Trạng thái</th>
+						<th class="text-center">Chi tiết</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="s,i : ${list}">
+						<td>[[${i.count}]]</td>
+						<td class="name">[[${s.name}]]</td>
+						<td>[[${s.address}]]</td>
+						<td><a target="_blank" th:href="'https://' + ${s.domain}">[[${s.domain}]]</a></td>
+						<td>[[${#lists.size(s.industries)}]]</td>
+						<td>[[${@schoolHelper.totalMajorsOfSchool(s)}]]</td>
+						<td>[[${#lists.size(s.trainingPrograms)}]]</td>
+						<th:block th:if="${s.status == 'is_active'}">
+							<td><a th:href="@{'/eh-admin/truong-hoc/doi-trang-thai/khoa?id=' + ${s.id}}" class="btn btn-edit"
+								onclick="changeSchoolStatus(this, 'lock')" style="display: block;"><i
+									class="fa-solid fa-unlock"></i> &nbsp;Hoạt động</a></td>
+						</th:block>
+						<th:block th:if="${s.status == 'is_not_active'}">
+							<td><a th:href="@{'/eh-admin/truong-hoc/doi-trang-thai/hoat-dong?id=' + ${s.id}}" class="btn btn-minus"
+								onclick="changeSchoolStatus(this, 'unlock')" style="display: block;"><i
+									class="fa-solid fa-lock"></i> &nbsp;Đang khóa</a></td>
+						</th:block>
+						<td><a class="btn btn-view"><i class="fa-solid fa-eye"></i>
+								Xem</a></td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+</div>

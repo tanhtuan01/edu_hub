@@ -44,6 +44,10 @@ a {
     cursor: pointer;
 }
 
+a.t-d{
+	text-decoration: underline;
+}
+
 ul li {
     list-style-type: none;
 }
@@ -56,6 +60,14 @@ input {
     cursor: pointer;
 }
 
+input:not(.btn){
+	border: 1px solid silver;
+	background: white;
+}
+
+input:not(.btn):focus{
+	border-color: var(--primary-color);
+}
 
 .r-content {
     min-width: 1188px;
@@ -240,4 +252,12 @@ span.not-empty{
 
 html{
     scroll-behavior: smooth;
+}
+
+.tal{
+	text-align: left;
+}
+
+.tar{
+	text-align: right;
 }

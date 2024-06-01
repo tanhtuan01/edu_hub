@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import tat.com.eduhub.entity.Major;
 import tat.com.eduhub.entity.Modules;
 import tat.com.eduhub.entity.School;
 import tat.com.eduhub.repository.ModuleRepository;
@@ -50,6 +51,11 @@ public class ModuleServiceImpl implements ModuleService{
 		return repository.findBySchool(school);
 	}
 
+	@Override
+	public List<Modules> findBySchoolAndMajor(School school, Major major) {
+		// TODO Auto-generated method stub
+		return repository.findBySchoolAndMajor(school, major);
+	}
 	
 
 }

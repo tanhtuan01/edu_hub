@@ -1,5 +1,7 @@
 package tat.com.eduhub.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +16,6 @@ public interface SchoolRepository extends JpaRepository<School, Long>{
 	
 	
 	School findByDomainEquals(String domain);
+	
+	List<School> findByStatus(String status);
 }

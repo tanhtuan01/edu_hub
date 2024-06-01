@@ -43,6 +43,7 @@ public class LecturerTrainingProgram {
 		School school = schoolService.findByDomain(domain);
 		List<TrainingProgram> trainingPrograms = tpService.trainingProgramPostedBySchool(school);
 		model.addAttribute("tp", trainingPrograms);
+		BASE_METHOD.titleAndAction("Chương trình đào tạo", "list-tp", model);
 		return BASE_FIELD.LECTURER_SCHOOL_LAYOUT;
 	}
 
@@ -58,6 +59,7 @@ public class LecturerTrainingProgram {
 	public String viewTP(Model model, @PathVariable(name = "id", required = false) Long id,
 			@PathVariable(name = "domain") String domain, Authentication authentication) {
 		 TrainingProgram trainingProgram = null;
+		 BASE_METHOD.titleAndAction("Chương trình đào tạo", "list-tp", model);
 		try {
 			 trainingProgram = tpService.get(id);
 		} catch (Exception e) {

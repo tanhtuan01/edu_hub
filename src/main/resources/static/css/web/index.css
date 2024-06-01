@@ -159,6 +159,11 @@ border-radius: 3px;
 
 .content-body {
     scroll-margin-top: 60px;
+  
+}
+
+#dang-ky-ngay{
+	scroll-margin-top: 280px;
 }
 
 #giang-vien .r .box,
@@ -338,15 +343,6 @@ border-radius: 3px;
     position: relative;
 }
 
-#tim-tai-lieu .btn-search:hover{
-
-}
-
-
-
-
-
-
 
 
 
@@ -389,14 +385,15 @@ border-radius: 3px;
     position: absolute;
     display: block;
     background: var(--primary-color);
-    height: fit-content;
+    /* bottom: 0; */
     right: 0;
     top: 0;
     padding: 9px;
     color: white;
     border: none;
     z-index: 2;
-    width: 35px;
+    width: 38px;
+    height: 35.4px;
 }
 
 .sign-form form .input .to-text .close{
@@ -588,39 +585,60 @@ border-radius: 3px;
 
 
 /* END VIEW COURSES */
+
+/* VIEW LESSON */
+
+
+
+
+/*END VIEW LESSON */
+
+.view-lesson{
+	line-height: 25px;
+	min-height: 500px;	
+}
+
+.view-lesson .title{
+	font-size: 25px;
+	text-align: center;
+	padding: 10px;
+}
+
+.view-lesson .lesson-name{
+	text-align: center;
+	padding: 10px;
+}
+.view-lesson .lesson-name,.view-lesson .lesson-content{
+	font-size: 20px;
+}
+
+.view-lesson .button{
+	display: flex;
+	justify-content: space-between;
+	padding: 20px 50px;
+}
+
+.view-lesson .button .btn-previous{
+	background: var(--color-warning);
+	color: white;
+}
+
+.view-lesson .button .btn-previous.not-allowed{
+	background: silver;
+}
+
+.view-lesson video{
+	width: 80%;
+	display: block;
+	margin: auto;
+}
+
+.view-lesson .content{
+	padding: 10px 50px;
+}
+
 .star {
         fill: gold;
         width: 20px;
         height: 20px;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.eh-footer{
-    height: 100px;
-    background: var(--primary-color);
-}

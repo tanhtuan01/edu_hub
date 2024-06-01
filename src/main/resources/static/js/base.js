@@ -8,17 +8,58 @@ document.onreadystatechange = function() {
 };
 
 
-function removeParamatersOnUrl() {
+/*function removeParamatersOnUrl() {
 	var url = window.location.href;
 
 	if (url.indexOf('?') !== -1) {
 		var cleanUrl = url.substring(0, url.indexOf('?'));
 		window.history.replaceState({}, document.title, cleanUrl);
 	}
+	
+	 if (url.indexOf('?') !== -1) {
+    var baseUrl = url.substring(0, url.indexOf('?'));
+    var queryParams = url.substring(url.indexOf('?') + 1).split('&');
+    var keptParams = [];
+
+    queryParams.forEach(function (param) {
+      var paramName = param.split('=')[0];
+      
+      // Kiểm tra nếu tên parameter là 'stt'
+      if (paramName === 'tt') {
+        keptParams.push(param);
+      }
+    });
+
+    var cleanUrl = baseUrl + '?' + keptParams.join('&');
+    window.history.replaceState({}, document.title, cleanUrl);
+  }
+}*/
+
+function removeParamatersOnUrl() {
+  var url = window.location.href;
+
+  if (url.indexOf('?') !== -1) {
+    var baseUrl = url.substring(0, url.indexOf('?'));
+    var queryParams = url.substring(url.indexOf('?') + 1).split('&');
+    var keptParams = [];
+
+    var allowedParams = ['tt', 'kdt', 'tddt', 'lhdt', 'ndt', 'cndt', 'idModule', 'keyword', 'page' , 'key', 'type'];
+
+    queryParams.forEach(function (param) {
+      var paramName = param.split('=')[0];
+      
+      if (allowedParams.includes(paramName)) {
+        keptParams.push(param);
+      }
+    });
+
+    var cleanUrl = baseUrl + '?' + keptParams.join('&');
+    window.history.replaceState({}, document.title, cleanUrl);
+  }
 }
 
 window.onload = () => {
-	/*removeParamatersOnUrl()*/
+	removeParamatersOnUrl()
 }
 
 window.addEventListener('beforeunload', function() {
@@ -169,3 +210,7 @@ function chooseImage(e, inputName) {
     fileInput.click();
    // e.closest("#image-container").querySelector(".errorLoadImg").style.display = "none"
 }
+
+ function goBack() {
+    window.history.back();
+  }

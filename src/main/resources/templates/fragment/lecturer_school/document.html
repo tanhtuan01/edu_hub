@@ -74,7 +74,7 @@
 						<div class="input">
 							<select name="idModule" id="idModule">
 								<option value="0">Bạn chưa chọn học phần</option>
-								<option th:each="m : ${module}" th:value="${m.id}"
+								<option th:selected="${idModule == m.id}" th:each="m : ${module}" th:value="${m.id}"
 									th:text=" 'Học phần: ' + ${m.name} + ' (' + ${m.code}+ ') / CN: ' + ${m.majorName}">Học
 									Phần 1</option>
 							</select>
@@ -93,8 +93,8 @@
 						<div class="label">Đối tượng:</div>
 						<div class="input">
 							<select name="type" id="">
-								<option value="for_lecturer">Giảng viên</option>
-								<option value="for_student">Sinh viên</option>
+								<option th:selected="${type == 'for_lecturer'}" value="for_lecturer">Giảng viên</option>
+								<option th:selected="${type == 'for_student'}" value="for_student">Sinh viên</option>
 							</select>
 						</div>
 					</div>
@@ -113,7 +113,7 @@
 					<div class="eh-header-title">Danh sách</div>
 					<p th:if="${txt == null}" class="text-alert" th:text="${length} + ' kết quả'"></p>
 					<p th:if="${txt != null}" class="text-alert" th:text="${txt} + ' ' + ${length} + ' kết quả'"></p>
-					<table>
+					<table cellspacing="0">
 						<tr>
 							<th class="stt">STT</th>
 							<th>Học phần</th>

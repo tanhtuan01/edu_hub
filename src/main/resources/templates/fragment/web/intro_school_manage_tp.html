@@ -13,7 +13,7 @@
 				</div>
 			</div>
 			<div class="img">
-				<img src="tp.png" alt="">
+				<img src="/img/tp.png" alt="">
 			</div>
 		</div>
 	</div>
@@ -64,9 +64,7 @@
 				<form th:action="@{/quan-ly-ctdt/tao-tai-khoan}" method="POST"
 					th:object="${school}">
 					<p class="text-center text-alert"></p>
-					<p th:if="${param.success}"
-						class="text-center text-alert alert-success">Đăng ký thành
-						công, chúng tôi sẽ phản hồi qua email cho bạn.</p>
+					
 					<p th:if="${param.error}"
 						class="text-center text-alert alert-error">Đăng ký thất bại</p>
 					<div class="form-group">
@@ -111,3 +109,19 @@
 		</div>
 	</div>
 </div>
+
+
+<script th:if="${param.success}" th:inline="javascript">
+
+	 document.addEventListener('DOMContentLoaded', function() {
+		 setTimeout( ()=>{
+			
+			 Swal.fire({
+				  title: "Đăng ký thành công",
+				  text: "Chúng tôi sẽ sớm phản hồi qua email cho bạn!",
+				  icon: "success"
+				});
+			}, 800)
+
+	    });
+</script>

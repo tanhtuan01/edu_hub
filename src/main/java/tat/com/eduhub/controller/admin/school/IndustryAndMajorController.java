@@ -71,6 +71,7 @@ public class IndustryAndMajorController {
 		List<Industry> industries = industryService.listIndustryBySchool(school, "ASC");
 		List<IndustryDTO> industryDTOs = industries.stream().map(e -> mapper.map(e, IndustryDTO.class)).collect(Collectors.toList());
 		model.addAttribute("industries", industryDTOs);
+		BASE_METHOD.titleAndAction("Thêm mới ngành / chuyên ngành", "add-im", model);
 		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
 	}
 	
@@ -137,7 +138,7 @@ public class IndustryAndMajorController {
 		Page<MajorDTO> majorDTOpage = new PageImpl<>(majorDTOList, majorPage.getPageable(), majorPage.getTotalElements());
 		
 		model.addAttribute("majors", majorDTOpage);
-		
+		BASE_METHOD.titleAndAction("Danh sách ngành / chuyên ngành", "list-im", model);
 		BASE_METHOD.FragmentAdminSchool("list_industry_major", model);
 		model.addAttribute("cmAction", cm);
 		model.addAttribute("totalPages", industryDTOs.getTotalPages());
@@ -169,7 +170,7 @@ public class IndustryAndMajorController {
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
 		School school = schoolService.findByDomain(domain);
 		String requestURI = request.getRequestURI();
-
+		BASE_METHOD.titleAndAction("Chỉnh sửa ngành / chuyên ngành", "add-im", model);
 		if(requestURI.equals("/school-admin/"+domain+"/nganh-chuyen-nganh/chinh-sua/nganh")) {
 			model.addAttribute("cmAction", "career");
 			model.addAttribute("major", new MajorDTO());

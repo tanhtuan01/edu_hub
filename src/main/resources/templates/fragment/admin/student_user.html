@@ -1,0 +1,38 @@
+<div class="right-body">
+	<div class="body-content r-content">
+
+		<div class="eh-header-title">Học viên, người dùng</div>
+		
+		<div class="table-container">
+		
+			<table id="StudentUser" cellpadding="10">
+				<thead>
+					<tr>
+						<th>STT</th>
+						<th>Họ & tên</th>
+						<th>Email</th>
+						<th>Loại tài khoản</th>
+						<th>Ngày tạo</th>
+						<th>Chi tiết</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="u, i : ${list}">
+						<td>[[${i.count}]]</td>
+						<td>[[${u.userName}]]</td>
+						<td>[[${u.email}]]</td>
+						<th:block th:if="${u.type == 'system_account'}">
+							<td>Tài khoản hệ thống</td>
+						</th:block>
+						<th:block th:if="${u.type == 'google_account'}">
+							<td>Tài khoản Google</td>
+						</th:block>
+						<td>[[${u.createdDate}]]</td>
+						<td>Chi tiết</td>
+					</tr>
+				</tbody>
+			</table>
+		
+		</div>
+	</div>
+</div>

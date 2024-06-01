@@ -1,1 +1,129 @@
-HOME
+
+<div class="right-body">
+	<div class="body-content r-content">
+		<div class="eh-header-title">Trang Chủ</div>
+		<div class="index-content">
+			<div class="top-content">
+				<div class="list">
+					<div class="item">
+						<div class="icon-number">
+							<div class="icon">
+								<img src="/img/tp.png">
+							</div>
+							<div class="number">[[${totalTP}]]</div>
+						</div>
+						<div class="name">Chương trình đào tạo</div>
+						<div class="button">
+							<a
+								th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/danh-sach'}"
+								class="txt14 t-d">Xem</a>
+						</div>
+					</div>
+					<div class="item">
+						<div class="icon-number">
+							<div class="icon">
+								<img src="/img/industry.png">
+							</div>
+							<div class="number">[[${totalIndustry}]]</div>
+						</div>
+						<div class="name">Ngành đào tạo</div>
+						<div class="button">
+							<a
+								th:href="@{'/school-admin/' + ${domain}+'/nganh-chuyen-nganh/danh-sach/nganh'}"
+								class="txt14 t-d">Xem</a>
+						</div>
+					</div>
+					<div class="item">
+						<div class="icon-number">
+							<div class="icon">
+								<img src="/img/majors.png">
+							</div>
+							<div class="number">[[${totalMajor}]]</div>
+						</div>
+						<div class="name">Chuyên ngành đào tạo</div>
+						<div class="button">
+							<a
+								th:href="@{'/school-admin/' + ${domain}+'/nganh-chuyen-nganh/danh-sach/chuyen-nganh'}"
+								class="txt14 t-d">Xem</a>
+						</div>
+					</div>
+					<div class="item">
+						<div class="icon-number">
+							<div class="icon">
+								<img src="/img/lecturers.png">
+							</div>
+							<div class="number">[[${totalTOS}]]</div>
+						</div>
+						<div class="name">Tài khoản giảng viên</div>
+						<div class="button">
+							<a
+								th:href="@{'/school-admin/' + ${domain}+ '/quan-ly-tai-khoan/giang-vien'}"
+								class="txt14 t-d">Xem</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="content-below">
+				<div class="box">
+					<div class="title">Chương trình đào tạo</div>
+					<div class="detail">
+						<div class="content">
+							<div class="name">Chương trình đào tạo Đại học</div>
+							<a class="txt14 t-d"
+								th:href="@{'/school-admin/'+${domain}+'/chuong-trinh-dao-tao/danh-sach/trang-thai?tt=&kdt=&tddt=level_undergraduate&lhdt='}">Xem</a>
+						</div>
+						<div class="content">
+							<div class="name">Chương trình đào tạo Thạc sĩ</div>
+							<a class="txt14 t-d"
+								th:href="@{'/school-admin/'+${domain}+'/chuong-trinh-dao-tao/danh-sach/trang-thai?tt=&kdt=&tddt=level_master_degree&lhdt='}">Xem</a>
+						</div>
+						<div class="content">
+							<div class="name">Chương trình đào tạo Tiến sĩ</div>
+							<a class="txt14 t-d"
+								th:href="@{'/school-admin/'+${domain}+'/chuong-trinh-dao-tao/danh-sach/trang-thai?tt=&kdt=&tddt=level_doctorate&lhdt='}">Xem</a>
+						</div>
+						<div class="content">
+							<div class="name">Loại hình đào tạo Chính quy</div>
+							<a class="txt14 t-d"
+								th:href="@{'/school-admin/'+${domain}+'/chuong-trinh-dao-tao/danh-sach/trang-thai?tt=&kdt=&tddt=&lhdt=type_regular'}">Xem</a>
+						</div>
+						<div class="content">
+							<div class="name">Loại hình đào tạo Vừa học vừa làm</div>
+							<a class="txt14 t-d"
+								th:href="@{'/school-admin/'+${domain}+'/chuong-trinh-dao-tao/danh-sach/trang-thai?tt=&kdt=&tddt=&lhdt=type_work_study'}">Xem</a>
+						</div>
+						<div class="content">
+							<div class="name">Loại hình đào tạo Đào tạo từ xa</div>
+							<a class="txt14 t-d"
+								th:href="@{'/school-admin/'+${domain}+'/chuong-trinh-dao-tao/danh-sach/trang-thai?tt=&kdt=&tddt=&lhdt=type_online_learning'}">Xem</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="box">
+					<div class="title">Học phần</div>
+					<div class="majors-modules">
+						<div class="majors">
+							<h3>Chuyên ngành đào tạo</h3>
+							<div class="list">
+								<div class="item item-major" th:attr="data-major=${m.id}"
+									th:each="m : ${majors}" onclick="showModulesOfMajor(this)">
+									[[${m.majorName}]]</div>
+							</div>
+						</div>
+						<div class="modules">
+							<h3>Học phần</h3>
+							<div class="list">
+								<div
+								th:class="'item item-module item-module-of-major-' + ${m.major.id}"
+								th:each="m : ${modules}">[[${m.name}]]</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

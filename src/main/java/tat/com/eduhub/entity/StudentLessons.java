@@ -21,6 +21,18 @@ public class StudentLessons extends BaseEntity{
 	
 	@Size(max = 20)
 	private String progess;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_courses")
+	private Courses courses;
+
+	public Courses getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Courses courses) {
+		this.courses = courses;
+	}
 
 	public User getUser() {
 		return user;

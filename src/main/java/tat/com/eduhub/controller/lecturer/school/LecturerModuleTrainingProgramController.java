@@ -102,6 +102,7 @@ public class LecturerModuleTrainingProgramController {
 			sDTO.setModuleName(s.getModule().getName());
 			subjectDistributionDTOs.add(sDTO);
 		}
+		BASE_METHOD.titleAndAction("Học phần chương trình đào tạo", "list-motp", model);
 		model.addAttribute("list", subjectDistributionDTOs);
 		return BASE_FIELD.LECTURER_SCHOOL_LAYOUT;
 	}
@@ -130,7 +131,7 @@ public class LecturerModuleTrainingProgramController {
 		School school = schoolService.findByDomain(domain);
 		String moduleName = sdService.get(idSubjectDistribution).getModule().getName();
  		model.addAttribute("moduleName", moduleName);
- 		
+ 		BASE_METHOD.titleAndAction("Học phần chương trình đào tạo", "list-motp", model);
  		List<SubjectDistributionDetail> listSyllabus = sddService.listSyllabusBySubjectDistribution(sdService.get(idSubjectDistribution));
  		model.addAttribute("listSyllabus", listSyllabus);
 // 		System.err.println("list Syllabus size: " + listSyllabus.size());

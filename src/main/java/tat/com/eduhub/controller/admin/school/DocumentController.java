@@ -61,7 +61,7 @@ public class DocumentController {
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
 		
 		model.addAttribute("act", "add");
-		
+		BASE_METHOD.titleAndAction("Học phần", "document", model);
 		setData(model, domain);
 		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
 	}
@@ -109,7 +109,7 @@ public class DocumentController {
 		setData(model, domain);
 		BASE_METHOD.FragmentAdminSchool("document", model);
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
-		
+		BASE_METHOD.titleAndAction("Tìm kiếm tài liệu", "document", model);
 		if(idModule == null) {
 			return "redirect:/school-admin/" + domain + "/tai-lieu";
 		}

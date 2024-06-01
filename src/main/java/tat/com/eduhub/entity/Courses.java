@@ -35,6 +35,17 @@ public class Courses extends BaseEntity{
 	@OneToMany(mappedBy = "courses", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CategoryLesson> categoryLessons;
 	
+	@OneToMany(mappedBy = "courses", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<StudentLessons> studentLessons;
+	
+	public List<StudentLessons> getStudentLessons() {
+		return studentLessons;
+	}
+
+	public void setStudentLessons(List<StudentLessons> studentLessons) {
+		this.studentLessons = studentLessons;
+	}
+
 	@Size(max = 120)
 	private String area;
 	
@@ -52,6 +63,17 @@ public class Courses extends BaseEntity{
 
 	public void setCategoryLessons(List<CategoryLesson> categoryLessons) {
 		this.categoryLessons = categoryLessons;
+	}
+	
+	@OneToMany(mappedBy = "courses", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Payment> payments;
+
+	public List<Payment> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(List<Payment> payments) {
+		this.payments = payments;
 	}
 
 	@Size(max = 15)

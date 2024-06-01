@@ -21,4 +21,8 @@ public interface IndustryService {
 	Page<Industry> pageIndustryBySchool(School school, Pageable pageable);
 	
 	void delete(Long id);
+	
+	boolean checkIndustryWithSchool(Long id, School school);
+	
+	List<Industry> listIndustrySchool(School school);
 }

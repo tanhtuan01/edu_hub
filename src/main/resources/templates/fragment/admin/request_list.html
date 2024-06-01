@@ -4,36 +4,40 @@
 
 		<div class="eh-header-title">Danh Sách Yêu Cầu</div>
 		<div class="table-container">
-		<p th:if="${param.confirm_success}" class="text-center text-alert alert-success">Xác nhận thành công.</p>
-		<p th:if="${param.delete_success}" class="text-center text-alert alert-success">Xóa thành công.</p>
-			<table border="1" cellspacing="0">
-				<tr>
-					<th>STT</th>
-					<th class="name">Tên trường</th>
-					<th class="domain">Domain</th>
-					<th class="email">Email</th>
-					<th class="hotline">Số điện thoại</th>
-					<th class="time">Thời gian</th>
-					<th colspan="2">Thao tác</th>
-				</tr>
-				<tr th:each="s, i : ${ps}">
-					<td th:text="${i.count}"></td>
-					<td th:text="${s.name}"></td>
-					<td><a th:href="${s.domain}" target="blank"
-						th:text="${s.domain}"></a></td>
-					<td><a th:href="'mailto:' + ${s.email}" th:text="${s.email}"></a></td>
-					<td><a th:href="'tel:' + @{s.hotline}" th:text="${s.hotline}"></a></td>
-					<td th:text="${s.formatDate()}"></td>
-					<td>
-						<a title="Xác nhận" th:href="@{'/eh-admin/request/confirm?id=' + ${s.id}}" class="btn btn-primary"> <i
-							class="fa-solid fa-check"></i></a>
-					</td>
-					<td>
-						<a onclick="showConfirmDeleteDialog(event)" th:attr="data-id=${s.id}, data-name=${s.name}" title="Xóa" th:href="@{'/eh-admin/request/delete?id=' + ${s.id}}" class="btn btn-delete"> 
-						<i class="fa-solid fa-x"></i></a>
-					</td>
-				</tr>
-			</table>
+
+			<th:block th:if="${#lists.size(ps) > 0}">
+				<table border="1" cellspacing="0">
+					<tr>
+						<th>STT</th>
+						<th class="name">Tên trường</th>
+						<th class="domain">Domain</th>
+						<th class="email">Email</th>
+						<th class="hotline">Số điện thoại</th>
+						<th class="time">Thời gian</th>
+						<th colspan="2">Thao tác</th>
+					</tr>
+					<tr th:each="s, i : ${ps}">
+						<td th:text="${i.count}"></td>
+						<td th:text="${s.name}"></td>
+						<td><a th:href="${s.domain}" target="blank"
+							th:text="${s.domain}"></a></td>
+						<td><a th:href="'mailto:' + ${s.email}" th:text="${s.email}"></a></td>
+						<td><a th:href="'tel:' + @{s.hotline}" th:text="${s.hotline}"></a></td>
+						<td th:text="${s.formatDate()}"></td>
+						<td><a title="Xác nhận"
+							th:href="@{'/eh-admin/yeu-cau/xac-nhan?id=' + ${s.id}}"
+							class="btn btn-primary"> <i class="fa-solid fa-check"></i></a></td>
+						<td><a onclick="showConfirmDeleteDialog(event)"
+							th:attr="data-id=${s.id}, data-name=${s.name}" title="Xóa"
+							th:href="@{'/eh-admin/yeu-cau/xoa?id=' + ${s.id}}"
+							class="btn btn-delete"> <i class="fa-solid fa-x"></i></a></td>
+					</tr>
+				</table>
+			</th:block>
+			
+			<th:block th:if="${#lists.size(ps) == 0}">
+				<p class="text-alert text-center">Không có yêu cầu nào</p>
+			</th:block>
 
 		</div>
 		<div class="page">
@@ -48,3 +52,58 @@
 		</div>
 	</div>
 </div>
+
+
+<script th:if="${param.delete_success}" th:inline="javascript">
+
+	 document.addEventListener('DOMContentLoaded', function() {
+		 setTimeout( ()=>{
+			
+			const Toast =  Swal.mixin({
+				
+				  toast: true,
+				  position: "top-end",
+				  showConfirmButton: false,
+				  timer: 1800,
+				  timerProgressBar: true,
+				  didOpen: (toast) => {
+				    toast.onmouseenter = Swal.stopTimer;
+				    toast.onmouseleave = Swal.resumeTimer;
+				  }
+				});
+				 Toast.fire({
+				  icon: "success",
+				  title: "Xóa thành công"
+				});
+				
+			}, 800)
+
+	    });
+</script>
+
+<script th:if="${param.confirm_success}" th:inline="javascript">
+
+	 document.addEventListener('DOMContentLoaded', function() {
+		 setTimeout( ()=>{
+			
+			const Toast =  Swal.mixin({
+				
+				  toast: true,
+				  position: "top-end",
+				  showConfirmButton: false,
+				  timer: 1800,
+				  timerProgressBar: true,
+				  didOpen: (toast) => {
+				    toast.onmouseenter = Swal.stopTimer;
+				    toast.onmouseleave = Swal.resumeTimer;
+				  }
+				});
+				 Toast.fire({
+				  icon: "success",
+				  title: "Xác nhận thành công"
+				});
+				
+			}, 800)
+
+	    });
+</script>

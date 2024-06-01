@@ -31,6 +31,6 @@ public class UserHelper {
 	}
 	
 	public User getUserLogged(Authentication authentication) {
-		return userService.findByEmail(authentication.getName());
+		return (authentication != null) ? userService.findByEmail(authentication.getName()) : null;
 	}
 }

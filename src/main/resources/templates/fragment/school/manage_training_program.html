@@ -1,0 +1,86 @@
+
+<div class="right-body list-training-program">
+	<div class="body-content r-content">
+		<div class="eh-header-title">Quản Lý Chương Trình Đào Tạo</div>
+		<div class="form-manage-tp">
+			
+			<div>
+				<form>
+					<div class="form-group">
+						<div class="label">
+							Lọc theo: 
+						</div>
+						<div class="input">
+							<select>
+								<option>Bạn chưa chọn</option>
+								<option>Đã đăng</option>
+								<option>Chưa đăng</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">
+							 Đề cương & tài liệu
+						</div>
+						<div class="input">
+							<select>
+								<option>Bạn chưa chọn</option>
+								<option>Đề cương</option>
+								<option>Tài liệu</option>
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<script th:if="${param.deleted}" th:inline="javascript">
+		
+document.addEventListener('DOMContentLoaded', function() {
+	setTimeout(()=>{
+		const Toast = Swal.mixin({
+			  toast: true,
+			  position: "top-end",
+			  showConfirmButton: false,
+			  timer: 1800,
+			  timerProgressBar: true,
+			  didOpen: (toast) => {
+			    toast.onmouseenter = Swal.stopTimer;
+			    toast.onmouseleave = Swal.resumeTimer;
+			  }
+			});
+			Toast.fire({
+			  icon: "success",
+			  title: "Xóa thành công!"
+			});
+		}, 800)
+    });
+	</script>
+	
+	<script th:if="${param.updated}" th:inline="javascript">
+		
+document.addEventListener('DOMContentLoaded', function() {
+	setTimeout(()=>{
+		const Toast = Swal.mixin({
+			  toast: true,
+			  position: "top-end",
+			  showConfirmButton: false,
+			  timer: 1800,
+			  timerProgressBar: true,
+			  didOpen: (toast) => {
+			    toast.onmouseenter = Swal.stopTimer;
+			    toast.onmouseleave = Swal.resumeTimer;
+			  }
+			});
+			Toast.fire({
+			  icon: "success",
+			  title: "Cập nhật thành công!"
+			});
+		}, 800)
+    });
+	</script>
+
+

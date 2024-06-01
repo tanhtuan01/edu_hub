@@ -63,4 +63,10 @@ public class SyllabusServiceImpl implements SyllabusService{
 		// TODO Auto-generated method stub
 		return repository.findBySchool(school);
 	}
+	
+	@Override
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		repository.deleteById(id);;
+	}
 }

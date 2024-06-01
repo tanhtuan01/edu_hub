@@ -44,6 +44,7 @@ public class LecturerWebManageCourses {
 		List<CoursesDTO> coursesDTOs = courses.stream().map(c -> mapper.map(c, CoursesDTO.class))
 										.collect(Collectors.toList());
 		model.addAttribute("courses", coursesDTOs);
+		model.addAttribute("act", "manage");
 		return BASE_FIELD.LECTURER_WEB_LAYOUT;
 	}
 	

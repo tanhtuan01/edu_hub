@@ -71,19 +71,22 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	    	redirectUrl.contains("school-lecturer") && roleName.equals("ROLE_LECTURERSCHOOL") ||
 	    	redirectUrl.contains("u/") && roleName.equals("ROLE_STUDENT")||
 	    	redirectUrl.contains("student") && roleName.equals("ROLE_STUDENT") ||
-	    	redirectUrl.contains("lecturer") && roleName.equals("ROLE_LECTURER")) {
+	    	redirectUrl.contains("lecturer") && roleName.equals("ROLE_LECTURER") ||
+	    	redirectUrl.contains("eh-admin") && roleName.equals("ROLE_SUPERADMIN") ) {
 	    	response.sendRedirect(redirectUrl);
 	    }else if(redirectUrl.contains("school-admin") && !roleName.equals("ROLE_ADMINSCHOOL")||
 		    	redirectUrl.contains("school-lecturer") && !roleName.equals("ROLE_LECTURERSCHOOL") ||
 		    	redirectUrl.contains("u/") && !roleName.equals("ROLE_STUDENT")||
 		    	redirectUrl.contains("student") && !roleName.equals("ROLE_STUDENT") ||
-		    	redirectUrl.contains("lecturer") && !roleName.equals("ROLE_LECTURER")
+		    	redirectUrl.contains("lecturer") && !roleName.equals("ROLE_LECTURER") ||
+		    	redirectUrl.contains("lecturer") && !roleName.equals("ROLE_SUPERADMIN")
 	    		) {
 	    	response.sendRedirect("/dang-xuat");
 	    }
 	    
 	    else if(roleName.equals("ROLE_ADMINSCHOOL")|| roleName.equals("ROLE_LECTURERSCHOOL") || 
-	    		roleName.equals("ROLE_STUDENT") || roleName.equals("ROLE_USER") || roleName.equals("ROLE_LECTURER")) {
+	    		roleName.equals("ROLE_STUDENT") || roleName.equals("ROLE_USER") || roleName.equals("ROLE_LECTURER") ||
+	    		roleName.equals("ROLE_SUPERADMIN")) {
 	    	response.sendRedirect(redirectUrl);
 	    }  
 	    else {

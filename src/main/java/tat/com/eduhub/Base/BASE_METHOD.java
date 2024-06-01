@@ -14,6 +14,8 @@ import java.util.Random;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
+import tat.com.eduhub.entity.User;
+
 public class BASE_METHOD {
 
 	private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -228,4 +230,14 @@ public class BASE_METHOD {
 		model.addAttribute("fragment", fragmentUrl);
 	}
 
+	public static void titleAndAction(String title, String action, Model model) {
+		model.addAttribute("action", action);
+		model.addAttribute("title", title);
+	}
+	
+	public static void titleActionUser(String title, String action, User user, Model model) {
+		model.addAttribute("action", action);
+		model.addAttribute("title", title);
+		model.addAttribute("user", user);
+	}
 }

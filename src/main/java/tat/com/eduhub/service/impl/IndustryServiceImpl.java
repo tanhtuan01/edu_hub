@@ -56,4 +56,16 @@ public class IndustryServiceImpl implements IndustryService{
 		// TODO Auto-generated method stub
 		repository.deleteById(id);
 	}
+	
+	@Override
+	public boolean checkIndustryWithSchool(Long id, School school) {
+		// TODO Auto-generated method stub
+		return repository.existsBySchoolAndIdEquals(school, id);
+	}
+	
+	@Override
+	public List<Industry> listIndustrySchool(School school) {
+		// TODO Auto-generated method stub
+		return repository.findBySchool(school);
+	}
 }

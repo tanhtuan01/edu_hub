@@ -24,12 +24,116 @@
 				</a> 
 			</div> -->
 
+			<div class="list-form-search">
+				<a class="txt14 t-d" style="padding: 0 20px;"
+					th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/danh-sach'}">Hiển
+					thị toàn bộ</a>
+				<form method="GET"
+					th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/danh-sach/trang-thai' }">
+					<div class="form-group">
+						<div class="label">Trạng thái</div>
+						<div class="input">
+							<select name="tt">
+								<option value="">Toàn bộ</option>
+								<option th:selected="${tt == 1}" value="da-hoan-thanh">1.
+									Đã hoàn thành</option>
+								<option th:selected="${tt == 2}" value="chua-hoan-thanh">2.
+									Chưa hoàn thành</option>
+								<option th:selected="${tt == 3}" value="da-dang">3. Đã
+									đăng</option>
+								<option th:selected="${tt == 4}" value="chua-dang">4.
+									Chưa đăng</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="label">Tìm theo khóa đào tạo</div>
+						<div class="input">
+							<input type="text" name="kdt" th:value="${kdt}">
+						</div>
+					</div>
+					<div style="display: flex">
+						<div class="form-group">
+							<div class="label">Trình độ đào tạo</div>
+							<div class="input">
+								<select name="tddt">
+									<option value="">Toàn bộ</option>
+									<option th:selected="${tddt == 'level_undergraduate'}"
+										value="level_undergraduate">1. Đại học</option>
+									<option th:selected="${tddt == 'level_master_degree'}"
+										value="level_master_degree">2. Thạc sĩ</option>
+									<option th:selected="${tddt == 'level_doctorate'}"
+										value="level_doctorate">3. Tiến sĩ</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="label">Loại hình đào tạo</div>
+							<div class="input">
+								<select name="lhdt">
+									<option value="">Toàn bộ</option>
+									<option th:selected="${lhdt == 'type_regular'}"
+										value="type_regular">1. Chính quy</option>
+									<option th:selected="${lhdt == 'type_work_study'}"
+										value="type_work_study">2. Vừa học vừa làm</option>
+									<option th:selected="${lhdt == 'type_online_learning'}"
+										value="type_online_learning">3. Đào tạo từ xa</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+
+						<div class="input">
+							<input type="submit" value="Lọc" class="btn btn-primary">
+						</div>
+					</div>
+				</form>
+
+				<form method="get" id="majorIndustry"
+				th:action="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/danh-sach/nganh-chuyen-nganh' }">
+					<div style="display: flex">
+						<div class="form-group">
+							<div class="label">Ngành đào tạo</div>
+							<div class="input">
+								<select name="ndt" onchange="getMajorOfIndustry(this)">
+									<option value="0">Chọn ngành đào tạo</option>industries
+									<option th:selected="${idt.id == ndt}" th:each="idt: ${industries}" th:value="${idt.id}"
+										th:attr="data-industry=${idt.id}">
+										[[${idt.industryName}]]</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="label">Chuyên ngành đào tạo</div>
+							<div class="input">
+								<select name="cndt" class="majors">
+									<option value="0" class="item-major">Bạn chưa chọn ngành đào tạo</option>
+									<option th:attr="data-cndt=${cndt}" th:selected="${m.id == cndt}" style="display: none" th:each="m : ${majors}" th:value="${m.id}"
+										th:class="'item-major major-of-industry-' + ${m.industry.id}">[[${m.majorName}]]</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input">
+							<input class="btn btn-primary" type="submit" value="Lọc">
+						</div>
+					</div>
+				</form>
+			</div>
+			<a th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/danh-sach/chua-co-chuyen-nganh'}" class="txt14 t-d">Chương trình chưa có chuyên ngành</a>
+			<th:block th:if="${txt != null}">
+				<pre class="txt14 text-alert">[[${txt}]]</pre>
+			</th:block>
+			<p class="text-alert">[[${#lists.size(list)}]]  kết quả</p>
 			<div>
 				<table cellspacing="1" id="tableListTp">
 					<thead>
 						<tr>
 							<th class="stt">STT</th>
 							<th class="name">Chương trình đào tạo</th>
+							<th class="status">Khóa đào tạo</th>
 							<th class="status">Đăng tải</th>
 							<th class="status">Trạng thái</th>
 							<th class="rate-of-progress">Tiến độ</th>
@@ -42,36 +146,41 @@
 					<tbody>
 						<tr th:each="tp,i : ${list}">
 							<td class="stt" th:text="${i.count}">1</td>
-							<td class="name" th:text="${tp.name}">Tên chương trình đào tạo</td>
+							<td class="name" th:text="${tp.name}">Tên chương trình đào
+								tạo</td>
+							<td class="status" th:text="${tp.cohort}"></td>
 							<td class="status" th:if="${tp.postStatus}">
-								<p>Đã đăng</p> (<a th:href="@{'/school-admin/' +${domain} + '/chuong-trinh-dao-tao/trang-thai?act=unpost&id=' + ${tp.id} }">thay đổi > chưa đăng</a>)
+								<p>Đã đăng</p> (<a
+								th:href="@{'/school-admin/' +${domain} + '/chuong-trinh-dao-tao/trang-thai?act=unpost&id=' + ${tp.id} }">thay
+									đổi > chưa đăng</a>)
 							</td>
 							<td class="status" th:unless="${tp.postStatus}">
-								<p>Chưa đăng</p> (<a th:href="@{'/school-admin/' +${domain} + '/chuong-trinh-dao-tao/trang-thai?act=post&id=' + ${tp.id} }">thay đổi > đăng</a>)
+								<p>Chưa đăng</p> (<a
+								th:href="@{'/school-admin/' +${domain} + '/chuong-trinh-dao-tao/trang-thai?act=post&id=' + ${tp.id} }">thay
+									đổi > đăng</a>)
 							</td>
-							<td th:text="${tp.status == '100%'} ? 'Hoàn thành' : 'Chưa hoàn thành'" class="status">Chưa hoàn thành</td>
+							<td
+								th:text="${tp.status == '100%'} ? 'Hoàn thành' : 'Chưa hoàn thành'"
+								class="status">Chưa hoàn thành</td>
 							<td th:text="${tp.status}" class="rate-of-progress">100%</td>
-							<td class="rate-of-progress">
-								<a th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/pcgv?id=' + ${tp.id} }" class="btn btn-edit">
-									<i class="fa-solid fa-list-check"></i>
-								</a>
-							</td>
-							<td class="act">
-								<a th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/chi-tiet?id=' + ${tp.id} }" class="btn btn-view">
-									<i class="fa-solid fa-eye"></i>
-								</a>
-							</td>
-							
-							<td class="act">
-								<a th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/chinh-sua?id=' + ${tp.id} }" class="btn btn-edit">
-									<i class="fa-solid fa-pen-to-square"></i>
-								</a>
-							</td>
-							<td class="act">
-								<a th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/xoa?id=' + ${tp.id} }" class="btn btn-minus" onclick="deleteTrainingProgram(this)">
+							<td class="rate-of-progress"><a
+								th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/pcgv?id=' + ${tp.id} }"
+								class="btn btn-edit"> <i class="fa-solid fa-list-check"></i>
+							</a></td>
+							<td class="act"><a
+								th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/chi-tiet?id=' + ${tp.id} }"
+								class="btn btn-view"> <i class="fa-solid fa-eye"></i>
+							</a></td>
+
+							<td class="act"><a
+								th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/chinh-sua?id=' + ${tp.id} }"
+								class="btn btn-edit"> <i class="fa-solid fa-pen-to-square"></i>
+							</a></td>
+							<td class="act"><a
+								th:href="@{'/school-admin/' + ${domain} + '/chuong-trinh-dao-tao/xoa?id=' + ${tp.id} }"
+								class="btn btn-minus" onclick="deleteTrainingProgram(this)">
 									<i class="fa-solid fa-minus"></i>
-								</a>
-							</td>
+							</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -102,8 +211,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		}, 800)
     });
 	</script>
-	
-	<script th:if="${param.updated}" th:inline="javascript">
+
+<script th:if="${param.updated}" th:inline="javascript">
 		
 document.addEventListener('DOMContentLoaded', function() {
 	setTimeout(()=>{

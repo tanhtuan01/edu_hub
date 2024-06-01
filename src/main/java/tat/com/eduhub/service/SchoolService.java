@@ -1,5 +1,7 @@
 package tat.com.eduhub.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -21,4 +23,8 @@ public interface SchoolService {
 	Long saveAndGetId(School school);
 	
 	School findByDomain(String domain);
+	
+	List<School> listByStatus(String status);
+	
+	List<School> findAll();
 }

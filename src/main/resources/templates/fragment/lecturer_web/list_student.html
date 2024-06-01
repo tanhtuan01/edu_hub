@@ -1,0 +1,82 @@
+<div class="hero">
+	<h1>Quản lý khóa học</h1>
+	<p>Danh sách học viên.</p>
+</div>
+<div class="featured-courses">
+	<h2>Thông tin khóa học</h2>
+	<div class="courses-info r-content">
+		<div class="info-row">
+			<div class="left">
+				<div class="box">
+					<div class="img">
+						<img th:src="@{'/img/courses_lesson/' + ${c.image}}" alt="">
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<div class="name" th:field="${c.name}">Khóa học</div>
+				<div class="short-desc" th:field="${c.shortDescription}">Mô tả
+					ngắn về khóa học</div>
+				<div th:if="${c.type == 'free'}" class="type">Miễn phí</div>
+				<th:block th:if="${c.type == 'paid'}">
+					<div class="type">Trả phí</div>
+					<div class="price"
+						th:text="${#numbers.formatDecimal(c.newPrice, 1, 'POINT', 0, 'POINT')} + 'đ'">899999999
+						vnđ</div>
+					<div>
+						<p>
+							<del>
+								<small
+									th:text="${#numbers.formatDecimal(c.oldPrice, 1, 'POINT', 0, 'POINT')} + 'đ'"></small>
+							</del>
+							- <small th:text="${c.discount} + '%'"></small>
+						</p>
+					</div>
+				</th:block>
+
+
+				<div class="button">
+					<a
+						th:href="@{'/lecturer/khoa-hoc/chinh-sua?courses_id=' +${c.id} }"
+						class="btn btn-primary">Sửa thông tin</a> <a
+						th:href="@{'/lecturer/khoa-hoc/bai-hoc/them-moi?courses_id=' + ${c.id}}"
+						class="btn btn-primary">Thêm bài học</a> <a
+						th:href="@{'/lecturer/khoa-hoc/bai-hoc/danh-muc?courses_id=' + ${c.id}}"
+						class="btn btn-primary">Danh mục bài học</a> <a
+						th:href="@{'/lecturer/khoa-hoc/bai-hoc/hoc-vien?courses_id=' + ${c.id}}"
+						class="btn btn-primary">Danh sách học viên</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="list-student">
+		<h2>Danh Sách Học Viên Tham Gia Khóa Học</h2>
+
+
+		<div class="new-student">
+			<div class="r-content">
+				<div class="list">
+					<table>
+						<tr>
+							<th class="stt">STT</th>
+							<th class="stt">Ảnh</th>
+							<th class="name">Họ Và Tên Học Viên</th>
+							<th class="time">Thời gian</th>
+							<th class="view">Xem</th>
+						</tr>
+						<tr th:each="s,i : ${studentCourses}">
+							<td class="stt" th:text="${i.count}">STT</td>
+							<td class="stt">
+								<img style="width: 50px; height: 50px;" th:src="@{'/img/' +${s.user.avt} }">
+							</td>
+							<td class="name tal" th:text="${s.user.userName}">Họ Và Tên Học Viên</td>
+							<td class="time tal" th:text="${s.createdDate}">Thời gian</td>
+							<td class="view tal">Xem</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

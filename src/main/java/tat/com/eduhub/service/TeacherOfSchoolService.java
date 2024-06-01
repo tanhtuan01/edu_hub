@@ -24,4 +24,6 @@ public interface TeacherOfSchoolService {
 	boolean existsByUserAndSchoolLecturer(User user, School school);
 	
 	TeacherOfSchool findByUser(User user);
+	
+	TeacherOfSchool findByUserAdminSchool(School school);
 }

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import tat.com.eduhub.entity.Industry;
 import tat.com.eduhub.entity.Major;
 import tat.com.eduhub.repository.MajorRepository;
 import tat.com.eduhub.service.MajorService;
@@ -50,5 +51,11 @@ public class MajorServiceImpl implements MajorService{
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
 		repository.deleteById(id);;
+	}
+	
+	@Override
+	public boolean checkMajorWithIndustry(Long id, Industry industry) {
+		// TODO Auto-generated method stub
+		return repository.existsByIndustryAndIdEquals(industry, id);
 	}
 }

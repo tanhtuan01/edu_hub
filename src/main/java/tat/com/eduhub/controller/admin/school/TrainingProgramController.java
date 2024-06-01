@@ -1,9 +1,11 @@
 package tat.com.eduhub.controller.admin.school;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.aspectj.weaver.ast.And;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,7 +25,9 @@ import tat.com.eduhub.base.UserSchoolUtils;
 import tat.com.eduhub.component.SchoolAccountCheck;
 import tat.com.eduhub.component.UserHelper;
 import tat.com.eduhub.dto.TrainingProgramDTO;
+import tat.com.eduhub.entity.Industry;
 import tat.com.eduhub.entity.KnowledgeModule;
+import tat.com.eduhub.entity.Major;
 import tat.com.eduhub.entity.Modules;
 import tat.com.eduhub.entity.ProgramContent;
 import tat.com.eduhub.entity.School;
@@ -32,6 +36,7 @@ import tat.com.eduhub.entity.TeacherOfSchool;
 import tat.com.eduhub.entity.TrainingProgram;
 import tat.com.eduhub.entity.User;
 import tat.com.eduhub.service.EmailSenderService;
+import tat.com.eduhub.service.IndustryService;
 import tat.com.eduhub.service.KnowledgeModuleService;
 import tat.com.eduhub.service.MajorService;
 import tat.com.eduhub.service.ModuleService;
@@ -81,6 +86,9 @@ public class TrainingProgramController {
 	private SubjectDistributionDetailService sddService;
 	
 	@Autowired
+	private IndustryService industryService;
+	
+	@Autowired
 	private EmailSenderService emailSenderService;
 	
 	private ModelMapper mapper = new ModelMapper();
@@ -94,8 +102,11 @@ public class TrainingProgramController {
 			Authentication authentication) {
 		idTpSaved = (long) 0;
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
-		
+		BASE_METHOD.titleAndAction("Thêm mới chương trình đào tạo", "add-tp", model);
 		BASE_METHOD.FragmentAdminSchool("create_training_program", model);
+		School school = schoolService.findByDomain(domain);
+		List<TrainingProgram> trainingPrograms = tpService.listBySchoolAndLimitDESC(school.getId(), 5);
+		model.addAttribute("tp", trainingPrograms);
 		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
 	}
 	
@@ -128,7 +139,7 @@ public class TrainingProgramController {
 		model.addAttribute("module", moduleService.findBySchool(schoolService.findByDomain(domain)));
 		List<KnowledgeModule> listKnowledgeModuleByTrainingProgram = knowledgeModuleService.listKnowledgeModuleByTrainingProgram(idTpSaved);
 		model.addAttribute("knowledgeModule", listKnowledgeModuleByTrainingProgram);
-		
+		BASE_METHOD.titleAndAction("Chỉnh sửa nội dung", "add-tp", model);
 		model.addAttribute("tpItem", tpItem);
 		BASE_METHOD.FragmentAdminSchool("training_program", model);
 		try {
@@ -184,6 +195,12 @@ public class TrainingProgramController {
 		List<TrainingProgram> list = tpService.findBySchool(school);
 		model.addAttribute("list", list);
 		idTpSaved = (long)0;
+		model.addAttribute("kdt", "");
+		List<Industry> industries = industryService.listIndustryBySchool(school, "desc");
+		model.addAttribute("industries", industries);
+		List<Major> majors = majorService.listMajorByIdSchool(school.getId());
+		model.addAttribute("majors", majors);
+		BASE_METHOD.titleAndAction("Danh sách chương trình đào tạo", "list-tp", model);
 		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
 	}
 	
@@ -300,6 +317,8 @@ public class TrainingProgramController {
 		}
 		BASE_METHOD.FragmentAdminSchool("faculty_assignment", model);
 		TrainingProgram tp = tpService.get(idTpAssignment);
+		BASE_METHOD.titleAndAction("Phân công giảng viên", "list-tp", model);
+		idTpSaved = tp.getId();
 		model.addAttribute("tp", tp);
 		School school = schoolService.findByDomain(domain);
 		List<TeacherOfSchool> list = tosService.listTeacherOfSchools(school);
@@ -376,10 +395,193 @@ public class TrainingProgramController {
 		if(idTpSaved == null || idTpSaved == 0) {
 			return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/danh-sach";
 		}
+		BASE_METHOD.titleAndAction("Chi tiết chương trình đào tạo", "list-tp", model);
 		BASE_METHOD.FragmentAdminSchool("view_training_program", model);
 		TrainingProgram tp = tpService.get(idTpSaved);
 		model.addAttribute("tp", tp);
 		
 		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
 	}
+	
+	@GetMapping(value = "/xem-tep/{sdId}")
+	@SchoolAccountCheck
+	public String viewFileOfSubjectDistribution(Model model, Authentication authentication,
+			@PathVariable(name = "sdId") Long sdId, 
+			@PathVariable(name = "domain") String domain) {
+		
+		if(sdId == null) {
+			return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao";
+		}
+		TrainingProgram trainingProgram = tpService.get(idTpSaved);
+		boolean existsTpAndIdSd = subjectDistributionService.existsByTrainingProgramAndId(trainingProgram, sdId);
+		if(!existsTpAndIdSd) {
+			return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/pcgv?id=" + idTpSaved;
+		}
+		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
+		BASE_METHOD.titleAndAction("Tệp trong chương trình đào tạo", "list-tp", model);
+		SubjectDistribution subjectDistribution = subjectDistributionService.get(sdId);
+		model.addAttribute("tp", trainingProgram);
+		model.addAttribute("sd", subjectDistribution);
+		model.addAttribute("tpId", idTpSaved);
+		BASE_METHOD.FragmentAdminSchool("view_file", model);
+		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
+	}
+	
+	@GetMapping(value = "/danh-sach/trang-thai")
+	@SchoolAccountCheck
+	public String manageTrainingProgram(Model model, @PathVariable(name = "domain") String domain,
+			Authentication authentication, HttpServletRequest request) {
+		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
+		BASE_METHOD.FragmentAdminSchool("list_training_program", model);
+		School school = schoolService.findByDomain(domain);
+	
+		try {
+			String trangThai = request.getParameter("tt");
+			String khoaDaoTao = request.getParameter("kdt");
+			String trinhDoDaoTao = request.getParameter("tddt");
+			String loaiHinhDaoTao = request.getParameter("lhdt");
+			List<TrainingProgram> trainingPrograms = new ArrayList<>();
+			int tt = 0;
+			if(trangThai.equals("")) {
+//				return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/danh-sach";
+				trainingPrograms = tpService.listTPSchoolCohortLevelType(school, khoaDaoTao, trinhDoDaoTao, loaiHinhDaoTao);
+			}else if(trangThai.equals("da-hoan-thanh")) {
+				
+				tt = 1;
+				trainingPrograms = tpService.listTPSchoolFinishCohortLevelType(school, "100%", khoaDaoTao, trinhDoDaoTao, loaiHinhDaoTao);
+			}else if(trangThai.equals("chua-hoan-thanh")) {
+				tt = 2;
+				trainingPrograms = tpService.listTPSchoolUnFinishCohortLevelType(school, "100%", khoaDaoTao, trinhDoDaoTao, loaiHinhDaoTao);
+			}else if(trangThai.equals("da-dang")) {
+				tt = 3;
+				trainingPrograms = tpService.listTPSChoolPostedCohortLevelType(school, khoaDaoTao, trinhDoDaoTao, loaiHinhDaoTao);
+			}else if(trangThai.equals("chua-dang")) {
+				tt = 4;
+				trainingPrograms = tpService.listTPSChoolNotPostCohortLevelType(school, khoaDaoTao, trinhDoDaoTao, loaiHinhDaoTao);
+			}else if(trangThai.equals("") && khoaDaoTao.equals("") && trinhDoDaoTao.equals("") && loaiHinhDaoTao.equals("")) {
+				return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/danh-sach";
+			}
+//			else {
+////				return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/danh-sach";
+//			}
+			String txt = "Tìm theo: " + 
+					"\n\t Trạng thái: " + str(trangThai) + 
+					"\n\t Khóa đào tạo: " + str(khoaDaoTao) + 
+					"\n\t Trình độ đào tạo: " + str(trinhDoDaoTao) + 
+					"\n\t Loại hình đào tạo: " + str(loaiHinhDaoTao) 
+					;
+			model.addAttribute("txt", txt);
+			model.addAttribute("list", trainingPrograms);
+			model.addAttribute("tt", tt);
+			model.addAttribute("kdt", khoaDaoTao);
+			model.addAttribute("tddt", trinhDoDaoTao);
+			model.addAttribute("lhdt", loaiHinhDaoTao);
+			idTpSaved = (long)0;
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		BASE_METHOD.titleAndAction("Quản lý chương trình đào tạo", "list-tp", model);
+		List<Industry> industries = industryService.listIndustryBySchool(school, "desc");
+		model.addAttribute("industries", industries);
+		List<Major> majors = majorService.listMajorByIdSchool(school.getId());
+		model.addAttribute("majors", majors);
+		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
+	}
+	
+	public String str(String str) {
+		switch (str) {
+		case "level_undergraduate":
+			return "Đại học";
+		case "level_master_degree":
+			return "Thạc sĩ";
+		case "level_doctorate":
+			return "Tiến sĩ";
+		case "type_regular":
+			return "Chính quy";
+		case "type_work_study":
+			return "Vừa học vừa làm";
+		case "type_online_learning":
+			return "Đào tạo từ xa";
+		case "":
+			return "Trống";
+		case "da-hoan-thanh":
+			return "Đã hoàn thành";
+		case "chua-hoan-thanh":
+			return "Chưa hoàn thành";
+		case "da-dang":
+			return "Đã đăng";
+		case "chua-dang":
+			return "Chưa đăng";
+		}
+		return str;
+	}
+	
+	@GetMapping(value = "/danh-sach/nganh-chuyen-nganh")
+	@SchoolAccountCheck
+	public String industryMajor(Model model, Authentication authentication,
+			@PathVariable(name = "domain") String domain, HttpServletRequest  request) {
+		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
+		BASE_METHOD.FragmentAdminSchool("list_training_program", model);
+		BASE_METHOD.titleAndAction("Quản lý chương trình đào tạo", "list-tp", model);
+		School school = schoolService.findByDomain(domain);
+		List<Industry> industries = industryService.listIndustryBySchool(school, "desc");
+		model.addAttribute("industries", industries);
+		List<Major> majors = majorService.listMajorByIdSchool(school.getId());
+		model.addAttribute("majors", majors);
+		Long idIndustry = Long.valueOf(request.getParameter("ndt"));
+		Long idMajor = Long.valueOf(request.getParameter("cndt"));
+		List<TrainingProgram> trainingPrograms = new ArrayList<>();
+		String txt = "";
+		if(idIndustry == 0 && idMajor == 0) {
+			return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/danh-sach";
+		}else if(idIndustry != 0 && idMajor == 0) {
+			boolean checkIndustryWithSchool = industryService.checkIndustryWithSchool(idIndustry, school);
+			if(!checkIndustryWithSchool) {
+				return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/danh-sach";
+			}
+			Industry industry = industryService.get(idIndustry);
+			txt = "Tìm theo: " +
+					"\n\t Ngành đào tạo: " + industry.getIndustryName();
+			trainingPrograms = tpService.listTPByIdIndustryAndIdSchool(idIndustry, school.getId());
+		}else if(idMajor != 0 && idIndustry != 0) {
+			boolean checkIndustryWithSchool = industryService.checkIndustryWithSchool(idIndustry, school);
+			if(!checkIndustryWithSchool) {
+				return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/danh-sach";
+			}
+			Industry industry = industryService.get(idIndustry);
+			
+			
+			boolean checkMajorWithIndustry = majorService.checkMajorWithIndustry(idMajor, industry);
+			if(!checkMajorWithIndustry) {
+				return "redirect:/school-admin/" + domain + "/chuong-trinh-dao-tao/danh-sach";
+			}
+			Major major = majorService.get(idMajor);
+			txt = "Tìm theo: " +
+					"\n\t Ngành đào tạo: " + industry.getIndustryName() + 
+					"\n\t Chuyên ngành đào tạo: " + major.getMajorName();
+			trainingPrograms = tpService.findByMajor(major);
+		}
+		model.addAttribute("ndt", idIndustry);
+		model.addAttribute("cndt", idMajor);
+		model.addAttribute("list", trainingPrograms);
+		model.addAttribute("txt", txt);
+		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT; 
+	}
+	
+	@GetMapping(value = "/danh-sach/chua-co-chuyen-nganh")
+	@SchoolAccountCheck
+	public String tpEmptyMajor(Model model, @PathVariable(name = "domain") String domain,
+			Authentication authentication) {
+		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
+		School school = schoolService.findByDomain(domain);
+		List<Industry> industries = industryService.listIndustryBySchool(school, "desc");
+		model.addAttribute("industries", industries);
+		List<Major> majors = majorService.listMajorByIdSchool(school.getId());
+		model.addAttribute("majors", majors);
+		model.addAttribute("list", tpService.listTPByMajorNull());
+		BASE_METHOD.FragmentAdminSchool("list_training_program", model);
+		BASE_METHOD.titleAndAction("Quản lý chương trình đào tạo", "list-tp", model);
+		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT; 
+	}
+	
 }

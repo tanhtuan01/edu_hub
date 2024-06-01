@@ -487,7 +487,7 @@ function deleteTrainingProgram(e){
 	var name = e.closest("tr").querySelector(".name").textContent
 	Swal.fire({
 		title: "Xác nhận xóa?",
-		text: "Bạn có chắc muốn xóa chương trình đào tạo: \n" + name,
+		text: "Bạn có chắc chắn muốn xóa chương trình đào tạo: " + name,
 		icon: "warning",
 		showCancelButton: true,
 		confirmButtonColor: "#57D45A",
@@ -553,4 +553,31 @@ function transferTextAreaToDiv(textAreaID, divID){
 	var divId = document.getElementById(divID)
 	
 	divId.innerHTML = textAreaId
+}
+
+
+function showModulesOfMajor(e){
+	console.log(e)
+	var data = e.dataset.major
+	
+	const majorItems = document.querySelectorAll(".majors .item")
+	majorItems.forEach((m) => {
+		m.classList.remove("active")
+	})
+	
+	e.classList.add("active")
+	
+	var moduleSelector = `.modules .item-module-of-major-${data}`
+	console.log(moduleSelector)
+	
+	const moduleItems = document.querySelectorAll(".modules .item-module")
+	moduleItems.forEach((m) => {
+		m.classList.add("hidden")
+	})
+	
+	const moduleItemsBySelector = document.querySelectorAll(moduleSelector)
+	moduleItemsBySelector.forEach((m) => {
+		m.classList.remove("hidden")
+	})
+	
 }

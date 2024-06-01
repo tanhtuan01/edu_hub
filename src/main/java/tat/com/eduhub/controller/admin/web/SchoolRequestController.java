@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,7 @@ import tat.com.eduhub.service.TeacherOfSchoolService;
 import tat.com.eduhub.service.UserService;
 
 @Controller
-@RequestMapping(value = "/eh-admin/request")
+@RequestMapping(value = "/eh-admin/yeu-cau")
 public class SchoolRequestController {
 
 	@Autowired
@@ -48,7 +49,8 @@ public class SchoolRequestController {
 
 	@GetMapping
 	public String listSchoolRequest(Model model, @RequestParam(name = "size", defaultValue = "10")int size,
-			@RequestParam(name = "page", defaultValue = "1") int page) {
+			@RequestParam(name = "page", defaultValue = "1") int page,
+			Authentication authentication) {
 		BASE_METHOD.FragmentAdminWeb("request_list", model);
 		Pageable pageable = PageRequest.of(page - 1, size);
 		
@@ -57,10 +59,12 @@ public class SchoolRequestController {
 		model.addAttribute("currentPage", pageListSchoolIsNotActive.getNumber());
 		model.addAttribute("totalPages", pageListSchoolIsNotActive.getTotalPages());
 		model.addAttribute("page", page);
+		User user = userService.findByEmail(authentication.getName());
+		BASE_METHOD.titleActionUser("Danh sách yêu cầu", "request", user, model);
 		return BASE_FIELD.ADMIN_WEB_LAYOUT;
 	}
 	
-	@GetMapping(value = "/confirm")
+	@GetMapping(value = "/xac-nhan")
 	public String confirmRequestFromSchool(@RequestParam(name = "id")Long id) {
 		
 		String randomStr = BASE_METHOD.randomString(5) + BASE_METHOD.createStrDateNow();
@@ -75,6 +79,8 @@ public class SchoolRequestController {
 		user.setEmail(school.getDomain()+"@eduhub.com");
 		user.setPasswords(passwordEncoder.encode(randomStr));
 		user.setRoles(Arrays.asList(new Role("ROLE_ADMINSCHOOL")));
+		user.setType("system_account");
+		user.setReceiveMail(school.getEmail());
 		Long userId = userService.saveAndGetId(user);
 		//get admin school account still create
 		User u = userService.get(userId);
@@ -87,15 +93,17 @@ public class SchoolRequestController {
 		
 		// send email
 		emailSenderService.sendEmail(school.getEmail(), 
-				"Tạo tài khoản thành công", "Đây là tài khoản admin của bạn: tài khoản: "+ u.getEmail() +", mật khẩu: "+randomStr +",đường dẫn: https://www.facebook.com/");
+				"Tạo tài khoản thành công", "Đây là tài khoản admin của bạn: tài khoản: "+ 
+		u.getEmail() +", mật khẩu: "+randomStr +",đường dẫn: http://localhost:2024/school-admin/" + 
+						school.getDomain());
 		
-		return "redirect:/eh-admin/request?confirm_success";
+		return "redirect:/eh-admin/yeu-cau?confirm_success";
 	}
 	
-	@GetMapping(value = "/delete")
+	@GetMapping(value = "/xoa")
 	public String deleteRequestFromSchool(@RequestParam(name = "id")Long id) {
 		schoolService.delete(id);
-		return "redirect:/eh-admin/request?delete_success";
+		return "redirect:/eh-admin/yeu-cau?delete_success";
 	}
 	
 }

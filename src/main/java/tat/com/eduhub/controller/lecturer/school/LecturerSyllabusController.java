@@ -61,6 +61,7 @@ public class LecturerSyllabusController {
 		BASE_METHOD.FragmentLecturerSchool("syllabus", model);
 		
 		setData(model, domain);
+		BASE_METHOD.titleAndAction("Đề cương", "syllabus", model);
 		model.addAttribute("act", "add");
 		return BASE_FIELD.LECTURER_SCHOOL_LAYOUT;
 	}
@@ -122,6 +123,7 @@ public class LecturerSyllabusController {
 		else {
 			syllabusPage = syllabusService.findByIdModuleAndModuleCodeOrModuleName(idModule, key, pageable);
 		}
+		BASE_METHOD.titleAndAction("Đề cương", "syllabus", model);
 		model.addAttribute("listSearch", syllabusPage);
 		model.addAttribute("page", page);
 		model.addAttribute("key", key);

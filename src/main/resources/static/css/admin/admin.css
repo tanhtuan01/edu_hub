@@ -1,3 +1,54 @@
+.admin-statistics .body-content{
+	background: white;
+}
+
+.admin-statistics .list {
+	display: flex;
+	background: white;
+	justify-content: center;
+}
+
+.admin-statistics .list .item{
+	padding: 15px;
+	border: 1px solid silver;
+	margin: 10px 5px;
+	border-radius: 10px;
+	flex-basis: calc(100% / 5);
+	transition: all .2s ease;
+}
+
+.admin-statistics .list .item img{
+	width: 80px;
+	height: 80px;
+}
+
+.admin-statistics .list .item .logo-number{
+	display: flex;
+}
+
+.admin-statistics .list .item:hover{
+	border-color: var(--primary-color);
+	box-shadow: 1px 1px 1px 1px var(--primary-color);
+}
+
+.admin-statistics .list .item .logo-number .number{
+	margin: auto;
+	font-size: 30px;
+	padding: 0 10px;
+}
+
+.admin-statistics .list .item .name{
+	padding: 10px;
+}
+
+.admin-statistics .list .item a{
+	color: black;
+}
+
+.admin-statistics .list .item a:hover{
+	color: var(--primary-color);
+}
+
 /* request-list */
 
 .request-list table{
@@ -86,12 +137,39 @@
 /* end request-list */
 
 
+#SchoolOnWeb_wrapper, #StudentUser_wrapper{
+	font-size: var(--text-size14);
+}
 
+#SchoolOnWeb_filter, #SchoolOnWeb_length, #StudentUser_filter, #StudentUser_length{
+	width: 100%;
+	text-align: left;
+	padding: 3px;
+}
 
+#SchoolOnWeb_filter input[type='search'], #StudentUser_filter input[type='search']{
+	width: 50%;
+}
 
+#SchoolOnWeb_filterm, #StudentUser_filter{
+	padding-bottom: 5px;
+}
 
+#SchoolOnWeb_filter input[type='search']:focus, #StudentUser_filter input[type='search']:focus{
+	border-color: var(--primary-color);
+}
 
+#SchoolOnWeb tbody tr td, #SchoolOnWeb thead tr th, #StudentUser tbody tr td, #SchoolOnWeb thead tr th{
+	border: 1px solid var(--bg-silver);
+}
 
+#SchoolOnWeb thead tr, #StudentUser thead tr{
+	background: var(--primary-color);
+	color: white;
 
+}
 
+#swal2-html-container{
+	font-size: 17px;
+}
 

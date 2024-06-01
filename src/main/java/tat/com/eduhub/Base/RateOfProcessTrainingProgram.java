@@ -23,7 +23,7 @@ public class RateOfProcessTrainingProgram {
 		count += countNonEmptyString(trainingProgram.getType(), 3);
 		count += countNonEmptyString(trainingProgram.getCohort(), 3);
 
-		if (trainingProgram.getMajor().getId() > 0)
+		if (trainingProgram.getMajor() != null && trainingProgram.getMajor().getId() > 0)
 			count += 3;
 
 		count += countNonEmptyString(trainingProgram.getGeneralObjective(), 5);
@@ -31,7 +31,7 @@ public class RateOfProcessTrainingProgram {
 		count += countNonEmptyString(trainingProgram.getOutputStandards(), 5);
 		count += countNonEmptyString(trainingProgram.getJobProspects(), 5);
 
-		if (trainingProgram.getDuration() > 0)
+		if ( trainingProgram.getDuration() > 0)
 			count += 3;
 		if (trainingProgram.getTotalCredits() > 0)
 			count += 3;
@@ -118,7 +118,7 @@ public class RateOfProcessTrainingProgram {
 	}
 
 	private static int countNonEmptyString(String str, int value) {
-		return str.trim().length() > 0 ? value : 0;
+		return (str != null && str.trim().length() > 0 ) ? value : 0;
 	}
 
 	public static int totalRateOfProcess(TrainingProgram trainingProgram,

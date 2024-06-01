@@ -1,5 +1,7 @@
 package tat.com.eduhub.service;
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import tat.com.eduhub.dto.UserDTO;
@@ -22,4 +24,6 @@ public interface UserService extends UserDetailsService{
 	Long createLecturerAndGetId(User user);
 	
 	void delete(Long id);
+	
+	List<User> listRoleUserStudent();
 }

@@ -1,0 +1,12 @@
+
+<div class="content">
+	<h1 style="padding: 10px 0 30px">Khóa học của tôi</h1>
+	<div class="courses">
+		<div class="course" th:each="sc : ${studentCourses}">
+			<img th:src="@{'/img/courses_lesson/' + ${sc.courses.image}}">
+			<h2 th:text="${sc.courses.name}">Tên khóa học 1</h2>
+			<p style="padding: 10px 0" th:text="${sc.courses.shortDescription}">Mô tả khóa học 1...</p>
+			<a th:href="@{'/e-student/khoa-hoc/thong-tin-khoa-hoc?courses_id=' +${sc.courses.id} }" class="btn btn-primary">Vào học</a>
+		</div>
+	</div>
+</div>

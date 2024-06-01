@@ -2,6 +2,7 @@ package tat.com.eduhub.controller.lecturer.web;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,13 +23,16 @@ import tat.com.eduhub.base.BASE_METHOD;
 import tat.com.eduhub.component.UserHelper;
 import tat.com.eduhub.dto.CoursesDTO;
 import tat.com.eduhub.dto.LessonDTO;
+import tat.com.eduhub.dto.StudentCoursesDTO;
 import tat.com.eduhub.entity.CategoryLesson;
 import tat.com.eduhub.entity.Courses;
 import tat.com.eduhub.entity.Lesson;
+import tat.com.eduhub.entity.StudentCourses;
 import tat.com.eduhub.entity.User;
 import tat.com.eduhub.service.CategoryLessonService;
 import tat.com.eduhub.service.CoursesService;
 import tat.com.eduhub.service.LessonService;
+import tat.com.eduhub.service.StudentCoursesService;
 
 @Controller
 @RequestMapping(value = "/lecturer/khoa-hoc")
@@ -47,6 +51,9 @@ public class LecturerWebCoursesController {
 	
 	@Autowired
 	private CategoryLessonService categoryLessonService;
+	
+	@Autowired
+	private StudentCoursesService studentCoursesService;
 	
 	@GetMapping
 	public String coursesPage() {
@@ -195,4 +202,29 @@ public class LecturerWebCoursesController {
 		return "";
 	}
 	
+	@GetMapping(value = "/hoc-vien")
+	public String studentCoursesList(Model model,@RequestParam(name = "courses_id", required = false) Long id,
+			Authentication authentication) {
+		if(id == null) {
+			return "redirect:/lecturer/khoa-hoc/quan-ly";
+		}else {
+			String redirectUrl = checkAndReturn(authentication, id);
+			if(!redirectUrl.isEmpty()) {
+				return redirectUrl;
+			}
+		}
+		User user = userHelper.getUserLogged(authentication);
+		boolean existsByCoursesUser = coursesService.checkCoursesWithUser(user, id);
+		if(!existsByCoursesUser) {
+			return "redirect:/lecturer/khoa-hoc/quan-ly";
+		}
+		BASE_METHOD.FragmentLecturerWeb("list_student", model);
+		Courses courses = coursesService.get(id);
+		CoursesDTO coursesDTO = mapper.map(courses, CoursesDTO.class);
+		model.addAttribute("c", coursesDTO);
+		
+		List<StudentCourses> studentCourses = studentCoursesService.findByCourses(courses);
+		model.addAttribute("studentCourses", studentCourses);
+		return BASE_FIELD.LECTURER_WEB_LAYOUT;
+	}
 }

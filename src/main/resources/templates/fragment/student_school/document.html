@@ -20,8 +20,11 @@
 		</form>
 	</div>
 	<th:block th:if="${documents != null}">
-
+	
 		<div class="eh-school-title">Danh sách</div>
+		<div>
+			<p>Tìm kiếm theo: [[${hocphan}]] ([[${#lists.size(documents)}]] kết quả)</p>
+		</div>
 		<div class="list-document">
 			<table cellspacing="0">
 				<thead>

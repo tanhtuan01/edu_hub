@@ -25,6 +25,7 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import tat.com.eduhub.component.SchoolHelper;
 import tat.com.eduhub.component.UserHelper;
 //import tat.com.eduhub.custom.CustomAuthenticationFailureHandler;
 import tat.com.eduhub.custom.CustomAuthenticationSuccessHandler;
@@ -48,6 +49,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserHelper userHelper;
 	
+	@Bean
+	public SchoolHelper schoolHelper() {
+		return new SchoolHelper();
+	}
 	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -70,13 +75,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/", "/student/**" ,"/eh-admin/**", "/dang-ky/**", "/giang-day/**", "/quan-ly-ctdt/**" , "/js/**", "/css/**", "/img/**")
+				.antMatchers("/", "/student/**", "/courses/**" , "/uc/api/**", "/dang-ky/**", "/giang-day/**", "/quan-ly-ctdt/**" , "/js/**", "/css/**", "/img/**")
 					.permitAll()
 				.antMatchers("/school-admin/**").hasRole("ADMINSCHOOL")
 				.antMatchers("/school-lecturer/**").hasRole("LECTURERSCHOOL")
 				.antMatchers("/student/**").hasAnyAuthority("ROLE_USER", "ROLE_STUDENT", "ROLE_ADMINSCHOOL", "ROLE_LECTURERSCHOOL", "ROLE_LECTURER")
 				.antMatchers("/lecturer/**").hasRole("LECTURER")
-				.antMatchers("/profile/**").hasAnyAuthority("ROLE_USER", "ROLE_STUDENT", "ROLE_ADMINSCHOOL", "ROLE_LECTURERSCHOOL", "ROLE_LECTURER")
+				.antMatchers("/eh-admin/**").hasRole("SUPERADMIN")
+				.antMatchers("/profile/**", "/buy-now/**").hasAnyAuthority("ROLE_USER", "ROLE_STUDENT", "ROLE_ADMINSCHOOL", "ROLE_LECTURERSCHOOL", "ROLE_LECTURER", "ROLE_SUPERADMIN")
 				.anyRequest()
 				.authenticated()
 				.and()

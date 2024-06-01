@@ -327,6 +327,29 @@
 	border: 1px solid silver;
 }
 
+.list-tp #tableListTp_filter{
+	padding: 10px 0;
+    text-align: left;
+    display: block;
+    width: 100%;
+}
+
+.list-tp #tableListTp_filter input{
+	width: 50%;
+}
+
+.list-tp .list-form-search form .label{
+	width: 150px;
+}
+
+.list-tp .list-form-search form select{
+	min-width: 250px;
+}
+
+.list-tp .list-form-search form input:not(.btn){
+	min-width: 500px;
+}
+
 .tp-item-name{
     display: -webkit-box;
     margin-bottom: 4px;
@@ -655,4 +678,35 @@
 	padding: 10px 50px;
 	display:block;
 	color: white;
+}
+
+.recent-add-tp {
+	padding: 10px 20px;
+	background: white;
+}
+
+.recent-add-tp p.name{
+	padding: 5px 0;
+}
+
+.recent-add-tp .button a{
+	font-size: var(--text-size14);
+}
+
+.recent-add-tp .tp{
+	display: flex;
+	padding: 5px 0;
+}
+
+/* .recent-add-tp .tp:nth-child(2n+1){
+	background: var(--bg-silver);
+} */
+
+.recent-add-tp .tp .name{
+	width: 80%;
+}
+
+.recent-add-tp .tp .button{
+	display: flex;
+	align-items: center;
 }

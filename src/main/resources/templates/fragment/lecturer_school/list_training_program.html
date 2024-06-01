@@ -1,5 +1,5 @@
-<div class="r-content">
-	<div class="eh-header-title">Chương trình đào tạo</div>
+<div class="body-content r-content">
+	<div class="eh-header-title">Chương trình đào tạo của trường</div>
 
 	<th:block th:if="${#lists.size(tp) == 0}">
 		<p class="text-alert text-center">Chưa có chương trình đào tạo nào
@@ -8,7 +8,50 @@
 
 	<th:block th:if="${#lists.size(tp) > 0}">
 
-		<div class="list-ltp">
+		<table cellspacing="1" id="tableLecturerTP">
+
+			<thead>
+				<tr>
+					<th>STT</th>
+					<th>Tên chương trình</th>
+					<th>Trình độ đào tạo</th>
+					<th>Khóa đào tạo</th>
+					<th>Ngày đăng</th>
+					<th>Xem</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="t,i:  ${tp}">
+					<td>[[${i.count}]]</td>
+					<td>[[${t.name}]]</td>
+					<th:block
+						th:if="${t.level != null && t.level == 'level_undergraduate'}">
+						<td title=""
+							th:text="'Trình độ đào tạo: Đại học'"></td>
+					</th:block>
+					<th:block
+						th:if="${t.level != null && t.level == 'level_master_degree'}">
+						<td  title=""
+							th:text="'Trình độ đào tạo: Thạc sĩ'"></td>
+					</th:block>
+					<th:block
+						th:if="${t.level != null && t.level == 'level_doctorate'}">
+						<td title=""
+							th:text="'Trình độ đào tạo: Tiến sĩ'"></td>
+					</th:block>
+					<td>[[${t.cohort}]]</td>
+					<td>[[${t.createdDate}]]</td>
+					<td>
+						<a
+						th:href="@{'/school-lecturer/' + ${domain} + '/chuong-trinh-dao-tao/xem?ct=' +${t.name} + '&id=' + ${t.id} }"
+						class="btn btn-primary">Xem</a>
+					</td>
+				</tr>
+			</tbody>
+
+		</table>
+
+	<!-- 	<div class="list-ltp">
 			<div th:each="t:  ${tp}" class="tp-item">
 				<div class="tp-img">
 					<img th:src="@{'/img/tp.png'}" alt="">
@@ -47,6 +90,6 @@
 				</div>
 			</div>
 
-		</div>
+		</div> -->
 	</th:block>
 </div>

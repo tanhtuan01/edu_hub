@@ -4,31 +4,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Edu Hub -</title>
-<link rel="icon" type="image/x-icon" href="">
+<title>[[${title}]]</title>
+<link rel="icon" type="image/x-icon" href="/img/eduhub.png">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
-	
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
-	
+
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+
 <link rel="stylesheet" th:href="@{/css/base.css}">
+<link rel="stylesheet" th:href="@{/css/school/index.css}">
 <link rel="stylesheet" th:href="@{/css/admin_layout.css}">
 <link rel="stylesheet" th:href="@{/css/school/training_program.css}">
 <link rel="stylesheet" th:href="@{/css/school/industry_major.css}">
 <link rel="stylesheet" th:href="@{/css/school/lecturer.css}">
 <link rel="stylesheet" th:href="@{/css/school/account_school.css}">
 <link rel="stylesheet" th:href="@{/css/school/faculty_assignment.css}">
+<link rel="stylesheet" th:href="@{/css/footer.css}">
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
 
 <!-- DATA TABLE -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 
 <script>
 	function handleImageError(e) {
@@ -39,17 +43,18 @@
 </head>
 
 <body>
-	<div class="eh__admin">
+
+	<div class="eh__admin" id="school">
 		<div class="eh-content">
 			<div class="eh-content-left" id="leftContent">
 				<div class="content-left-logo">
 					<div class="top-logo">
 						<a href="">
 							<div class="logo-img">
-								<img id="admin-logo" src="" alt="">
+								<img id="admin-logo" src="/img/eduhub.png" alt="">
 							</div>
 							<div class="logo-img-behind">
-								<img id="admin-logo" src="" alt="">
+								<img id="admin-logo" src="/img/eduhub.png" alt="">
 							</div>
 						</a>
 					</div>
@@ -57,11 +62,11 @@
 				<div class="left-user-log">
 					<div class="user-info">
 						<div class="user-info-avt">
-							<img src="" alt="">
+							<img th:src="@{'/img/school/' + ${school.logo} }" alt="">
 						</div>
 						<div class="user-info-name">
-							<div class="user-name">ANH TUẤN</div>
-							<div class="user-email">trieuanhtuan@gmail.com</div>
+							<div class="user-name" th:text="${school.name}">Đại học...</div>
+							<div class="user-email" th:text="${user.email}">hunre.edu.vn@eduhub.com</div>
 						</div>
 					</div>
 				</div>
@@ -70,7 +75,8 @@
 						<div class="header-nav-title">TRANG CHỦ</div>
 						<div class="left-menu-content">
 							<ul>
-								<li><a href="">
+								<li th:class="${action == 'index'} ? 'active' : ''"><a
+									th:href="@{'/school-admin/' + ${domain}}">
 										<div class="menu-content">
 											<div class="menu-icon">
 												<i class="fa-solid fa-house"></i>
@@ -85,7 +91,7 @@
 						<div class="header-nav-title">Chương trình đào tạo</div>
 						<div class="left-menu-content">
 							<ul>
-								<li><a
+								<li th:class="${action == 'add-tp'} ? 'active' : ''"><a
 									th:href="@{'/school-admin/' +${domain} + '/chuong-trinh-dao-tao/them-moi'}">
 										<div class="menu-content">
 											<div class="menu-icon">
@@ -94,7 +100,7 @@
 											<div class="menu-title">Thêm mới</div>
 										</div>
 								</a></li>
-								<li><a
+								<li th:class="${action == 'list-tp'} ? 'active' : ''"><a
 									th:href="@{'/school-admin/' +${domain} + '/chuong-trinh-dao-tao/danh-sach'}">
 										<div class="menu-content">
 											<div class="menu-icon">
@@ -110,7 +116,7 @@
 						<div class="header-nav-title">Ngành / Chuyên ngành đào tạo</div>
 						<div class="left-menu-content">
 							<ul>
-								<li><a
+								<li th:class="${action == 'add-im'} ? 'active' : ''"><a
 									th:href="@{'/school-admin/' +${domain} + '/nganh-chuyen-nganh/them-moi'}">
 										<div class="menu-content">
 											<div class="menu-icon">
@@ -119,7 +125,7 @@
 											<div class="menu-title">Thêm mới</div>
 										</div>
 								</a></li>
-								<li><a
+								<li th:class="${action == 'list-im'} ? 'active' : ''"><a
 									th:href="@{'/school-admin/' +${domain} + '/nganh-chuyen-nganh/danh-sach'}">
 										<div class="menu-content">
 											<div class="menu-icon">
@@ -135,7 +141,7 @@
 						<div class="header-nav-title">Học Phần</div>
 						<div class="left-menu-content">
 							<ul>
-								<li><a
+								<li th:class="${action == 'add-module'} ? 'active' : ''"><a
 									th:href="@{'/school-admin/' +${domain} + '/hoc-phan/them-moi'}">
 										<div class="menu-content">
 											<div class="menu-icon">
@@ -144,7 +150,7 @@
 											<div class="menu-title">thêm mới</div>
 										</div>
 								</a></li>
-								<li><a
+								<li th:class="${action == 'list-module'} ? 'active' : ''"><a
 									th:href="@{'/school-admin/' +${domain} + '/hoc-phan/danh-sach'}">
 										<div class="menu-content">
 											<div class="menu-icon">
@@ -153,7 +159,7 @@
 											<div class="menu-title">danh sách</div>
 										</div>
 								</a></li>
-								<li><a
+								<li th:class="${action == 'syllabus'} ? 'active' : ''"><a
 									th:href="@{'/school-admin/' +${domain} + '/de-cuong'}">
 										<div class="menu-content">
 											<div class="menu-icon">
@@ -162,7 +168,7 @@
 											<div class="menu-title">Đề cương</div>
 										</div>
 								</a></li>
-								<li><a
+								<li th:class="${action == 'document'} ? 'active' : ''"><a
 									th:href="@{'/school-admin/' +${domain} + '/tai-lieu'}">
 										<div class="menu-content">
 											<div class="menu-icon">
@@ -178,7 +184,7 @@
 						<div class="header-nav-title">Quản lý tài khoản</div>
 						<div class="left-menu-content">
 							<ul>
-								<li><a
+								<li th:class="${action == 'account'} ? 'active' : ''"><a
 									th:href="@{'/school-admin/' +${domain} + '/quan-ly-tai-khoan/cai-dat'}">
 										<div class="menu-content">
 											<div class="menu-icon">
@@ -187,7 +193,7 @@
 											<div class="menu-title">Thay Đổi Thông Tin</div>
 										</div>
 								</a></li>
-								<li><a
+								<li th:class="${action == 'lecturer'} ? 'active' : ''"><a
 									th:href="@{'/school-admin/' +${domain} + '/quan-ly-tai-khoan/giang-vien'}">
 										<div class="menu-content">
 											<div class="menu-icon">
@@ -215,31 +221,30 @@
 							</button>
 						</div>
 						<div class="top-search-input">
-							<form action="">
+							<!-- <form action="">
 								<input type="text" placeholder="Tìm kiếm">
-							</form>
+							</form> -->
 						</div>
 						<div class="top-header-right">
 							<div class="top-right-content">
-								<div class="top-mail">
+								<!-- <div class="top-mail">
 									<a href=""><i class="fa-regular fa-envelope"></i></a>
 								</div>
 								<div class="top-notify">
 									<a href=""><i class="fa-regular fa-bell"></i></a>
-								</div>
+								</div> -->
 								<div class="top-user">
 									<div class="top-user-content">
 										<a href="#!" onclick="userShow()">
 											<div class="item-content">
-												<div class="top-user-name">Anh Tuấn</div>
+												<div class="top-user-name">Tùy chọn</div>
 												<div class="triangle"></div>
 											</div>
 										</a>
 										<div class="user-show" id="user-show">
 											<ul class="user-nav">
 												<li><a href=""><i class="fa-solid fa-gear"></i>&nbsp;
-													Đổi mật khẩu
-												</a></li>
+														Đổi mật khẩu </a></li>
 												<li><a th:href="@{/dang-xuat}"><i
 														class="fa-solid fa-right-from-bracket"></i>&nbsp;Đăng xuất</a>
 												</li>
@@ -252,6 +257,58 @@
 					</div>
 				</div>
 				<div th:replace="~{${fragment}}"></div>
+			</div>
+		</div>
+
+		<div class="footer">
+			<div class="r-content">
+				<div class="title">Quản lý chương trình đào tạo trong trường
+					học</div>
+				<div class="list">
+					<div class="col">
+						<div class="logo">
+							<a th:href="@{'/'}">
+								<img src="/img/eduhub.png">
+							</a>
+						</div>
+						<div>
+							<h3 class="title">Chương trình Đào tạo</h3>
+						</div>
+						<p>Hệ thống quản lý chương trình đào tạo cung cấp thông tin
+							đầy đủ về các chương trình đào tạo, bao gồm thông tin chung, mục
+							tiêu, chuẩn đầu ra, cơ hội nghề nghiệp, và nội dung chương trình.</p>
+					</div>
+					<div class="col" style="padding-top: 150px;">
+						<div>
+							<h3 class="title">Chương trình Đào tạo</h3>
+						</div>
+						<div class="links">
+							<ul>
+								<li>
+									<a th:href="@{'/'}">Trang chủ</a>
+								</li>
+								<li>
+									<a th:href="@{'/gioi-thieu'}">Giới thiệu</a>
+								</li>
+								<li>
+									<a th:href="@{'/trang-chu#lien-he'}">Liên hệ</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col" style="padding-top: 150px;">
+						<div>
+							<h3 class="title">Thông tin website</h3>
+						</div>
+						<div class="info">
+							<p>
+								<a href="mailto: eduhub.contact2024@gmail.com">Email: eduhub.contact2024@gmail.com</a>
+							</p>
+							<p>Địa chỉ: Số 41A đường Phú Diễn, Q. Bắc Từ Liêm, TP. Hà Nội</p>
+						</div>
+					</div>
+				</div>
+				<div class="coppyright">@2024 EduHub</div>
 			</div>
 		</div>
 	</div>
@@ -270,14 +327,14 @@
 		</div>
 	</div>
 
-	
+
 
 	<div id="loading-spinner"
 		style="width: 100%; position: fixed; top: 0; bottom: 0; background: rgba(237, 240, 240, 0.5); z-index: 999999999;"></div>
-		
-	
-		
-		
+
+
+
+
 	<!-- <script type="text/javascript"
 		src="https://code.jquery.com/jquery-1.11.0.min.js"></script> -->
 	<script type="text/javascript" th:src="@{/js/loading_spinner.js}"></script>
@@ -302,9 +359,9 @@
 
 
 	<script type="text/javascript" th:src="@{/js/sweetalert2.all.min.js}"></script>
-	
-	
-	
+
+
+
 	<script type="text/javascript" th:src="@{/js/school/datatable.js}"></script>
 	<script type="text/javascript" th:src="@{/js/school/account_school.js}"></script>
 </body>

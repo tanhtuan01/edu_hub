@@ -16,4 +16,7 @@ public interface IndustryRepository extends JpaRepository<Industry, Long>{
 	
 	Page<Industry> findBySchool(School school, Pageable pageable);
 
+	boolean existsBySchoolAndIdEquals(School school, Long id);
+	
+	List<Industry> findBySchool(School school);
 }

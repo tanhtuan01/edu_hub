@@ -67,6 +67,7 @@ public class SyllabusController {
 		
 		setData(model, domain);
 		model.addAttribute("act", "add");
+		BASE_METHOD.titleAndAction("Đề cương", "syllabus", model);
 		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
 	}
 	
@@ -112,7 +113,7 @@ public class SyllabusController {
 		UserSchoolUtils.populateUserAndSchool(userService, schoolService, domain, authentication, model);
 		setData(model, domain);
 		Pageable pageable = PageRequest.of(page - 1, size);
-		
+		BASE_METHOD.titleAndAction("Tìm kiếm đề cương", "syllabus", model);
 		Page<Syllabus> syllabusPage ;
 		
 		if(key.trim().length() == 0 && idModule == 0) {
@@ -134,11 +135,33 @@ public class SyllabusController {
 		model.addAttribute("totalPages", syllabusPage.getTotalPages());
 		model.addAttribute("length", syllabusPage.getTotalElements());
 		model.addAttribute("act", "search");
-		System.err.println("Total Search Records = " + syllabusPage.getTotalElements());
-		
-		
+			
 		BASE_METHOD.FragmentAdminSchool("syllabus", model);
 		return BASE_FIELD.SCHOOL_ADMIN_LAYOUT;
+	}
+	
+	@GetMapping(value = "/xoa")
+	public String deleteSyllabus(@RequestParam(name = "page") int page,
+			@RequestParam(name = "idModule") Long idModule, @RequestParam(name = "id") Long id,
+			@RequestParam(name = "keyword") String keyword,
+			@PathVariable(name = "domain") String domain) {
+		
+		try {
+			Syllabus syllabus = syllabusService.get(id);
+			
+			String fileName = syllabus.getFileName();
+			String syllabusFilePath = BASE_METHOD.syllabusLecturerPathUpload(domain, fileName);
+			syllabusService.delete(id);
+			Files.delete(Paths.get(syllabusFilePath));
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.err.println("lỗi xóa:" + e.getMessage());
+		}
+		if(keyword.equals("null")) {;
+			return "redirect:/school-admin/" + domain + "/de-cuong/tim-kiem?idModule=" + idModule + "&page=" + page + "&keyword=" + "&dc";
+		}else {
+			return "redirect:/school-admin/" + domain + "/de-cuong/tim-kiem?idModule=" + idModule + "&page=" + page + "&keyword=" + keyword + "&dc";
+		}
 	}
 	
 	public void setData(Model model, String domain) {

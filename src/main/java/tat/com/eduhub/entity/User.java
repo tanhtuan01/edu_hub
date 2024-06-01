@@ -21,7 +21,7 @@ import javax.validation.constraints.Size;
 public class User extends BaseEntity{
 	
 	@NotNull
-	@Column(name = "username")
+	@Column(name = "username", length = 60)
 	private String userName;
 	
 	@NotNull
@@ -48,6 +48,28 @@ public class User extends BaseEntity{
 	)
 	private List<Role> roles;
 	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Payment> payments;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<RevenueLecturer> revenueLecturers;
+	
+	public List<RevenueLecturer> getRevenueLecturers() {
+		return revenueLecturers;
+	}
+
+	public void setRevenueLecturers(List<RevenueLecturer> revenueLecturers) {
+		this.revenueLecturers = revenueLecturers;
+	}
+
+	public List<Payment> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(List<Payment> payments) {
+		this.payments = payments;
+	}
+
 	@OneToOne(mappedBy = "user")
 	private TeacherOfSchool teacherOfSchool;
 
